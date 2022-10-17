@@ -59,8 +59,8 @@ const Register = () => {
                             <span className="regis-forgot">Quên mật khẩu ?</span>
                         </div>
                         <div className="regis-formRegis">
-                            <span>Bạn mới biết đến Auction Page ?</span>
-                            <span>Đăng Ký Ngay</span>
+                            <span>Bạn đã có tài khoản ?</span>
+                            <span>Đăng nhập ngay</span>
                         </div>
                     </div>
                 </div>

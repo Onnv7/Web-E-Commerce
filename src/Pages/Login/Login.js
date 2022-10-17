@@ -53,7 +53,7 @@ const Login = () => {
                         </div>
                         <div className="login-formRegis">
                             <span>Bạn mới biết đến Auction Page ?</span>
-                            <span>Đăng Ký Ngay</span>
+                            <span>Đăng ký ngay</span>
                         </div>
                     </div>
                 </div>
