@@ -1,0 +1,207 @@
+.regis-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--primary-color);
+}
+.regis-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.regis-title__icon{
+    width: 60px;
+    height: 60px;
+}
+.regis-title>span{
+    font-weight: 500;
+    font-size: 3.6rem;
+}
+.regis-help{
+    font-size: 2.4rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
+.regis-body{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(247,117,36,0.5);
+    margin: 10px 0 50px 0;
+}
+.regis-form{
+    width: 100%;
+    max-width: 1240px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(247,117,36,0.8);
+    padding: 60px;
+    gap: 100px;
+    border: 1px solid #000;
+}
+.regis-img{
+    width: 500px;
+    height: 542px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    flex-direction: column;
+    border: 2px solid #000;
+    border-radius: 15px;
+    box-shadow: 6px 6px 5px rgba(0,0,0,0.5);
+}
+.img-icon{
+    
+    height: 300px;
+    width: 300px;
+    color: var(--primary-color);
+}
+.star{
+    height: 40px;
+    width: 40px;
+    color: var(--primary-color);
+    margin-right: 16px;
+}
+.regis-formBody{
+    width: 500px;
+    height: 542px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border: 2px solid #000;
+    border-radius: 15px;
+    box-shadow: 6px 6px 5px rgba(0,0,0,0.5);
+    background-color: #fff;
+    color: var(--primary-color);
+}
+.regis-formTitle{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+}
+.regis-formTitle__log{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: rgba(247,117,36,0.5);
+    border-right: 2px solid rgba(0,0,0,0.5);
+    border-bottom: 2px solid rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+.regis-formTitle__regis{
+    display: flex;
+    width: 50%;
+    height: 100%;
+    font-size: 3.2rem;
+    font-weight: 500;
+    text-decoration: underline;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.formControl{
+    margin: 0 24px;
+}
+.formControl-User{
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.formControl-input{
+    width: 100%;
+    padding: 16px;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.25);
+    border-radius: 5px;
+}
+.regis-sumbitBtn{
+    margin: 0 24px;
+    padding: 24px 0;
+    background-color: var(--primary-color);
+    color: #fff;
+    filter: drop-shadow(4px 4px 5px rgba(247, 117, 36 , 0.5));
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
+.regis-formHelp{
+    margin: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.regis-remember>input{
+    margin-right: 5px;
+    height: 16px;
+    width: 16px;
+}
+.regis-remember>span{
+    font-size: 2rem;
+    font-weight: 500;
+}
+.regis-forgot{
+    font-size: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
+.regis-formregis{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 16px;
+}
+.regis-formregis>span{
+    font-size: 2rem ;
+    font-weight: 500;
+
+
+    &:nth-child(1){
+        color: rgba(247, 117, 36 , 0.75);
+    }
+
+    &:nth-child(2){
+        cursor: pointer;
+
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+.regis-listDev{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--primary-color);
+    margin-bottom: 36px;
+}
+.itemDev{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
