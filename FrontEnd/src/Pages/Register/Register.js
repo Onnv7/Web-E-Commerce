@@ -1,20 +1,20 @@
 import { Facebook, Judge, Lock, Star1, User } from 'iconsax-react';
 import React from 'react';
-import './login.scss';
+import './register.scss';
 
-const Login = () => {
+const Register = () => {
     return (
-        <div className="login">
-            <div className="login-header">
-                <div className="login-title">
-                    <Judge variant="Bold" className="login-title__icon" />
+        <div className="regis">
+            <div className="regis-header">
+                <div className="regis-title">
+                    <Judge variant="Bold" className="regis-title__icon" />
                     <span>Auction Page</span>
                 </div>
-                <span className="login-help">Bạn cần hỗ trợ ?</span>
+                <span className="regis-help">Bạn cần hỗ trợ ?</span>
             </div>
-            <div className="login-body">
-                <div className="login-form">
-                    <div className="login-img">
+            <div className="regis-body">
+                <div className="regis-form">
+                    <div className="regis-img">
                         <Judge variant="Bold" className="img-icon" />
                         <div className="list-star">
                             <Star1 variant="Bold" className="star" />
@@ -24,41 +24,48 @@ const Login = () => {
                             <Star1 variant="Bold" className="star" />
                         </div>
                     </div>
-                    <div className="login-formBody">
-                        <div className="login-formTitle">
-                            <span className="login-formTitle__log">Đăng Nhập</span>
-                            <span className="login-formTitle__regis">Đăng Ký</span>
+                    <div className="regis-formBody">
+                        <div className="regis-formTitle">
+                            <span className="regis-formTitle__log">Đăng Nhập</span>
+                            <span className="regis-formTitle__regis">Đăng Ký</span>
                         </div>
                         <div className="formControl">
                             <div className="formControl-User">
                                 <User variant="Bold" className="formControl-User__icon" />
-                                <span>Tài Khoản / Địa chỉ Email</span>
+                                <span>Tài khoản / Địa chỉ Email</span>
                             </div>
                             <input type="text" className="formControl-input" />
                         </div>
                         <div className="formControl">
                             <div className="formControl-User">
                                 <Lock variant="Bold" className="formControl-User__icon" />
-                                <span>Mật Khẩu</span>
+                                <span>Mật khẩu</span>
                             </div>
                             <input type="text" className="formControl-input" />
                         </div>
-                        <button className="login-sumbitBtn">Đăng Nhập</button>
-                        <div className="login-formHelp">
-                            <div className="login-remember">
+                        <div className="formControl">
+                            <div className="formControl-User">
+                                <Lock variant="Bold" className="formControl-User__icon" />
+                                <span>Xác nhận mật khẩu</span>
+                            </div>
+                            <input type="text" className="formControl-input" />
+                        </div>
+                        <button className="regis-sumbitBtn">Đăng Nhập</button>
+                        <div className="regis-formHelp">
+                            <div className="regis-remember">
                                 <input type="checkbox" />
                                 <span>Nhớ mật khẩu</span>
                             </div>
-                            <span className="login-forgot">Quên mật khẩu ?</span>
+                            <span className="regis-forgot">Quên mật khẩu ?</span>
                         </div>
-                        <div className="login-formRegis">
-                            <span>Bạn mới biết đến Auction Page ?</span>
-                            <span>Đăng Ký Ngay</span>
+                        <div className="regis-formRegis">
+                            <span>Bạn đã có tài khoản ?</span>
+                            <span>Đăng nhập ngay</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="login-listDev">
+            <div className="regis-listDev">
                 <div className="itemDev">
                     <Facebook variant="Bold" />
                     <span>Leader & BA</span>
@@ -80,4 +87,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
