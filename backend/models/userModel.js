@@ -1,19 +1,25 @@
-const mongoose = require("mongoose");
-const slugify = require("slugify");
-const validator = require("validator");
-const bcrypt = require("bcrypt");
-const crypto = require("crypto");
+import mongoose, { mongo } from 'mongoose';
+import slugify from 'slugify';
+import validator from 'validator';
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    minLength: [6, "A user name must have more or equal than 6 characters"]
+  },
   name: {
     type: String,
     required: [true, "User must have a name"],
-    unique: true,
     trim: true,
     maxLength: [40, "A user name must have less or equal than 40 characters"],
     minLength: [5, "A user name must have more or equal than 5 characters"],
   },
   email: {
     type: String,
+    unique: true,
     required: [true, "User must have a email"],
     validate: [validator.isEmail, "Invalid email"],
   },
@@ -35,20 +41,6 @@ const userSchema = new mongoose.Schema({
     minLength: [6, "A user password must have more or equal than 6 characters"],
     select: false,
   },
-  passwordConfirm: {
-    type: String,
-    validate: {
-      validator: function (value) {
-        return value === this.password;
-      },
-      message: function (props) {
-        return `Confirm password is not match with your password`;
-      },
-    },
-  },
-  passwordChangedAt: Date,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
   active: {
     type: Boolean,
     default: true,
@@ -115,4 +107,4 @@ userSchema.methods.createPasswordResetToken = function () {
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+export default User;
