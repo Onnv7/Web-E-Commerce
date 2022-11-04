@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose, { mongo } from 'mongoose';
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -18,7 +18,7 @@ const reviewSchema = new mongoose.Schema(
     },
     rating: {
       type: Number,
-      default: 5,
+      default: 1,
       max: [5, "Rating must be equal or below 5"],
       min: [1, "Rating must be equal or greater than 1"],
       set: (value) => Math.round(value * 10) / 10,
@@ -30,6 +30,5 @@ const reviewSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-const Review = mongoose.model("Review", reviewSchema);
+export default mongoose.model("Review", reviewSchema);
 
-module.exports = Review;

@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const slugify = require("slugify");
+import mongoose, { mongo } from 'mongoose';
+import slugify from "slugify";
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "User product have a name"],
-    unique: true,
+    //unique: true,
     trim: true,
     maxLength: [
       40,
@@ -12,49 +12,62 @@ const productSchema = new mongoose.Schema({
     ],
     minLength: [5, "A product name must have more or equal than 5 characters"],
   },
+  shop: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Shop",
+    required: true,
+  },
   slug: String,
   quantity: {
     type: Number,
     required: [true, "User product have quantity"],
+    default: 1
   },
-  category: {
-    type: String,
-    enum: [
-      "clothing",
-      "electronice device",
-      "sport item",
-      "book",
-      "cosmetic",
-      "jewelry",
-      "food and beverage",
-      "daily supplies",
-    ],
-    default: "daily supplies",
-  },
+  
   brand: {
     type: String,
     required: [true, "User product have a brand"],
   },
   color: {
     type: String,
-    required: [true, "User product have a color"],
+    //required: [true, "User product have a color"],
   },
+  size: {
+    type: String,
+    //required: [true, "User product have a color"],
+  },
+  // classify: {
+  //   standard: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   desc: [{
+  //     value: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     price: {
+  //       type: Number,
+  //       required: true
+  //     }
+  //   }],
+  // },
   ratingAverage: {
     type: Number,
-    default: 4.5,
-    min: [1, "Rating must be above 1"],
+    default: 0,
+    min: [0, "Rating must be above 1"],
     max: [5, "Rating must be below 5"],
     set: (value) => Math.round(value * 10) / 10,
   },
   ratingQuantity: { type: Number, default: 0 },
-  price: { type: Number, required: [true, "A product must have a price"] },
+ // price: { type: Number, required: [true, "A product must have a price"] },
   priceDiscount: {
     type: Number,
     //TODO: Custom validate
     validate: {
       validator: function (value) {
         //! Only usable when create (not update)
-        return value < this.price;
+        return value < this.price; 
       },
       message: (props) =>
         `The discount price(${props.value}) must be below normal price`,
@@ -67,9 +80,14 @@ const productSchema = new mongoose.Schema({
   },
   imageCover: {
     type: String,
-    required: [true, "A product must have a cover image"],
+    //required: [true, "A product must have a cover image"],
   },
   images: [String],
+  category: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Shop.category",
+  }
+   
 });
 
 productSchema.pre("save", function (next) {
@@ -77,6 +95,4 @@ productSchema.pre("save", function (next) {
   next();
 });
 
-const Product = mongoose.model("Product", productSchema);
-
-module.exports = Product;
+export default mongoose.model('Product', productSchema);

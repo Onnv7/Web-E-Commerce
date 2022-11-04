@@ -1,20 +1,14 @@
-import User from "../models/userModel.js"
-export const createUser = async (req, res, next) => {
-    const newUser = new User(req.body);
-
-    try {
-        const saveUser = await newUser.save();
-        res.status(200).json(saveUser);
-    } catch (err) {
-        next(err);
-    }
-};
+import User from "../models/userModel.js";
+import bcrypt from "bcryptjs";
 
 export const updateUser = async (req, res, next) => {
     try {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+        const body = { ...req.body, password: hash }
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id, 
-            { $set: req.body}, 
+            { $set: body}, 
             {new: true }
             );
         res.status(200).json(updatedUser);
