@@ -1,34 +1,69 @@
-const mongoose = require("mongoose");
+import mongoose, { mongo } from 'mongoose';
 
 const shopSchema = new mongoose.Schema(
   {
+    name: {
+      required: true,
+      type: String,
+    },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      required: [true, "Shop must be belong to a user"],
+      required: true,
+      unique: true
     },
-    product: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Product",
-      required: [true, "Shop must have some products"],
+    followerQuantity: {
+      type: Number,
+      default: 0,
     },
-    followerQuantity: Number,
     ratingAverage: {
       type: Number,
-      default: 4.5,
-      min: [1, "Rating must be above 1"],
+      default: 0,
+      min: [0, "Rating must be above 1"],
       max: [5, "Rating must be below 5"],
       set: (value) => Math.round(value * 10) / 10,
     },
     ratingQuantity: { type: Number, default: 0 },
+    category: {
+      type: [
+        {
+          name: {
+            type: String,
+            required: true,
+            unique: true
+          },
+          quantity: {
+            type: Number,
+            default: 0
+          }
+        },
+      ],
+      required: false,
+      default: [{
+        name: "All",
+        quantity: 0
+      }]
+    }
   },
-  {
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  { timestamps: true }
 );
 
-const Shop = mongoose.model("Shop", shopSchema);
+// shopSchema.pre('validate', function validate(next) {
+//   var unique = [];
+//   try {
+//   for (var i = 0, l = this.category.length; i < l; i++) {
+//     let prop = this.category[i].name;
 
-module.exports = Shop;
+//     if (unique.indexOf(prop) > -1) {
+//       return next(createError(404, "Duplicate name!"));
+//     }
+
+//     unique.push(prop);
+//   }
+// }
+//   catch (err) {
+//     next(err);
+//   }
+// });
+
+export default mongoose.model('Shop', shopSchema);
