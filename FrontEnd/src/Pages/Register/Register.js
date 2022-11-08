@@ -1,88 +1,78 @@
-import { Facebook, Judge, Lock, Star1, User } from 'iconsax-react';
+import { CloseSquare } from 'iconsax-react';
 import React from 'react';
+import Footer from '../../Components/Footer/Footer';
 import './register.scss';
 
 const Register = () => {
     return (
-        <div className="regis">
-            <div className="regis-header">
-                <div className="regis-title">
-                    <Judge variant="Bold" className="regis-title__icon" />
-                    <span>Auction Page</span>
-                </div>
-                <span className="regis-help">Bạn cần hỗ trợ ?</span>
-            </div>
-            <div className="regis-body">
-                <div className="regis-form">
-                    <div className="regis-img">
-                        <Judge variant="Bold" className="img-icon" />
-                        <div className="list-star">
-                            <Star1 variant="Bold" className="star" />
-                            <Star1 variant="Bold" className="star" />
-                            <Star1 variant="Bold" className="star" />
-                            <Star1 variant="Bold" className="star" />
-                            <Star1 variant="Bold" className="star" />
+        <div className="register">
+            <div className="register-Container">
+                <div className="register-Content">
+                    <div className="register-header">
+                        <div className="register-title">
+                            <span className="register-title__name">Trang chủ</span>
+                            <span className="register-title__line">|</span>
+                            <span className="register-title__name">Hỗ trợ</span>
+                        </div>
+                        <img src="../Img/logovip.png" alt="" className="register-logo" />
+                        <div className="register-title">
+                            <span className="register-title__name">Đăng nhập</span>
+                            <span className="register-title__line">|</span>
+                            <span className="register-title__name active">Đăng Kí</span>
                         </div>
                     </div>
-                    <div className="regis-formBody">
-                        <div className="regis-formTitle">
-                            <span className="regis-formTitle__log">Đăng Nhập</span>
-                            <span className="regis-formTitle__regis">Đăng Ký</span>
-                        </div>
-                        <div className="formControl">
-                            <div className="formControl-User">
-                                <User variant="Bold" className="formControl-User__icon" />
-                                <span>Tài khoản / Địa chỉ Email</span>
+                    <div className="register-body">
+                        <div className="register-form">
+                            <span className="register-formTitle">Đăng Nhập</span>
+                            <div className="formControl-Container">
+                                <div className="formControl">
+                                    <div className="formControl-account">
+                                        <input type="text" placeholder="Tài Khoản" />
+                                        <div className="formControl-Remind">
+                                            <CloseSquare variant="Bold" />
+                                            <span>Tài Khoản đã tồn tại</span>
+                                        </div>
+                                    </div>
+                                    <div className="formControl-account">
+                                        <input type="text" placeholder="Mật khẩu" />
+                                        <div className="formControl-Remind">
+                                            <CloseSquare variant="Bold" />
+                                            <span>Mật khẩu phải có từ 8 kí tự trở lên</span>
+                                        </div>
+                                    </div>
+                                    <div className="formControl-account">
+                                        <input type="text" placeholder="Nhập lại mật khẩu" />
+                                        <div className="formControl-Remind">
+                                            <CloseSquare variant="Bold" />
+                                            <span>Mật khẩu không trùng khớp</span>
+                                        </div>
+                                    </div>
+                                    <div className="formControl-policy">
+                                        <div className="register-check">
+                                            <input type="checkbox" />
+                                            <span>
+                                                Để tiếp tục đăng ký bạn cần chấp nhận các điều khoản khi sử dụng dịch vụ
+                                                của chúng tôi.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button>Đăng kí</button>
+                                </div>
+                                <div className="register-FormStyle">
+                                    <span className="registerForm-line"></span>
+                                    <span className="registerForm-name">4TL</span>
+                                    <span className="registerForm-line"></span>
+                                </div>
                             </div>
-                            <input type="text" className="formControl-input" />
-                        </div>
-                        <div className="formControl">
-                            <div className="formControl-User">
-                                <Lock variant="Bold" className="formControl-User__icon" />
-                                <span>Mật khẩu</span>
+                            <div className="register-formLog">
+                                <span>Bạn chưa có tài khoản ?</span>
+                                <span>Đăng ký ngay tại đây</span>
                             </div>
-                            <input type="text" className="formControl-input" />
-                        </div>
-                        <div className="formControl">
-                            <div className="formControl-User">
-                                <Lock variant="Bold" className="formControl-User__icon" />
-                                <span>Xác nhận mật khẩu</span>
-                            </div>
-                            <input type="text" className="formControl-input" />
-                        </div>
-                        <button className="regis-sumbitBtn">Đăng Nhập</button>
-                        <div className="regis-formHelp">
-                            <div className="regis-remember">
-                                <input type="checkbox" />
-                                <span>Nhớ mật khẩu</span>
-                            </div>
-                            <span className="regis-forgot">Quên mật khẩu ?</span>
-                        </div>
-                        <div className="regis-formRegis">
-                            <span>Bạn đã có tài khoản ?</span>
-                            <span>Đăng nhập ngay</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="regis-listDev">
-                <div className="itemDev">
-                    <Facebook variant="Bold" />
-                    <span>Leader & BA</span>
-                </div>
-                <div className="itemDev">
-                    <Facebook variant="Bold" />
-                    <span>Front-end Developer</span>
-                </div>
-                <div className="itemDev">
-                    <Facebook variant="Bold" />
-                    <span>Back-end Developer</span>
-                </div>
-                <div className="itemDev">
-                    <Facebook variant="Bold" />
-                    <span>UI/UX Designer & QC</span>
-                </div>
-            </div>
+            <Footer />
         </div>
     );
 };

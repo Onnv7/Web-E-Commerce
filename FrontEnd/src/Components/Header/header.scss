@@ -1,0 +1,123 @@
+.header{
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+.headerContainer{
+    width: 100%;
+    max-width: 1200px;
+}
+.headerNav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+.headerNav>img{
+    height: 120px;
+    object-fit: contain;
+}
+.headerNav>span{
+    font-family: 'Bismarck';
+    font-size: 5.6rem;
+    color: var(--primary-color);
+}
+.headerSearch-item{
+    width: 900px;
+    height: 52px;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+.headerSearch-icon{
+    margin: 10px;
+    color: var(--primary-color);
+    width: 32px;
+    
+
+    &:last-child{
+        color: #fff;
+    }
+}
+.headerSearch-item>span{
+    border: 1px solid var(--sub-color);
+    height: 40px;
+    margin-right: 10px;
+}
+.headerSearch-input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 2rem;
+}
+.headerSearch-btn{
+    width: 80px;
+    height: 44px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: none;
+    margin: 3px;
+    outline: none;
+}
+.headerNav-icon{
+    width: 60px;
+    height: 60px;
+    color: var(--primary-color);
+}
+.headerNav-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.headerNav-item__icon{
+    width: 18px;
+    height: 18px;
+}
+.headerNav-item>a{
+    text-decoration: none;
+    color: var(--sub-color);
+    font-size: 1.8rem;
+
+    &:hover{
+        color: var(--primary-color);
+    }
+}
+.active a{
+    color: var(--primary-color);
+}
+.line1{
+    position: absolute;
+    width: 100px;
+    border: 1px solid var(--sub-color);
+    left: -70px;
+    top: 20px;
+}
+.line2{
+    width: 100px;
+    position: absolute;
+    border: 1px solid var(--sub-color);
+    bottom: 14px;
+    left: -70px;
+}
+.line3{
+    width: 1122px;
+    position: absolute;
+    border: 1px solid var(--sub-color);
+    top: 20px;
+    right: -30px;
+}
+.line4{
+    width: 1122px;
+    position: absolute;
+    border: 1px solid var(--sub-color);
+    bottom: 14px;
+    right: -30px;
+}
+.headerImg>img{
+    width: 1200px;
+    height: 320px;
+    border-radius: 10px;
+    object-fit: cover;
+}

@@ -1,0 +1,61 @@
+.auction{
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+}
+.auctionItem{
+    display: inline-block;
+    text-decoration: none;
+    background: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #000;
+    transition: transform linear 0.1s;
+}
+.auctionItem:hover{
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,0.05);
+    transform: translateY(-1px);
+}
+.auction-img{
+    width: 260px;
+    height: 190px;
+    object-fit: cover;
+    margin: 10px;
+}
+.auction-title{
+    font-size: 1.6rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    margin: 10px 10px 22px 10px;
+}
+.auction-sell,
+.auction-priceStart, 
+.auction-priceCurrent,
+.auction-rate,
+.auction-buy{
+    display: flex;
+    font-size: 1.4rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10px 8px;
+}
+.auction-rating{
+    color: var(--primary-color);
+}
+.auction-btn{
+    border: none;
+    background-color: rgba(220, 91, 14, 0.5);
+    border-radius: 10px;
+    width: 130px;
+    height: 40px;
+    color: #fff;
+}
+.auction-liked{
+    width: 26px;
+    height: 26px;
+    color: rgba(220, 91, 14, 0.5);;
+}
+
