@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
@@ -42,10 +42,13 @@ app.use(
     extended: true,
   })
 );
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
+
+app.options('*', cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
-
+app.get("/", (req, res, next) => res.send("BACKEND"))
+// app.get("/backend/cookie", (req, res, next) => { const rs = res.cookie("an", "611").send("SET COOKIE"); console.log(rs) })
 app.use("/backend/auth", authRoute);
 app.use("/backend/users", usersRoute);
 app.use("/backend/shops", shopsRoute);
@@ -67,7 +70,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8080, () => {
+app.listen(8800, () => {
   connect();
   console.log("Connected to backend");
 });

@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import GlobalStyles from './Components/GlobalStyles';
 import reportWebVitals from './reportWebVitals';
+import { AuthContextProvider } from './context/AuthContext.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <GlobalStyles>
-            <App />
-        </GlobalStyles>
+        <AuthContextProvider>
+            <GlobalStyles>
+                <App />
+            </GlobalStyles>
+        </AuthContextProvider>
     </React.StrictMode>,
 );
 

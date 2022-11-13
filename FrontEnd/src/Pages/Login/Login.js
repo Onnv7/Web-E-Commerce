@@ -2,8 +2,39 @@ import { CloseSquare } from 'iconsax-react';
 import React from 'react';
 import Footer from '../../Components/Footer/Footer';
 import './login.scss';
+import { AuthContext } from '../../context/AuthContext.js';
+import axios from '../../hooks/axios.js';
+import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const [credentials, setCredentials] = useState({
+        username: undefined,
+        password: undefined,
+    })
+
+    const { loading, error, dispatch } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setCredentials(prev => ({ ...prev, [e.target.id]: e.target.value }));
+    }
+    const handleClick = async (e) => {
+        e.preventDefault();
+        dispatch({ type: "LOGIN_START" });
+        try {
+            //console.log("POST LOGIN")
+            const res = await axios.post("/auth/login", credentials, { withCredentials: true });
+            //const res = await axios.get("/cookie");
+            // console.log("🚀 ~ file: Login.js ~ line 29 ~ handleClick ~ res", res)
+
+            dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+            navigate("/")
+        } catch (err) {
+            dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+        }
+    }
     return (
         <div className="login">
             <div className="login-Container">
@@ -26,8 +57,8 @@ const Login = () => {
                             <span className="login-formTitle">Đăng Nhập</span>
                             <div className="formControl-Container">
                                 <div className="formControl">
-                                    <input type="text" placeholder="Tài Khoản" />
-                                    <input type="text" placeholder="Mật khẩu" />
+                                    <input type="text" placeholder="Tài Khoản" id='username' onChange={handleChange} />
+                                    <input type="text" placeholder="Mật khẩu" id='password' onChange={handleChange} />
                                     <div className="formControl-Remind">
                                         <CloseSquare variant="Bold" className="Remind-icon" />
                                         <span>
@@ -35,7 +66,7 @@ const Login = () => {
                                             khẩu để đặt lại mật khẩu mới.
                                         </span>
                                     </div>
-                                    <button>Đăng Nhập</button>
+                                    <button onClick={handleClick}>Đăng Nhập</button>
                                 </div>
 
                                 <div className="login-formHelp">

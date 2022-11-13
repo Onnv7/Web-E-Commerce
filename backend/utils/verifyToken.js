@@ -1,21 +1,23 @@
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/error.js";
 
+
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
-    if(!token) {
+    //console.log("🚀 ~ file: verifyToken.js ~ line 18 ~ verifyToken ~ token", token)
+    if (!token) {
         return next(createError(401, "You are not authenticated!"));
     }
     jwt.verify(token, process.env.JWT, (err, user) => {
-        if(err) return next(createError(403, "Token is not valid!"));
+        if (err) return next(createError(403, "Token is not valid!"));
         req.user = user;
         next();
     })
 };
 
 export const verifyUser = (req, res, next) => {
-    verifyToken(req, res, () => { 
-        if(req.user.id === req.params.id && req.user.role === "user") {
+    verifyToken(req, res, () => {
+        if (req.user.id === req.params.id && req.user.role === "user") {
             next();
         }
         else {
@@ -25,8 +27,8 @@ export const verifyUser = (req, res, next) => {
 };
 
 export const verifyBuyer = (req, res, next) => {
-    verifyToken(req, res, () => { 
-        if(req.user.id === req.params.id && req.user.role === "buyer") {
+    verifyToken(req, res, () => {
+        if (req.user.id === req.params.id && req.user.role === "buyer") {
             next();
         }
         else {
@@ -36,8 +38,8 @@ export const verifyBuyer = (req, res, next) => {
 };
 
 export const verifyAdmin = (req, res, next) => {
-    verifyToken(req, res, next, () => { 
-        if(req.user.id === req.params.id && req.user.role === "admin") {
+    verifyToken(req, res, next, () => {
+        if (req.user.id === req.params.id && req.user.role === "admin") {
             next();
         }
         else {

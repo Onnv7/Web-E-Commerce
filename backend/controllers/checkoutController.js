@@ -12,18 +12,18 @@ export const getCheckoutByIdCheckout = async (req, res, next) => {
 export const deleteCheckout = async (req, res, next) => {
     try {
         const result = await Checkout.findOneAndDelete(
-            {_id: req.params.idCheckout}
+            { _id: req.params.idCheckout }
         )
         res.status(200).json(result);
     } catch (error) {
-        next(error9);
+        next(error);
     }
 }
 export const updateCheckout = async (req, res, next) => {
     try {
         const result = await Checkout.updateOne(
-            {_id: req.params.idCheckout},
-            { $set: req.body}
+            { _id: req.params.idCheckout },
+            { $set: req.body }
         )
         res.status(200).json(result);
     } catch (error) {
@@ -44,7 +44,7 @@ export const getAllCheckoutByIdCheckoutAnd = async (req, res, next) => {
 }
 export const getAllCheckoutByIdUser = async (req, res, next) => {
     try {
-        const checkouts = await Checkout.find({user: req.params.idUser});
+        const checkouts = await Checkout.find({ user: req.params.idUser });
         res.status(200).json(checkouts);
     } catch (error) {
         next(error);
