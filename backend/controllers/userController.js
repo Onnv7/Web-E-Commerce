@@ -3,9 +3,10 @@ import bcrypt from "bcryptjs";
 
 export const updateProps = async (req, res, next) => {
   try {
-    console.log(req.params.id);
+    const userID = req.params.id;
+
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      userID, //req.params.id,
       { $set: req.body },
       { new: true }
     );

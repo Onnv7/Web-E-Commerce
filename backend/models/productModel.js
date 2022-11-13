@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     required: [true, "User product have quantity"],
     default: 1
   },
-  
+
   brand: {
     type: String,
     required: [true, "User product have a brand"],
@@ -60,14 +60,13 @@ const productSchema = new mongoose.Schema({
     set: (value) => Math.round(value * 10) / 10,
   },
   ratingQuantity: { type: Number, default: 0 },
- // price: { type: Number, required: [true, "A product must have a price"] },
+  // price: { type: Number, required: [true, "A product must have a price"] },
   priceDiscount: {
     type: Number,
-    //TODO: Custom validate
     validate: {
       validator: function (value) {
         //! Only usable when create (not update)
-        return value < this.price; 
+        return value < this.price;
       },
       message: (props) =>
         `The discount price(${props.value}) must be below normal price`,
@@ -87,7 +86,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Shop.category",
   }
-   
+
 });
 
 productSchema.pre("save", function (next) {
