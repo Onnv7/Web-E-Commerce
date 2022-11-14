@@ -11,6 +11,8 @@ import cookieParser from "cookie-parser";
 import conversationRoute from "./routes/conversations.js";
 import messageRoute from "./routes/messages.js";
 import paypalRoute from "./routes/paypals.js";
+import bodyParser from "body-parser";
+import { urlencoded, json } from 'express';
 // import mongoosePatchUpdate from "mongoose-patch-update";
 import cors from "cors";
 
@@ -37,17 +39,22 @@ mongoose.connection.on("connected", () => {
 //mongoose.plugin(mongoosePatchUpdate);
 
 // middlewares
+app.use(bodyParser.json({ limit: '50000mb' }));
+app.use(bodyParser.urlencoded({ limit: '50000mb', extended: true }));
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 app.use(cors({ credentials: true, origin: true }));
+//app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
+
+
 
 app.options('*', cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
-app.get("/", (req, res, next) => res.send("BACKEND"))
+//app.get("/", test)
 // app.get("/backend/cookie", (req, res, next) => { const rs = res.cookie("an", "611").send("SET COOKIE"); console.log(rs) })
 app.use("/backend/auth", authRoute);
 app.use("/backend/users", usersRoute);
@@ -58,6 +65,7 @@ app.use("/backend/reviews", reviewRoute);
 app.use("/backend/conversations", conversationRoute);
 app.use("/backend/messages", messageRoute);
 app.use("/backend/paypal", paypalRoute);
+
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";

@@ -11,5 +11,6 @@ const Ruby = () => {
       </form>
     </div>
   );
+
 };
 export default Ruby;
