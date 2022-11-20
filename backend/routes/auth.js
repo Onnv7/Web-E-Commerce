@@ -5,7 +5,11 @@ const router = express.Router();
 
 // URL
 router.get("/getUser", getUser);
+
+// register a new user
 router.post("/register", register);
+
+// login to set token into cookie
 router.post("/login", login);
 
 export default router;
