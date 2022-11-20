@@ -1,0 +1,69 @@
+.profileNav{
+    width: 100%;
+    max-width: 1200px;
+}
+.profileNav-container{
+    display: flex;
+    gap: 80px;
+}
+.profile-navBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-navBox>img{
+    width: 240px;
+    height: 240px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+.profile-navBox>span{
+    font-size: 2.6rem;
+    margin-bottom: 12px;
+    font-family: 'Oswald';
+}
+.profile-navBox>button{
+    padding: 15px 30px;
+    background-color: #FFF;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-size: 2.2rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 60px;
+}
+.profile-nav{
+    list-style: none;
+    font-size: 2.4rem;
+    font-family: 'Oswald';
+    
+}
+.profile-navItem{
+    margin-bottom: 12px;
+}
+.profile-navItem>a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.profile-subnav{
+    list-style: none;
+    margin: 10px 0 0 32px;
+}
+.profile-subItem{
+    margin-bottom: 6px;
+}
+.profile-subItem>a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.profile-userContainer{
+    width: 100%;
+}

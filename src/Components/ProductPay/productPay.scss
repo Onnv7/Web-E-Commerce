@@ -1,0 +1,203 @@
+.productPay
+{
+    width: 100%;
+    max-width: 880px;
+    background-color: #FFFFFF;
+}
+.productPay-title{
+    margin-bottom: 32px;
+    >button{
+        width: 200px;
+        height: 42px;
+        font-size: 2.6rem;
+        border: none;
+        background-color: #fff;
+        &.click{
+            color: var(--primary-color);
+            border-bottom: 2px solid #DC5B0E;
+        }
+    }
+}
+.productPay-searchBox{
+    width: 880px;
+    height: 52px;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 16px;
+
+    >input{
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    >button{
+        width: 80px;
+        height: 44px;
+        background-color: var(--primary-color);
+        border-radius: 10px;
+        border: none;
+        margin: 3px;
+        outline: none;
+    }
+}
+.productPay-searchIcon{
+    margin: 10px;
+    color: var(--primary-color);
+    width: 32px;
+    
+
+    &:last-child{
+        color: #fff;
+    }
+}
+.productPay-item,
+.productAuction-item{
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(220, 91, 14, 0.5);
+    border-radius: 10px;
+    padding: 24px 40px;
+    margin-bottom: 24px;
+}
+.productPay-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 41px;
+    >span{
+        font-size: 2.2rem;
+        font-family: 'Oswald';
+    }
+}
+.productPay-itemTitle{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    >span{
+        font-size: 2.6rem;
+        font-family: 'Oswald';
+    }
+    >button{
+        width: 148px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        gap: 4px;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        &:nth-of-type(1){
+            background: #fff;
+            color: var(--primary-color);
+        }
+        &:nth-of-type(2){
+            background: var(--primary-color);
+            color: #fff;
+        }
+    }
+}
+.productPay-body,
+.productAuction-body{
+    display: flex;
+    gap: 16px;
+    margin-bottom: 42px;
+    >img{
+        width: 140px;
+        height: 140px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        object-fit: contain;
+    }
+}
+.productPay-bodyText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    >span{
+        font-size: 2.4rem;
+        font-family: 'Oswald';
+    }
+}
+.productPay-bodyType{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 1.8rem;
+}
+.productPay-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    >button{
+        width: 260px;
+        height: 50px;
+        background-color: rgba(220, 91, 14, 0.7);
+        border-radius: 10px;
+        border: none;
+        font-size: 2rem;
+        color: #fff;
+    }
+
+    >span{
+        font-size: 2.6rem;
+        color: var(--primary-color);
+        font-family: 'Oswald';
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+}
+.productAuction-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    font-family: 'Oswald';
+    >span{
+        &:nth-child(1){
+            font-size: 2.6rem;
+        }
+        &:nth-child(2){
+            font-size: 2.2rem;
+        }
+    }
+}
+.productAuction-bodyText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    >span{
+        &:nth-child(1){
+            font-size: 2.4rem;
+            font-family: 'Oswald';
+        }
+        &:nth-child(2){
+            font-size: 1.8rem;
+        }
+    }
+}
+.productAuction-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2.6rem;
+    font-family: 'Oswald';
+
+    >span{
+        &:nth-child(2){
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-color);
+        }
+    }
+}

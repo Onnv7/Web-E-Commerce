@@ -1,0 +1,188 @@
+.login-Container{
+    background: url("../../../public/Img/pic.png") no-repeat;
+    object-fit: cover;
+    height: 1024px;
+    background-size: 1440px 1024px;
+    display: flex;
+    justify-content: center;
+}
+.login-Content{
+    width: 100%;
+    max-width: 1280px;
+}
+.login-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-color);
+    padding-top: 16px;
+}
+.login-title{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.login-title__name{
+    font-size: 2.4rem;
+    color: var(--sub-color);
+    cursor: pointer;
+
+    &:hover{
+        color: var(--primary-color);
+    }
+}
+.active{
+    color: var(--primary-color);
+}
+.login-title__line{
+    font-size: 3.2rem;
+}
+.login-logo{
+    width: 80px;
+    object-fit: cover;
+}
+.login-body{
+    display: flex;
+    justify-content: right;
+    align-content: center;
+    margin-top: 90px;
+}
+.login-form{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #000;
+    font-family: 'Oswald';
+    padding: 0 24px;
+}
+.login-formTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0 40px 0;
+    font-size: 3.2rem;
+}
+.formControl-Container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    gap: 15px;
+}
+.formControl{
+    margin: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.formControl>input{
+    border: none;
+    outline: none;
+    width: 420px;
+    height: 28px;
+    padding: 10px 0;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: transparent;
+
+    &:first-child{
+        margin-bottom: 40px;
+    }
+}
+.formControl-Remind{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.formControl-Remind.wrongPass{
+    display: none;
+}
+.formControl>button{
+    height: 60px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    border: none;
+    font-size: 2.6rem;
+    color: rgba(255, 255, 255, 0.5);
+    
+
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+.Remind-icon{
+    width: 30px;
+}
+.login-formHelp{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    font-size: 1.6rem;
+}
+.login-remember{
+    display: flex;
+    justify-content: center;
+}
+.login-remember>input{
+    margin-right: 5px;
+    height: 16px;
+    width: 16px;
+    accent-color: #000;
+}
+.login-forgot{
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}
+.login-FormStyle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.loginForm-name{
+    font-family: 'Bismarck';
+    font-size: 4rem;
+    color: var(--primary-color);
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginForm-line{
+    width: 180px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.login-formRegis{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 18px 0 32px 0;
+}
+.login-formRegis>span{
+    font-size: 1.6rem ;
+    color: #000;
+
+    &:nth-child(2){
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
