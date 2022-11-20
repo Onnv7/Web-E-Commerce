@@ -7,9 +7,7 @@ import shopsRoute from "./routes/shops.js";
 import productsRoute from "./routes/products.js";
 import checkoutRoute from "./routes/checkout.js";
 import reviewRoute from "./routes/reviews.js";
-import cookieParser from "cookie-parser";
-import conversationRoute from "./routes/conversations.js";
-import messageRoute from "./routes/messages.js";
+import cookieParser from "cookie-parser";;
 import paypalRoute from "./routes/paypals.js";
 import bodyParser from "body-parser";
 import { urlencoded, json } from 'express';
@@ -60,10 +58,8 @@ app.use("/backend/auth", authRoute);
 app.use("/backend/users", usersRoute);
 app.use("/backend/shops", shopsRoute);
 app.use("/backend/products", productsRoute);
-app.use("/backend/checkout", checkoutRoute);
+app.use("/backend/checkouts", checkoutRoute);
 app.use("/backend/reviews", reviewRoute);
-app.use("/backend/conversations", conversationRoute);
-app.use("/backend/messages", messageRoute);
 app.use("/backend/paypal", paypalRoute);
 
 app.use((err, req, res, next) => {

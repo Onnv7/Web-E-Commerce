@@ -2,7 +2,9 @@ import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
 import { saveSingleFile, saveMultipleFile } from "../utils/saveFile.js";
+import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
 
+// update product
 export const updateProduct = async (req, res, next) => {
   try {
     const body = req.body;
@@ -17,6 +19,7 @@ export const updateProduct = async (req, res, next) => {
   }
 }
 
+// delete product
 export const deleteProduct = async (req, res, next) => {
   try {
     await Product.findByIdAndDelete(
@@ -27,7 +30,9 @@ export const deleteProduct = async (req, res, next) => {
     next(err);
   }
 };
-export const getGroupProducts = async (req, res, next) => {
+
+// select products by category
+export const selectProductsByCategory = async (req, res, next) => {
   try {
     const products = await Product.find(
       {
@@ -35,111 +40,41 @@ export const getGroupProducts = async (req, res, next) => {
         category: req.params.idCgr
       }
     );
-    res.status(200).json(products);
+    const result = getUrlImageForArrObject(products);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 }
 
-// TODO: sua findone => all
-export const getAllProducts = async (req, res, next) => {
+// select all products by shop id
+export const selectAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.findOne(
-      { shop: req.params.idShop }
-    )
-
-    var rs = [];
-    // for (var i = 0; i < products.length; i++) {
-    //   var data = {
-    //     // //...products[i],
-    //     // _id: products[i]._id,
-    //     // name: products[i].name,
-    //     // shop: products[i].shop,
-    //     // quantity: products[i].quantity,
-    //     // brand: products[i].brand,
-    //     // ratingAverage: products[i].ratingAverage,
-    //     // ratingQuantity: products[i].ratingQuantity,
-    //     // description: products[i].description,
-    //     // slug: products[i].slug,
-    //     //url: products[i].coverImagePath
-    //   }
-    // console.log("🚀 ~ file: productController.js ~ line 66 ~ getAllProducts ~ products[i]", products[i].name)
-    // rs.push(data);
-    // }
-    console.log("🚀 ~ file: productController.js ~ line 61 ~ getAllProducts ~ rs", products.coverImagePath)
-    //const rs = { ...products, url: products.coverImagePath };
-
-    res.status(200).json(products.coverImagePath);
+    const products = await Product.findOne({ _id: req.params.shopId });
+    const result = getUrlImageForArrObject(products);
+    res.status(200).json(result);
   } catch (err) {
-    next(err)
+    next(err);
   }
 }
-export const test = async (req, res, next) => {
-  const products = await Product.findOne({ shop: "635fb1f7acee8d4442244077" });
-  console.log("coverImagePath", products.coverImagePath);
-}
+
+// create a new product
 export const createProduct = async (req, res, next) => {
   try {
-
     const img = req.body.img;
-
-    try {
-      // TODO: need fully code at here for props
-      const newProduct = new Product({
-
-        name: req.body.name,
-        shop: req.body.shop,
-        quantity: Number(req.body.quantity),
-        brand: req.body.brand,
-        description: req.body.description,
-
-
-        //...otherDetails,
-      });
-      if (typeof req.body.img === 'string') {
-        saveSingleFile(newProduct, img)
-      }
-      else
-        saveMultipleFile(newProduct, img)
-
-      await newProduct.save();
-      res.status(200).send("Product has been created.");
-    } catch (err) {
-      next(err);
+    const body = { ...req.body };
+    const product = new Product(body);
+    if (typeof req.body.img === 'string') {
+      saveSingleFile(product, img)
     }
+    else
+      saveMultipleFile(product, img)
+
+    await product.save();
+    res.status(200).send("Product has been created.");
+
   }
   catch (err) {
     next(err)
   }
 }
-// export const updateProduct = async (req, res, next) => {
-//     try {
-//         const updatedProduct = await Product.findByIdAndUpdate(
-//             req.params.id,
-//             { $set: body},
-//             {new: true }
-//             );
-//         res.status(200).json(updatedUser);
-//     } catch (err) {
-//         next(err);
-//     }
-// };
-
-// export const getUser = async (req, res, next) => {
-//     try {
-//         const user = await User.findById(
-//             req.params.id
-//             );
-//         res.status(200).json(user);
-//     } catch (err) {
-//         next(err);
-//     }
-// };
-// export const getUsers = async (req, res, next) => {
-//     try {
-//         const users = await User.find();
-//         res.status(200).json(users);
-//     } catch (err) {
-//         next(err);
-//     }
-// };

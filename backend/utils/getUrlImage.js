@@ -12,3 +12,15 @@ export const getUrlImageArr = (imgs) => {
     }
     return rs;
 }
+export const getUrlImageForArrObject = (objs) => {
+    const len = objs.length;
+    let i = 0;
+    const rs = [];
+    for (i; i < len; i++) {
+        const imgs = getUrlImageArr(objs[i].img)
+        const { img, ...rest } = objs[i]._doc;
+        const obj = { ...rest, imgPath: imgs };
+        rs.push(obj);
+    }
+    return rs;
+}

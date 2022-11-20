@@ -1,17 +1,23 @@
 import express from "express";
-import { createProduct, getAllProducts, getGroupProducts, deleteProduct, updateProduct } from "../controllers/productController.js";
+import { updateProduct, deleteProduct, selectProductsByCategory, selectAllProducts, createProduct } from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
 
-// URL
-router.post("/create", createProduct);
-router.delete("/delete/:id", deleteProduct);
-router.put("/update/:id", updateProduct);
-router.get("/:idShop/:idCgr", getGroupProducts);
-router.get("/:idShop", getAllProducts);
-// router.post("/register/:id", verifyUser, registerShop);
-// router.delete("/:id", verifyBuyer, deleteShop);
-// router.put("/:id", verifyBuyer, updateShop);
+// create a new product
+router.post("/", createProduct);
+
+// select all products by shop
+router.get("/:shopId", selectAllProducts);
+
+// select all products by category
+router.get("/:shopId/:cgrId", selectProductsByCategory);
+
+// delete a product
+router.delete("/:id", deleteProduct);
+
+// update a product
+router.patch("/:id", updateProduct);
+
 export default router;

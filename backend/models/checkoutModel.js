@@ -11,11 +11,11 @@ const checkoutSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    shop: 
-    {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-    },
+    // shop:
+    // {
+    //   type: mongoose.Schema.ObjectId,
+    //   required: true,
+    // },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
@@ -25,7 +25,10 @@ const checkoutSchema = new mongoose.Schema(
       type: String,
       required: [true, "Checkout must has a deliveryAddress"],
     },
-    //price of all items = quantity * price of a product
+    quantity: {
+      type: Number,
+      required: true,
+    },
     price: {
       type: Number,
       required: true
@@ -34,12 +37,12 @@ const checkoutSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    
+
     voucher: {
       type: Number,
       default: 0,
     },
-    
+
     totalCost: {
       type: Number,
       required: [true, "Checkout must has the totalCost"],
@@ -59,24 +62,3 @@ const checkoutSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("Checkout", checkoutSchema);
-
-
-      // product: [
-      //   {
-      //     id:{
-      //       type: mongoose.Schema.ObjectId,
-      //       ref: "Product",
-      //       required: [true, "Checkout must contain a product"],
-      //     },
-      //     style: {
-      //       type: mongoose.Schema.ObjectId,
-      //       ref: "Product.classify.desc",
-      //     },
-      //     quantity: {
-      //       type: Number,
-      //       required: true,
-      //       default: 1
-      //     },
-      //     _id: false
-      //   }
-      // ],

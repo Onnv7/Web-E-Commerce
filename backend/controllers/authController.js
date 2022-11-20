@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
+
+// TODO: khoong biet lam gi nua, coi lai va xoa
 export const getUser = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
@@ -13,6 +15,8 @@ export const getUser = (req, res, next) => {
     res.json((user));
   })
 };
+
+// register a new user
 export const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
@@ -29,6 +33,7 @@ export const register = async (req, res, next) => {
   }
 }
 
+// login to set token into cookie
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });

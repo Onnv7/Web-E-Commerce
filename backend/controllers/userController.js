@@ -1,12 +1,14 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
-export const updateProps = async (req, res, next) => {
+
+// update user
+export const updateUser = async (req, res, next) => {
   try {
     const userID = req.params.id;
 
     const updatedUser = await User.findByIdAndUpdate(
-      userID, //req.params.id,
+      userID,
       { $set: req.body },
       { new: true }
     );
@@ -15,7 +17,9 @@ export const updateProps = async (req, res, next) => {
     next(err);
   }
 };
-export const updateUser = async (req, res, next) => {
+
+// update user's password + other
+export const updateUserPassword = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -30,6 +34,8 @@ export const updateUser = async (req, res, next) => {
     next(err);
   }
 };
+
+// delete a user
 export const deleteUser = async (req, res, next) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -38,7 +44,9 @@ export const deleteUser = async (req, res, next) => {
     next(err);
   }
 };
-export const getUser = async (req, res, next) => {
+
+// select a user
+export const selectUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     res.status(200).json(user);
@@ -46,7 +54,9 @@ export const getUser = async (req, res, next) => {
     next(err);
   }
 };
-export const getUsers = async (req, res, next) => {
+
+// select all users
+export const selectAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(200).json(users);

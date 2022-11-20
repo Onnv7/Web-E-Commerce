@@ -23,35 +23,22 @@ const productSchema = new mongoose.Schema({
     required: [true, "User product have quantity"],
     default: 1
   },
-
+  price: {
+    type: Number,
+    required: true,
+  },
   brand: {
     type: String,
     required: [true, "User product have a brand"],
   },
   color: {
-    type: String,
+    type: [String],
     //required: [true, "User product have a color"],
   },
   size: {
-    type: String,
+    type: [String],
     //required: [true, "User product have a color"],
   },
-  // classify: {
-  //   standard: {
-  //     type: String,
-  //     required: true
-  //   },
-  //   desc: [{
-  //     value: {
-  //       type: String,
-  //       required: true
-  //     },
-  //     price: {
-  //       type: Number,
-  //       required: true
-  //     }
-  //   }],
-  // },
   ratingAverage: {
     type: Number,
     default: 0,
@@ -60,7 +47,6 @@ const productSchema = new mongoose.Schema({
     set: (value) => Math.round(value * 10) / 10,
   },
   ratingQuantity: { type: Number, default: 0 },
-  // price: { type: Number, required: [true, "A product must have a price"] },
   priceDiscount: {
     type: Number,
     validate: {
@@ -89,11 +75,6 @@ const productSchema = new mongoose.Schema({
       },
     }
   ],
-  // imageCover: {
-  //   type: String,
-  //   //required: [true, "A product must have a cover image"],
-  // },
-  // images: [String],
   category: {
     type: mongoose.Schema.ObjectId,
     ref: "Shop.category",

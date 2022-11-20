@@ -1,11 +1,10 @@
-const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-
+// TODO: add image type to imageMimeTypes
+const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
 export function saveSingleFile(doc, coverEncoded) {
     if (coverEncoded == null) return
 
     var img = [];
     const cover = JSON.parse(coverEncoded)
-    console.log("COVER>DTAT", cover.data.split('/')[0]);
     if (cover != null && imageMimeTypes.includes(cover.type)) {
         var data = {
             coverImage: new Buffer.from(cover.data, 'base64'),

@@ -48,22 +48,5 @@ const shopSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// shopSchema.pre('validate', function validate(next) {
-//   var unique = [];
-//   try {
-//   for (var i = 0, l = this.category.length; i < l; i++) {
-//     let prop = this.category[i].name;
-
-//     if (unique.indexOf(prop) > -1) {
-//       return next(createError(404, "Duplicate name!"));
-//     }
-
-//     unique.push(prop);
-//   }
-// }
-//   catch (err) {
-//     next(err);
-//   }
-// });
 
 export default mongoose.model('Shop', shopSchema);
