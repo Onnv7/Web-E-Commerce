@@ -1,0 +1,130 @@
+.productEvulate{
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px var(--primary-color);
+    border-radius: 10px;
+}
+.productEvulate-container{
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+}
+.productEvulate-container>h1{
+    font-size: 2.8rem;
+    font-weight: 400;
+    font-family: 'Oswald';
+    color: var(--primary-color);
+    text-decoration: underline;
+    margin-bottom: 54px;
+}
+.productEvulate-rating{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 38px 56px;
+}
+.rating-sum{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.rating-sum>span{
+    
+
+    &:first-child{
+        font-size: 6rem;
+    }
+
+    &:last-child{
+        font-size: 1.4rem;
+    }
+}
+.rating-star{
+    color: var(--primary-color);
+}
+.rating-count{
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    justify-content: center;
+}
+.count-detail{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.count-detail>span{
+    font-size: 1.6rem;
+}
+.rating-process{
+    width: 100px;
+    height: 10px;
+    background-color: rgba(169, 169, 169, 0.5);
+    border-radius: 50px;
+
+}
+.rating-process:nth-child(2):after{
+    content: "";
+    display: block;
+    width: 55px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50px 0px 0px 50px;
+    
+}
+.productEvulate-comment{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 28px 56px;
+}
+.comment-user{
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex: 1;
+}
+.comment-user>img{
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    object-fit: contain;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8rem;
+    gap: 8px;   
+}
+.comment-btn>button{
+    width: 72px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    color: var(--primary-color);
+    margin-right: 6px;
+}
+.comment-warn{
+    color: var(--primary-color);
+    width: 30px;
+    height: 30px;
+}
+.comment-detail{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+.comment-img>img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 8px 11px 0 0;
+}

@@ -1,0 +1,239 @@
+.resetPass{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.completePass-container.none,.comfirmPass-container.none,
+.rePass-container.none, .resetPass.none
+{
+    display: none;
+}
+.resetPass-container{
+    width: 600px;
+    min-height: 276px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 30px 60px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    >span{
+        &:nth-child(1){
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        &:nth-child(2){
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+    }
+
+    >button{
+        width: 480px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        background: #FFF;
+        border: 1px solid rgba(220, 91, 14, 0.5);
+        box-shadow: inset 0px 0px 4px rgba(220, 91, 14, 0.5);
+        border-radius: 5px;
+        font-size: 1.8rem;
+    }
+}
+.comfirmPass-container{
+    width: 600px;
+    min-height: 512px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 30px 60px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    
+
+    >span{
+        &:nth-child(2){
+            font-size: 2.8rem;
+        }
+        &:nth-child(3){
+            font-size: 2rem;
+            text-align: center;
+        }
+        &:nth-child(5){
+            font-size: 1.8rem;
+        }
+    }
+
+    >button{
+        width: 480px;
+        height: 82px;
+        background-color: rgba(220, 91, 14, 0.5);
+        border-radius: 50px;
+        color: #fff;
+        font-size: 2.8rem;
+        margin: 30px 0 12px;
+    }
+}
+.comfirmPass-icon{
+    position: absolute;
+    left: 30px;
+    top: 34px;
+    color: var(--primary-color);
+}
+.comfirmPass-input{
+    display: flex;
+    gap: 24px;
+    margin-bottom: 60px;
+    >input{
+        width: 40px;
+        border: none;
+        border-bottom: 1px solid #000;
+        outline: none;
+        text-align: center;
+        font-size: 6.4rem;
+    }
+}
+.comfirmPass-resend{
+    font-size: 1.8rem;
+    >span{
+        &:nth-child(1),&:nth-child(3){
+            color: var(--primary-color);
+        }
+    }
+}
+.confirmPass-error{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary-color);
+}
+
+.rePass-container{
+    width: 600px;
+    min-height: 458px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 30px 60px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    >span{
+        font-size: 2.8rem;
+    }
+
+    >button{
+        width: 546px;
+        height: 82px;
+        background-color: rgba(220, 91, 14, 0.5);
+        border-radius: 50px;
+        font-size: 2.8rem;
+        color: #fff;
+        border: none;
+    }
+}
+.rePass-box{
+    margin-bottom: 48px;
+    position: relative;
+    
+    &:nth-of-type(1)>span
+    {
+        position: absolute;
+        top: -8px;
+        left: 24px;
+        background-color: #fff;
+        padding: 0 4px;
+        color: rgba(0, 0, 0, 0.5);
+    }
+    &:nth-of-type(2)>span
+    {
+        position: absolute;
+        top: -8px;
+        left: 24px;
+        background-color: #fff;
+        padding: 0 4px;
+        color: rgba(0, 0, 0, 0.5);
+    }
+}
+.rePass-input{
+    background: #FFF;
+    border: 1px solid #DC5B0E;
+    box-shadow: inset 0px 0px 4px rgba(220, 91, 14, 0.5);
+    border-radius: 5px; 
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    padding: 0 18px;
+
+    >input{
+        width: 480px;
+        height: 60px;
+        border: none;
+        outline: none;
+        font-size: 2.4rem;
+    }
+}
+
+.completePass-container{
+    width: 600px;
+    min-height: 458px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 30px 60px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+
+    >span{
+        font-size: 2.8rem;
+
+        &:nth-child(3){
+            text-align: center;
+            margin-bottom: 41px;
+        }
+    }
+
+    >button{
+        width: 480px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.5);
+        box-shadow: inset 0px 0px 6px #DC5B0E;
+        border-radius: 50px;
+        color: rgba(220, 91, 14, 0.6);
+        border: none;
+        font-size: 2.8rem;
+    }
+}
+.completePass-icon{
+    width: 100px;
+    height: 100px;
+    color: var(--primary-color);
+    margin: 16px 0;
+}
