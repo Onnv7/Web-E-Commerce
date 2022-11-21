@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.scss';
-import { Home, SearchNormal1, ShoppingCart } from 'iconsax-react';
+import { Home, Judge, SearchNormal1, ShoppingCart } from 'iconsax-react';
 
 const Header = () => {
     return (
@@ -25,6 +25,7 @@ const Header = () => {
                             </button>
                         </div>
                         <ShoppingCart variant="Bold" className="headerNav-icon" />
+                        <Judge variant="Bold" className="headerNav-icon" />
                         <span className="line4"></span>
                     </div>
                 </div>

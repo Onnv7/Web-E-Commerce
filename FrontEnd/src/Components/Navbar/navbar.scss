@@ -14,6 +14,10 @@
 }
 .navList{
     color: var(--primary-color);
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+
 }
 .navItem{
     position: relative;
@@ -21,6 +25,10 @@
     text-decoration: none;
     margin-right: 48px;
     font-size: 2.2rem;
+    
+    &:hover{
+        color: var(--primary-color);
+    }
 }
 .navItem--space::after{
         content: "";
@@ -37,7 +45,25 @@
 }
 .navIcon{
     width: 33px;
-    margin-right: 20px;
     cursor: pointer;
+    margin: 0 14px 8px 0;
 }
+.navList-money{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    >span{
+        font-size: 2.2rem;
+    }
 
+    &::after{
+        content: "";
+        display: block;
+        position: absolute;
+        height: 24px;
+        border-right: 2px solid var(--primary-color);
+        left: calc(50% + 12px);
+        top : 40%;
+        transform: translateY(-50%);
+    }
+}

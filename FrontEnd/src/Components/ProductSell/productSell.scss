@@ -1,0 +1,316 @@
+.productAuction-container.none{
+    display: none;
+}
+.productSell{
+    width: 100%;
+    max-width: 1200px;
+    background-color: #FFF;
+    box-shadow: 0px 0px 5px #DC5B0E;
+    border-radius: 10px;
+}
+.productSell-container,
+.productAuction-container
+{
+    margin: 12px 24px;
+    display: flex;
+    gap: 34px;
+}
+.productImg{
+    display: flex;
+    flex-direction: column;
+}
+.productImg-main{
+    width: 458px;
+    height: 400px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+.productImg-sub{
+    display: flex;
+    gap: 5px;
+}
+.productImg-sub>img{
+    width: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.productSell-item,
+.productAuction-item{
+    display: flex;
+    flex-direction: column;
+}
+.productSell-name,
+.productAuction-title{
+    font-size: 2.6rem;
+    font-family: 'Oswald';
+}
+.productSell-rate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+.product-review{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.productSell-star{
+    color: var(--primary-color);
+}
+.product-review>span, .productSell-rate>span{
+    font-size: 1.6rem;
+}
+.productPrice,.productFee,.productList, .product-quantity, .productSell-btn{
+    margin-top: 32px;
+}
+.productPrice>span{
+    margin-right: 10px;
+    font-size: 2.2rem;
+
+    &:nth-child(2){
+        text-decoration: line-through;
+    }
+    &:nth-child(3){
+        color: var(--primary-color);
+    }
+}
+.productFee{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+.productFee>span{
+    &:nth-child(1){
+        font-size: 2rem;
+    }
+    &:nth-child(2){
+        text-align: right;
+        font-size: 1.8rem;
+        flex: 1;
+    }
+}
+.product-capacity{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 2rem;
+}
+.product-capacity__size{
+    display: flex;
+    gap: 24px;
+}
+.product-capacity__size>button{
+    border: 1px solid #DC5B0E;
+    box-shadow: 0px 0px 5px #DC5B0E;
+    border-radius: 5px;
+    padding: 4px;
+    cursor: pointer;
+    width: 84px;
+    height: 28px;
+    text-align: center;
+    color: #000;
+    outline: none;
+    background-color: #FFF;
+
+    &:focus{
+        color: var(--primary-color);
+    }
+}
+
+.product-quantity{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.quantity-toBuy{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.product-count{
+    display: flex;
+    align-items: center;
+}
+.product-count>button{
+    width: 28px;
+    height: 28px;   
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: #FFF;
+    &:first-child{
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    &:last-child{
+        border-radius: 0px 5px 5px 0px;
+    }
+}
+.product-count>span{
+    width: 60px;
+    height: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 30px;
+}
+.productSell-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.productSell-btn>button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 2.4rem;
+
+    &:first-child{
+        width: 380px;
+        height: 60px;
+        border: 1px solid #DC5B0E;
+        border-radius: 10px;
+        background-color: #FFF;
+        color: var(--primary-color);
+    }
+    &:last-child{
+        width: 260px;
+        height: 60px;
+        border: 1px solid #DC5B0E;
+        border-radius: 10px;
+        background-color: rgba(220, 91, 14, 0.8);
+        color: #FFF;
+    }
+}
+.product-payments{
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-payments>span{
+    font-size: 2rem;
+    margin-right: 12px;
+}
+.product-payments>img{
+    width: 50px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 24px;
+}
+.productAuction-timeList{
+    margin-top: 48px;
+}
+.productAuction-timeItem{
+    margin-bottom: 16px;
+}
+.productAuction-timeItem>span{
+    font-size: 2rem;
+    
+
+    &:last-child{
+        color: var(--primary-color);
+        margin-left: 5px;
+    }
+}
+.productAuction-price{
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+}
+.auctionPrice-list{
+    display: flex;
+    font-size: 2.2rem;
+    gap: 85px;
+}
+.auctionPrice-title{
+    display: flex;
+    flex-direction: column;
+}
+.auctionPrice-title>span,
+.auctionPrice-item>span{
+    margin-bottom: 16px;
+}
+.auctionPrice-item{
+    display: flex;
+    flex-direction: column;
+}
+.productAuction-auctionBox{
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+.productAuction-inputBox{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.productAuction-input{
+    display: flex;
+    align-items: center;
+    width: 336px;
+    height: 50px;
+    gap: 14px;
+    background-color: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.productAuction-input>input{
+    font-size: 2rem;
+    padding: 15px 10px;
+    border: none;
+    outline: none;
+}
+.productAuction-input>span{
+    margin-right: 15px;
+}
+.productAuction-inputBox>span{
+    font-size: 1.4rem;
+}
+.productAuction-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.productAuction-btn>button{
+    width: 300px;
+    height: 50px;
+    border: none;
+    font-size: 2rem;
+
+    &:first-child{
+        background-color: rgba(220, 91, 14, 0.8);
+        border-radius: 10px;
+        color: #fff;
+    }
+    &:last-child{
+        background-color: #FFF;
+        border: 1px solid #DC5B0E;
+        border-radius: 10px;
+        color: var(--primary-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+}
+.productAuction-paymentsBox{
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.productAuction-paymentsBox>button{
+    width: 390px;
+    height: 50px;
+    background: #FFFf;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

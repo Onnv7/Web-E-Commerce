@@ -16,6 +16,7 @@
 .headerNav>img{
     height: 120px;
     object-fit: contain;
+    margin-right: 20px;
 }
 .headerNav>span{
     font-family: 'Bismarck';
@@ -29,6 +30,7 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    margin-left: 40px;
 }
 .headerSearch-icon{
     margin: 10px;
@@ -39,11 +41,6 @@
     &:last-child{
         color: #fff;
     }
-}
-.headerSearch-item>span{
-    border: 1px solid var(--sub-color);
-    height: 40px;
-    margin-right: 10px;
 }
 .headerSearch-input{
     width: 100%;
@@ -65,6 +62,10 @@
     width: 60px;
     height: 60px;
     color: var(--primary-color);
+
+    &:nth-of-type(1){
+        margin: 0 16px 0 20px;
+    }
 }
 .headerNav-item{
     display: flex;
@@ -89,13 +90,13 @@
 }
 .line1{
     position: absolute;
-    width: 100px;
+    width: 80px;
     border: 1px solid var(--sub-color);
     left: -70px;
     top: 20px;
 }
 .line2{
-    width: 100px;
+    width: 80px;
     position: absolute;
     border: 1px solid var(--sub-color);
     bottom: 14px;
