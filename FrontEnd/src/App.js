@@ -7,6 +7,9 @@ import Image from './Pages/Image/image.js';
 import Show from './Pages/Image/Show.js';
 import Money from './Pages/Ruby/Money.js';
 import Paypal from './Pages/Ruby/Paypal.js';
+import SellPage from './Pages/SellPage/SellPage';
+import CartList from './Pages/CartList/CartList';
+import Profile from './Pages/Profile/Profile';
 function App() {
     return (
         <BrowserRouter>

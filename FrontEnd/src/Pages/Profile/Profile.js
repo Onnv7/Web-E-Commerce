@@ -13,7 +13,7 @@ const Profile = () => {
     return (
         <div>
             <NavBar />
-            <Header />
+            <Header styles="hideNav" />
             <div className="profile-container">
                 <ProfileNav />
                 <hr color="#EE9533" />

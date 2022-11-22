@@ -25,6 +25,11 @@
 .login-title__name{
     font-size: 2.4rem;
     color: var(--sub-color);
+
+    &:hover{
+        color: var(--primary-color);
+        cursor: pointer;
+    }
 }
 .active{
     color: var(--primary-color);
@@ -177,4 +182,7 @@
             opacity: 0.8;
         }
     }
+}
+.formControl-Remind.error{
+    display: none;
 }

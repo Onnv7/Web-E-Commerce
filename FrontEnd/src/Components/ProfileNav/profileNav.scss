@@ -41,13 +41,20 @@
 }
 .profile-navItem{
     margin-bottom: 12px;
+
+    
 }
-.profile-navItem>a{
+.profile-navItem>span{
     text-decoration: none;
     color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     gap: 6px;
+
+    &:hover{
+        cursor: pointer;
+        color: #000;
+    }
 }
 .profile-subnav{
     list-style: none;
@@ -56,14 +63,21 @@
 .profile-subItem{
     margin-bottom: 6px;
 }
-.profile-subItem>a{
+.profile-subItem>span{
     text-decoration: none;
     font-size: 2rem;
     color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     gap: 6px;
+    &:hover{
+        cursor: pointer;
+        color: #000;
+    }
 }
 .profile-userContainer{
     width: 100%;
+}
+.profile-subnav.hide{
+    display: none;
 }

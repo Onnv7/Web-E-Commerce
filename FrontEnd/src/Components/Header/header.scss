@@ -116,9 +116,7 @@
     bottom: 14px;
     right: -30px;
 }
-.headerImg>img{
-    width: 1200px;
-    height: 320px;
-    border-radius: 10px;
-    object-fit: cover;
+.headerList.none,
+.headerImg.none{
+    display: none;
 }

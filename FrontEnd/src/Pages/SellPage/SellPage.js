@@ -13,7 +13,7 @@ const SellPage = () => {
     return (
         <div>
             <Navbar />
-            <Header />
+            <Header style="hideImg" />
             <div className="sellContainer">
                 <ProductSell />
                 <Seller />

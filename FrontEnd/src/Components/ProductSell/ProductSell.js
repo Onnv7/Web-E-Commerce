@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './productSell.scss';
 import { Message2, Note1, ShoppingCart, Star1 } from 'iconsax-react';
 
 const ProductSell = () => {
+    const [current, setCurrent] = useState(0);
+    const [count, setCount] = useState(1);
+    const img = [
+        { src: '../Img/iphone14.png' },
+        { src: '../Img/1-ip14.jpg' },
+        { src: '../Img/3-ip14.jpg' },
+        { src: '../Img/4-ip14.jpg' },
+    ];
+    const handleSlide = (index) => {
+        setCurrent(index);
+    };
+    const countUp = () => {
+        setCount(count + 1);
+    };
+    const countDown = () => {
+        setCount(count - 1);
+    };
     return (
         <div className="productSell">
             <div className="productSell-container">
                 <div className="productImg">
-                    <img src="../Img/iphone14.png" alt="" className="productImg-main" />
+                    <img src={img[current].src} alt="" className="productImg-main" />
                     <div className="productImg-sub">
-                        <img src="../Img/iphone14.png" alt="" />
-                        <img src="../Img/1-ip14.jpg" alt="" />
-                        <img src="../Img/3-ip14.jpg" alt="" />
-                        <img src="../Img/4-ip14.jpg" alt="" />
+                        {img.map((slide, index) => {
+                            return <img src={slide.src} alt="dt" key={index} onClick={() => handleSlide(index)} />;
+                        })}
                     </div>
                 </div>
                 <div className="productSell-item">
@@ -59,9 +75,11 @@ const ProductSell = () => {
                             <div className="quantity-toBuy">
                                 <span>Số lượng</span>
                                 <div className="product-count">
-                                    <button>-</button>
-                                    <span>1</span>
-                                    <button>+</button>
+                                    <button disabled={count <= 1} onClick={countDown}>
+                                        -
+                                    </button>
+                                    <span>{count}</span>
+                                    <button onClick={countUp}>+</button>
                                 </div>
                             </div>
                             <span>Hiện có: 45 sản phẩm trong kho</span>

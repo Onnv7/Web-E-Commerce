@@ -31,7 +31,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -60,7 +60,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -89,7 +89,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -118,7 +118,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -147,7 +147,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -176,7 +176,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -205,7 +205,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>
@@ -234,7 +234,7 @@ const Product = () => {
                                 <button className="product-btn">Đấu giá ngay</button>
                                 <div className="product-shop">
                                     <Heart className="product-liked" variant="Bold" />
-                                    <ShoppingCart />
+                                    <ShoppingCart className="product-liked" />
                                 </div>
                             </div>
                         </a>

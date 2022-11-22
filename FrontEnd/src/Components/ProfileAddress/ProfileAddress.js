@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './profileAddress.scss';
 
 const ProfileAddress = () => {
+    const [show, setShow] = useState('none');
+
+    const addAddress = () => {
+        setShow('');
+    };
+    const cancel = () => {
+        setShow('none');
+    };
     return (
         <div className="profileAddress">
             <div className="profileAddress-container">
                 <div className="profileAddress-title">
                     <span>Địa chỉ</span>
-                    <button>Thêm địa chỉ mới</button>
+                    <button onClick={addAddress}>Thêm địa chỉ mới</button>
                 </div>
                 <div className="profileAddress-content">
                     <span className="profileAddress-item">Địa chỉ 1</span>
@@ -38,7 +46,7 @@ const ProfileAddress = () => {
                     </div>
                 </div>
             </div>
-            <div className="addressModal none">
+            <div className={`addressModal ${show}`}>
                 <div className="addressModal-container">
                     <span>Thêm địa chỉ mới</span>
                     <div className="addressModal-box">
@@ -60,7 +68,7 @@ const ProfileAddress = () => {
                         <input type="text" />
                     </div>
                     <div className="addressModal-btn">
-                        <button>Huỷ</button>
+                        <button onClick={cancel}>Huỷ</button>
                         <button>Thêm địa chỉ</button>
                     </div>
                 </div>

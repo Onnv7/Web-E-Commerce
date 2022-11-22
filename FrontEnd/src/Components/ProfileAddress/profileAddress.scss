@@ -26,6 +26,11 @@
     height: 50px;
     font-size: 2.6rem;
     color: rgba(220, 91, 14, 0.6);
+    &:hover{
+        background-color: var(--primary-color);
+        color: #fff;
+        cursor: pointer;
+    }
 }
 .profileAddress-content{
     margin: 0 60px;
@@ -63,9 +68,18 @@
     &:first-child{
         background-color: #fff;
         color: rgba(220, 91, 14, 0.6);
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: #fff;
+        }
     }
     &:last-child{
         background-color: rgba(220, 91, 14, 0.7);
+        &:hover{
+            cursor: pointer;
+            color: var(--primary-color);
+        }
     }
 
 }
@@ -169,10 +183,19 @@
         background-color: #fff;
         border: 1px solid var(--primary-color);
         border-radius: 20px;
+        cursor: pointer;
 
         &:nth-child(2){
             background-color: var(--primary-color);
             color: #fff;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+        &:nth-child(1){
+            &:hover{
+                color: var(--primary-color);
+            }
         }
     }
 }

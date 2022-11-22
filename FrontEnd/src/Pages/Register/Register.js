@@ -1,29 +1,42 @@
 import { CloseSquare } from 'iconsax-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
 import './register.scss';
 
 const Register = () => {
+    const navigate = useNavigate();
+
+    const gotoHome = () => {
+        navigate('/');
+    };
+    const gotoLogin = () => {
+        navigate('/login');
+    };
     return (
         <div className="register">
             <div className="register-Container">
                 <div className="register-Content">
                     <div className="register-header">
                         <div className="register-title">
-                            <span className="register-title__name">Trang chủ</span>
+                            <span className="register-title__name" onClick={gotoHome}>
+                                Trang chủ
+                            </span>
                             <span className="register-title__line">|</span>
                             <span className="register-title__name">Hỗ trợ</span>
                         </div>
                         <img src="../Img/logovip.png" alt="" className="register-logo" />
                         <div className="register-title">
-                            <span className="register-title__name">Đăng nhập</span>
+                            <span className="register-title__name" onClick={gotoLogin}>
+                                Đăng nhập
+                            </span>
                             <span className="register-title__line">|</span>
                             <span className="register-title__name active">Đăng Kí</span>
                         </div>
                     </div>
                     <div className="register-body">
                         <div className="register-form">
-                            <span className="register-formTitle">Đăng Nhập</span>
+                            <span className="register-formTitle">Đăng Ký</span>
                             <div className="formControl-Container">
                                 <div className="formControl">
                                     <div className="formControl-account">
@@ -65,8 +78,8 @@ const Register = () => {
                                 </div>
                             </div>
                             <div className="register-formLog">
-                                <span>Bạn chưa có tài khoản ?</span>
-                                <span>Đăng ký ngay tại đây</span>
+                                <span>Bạn đã có tài khoản ?</span>
+                                <span onClick={gotoLogin}>Đăng nhập tại đây</span>
                             </div>
                         </div>
                     </div>

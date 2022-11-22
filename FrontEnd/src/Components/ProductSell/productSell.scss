@@ -34,6 +34,11 @@
     width: 110px;
     object-fit: cover;
     border-radius: 10px;
+    
+
+    &:hover{
+        cursor: pointer;
+    }
 }
 .productSell-item,
 .productAuction-item{
@@ -139,12 +144,16 @@
     height: 28px;   
     border: 1px solid rgba(0, 0, 0, 0.5);
     background-color: #FFF;
+    cursor: pointer;
     &:first-child{
         border-radius: 5px 0px 0px 5px;
     }
 
     &:last-child{
         border-radius: 0px 5px 5px 0px;
+    }
+    &:hover{
+        opacity: 0.8;
     }
 }
 .product-count>span{
@@ -166,6 +175,11 @@
     gap: 5px;
     font-size: 2.4rem;
 
+
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
     &:first-child{
         width: 380px;
         height: 60px;

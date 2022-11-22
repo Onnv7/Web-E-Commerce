@@ -9,9 +9,36 @@ import ProductPay from '../ProductPay/ProductPay';
 import ProductNote from '../ProductNote/ProductNote';
 import { useLocation } from 'react-router-dom';
 const ProfileNav = () => {
-    // useEffect(() => {
-    //     if (destination === 'note') return setPage(<ProductNote />);
-    // }, []);
+    const location = useLocation();
+    const [showNav, setShowNav] = useState('hide');
+    const [slide, setSlide] = useState();
+    const showSubNav = (e) => {
+        if (showNav == 'hide') {
+            setShowNav('');
+            e.stopPropagation();
+        } else setShowNav('hide');
+    };
+    const openProfile = () => {
+        setSlide(<ProfileInfo />);
+    };
+    const openAddress = () => {
+        setSlide(<ProfileAddress />);
+    };
+    const openPass = () => {
+        setSlide(<PasswordChange />);
+    };
+    const openWallet = () => {
+        setSlide(<WalletManage />);
+    };
+    const openCart = () => {
+        setSlide(<ProductPay />);
+    };
+    const openNote = () => {
+        setSlide(<ProductNote />);
+    };
+    useEffect(() => {
+        if (location.state.destination === 'note') setSlide(<ProductNote />);
+    }, []);
     return (
         <div className="profileNav">
             <div className="profileNav-container">
@@ -21,47 +48,45 @@ const ProfileNav = () => {
                     <button>Thay ảnh đại diện</button>
                     <ul className="profile-nav">
                         <li className="profile-navItem">
-                            <a href="#">
+                            <span onClick={showSubNav}>
                                 <User variant="Bold" /> Tài khoản
-                            </a>
-                            <ul className="profile-subnav">
+                            </span>
+                            <ul className={`profile-subnav ${showNav}`}>
                                 <li className="profile-subItem">
-                                    <a href="#">{'>'} Hồ sơ cá nhân</a>
+                                    <span onClick={openProfile}>{'>'} Hồ sơ cá nhân</span>
                                 </li>
                                 <li className="profile-subItem">
-                                    <a href="#">{'>'} Địa chỉ</a>
+                                    <span onClick={openAddress}>{'>'} Địa chỉ</span>
                                 </li>
                                 <li className="profile-subItem">
-                                    <a href="#">{'>'} Đổi mật khẩu</a>
+                                    <span onClick={openPass}>{'>'} Đổi mật khẩu</span>
                                 </li>
                                 <li className="profile-subItem">
-                                    <a href="#">{'>'} Quản lí ví</a>
+                                    <span onClick={openWallet}>{'>'} Quản lí ví</span>
                                 </li>
                             </ul>
                         </li>
                         <li className="profile-navItem">
-                            <a href="#">
+                            <span onClick={openCart}>
                                 <ShoppingCart variant="Bold" />
                                 Giỏ hàng
-                            </a>
+                            </span>
                         </li>
                         <li className="profile-navItem">
-                            <a href="#">
+                            <span onClick={openNote}>
                                 <Note1 variant="Bold" />
                                 Danh sách lưu ý
-                            </a>
+                            </span>
                         </li>
                         <li className="profile-navItem">
-                            <a href="#">
+                            <span>
                                 <Notification variant="Bold" />
                                 Thông báo
-                            </a>
+                            </span>
                         </li>
                     </ul>
                 </div>
-                <div className="profile-userContainer">
-                    <ProductNote />
-                </div>
+                <div className="profile-userContainer">{slide}</div>
             </div>
         </div>
     );

@@ -29,3 +29,9 @@
     color: var(--sub-color);
     text-decoration: underline;
 }
+.product-liked{
+    &:hover{
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+}

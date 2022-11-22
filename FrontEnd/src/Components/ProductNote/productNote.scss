@@ -16,6 +16,15 @@
             color: var(--primary-color);
             border-bottom: 2px solid #DC5B0E;
         }
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productNote-searchBox{
@@ -44,6 +53,10 @@
         border: none;
         margin: 3px;
         outline: none;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productNote-searchIcon{
@@ -99,6 +112,10 @@
             background: var(--primary-color);
             color: #fff;
         }
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productNote-body{
@@ -142,6 +159,10 @@
         border: none;
         font-size: 2rem;
         color: #fff;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 
     >span{
@@ -174,6 +195,10 @@
         background-color: #fff;
         border: 1px solid var(--primary-color);
         border-radius: 10px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productNoteAuc-footer{
@@ -189,6 +214,11 @@
         border: none;
         font-size: 2.4rem;
         color: #fff;
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productNoteAuc-footerInfo{
@@ -203,4 +233,7 @@
         gap: 6px;
         font-size: 2.6rem;
     }
+}
+.tab-hide{
+    display: none;
 }
