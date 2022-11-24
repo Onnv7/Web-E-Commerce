@@ -99,6 +99,10 @@
     font-size: 1.8rem;
     gap: 8px;   
 }
+.comment-btn{
+    display: flex;
+    align-items: center;
+}
 .comment-btn>button{
     width: 72px;
     height: 30px;
@@ -111,11 +115,19 @@
     gap: 2px;
     color: var(--primary-color);
     margin-right: 6px;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
 }
 .comment-warn{
     color: var(--primary-color);
     width: 30px;
     height: 30px;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
 }
 .comment-detail{
     display: flex;

@@ -26,6 +26,10 @@
     font-size: 2.4rem;
     color: var(--sub-color);
     cursor: pointer;
+
+    &:hover{
+        color: var(--primary-color);
+    }
 }
 .active{
     color: var(--primary-color);

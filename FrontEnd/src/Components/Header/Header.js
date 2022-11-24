@@ -1,8 +1,10 @@
 import React from 'react';
 import './header.scss';
 import { Home, Judge, SearchNormal1, ShoppingCart } from 'iconsax-react';
+import ImageSilder from '../ImageSlider/ImageSilder';
+import { SliderData } from '../ImageSlider/SliderData';
 
-const Header = () => {
+const Header = ({ style, styles }) => {
     return (
         <div className="header">
             <div className="headerContainer">
@@ -29,7 +31,7 @@ const Header = () => {
                         <span className="line4"></span>
                     </div>
                 </div>
-                <div className="headerList">
+                <div className={styles === 'hideNav' ? 'headerList none' : 'headerList'}>
                     <div className="headerNav">
                         <div className="headerNav-item active">
                             <Home className="headerNav-item__icon" />
@@ -57,8 +59,8 @@ const Header = () => {
                             <a href="#">Điện tử</a>
                         </div>
                     </div>
-                    <div className="headerImg">
-                        <img src="../Img/bg_vutru.jpg" alt="" />
+                    <div className={style === 'hideImg' ? 'headerImg none' : 'headerImg'}>
+                        <ImageSilder slides={SliderData} />
                     </div>
                 </div>
             </div>

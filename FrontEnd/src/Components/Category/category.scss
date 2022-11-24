@@ -13,6 +13,12 @@
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     margin-bottom: 10px;
+
+    &:hover{
+        border: 1px solid var(--primary-color);
+        box-shadow: 0px 0px 5px 2px var(--primary-color);
+        cursor: pointer;
+    }
 }
 .cateItem-Content{
     display: flex;

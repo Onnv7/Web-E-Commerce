@@ -13,8 +13,9 @@
     transition: transform linear 0.1s;
 }
 .auctionItem:hover{
-    box-shadow: 0 1px 20px 0 rgba(0,0,0,0.05);
     transform: translateY(-1px);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0px 0px 5px 2px var(--primary-color);
 }
 .auction-img{
     width: 260px;
@@ -52,6 +53,10 @@
     width: 130px;
     height: 40px;
     color: #fff;
+    &:hover{
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
 }
 .auction-liked{
     width: 26px;

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './passwordChange.scss';
 import { CloseSquare, Eye, EyeSlash } from 'iconsax-react';
 import ResetPass from '../ResetPass/ResetPass';
 
 const PasswordChange = () => {
+    const [show, setShow] = useState('');
+    const showReset = () => {
+        if (show === 'show') {
+            setShow('');
+        } else setShow('show');
+    };
     return (
         <div className="passwordChange">
             <div className="passwordChange-container">
                 <div className="passwordChange-title">
                     <span>Đổi mật khẩu</span>
-                    <button>Quên mật khẩu</button>
+                    <button onClick={showReset}>Quên mật khẩu</button>
                 </div>
                 <div className="passwordChange-content">
                     <div className="passwordChange-box">
@@ -40,7 +46,7 @@ const PasswordChange = () => {
                     </div>
                 </div>
             </div>
-            <ResetPass />
+            <ResetPass style={show} />
         </div>
     );
 };

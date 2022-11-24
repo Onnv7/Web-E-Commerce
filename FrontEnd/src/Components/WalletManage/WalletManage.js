@@ -47,7 +47,7 @@ const WalletManage = () => {
                             </span>
                             <div className="walletManage-paymentBox">
                                 <div className="walletManage-input">
-                                    <input type="number" placeholder="Nhập số lượng Ruby muốn rút" />
+                                    <input type="number" placeholder="Nhập số lượng Ruby muốn rút" min={1} />
                                     <Crown className="walletManage-icon" variant="Bold" />
                                 </div>
                                 <button>Rút</button>

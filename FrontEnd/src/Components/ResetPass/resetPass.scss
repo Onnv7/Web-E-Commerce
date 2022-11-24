@@ -8,9 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 .completePass-container.none,.comfirmPass-container.none,
-.rePass-container.none, .resetPass.none
+.rePass-container.none, .resetPass.none,.resetPass-container.none
 {
     display: none;
 }
@@ -89,6 +90,10 @@
         color: #fff;
         font-size: 2.8rem;
         margin: 30px 0 12px;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
     }
 }
 .comfirmPass-icon{
@@ -115,6 +120,7 @@
     >span{
         &:nth-child(1),&:nth-child(3){
             color: var(--primary-color);
+            cursor: pointer;
         }
     }
 }
@@ -151,6 +157,10 @@
         font-size: 2.8rem;
         color: #fff;
         border: none;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
     }
 }
 .rePass-box{
@@ -229,6 +239,11 @@
         color: rgba(220, 91, 14, 0.6);
         border: none;
         font-size: 2.8rem;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: #fff;
+        }
     }
 }
 .completePass-icon{

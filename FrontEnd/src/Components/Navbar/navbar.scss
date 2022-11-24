@@ -22,12 +22,12 @@
 .navItem{
     position: relative;
     color: var(--sub-color);
-    text-decoration: none;
     margin-right: 48px;
     font-size: 2.2rem;
     
     &:hover{
         color: var(--primary-color);
+        cursor: pointer;
     }
 }
 .navItem--space::after{

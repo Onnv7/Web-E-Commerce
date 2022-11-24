@@ -1,7 +1,6 @@
 import { CalendarEdit, Edit2 } from 'iconsax-react';
 import React from 'react';
 import './profileInfo.scss';
-import DatePicker from 'react-datepicker';
 
 const ProfileInfo = () => {
     return (
@@ -20,15 +19,15 @@ const ProfileInfo = () => {
                         </div>
                         <div className="user-box">
                             <div className="user-input">
-                                <input type="text" value="thegioididong2022" />
+                                <input type="text" defaultValue="thegioididong2022" />
                                 <Edit2 />
                             </div>
                             <div className="user-input">
-                                <input type="text" value="Thế giới di động" />
+                                <input type="text" defaultValue="Thế giới di động" />
                                 <Edit2 />
                             </div>
                             <div className="user-birth">
-                                <input type="date" value="2002-06-20" />
+                                <input type="date" defaultValue="2002-06-20" />
                                 <CalendarEdit />
                             </div>
                             <div className="user-sex">
@@ -46,11 +45,11 @@ const ProfileInfo = () => {
                                 </div>
                             </div>
                             <div className="user-input">
-                                <input type="email" value="thegioididong@gmail.com" />
+                                <input type="email" defaultValue="thegioididong@gmail.com" />
                                 <Edit2 />
                             </div>
                             <div className="user-input">
-                                <input type="text" value="0909999999" />
+                                <input type="text" defaultValue="0909999999" />
                                 <Edit2 />
                             </div>
                         </div>
