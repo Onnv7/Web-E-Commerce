@@ -2,20 +2,25 @@ import mongoose from "mongoose";
 
 const checkoutSchema = new mongoose.Schema(
   {
-    product: {
+    productItems: [
+      {
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+        sizeProduct: { type: String, required: true },
+        colorProduct: { type: String, required: true },
+        _id: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+      },
+    ],
+    shop: {
       type: mongoose.Schema.ObjectId,
-      ref: "Product",
+      ref: "Shop",
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    // shop:
-    // {
-    //   type: mongoose.Schema.ObjectId,
-    //   required: true,
-    // },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
@@ -25,39 +30,20 @@ const checkoutSchema = new mongoose.Schema(
       type: String,
       required: [true, "Checkout must has a deliveryAddress"],
     },
-    quantity: {
+    totalCost: {
       type: Number,
       required: true,
-    },
-    price: {
-      type: Number,
-      required: true
     },
     shipCost: {
       type: Number,
       default: 0,
     },
-
-    voucher: {
-      type: Number,
-      default: 0,
-    },
-
-    totalCost: {
-      type: Number,
-      required: [true, "Checkout must has the totalCost"],
-    },
-    status: {
+    note: {
       type: String,
-      enum: ["Awaiting confirmation", "Delivering", "Received"],
-      required: true,
-      default: "Awaiting confirmation"
-    }
+    },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
 );
 
