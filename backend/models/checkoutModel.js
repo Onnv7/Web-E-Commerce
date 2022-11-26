@@ -9,6 +9,11 @@ const checkoutSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
         sizeProduct: { type: String, required: true },
         colorProduct: { type: String, required: true },
+        shop: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Shop",
+          required: true,
+        },
         _id: {
           type: mongoose.Schema.ObjectId,
           ref: "Product",
@@ -16,11 +21,6 @@ const checkoutSchema = new mongoose.Schema(
         },
       },
     ],
-    shop: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Shop",
-      required: true,
-    },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
