@@ -67,9 +67,9 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  category: {
+  subCategory: {
     type: mongoose.Schema.ObjectId,
-    ref: "Shop.category",
+    ref: "Shop.subCategory",
   },
 });
 
