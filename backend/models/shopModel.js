@@ -45,6 +45,10 @@ const shopSchema = new mongoose.Schema(
         },
       ],
     },
+    mainCategory: {
+      type: mongoose.Schema.ObjectId,
+      ref: "MainCategory",
+    },
   },
   { timestamps: true }
 );
