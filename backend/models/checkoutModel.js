@@ -40,7 +40,7 @@ const checkoutSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["wating", "delivering", "delivered"],
+      enum: ["waiting", "delivering", "delivered"],
     },
     note: {
       type: String,
