@@ -6,6 +6,7 @@ const MainCategorySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    img: { type: String, default: "default.jpg" },
   },
   { timestamps: true }
 );
