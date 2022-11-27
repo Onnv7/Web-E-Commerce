@@ -20,10 +20,14 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     address: [String],
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+    },
     photo: { type: String, default: "default.jpg" },
     role: {
       type: String,
-      enum: ["user", "buyer", "admin"],
+      enum: ["user", "seller", "admin", "shipper"],
       required: true,
       default: "user",
     },
