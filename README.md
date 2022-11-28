@@ -2,8 +2,8 @@
 
 ## Thông tin nhóm 16:
 
-- Nguyễn Văn An 20110434
-- Nguyễn Minh Đức 20110461
+- Nguyễn Văn An - 20110434
+- Nguyễn Minh Đức - 20110461
 - Nguyễn Tiến Phát
 - Bùi Sỹ Phú
 
@@ -14,3 +14,7 @@
 ## 2. Analytics
 
 `https://drive.google.com/drive/folders/1ES_P5sI-eiegR969ruEfV7hkgmbaoZe9?usp=share_link`
+
+## 3. UX/UI
+
+`https://www.figma.com/file/vJ0es210NLypZfxBY5vpkV/Website?node-id=0%3A1`
