@@ -14,3 +14,7 @@
 ## 2. Analytics
 
 `https://drive.google.com/drive/folders/1ES_P5sI-eiegR969ruEfV7hkgmbaoZe9?usp=share_link`
+
+## 3. UX/UI
+
+`https://www.figma.com/file/vJ0es210NLypZfxBY5vpkV/Website?node-id=0%3A1`
