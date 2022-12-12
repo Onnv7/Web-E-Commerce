@@ -3,21 +3,21 @@ const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
 export function convertImageToData(coverEncoded) {
     if (coverEncoded == null) return;
 
-    var data = getDataForImage(coverEncoded);
+    var data = getDataFromImage(coverEncoded);
 
     return data;
 }
 
 export function saveFileObj(doc, coverEncoded) {
     if (coverEncoded == null) return;
-    var data = getDataForImage(coverEncoded);
+    var data = getDataFromImage(coverEncoded);
     doc.img = data;
 }
 export function saveSingleFile(doc, coverEncoded) {
     if (coverEncoded == null) return
 
     var img = [];
-    var data = getDataForImage(coverEncoded);
+    var data = getDataFromImage(coverEncoded);
     img.push(data);
     doc.img = img;
 }
@@ -27,7 +27,7 @@ export function saveMultipleFile(doc, coverEncoded) {
     var img = [];
     var data = {};
     for (i = 0; i < coverEncoded.length; i++) {
-        var data = getDataForImage(coverEncoded[i]);
+        var data = getDataFromImage(coverEncoded[i]);
         img.push(data);
     }
     doc.img = img;
