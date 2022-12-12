@@ -2,10 +2,10 @@
 
 ## Thông tin nhóm 16:
 
-- Nguyễn Văn An - 20110434
-- Nguyễn Minh Đức - 20110461
-- Nguyễn Tiến Phát
-- Bùi Sỹ Phú
+-   Nguyễn Văn An - 20110434
+-   Nguyễn Minh Đức - 20110461
+-   Nguyễn Tiến Phát
+-   Bùi Sỹ Phú
 
 ## 1. Entity Relationship Diagram
 
@@ -13,7 +13,7 @@
 
 ## 2. Analytics
 
-`https://drive.google.com/drive/folders/1ES_P5sI-eiegR969ruEfV7hkgmbaoZe9?usp=share_link`
+`https://docs.google.com/document/d/10aNEnWNUUZpASCu8gr0kJua7cbfgwwFu/edit?usp=sharing&ouid=114404046657722043989&rtpof=true&sd=true`
 
 ## 3. UX/UI
 

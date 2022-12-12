@@ -71,6 +71,23 @@ const Ruby = () => {
                 />
                 <input type="submit" value="Create main category" />
             </form>
+            <form action="http://localhost:8800/backend/reviews" method="post">
+                <input type="text" name="user" placeholder="user" />
+                <input type="text" name="product" placeholder="product" />
+                <input type="text" name="content" placeholder="content" />
+                <input type="number" name="rating" value={5} />
+                <FilePond
+                    files={files}
+                    onupdatefiles={setFiles}
+                    allowMultiple={true}
+                    maxFiles={3}
+                    maxFileSize="3MB"
+                    //server="/api"
+                    name="img"
+                    labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                />
+                <input type="submit" value="Create Review" />
+            </form>
         </div>
     );
 };

@@ -21,8 +21,8 @@ const Category = () => {
             <div className="category">
                 <div className="grid wide">
                     <div className="row sm-gutter">
-                        {categories.map((c) => (
-                            <CategoryItem category={c} />
+                        {categories.map((c, index) => (
+                            <CategoryItem category={c} key={index} />
                         ))}
                         <div className="col c-3">
                             <a href="" className="cateItem">

@@ -1,5 +1,12 @@
 import express from "express";
-import { updateUser, updateUserPassword, deleteUser, selectUser, selectAllUsers } from "../controllers/userController.js";
+import {
+    selectUserByUserName,
+    updateUser,
+    updateUserPassword,
+    deleteUser,
+    selectUser,
+    selectAllUsers,
+} from "../controllers/userController.js";
 import { verifyToken, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
@@ -7,7 +14,9 @@ const router = express.Router();
 // select all users
 router.get("/", selectAllUsers);
 
-// select a user 
+router.get("/username/:username", selectUserByUserName);
+
+// select a user
 router.get("/:id", selectUser);
 
 //update a user
@@ -18,6 +27,5 @@ router.patch("/:id", updateUserPassword);
 
 //delete a user
 router.delete("/:id", deleteUser);
-
 
 export default router;
