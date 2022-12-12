@@ -1,12 +1,13 @@
 import express from "express";
 import {
-  getProductById,
-  getAllProducts,
-  updateProduct,
-  deleteProduct,
-  selectProductsByCategory,
-  selectAllProducts,
-  createProduct,
+    getProductBySlug,
+    getProductById,
+    getAllProducts,
+    updateProduct,
+    deleteProduct,
+    selectProductsByCategory,
+    selectAllProducts,
+    createProduct,
 } from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -18,12 +19,14 @@ router.get("/", getAllProducts);
 router.post("/", createProduct);
 
 // select all products by shop
-router.get("/:shopId", selectAllProducts);
+router.get("/shop/:shopId", selectAllProducts);
 
 // select all products by category
-router.get("/:shopId/:cgrId", selectProductsByCategory);
+router.get("/shop/:shopId/:cgrId", selectProductsByCategory);
 
-router.get("/id/:id", getProductById);
+router.get("/slug/:slug", getProductBySlug);
+
+router.get("/:id", getProductById);
 
 // delete a product
 router.delete("/:id", deleteProduct);

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import './productSell.scss';
-import { Message2, Note1, ShoppingCart, Star1 } from 'iconsax-react';
+import React, { useEffect, useState } from "react";
+import "./productSell.scss";
+import { Message2, Note1, ShoppingCart, Star1 } from "iconsax-react";
+import axios from "./../../hooks/axios.js";
 
-const ProductSell = () => {
+const ProductSell = ({ id }) => {
+    const [product, setProduct] = useState();
     const [current, setCurrent] = useState(0);
     const [count, setCount] = useState(1);
-    const img = [
-        { src: '../Img/iphone14.png' },
-        { src: '../Img/1-ip14.jpg' },
-        { src: '../Img/3-ip14.jpg' },
-        { src: '../Img/4-ip14.jpg' },
-    ];
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/products/${id}`);
+            setProduct(data);
+        };
+        fetchData();
+    }, [id]);
+
     const handleSlide = (index) => {
         setCurrent(index);
     };
@@ -24,18 +29,27 @@ const ProductSell = () => {
         <div className="productSell">
             <div className="productSell-container">
                 <div className="productImg">
-                    <img src={img[current].src} alt="" className="productImg-main" />
+                    <img
+                        src={product.imgPath[0]}
+                        alt=""
+                        className="productImg-main"
+                    />
                     <div className="productImg-sub">
-                        {img.map((slide, index) => {
-                            return <img src={slide.src} alt="dt" key={index} onClick={() => handleSlide(index)} />;
+                        {product.imgPath.map((slide, index) => {
+                            return (
+                                <img
+                                    src={slide}
+                                    alt="dt"
+                                    key={index}
+                                    onClick={() => handleSlide(index)}
+                                />
+                            );
                         })}
                     </div>
                 </div>
                 <div className="productSell-item">
                     <div className="productSell-title">
-                        <span className="productSell-name">
-                            Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng
-                        </span>
+                        <span className="productSell-name">{product.name}</span>
                         <div className="productSell-rate">
                             <div className="product-review">
                                 <div className="productSell-star">
@@ -45,48 +59,56 @@ const ProductSell = () => {
                                     <Star1 variant="Bold" size={18} />
                                     <Star1 variant="Bold" size={18} />
                                 </div>
-                                <span>289 lượt đánh giá</span>
+                                <span>
+                                    {product.ratingQuantity} lượt đánh giá
+                                </span>
                             </div>
-                            <span>45 lượt bán</span>
+                            <span>{product.soldQuantity} lượt bán</span>
                         </div>
                     </div>
                     <div className="productSell-price">
                         <div className="productPrice">
                             <span>Giá:</span>
-                            <span>500.000 VNĐ</span>
-                            <span>400.000 VNĐ - 450.000 VNĐ</span>
+                            <span>{product.price} VNĐ</span>
+                            <span>{product.priceDiscount} VNĐ</span>
                         </div>
                         <div className="productFee">
                             <span>Phí vận chuyển:</span>
-                            <span>Vận chuyển đến 435 abc xyz mnk, quan 9, ho chi minh 18.000 VND - 20.000 VND</span>
+                            <span>
+                                Vận chuyển đến 435 abc xyz mnk, quan 9, ho chi
+                                minh 18.000 VND - 20.000 VND
+                            </span>
                         </div>
                     </div>
                     <div className="productList">
                         <div className="product-capacity">
-                            <span>Dung lượng: </span>
+                            <span>Size: </span>
                             <div className="product-capacity__size">
-                                <button>128 GB</button>
-                                <button>256 GB</button>
-                                <button>512 GB</button>
-                                <button>1 TB</button>
+                                {product.size.map((s) => (
+                                    <button key={s}>128 GB</button>
+                                ))}
                             </div>
                         </div>
                         <div className="product-quantity">
                             <div className="quantity-toBuy">
                                 <span>Số lượng</span>
                                 <div className="product-count">
-                                    <button disabled={count <= 1} onClick={countDown}>
+                                    <button
+                                        disabled={count <= 1}
+                                        onClick={countDown}
+                                    >
                                         -
                                     </button>
                                     <span>{count}</span>
                                     <button onClick={countUp}>+</button>
                                 </div>
                             </div>
-                            <span>Hiện có: 45 sản phẩm trong kho</span>
+                            <span>
+                                Hiện có: {product.quantity} sản phẩm trong kho
+                            </span>
                         </div>
                         <div className="productSell-btn">
                             <button>
-                                {' '}
                                 <ShoppingCart size={32} /> Thêm vào giỏ hàng
                             </button>
                             <button>Mua ngay</button>
@@ -102,7 +124,11 @@ const ProductSell = () => {
             </div>
             <div className="productAuction-container none">
                 <div className="productImg">
-                    <img src="../Img/iphone14.png" alt="" className="productImg-main" />
+                    <img
+                        src="../Img/iphone14.png"
+                        alt=""
+                        className="productImg-main"
+                    />
                     <div className="productImg-sub">
                         <img src="../Img/iphone14.png" alt="" />
                         <img src="../Img/1-ip14.jpg" alt="" />
@@ -113,7 +139,8 @@ const ProductSell = () => {
                 <div className="productAuction-item">
                     <div className="productAuction-title">
                         <span className="productAuction-name">
-                            Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng
+                            Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính
+                            hãng
                         </span>
                     </div>
                     <div className="productAuction-timeList">
@@ -150,10 +177,16 @@ const ProductSell = () => {
                     <div className="productAuction-auctionBox">
                         <div className="productAuction-inputBox">
                             <div className="productAuction-input">
-                                <input type="text" placeholder="Nhập số tiền định đấu giá" />
+                                <input
+                                    type="text"
+                                    placeholder="Nhập số tiền định đấu giá"
+                                />
                                 <span>VND</span>
                             </div>
-                            <span>Nhập số tiền đấu giá phải nhỏ hơn giá tiền hiện tại</span>
+                            <span>
+                                Nhập số tiền đấu giá phải nhỏ hơn giá tiền hiện
+                                tại
+                            </span>
                         </div>
                         <div className="productAuction-btn">
                             <button>đấu giá</button>

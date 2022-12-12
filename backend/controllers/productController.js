@@ -63,6 +63,16 @@ export const getProductById = async (req, res, next) => {
     next(err);
   }
 };
+// select product by SLug
+export const getProductBySlug = async (req, res, next) => {
+  try {
+    const products = await Product.findOne({ slug: req.params.slug });
+    const result = getUrlImageForArrObject(products);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
 // create a new product
 export const createProduct = async (req, res, next) => {
   try {
