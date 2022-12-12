@@ -1,6 +1,6 @@
 import express from "express";
 import {
-    getProductBySlug,
+    getIDBySlug,
     getProductById,
     getAllProducts,
     updateProduct,
@@ -24,7 +24,7 @@ router.get("/shop/:shopId", selectAllProducts);
 // select all products by category
 router.get("/shop/:shopId/:cgrId", selectProductsByCategory);
 
-router.get("/slug/:slug", getProductBySlug);
+router.get("/slug/:slug", getIDBySlug);
 
 router.get("/:id", getProductById);
 

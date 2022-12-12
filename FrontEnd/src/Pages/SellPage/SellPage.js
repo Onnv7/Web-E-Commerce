@@ -14,14 +14,13 @@ import { useParams } from "react-router-dom";
 const SellPage = () => {
     const { slug } = useParams();
     const [id, setID] = useState();
-    const [product, setProduct] = useState();
     const url = useRef("/products/");
 
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/slug/${slug}`);
-            setProduct(data);
-            setID(data._id);
+            console.log(data);
+            setID(data);
         };
         fetchData();
     }, [slug]);
@@ -33,8 +32,8 @@ const SellPage = () => {
             <div className="sellContainer">
                 <ProductSell id={id} />
                 <Seller />
-                <ProductDetail />
-                <ProductEvulate />
+                <ProductDetail id={id} />
+                <ProductEvulate id={id} />
                 <ProductChild />
                 <hr color="#EE9533" />
             </div>

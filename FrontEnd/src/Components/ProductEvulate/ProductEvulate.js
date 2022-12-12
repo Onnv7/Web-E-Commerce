@@ -1,8 +1,8 @@
-import React from 'react';
-import './productEvulate.scss';
-import { Like1, Star1, Warning2 } from 'iconsax-react';
+import React from "react";
+import "./productEvulate.scss";
+import { Like1, Star1, Warning2 } from "iconsax-react";
 
-const ProductEvulate = () => {
+const ProductEvulate = ({ id }) => {
     return (
         <div className="productEvulate">
             <div className="productEvulate-container">
@@ -76,8 +76,10 @@ const ProductEvulate = () => {
                     </div>
                     <div className="comment-detail">
                         <span>
-                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của shopdunk ờ nhà thi đấu nguyễn du máy xài
-                            cực ổn r k có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm luôn.
+                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của
+                            shopdunk ờ nhà thi đấu nguyễn du máy xài cực ổn r k
+                            có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm
+                            luôn.
                         </span>
                         <div className="comment-img">
                             <img src="../Img/iphone14.png" alt="" />
@@ -109,8 +111,10 @@ const ProductEvulate = () => {
                     </div>
                     <div className="comment-detail">
                         <span>
-                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của shopdunk ờ nhà thi đấu nguyễn du máy xài
-                            cực ổn r k có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm luôn.
+                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của
+                            shopdunk ờ nhà thi đấu nguyễn du máy xài cực ổn r k
+                            có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm
+                            luôn.
                         </span>
                         <div className="comment-img">
                             <img src="../Img/iphone14.png" alt="" />
@@ -142,8 +146,10 @@ const ProductEvulate = () => {
                     </div>
                     <div className="comment-detail">
                         <span>
-                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của shopdunk ờ nhà thi đấu nguyễn du máy xài
-                            cực ổn r k có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm luôn.
+                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của
+                            shopdunk ờ nhà thi đấu nguyễn du máy xài cực ổn r k
+                            có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm
+                            luôn.
                         </span>
                         <div className="comment-img">
                             <img src="../Img/iphone14.png" alt="" />
@@ -175,8 +181,10 @@ const ProductEvulate = () => {
                     </div>
                     <div className="comment-detail">
                         <span>
-                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của shopdunk ờ nhà thi đấu nguyễn du máy xài
-                            cực ổn r k có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm luôn.
+                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của
+                            shopdunk ờ nhà thi đấu nguyễn du máy xài cực ổn r k
+                            có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm
+                            luôn.
                         </span>
                         <div className="comment-img">
                             <img src="../Img/iphone14.png" alt="" />
@@ -208,8 +216,10 @@ const ProductEvulate = () => {
                     </div>
                     <div className="comment-detail">
                         <span>
-                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của shopdunk ờ nhà thi đấu nguyễn du máy xài
-                            cực ổn r k có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm luôn.
+                            Có vinh dự đc khui máy tại sự kiện ra mắt 14pm của
+                            shopdunk ờ nhà thi đấu nguyễn du máy xài cực ổn r k
+                            có gì phải chê, còn đc bảo hành 900 ngày nữa 10 điểm
+                            luôn.
                         </span>
                         <div className="comment-img">
                             <img src="../Img/iphone14.png" alt="" />
