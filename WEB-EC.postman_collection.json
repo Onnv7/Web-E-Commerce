@@ -1,0 +1,948 @@
+{
+	"info": {
+		"_postman_id": "3e28ad15-287e-4612-830e-6c9745d7cbce",
+		"name": "WEB EC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24108109"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nguyen Van An\",\r\n    \"email\": \"nva9@gmail.com\",\r\n    \"phoneNumber\": \"0339930209\",\r\n    \"address\": \"Binh Duong\",\r\n    \"role\": \"user\",\r\n    \"username\": \"nva999\",\r\n    \"password\": \"112233\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/register",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "nguyen van an",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "nva1@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0339930201",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "Binh Duong",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "nva1",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "112233",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"nva999\",\r\n    \"password\": \"112233\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/login",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORY",
+			"item": [
+				{
+					"name": "Create a category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dien thoai samsung 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{category}}",
+							"host": [
+								"{{category}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select all category /shopId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{category}}/6360f9a2e2e7cea2c3e7d27d",
+							"host": [
+								"{{category}}"
+							],
+							"path": [
+								"6360f9a2e2e7cea2c3e7d27d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update category name /shopId/cgrId",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"BodySamsung\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{category}}/6360f9a2e2e7cea2c3e7d27d/6360fb6ae2e7cea2c3e7d289",
+							"host": [
+								"{{category}}"
+							],
+							"path": [
+								"6360f9a2e2e7cea2c3e7d27d",
+								"6360fb6ae2e7cea2c3e7d289"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update category quantity /shopId/cgrId",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{category}}/6360f9a2e2e7cea2c3e7d27d/6360fb6ae2e7cea2c3e7d289",
+							"host": [
+								"{{category}}"
+							],
+							"path": [
+								"6360f9a2e2e7cea2c3e7d27d",
+								"6360fb6ae2e7cea2c3e7d289"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete category /shopId/cgrId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{category}}/6360f9a2e2e7cea2c3e7d27d/6360fb6ae2e7cea2c3e7d289",
+							"host": [
+								"{{category}}"
+							],
+							"path": [
+								"6360f9a2e2e7cea2c3e7d27d",
+								"6360fb6ae2e7cea2c3e7d289"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{product}}/63611d7b293f93d098702606",
+							"host": [
+								"{{product}}"
+							],
+							"path": [
+								"63611d7b293f93d098702606"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"OPPO NEO OKLA\",\r\n    \"shop\": \"637a4a33646bb34217eca1e7\",\r\n    \"quantity\": 10,\r\n    \"brand\": \"Samsung\",\r\n    \"price\": 1000,\r\n    \"description\": \"This is a description\",\r\n    \"category\": \"637a4a33646bb34217eca1e8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product}}",
+							"host": [
+								"{{product}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select all products /shopId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product}}/637a4a33646bb34217eca1e7",
+							"host": [
+								"{{product}}"
+							],
+							"path": [
+								"637a4a33646bb34217eca1e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by category /shopId/cgrId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product}}/6360f9a2e2e7cea2c3e7d27d/63611b18a923556b90e817df",
+							"host": [
+								"{{product}}"
+							],
+							"path": [
+								"6360f9a2e2e7cea2c3e7d27d",
+								"63611b18a923556b90e817df"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"OPPO NEOOOOOO\",\r\n    \"shop\": \"6360f9a2e2e7cea2c3e7d27d\",\r\n    \"quantity\": 10,\r\n    \"brand\": \"Samsung\",\r\n    \"classify\":\r\n    [\r\n        {\r\n            \"standard\": \"Color\",\r\n            \"value\": [\"Red\", \"Blue\"],\r\n            \"price\": [1000, 2000]\r\n        }\r\n    ],\r\n    \"description\": \"This is a description\",\r\n    \"category\": \"63611b18a923556b90e817df\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product}}/63611e8dc7c784f431835b89",
+							"host": [
+								"{{product}}"
+							],
+							"path": [
+								"63611e8dc7c784f431835b89"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SHOP",
+			"item": [
+				{
+					"name": "Create shop",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Shoping\",\r\n    \"user\": \"636e50e30d18bab0b2ef6261\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop}}",
+							"host": [
+								"{{shop}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select a shop /userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{shop}}/636e50e30d18bab0b2ef6261",
+							"host": [
+								"{{shop}}"
+							],
+							"path": [
+								"636e50e30d18bab0b2ef6261"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select all shop",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{shop}}",
+							"host": [
+								"{{shop}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete shop /userId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{shop}}/635f295c0915bd133ac3fabd",
+							"host": [
+								"{{shop}}"
+							],
+							"path": [
+								"635f295c0915bd133ac3fabd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update shop /userId",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"shop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop}}/636e50e30d18bab0b2ef6261",
+							"host": [
+								"{{shop}}"
+							],
+							"path": [
+								"636e50e30d18bab0b2ef6261"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "Select all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{user}}",
+							"host": [
+								"{{user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user}}/636e50e30d18bab0b2ef6261",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"636e50e30d18bab0b2ef6261"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{user}}/id",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upadte user pwd",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ruby\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}/636e50e30d18bab0b2ef6261",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"636e50e30d18bab0b2ef6261"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user}}/6360eeac0104c6cfa2c81c61",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"6360eeac0104c6cfa2c81c61"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CONVERSATIONS",
+			"item": [
+				{
+					"name": "CREATE CONV",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\": \"635f295c0915bd133ac3fabd\",\r\n    \"receiverId\": \"636c6eb3720a999eeade0874\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{conv}}/",
+							"host": [
+								"{{conv}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CONV BY USER ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{conv}}/636c6eb3720a999eeade0874",
+							"host": [
+								"{{conv}}"
+							],
+							"path": [
+								"636c6eb3720a999eeade0874"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CONV BY FIRTUID/SECUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{conv}}/find/635f295c0915bd133ac3fabd/636c6eb3720a999eeade0874",
+							"host": [
+								"{{conv}}"
+							],
+							"path": [
+								"find",
+								"635f295c0915bd133ac3fabd",
+								"636c6eb3720a999eeade0874"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MESSAGES",
+			"item": [
+				{
+					"name": "CREATE MSG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conversationId\": \"636c6ed9720a999eeade0879\",\r\n    \"sender\": \"636c6eb3720a999eeade0874\",\r\n    \"text\": \"DAY LA SO 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{msg}}/",
+							"host": [
+								"{{msg}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MSG BY CONV ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{msg}}/636c6ed9720a999eeade0879",
+							"host": [
+								"{{msg}}"
+							],
+							"path": [
+								"636c6ed9720a999eeade0879"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PAYPAL",
+			"item": [
+				{
+					"name": "Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paypal}}/cancel",
+							"host": [
+								"{{paypal}}"
+							],
+							"path": [
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CHECKOUT",
+			"item": [
+				{
+					"name": "Create checkout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product\": \"637a4a33646bb34217eca1e7\",\r\n    \"quantity\": 2,\r\n    \"user\": \"636e50e30d18bab0b2ef6261\",\r\n    \"deliveryAddress\": \"Binh Duong\",\r\n    \"price\": 1500,\r\n    \"totalCost\": 1200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{checkout}}",
+							"host": [
+								"{{checkout}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select all checkout by user id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{checkout}}/all/636e50e30d18bab0b2ef6261",
+							"host": [
+								"{{checkout}}"
+							],
+							"path": [
+								"all",
+								"636e50e30d18bab0b2ef6261"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select checkout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{checkout}}/637a4bbe9e0b3058296b4070",
+							"host": [
+								"{{checkout}}"
+							],
+							"path": [
+								"637a4bbe9e0b3058296b4070"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update checkout",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{checkout}}/6379065c5eec9715ed120460",
+							"host": [
+								"{{checkout}}"
+							],
+							"path": [
+								"6379065c5eec9715ed120460"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete checkout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{checkout}}/637908e55eec9715ed120467",
+							"host": [
+								"{{checkout}}"
+							],
+							"path": [
+								"637908e55eec9715ed120467"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REVIEW",
+			"item": [
+				{
+					"name": "Create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"636e50e30d18bab0b2ef6261\",\r\n    \"product\": \"637a4a33646bb34217eca1e7\",\r\n    \"review\": \"This is review\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review}}",
+							"host": [
+								"{{review}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update review",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review}}/6378fb603be5df162da179aa",
+							"host": [
+								"{{review}}"
+							],
+							"path": [
+								"6378fb603be5df162da179aa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select all review by product id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{review}}/all/637a4a33646bb34217eca1e7",
+							"host": [
+								"{{review}}"
+							],
+							"path": [
+								"all",
+								"637a4a33646bb34217eca1e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{review}}/6378fc3376e65ac146af08e0",
+							"host": [
+								"{{review}}"
+							],
+							"path": [
+								"6378fc3376e65ac146af08e0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth",
+			"value": "http://localhost:8800/backend/auth",
+			"type": "string"
+		},
+		{
+			"key": "category",
+			"value": "http://localhost:8800/backend/categories",
+			"type": "string"
+		},
+		{
+			"key": "user",
+			"value": "http://localhost:8800/backend/users",
+			"type": "string"
+		},
+		{
+			"key": "shop",
+			"value": "http://localhost:8800/backend/shops",
+			"type": "string"
+		},
+		{
+			"key": "product",
+			"value": "http://localhost:8800/backend/products",
+			"type": "string"
+		},
+		{
+			"key": "conv",
+			"value": "http://localhost:8800/backend/conversations",
+			"type": "string"
+		},
+		{
+			"key": "msg",
+			"value": "http://localhost:8800/backend/messages",
+			"type": "string"
+		},
+		{
+			"key": "paypal",
+			"value": "http://localhost:8800/backend/paypal",
+			"type": "string"
+		},
+		{
+			"key": "checkout",
+			"value": "http://localhost:8800/backend/checkouts",
+			"type": "string"
+		},
+		{
+			"key": "review",
+			"value": "http://localhost:8800/backend/reviews",
+			"type": "string"
+		}
+	]
+}

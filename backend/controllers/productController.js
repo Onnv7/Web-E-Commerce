@@ -1,16 +1,17 @@
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
-import { saveSingleFile, saveMultipleFile, getDataForImage } from "../utils/saveFile.js";
+import {
+  saveSingleFile,
+  saveMultipleFile,
+  getDataForImage,
+} from "../utils/saveFile.js";
 import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
-
 
 // delete product
 export const deleteProduct = async (req, res, next) => {
   try {
-    await Product.findByIdAndDelete(
-      req.params.id
-    );
+    await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("Product has been deleted");
   } catch (err) {
     next(err);
@@ -20,18 +21,16 @@ export const deleteProduct = async (req, res, next) => {
 // select products by category
 export const selectProductsByCategory = async (req, res, next) => {
   try {
-    const products = await Product.find(
-      {
-        shop: req.params.idShop,
-        category: req.params.idCgr
-      }
-    );
+    const products = await Product.find({
+      shop: req.params.idShop,
+      category: req.params.idCgr,
+    });
     const result = getUrlImageForArrObject(products);
     res.status(200).json(result);
   } catch (error) {
     next(error);
   }
-}
+};
 
 // select all products by shop id
 export const selectAllProducts = async (req, res, next) => {
@@ -42,28 +41,44 @@ export const selectAllProducts = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
+// select all products
+export const getAllProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find({});
+    const result = getUrlImageForArrObject(products);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
+// select product by Id
+export const getProductById = async (req, res, next) => {
+  try {
+    const products = await Product.findById(req.params.id);
+    const result = getUrlImageForArrObject(products);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
 // create a new product
 export const createProduct = async (req, res, next) => {
   try {
     const image = req.body.img.slice(0, req.body.img.length);
     const body = { ...req.body };
     const product = new Product(body);
-    if (typeof req.body.img === 'string') {
-      saveSingleFile(product, image)
-    }
-    else
-      saveMultipleFile(product, image)
+    if (typeof req.body.img === "string") {
+      saveSingleFile(product, image);
+    } else saveMultipleFile(product, image);
 
     await product.save();
     res.status(200).send("Product has been created.");
-
+  } catch (err) {
+    next(err);
   }
-  catch (err) {
-    next(err)
-  }
-}
+};
 
 // update product by id
 export const updateProduct = async (req, res, next) => {
