@@ -1,6 +1,7 @@
 import MainCategory from "../models/mainCategoryModel.js";
 import { saveFileObj } from "../utils/saveFile.js";
-import { getImg } from "../utils/saveFile.js";
+
+import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 
 // create a new shop and up level for user => buyer
 export const createMainCategory = async (req, res, next) => {
@@ -55,7 +56,11 @@ export const deleteMainCategory = async (req, res, next) => {
 export const selectAllMainCategory = async (req, res, next) => {
     try {
         const mainCategory = await MainCategory.find();
-        res.status(200).json(mainCategory);
+        let imgPath = "";
+        if (mainCategory.img !== null)
+            imgPath = getImgPathFromImgData(mainCategory.img);
+        const { img, ...body } = mainCategory._doc;
+        res.status(200).json({ ...body, imgPath });
     } catch (err) {
         next(err);
     }

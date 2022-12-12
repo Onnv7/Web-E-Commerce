@@ -24,3 +24,10 @@ export const getUrlImageForArrObject = (objs) => {
     }
     return rs;
 };
+export const getImgPathFromImgData = (img) => {
+    let rs;
+    if (img.coverImage != null && img.coverImageType != "") {
+        rs = (`data:${img.coverImageType};charset=utf-8;base64,${img.coverImage.toString('base64')}`)
+    }
+    return rs;
+}
