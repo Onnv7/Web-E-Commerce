@@ -1,5 +1,18 @@
 // TODO: add image type to imageMimeTypes
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+export function getImg(coverEncoded) {
+    if (coverEncoded == null) return;
+
+    var data = getDataForImage(coverEncoded);
+
+    return data;
+}
+
+export function saveFileObj(doc, coverEncoded) {
+    if (coverEncoded == null) return;
+    var data = getDataForImage(coverEncoded);
+    doc.img = data;
+}
 export function saveSingleFile(doc, coverEncoded) {
     if (coverEncoded == null) return
 
