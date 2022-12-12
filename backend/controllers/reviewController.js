@@ -1,5 +1,7 @@
 import Review from "../models/reviewModel.js";
-
+import { saveFileObj } from "../utils/saveFile.js";
+import { getDataFromImage } from "../utils/saveFile.js"
+import { getImgPathFromImgData } from "../utils/getUrlImage.js"
 
 // select a reviews
 export const selectReview = async (req, res, next) => {
@@ -16,10 +18,30 @@ export const selectReview = async (req, res, next) => {
 // select all reviews by product
 export const selectAllReviewsByProduct = async (req, res, next) => {
     try {
-        const result = await Review.find(
-            { product: req.params.productId }
-        )
-        res.status(200).json(result);
+        const review = await Review.find({ product: req.params.productId })
+            .sort({ createdAt: -1 })
+            .populate({
+                path: "user",
+                select: "name img avatar",
+            });
+        let rs = [];
+        let i = 0;
+        for (i; i < review.length; i++) {
+            const { user, img, ...others } = review[i]._doc;
+            let imgPathUser;
+            if (user.img !== null)
+                imgPathUser = getImgPathFromImgData(user.img);
+            else
+                imgPathUser = "";
+            let imgPathReview;
+            if (img !== null)
+                imgPathReview = getImgPathFromImgData(img);
+            else
+                imgPathReview = "";
+            const result = { ...others, name: user.name, imgPathUser: imgPathUser, imgPathReview: imgPathReview };
+            rs.push(result);
+        }
+        res.status(200).json(rs);
     } catch (error) {
         next(error);
     }
@@ -40,9 +62,20 @@ export const deleteReview = async (req, res, next) => {
 // update a review
 export const updateReview = async (req, res, next) => {
     try {
+        let image = null
+        let body;
+        // nếu có ảnh
+        if (req.body.img !== null) {
+            image = getDataFromImage(req.body.img);
+            body = { ...req.body, img: image };
+        }
+        else {
+            body = { ...req.body }
+        }
+
         const result = await Review.updateOne(
             { _id: req.params.id },
-            { $set: req.body },
+            { $set: body },
             { new: true }
         )
         res.status(200).json(result);
@@ -54,8 +87,10 @@ export const updateReview = async (req, res, next) => {
 // create a new review
 export const createReview = async (req, res, next) => {
     try {
-        const result = new Review(req.body);
-        result.save();
+        const image = req.body.img;
+        const review = new Review(req.body);
+        await saveFileObj(review, image);
+        await review.save();
         res.status(200).json("Review has been created.")
     } catch (error) {
         next(error);

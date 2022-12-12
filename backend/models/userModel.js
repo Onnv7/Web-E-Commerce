@@ -11,12 +11,12 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, "User must have a email"],
+      //required: [true, "User must have a email"],
       unique: true,
     },
     phoneNumber: {
       type: String,
-      required: [true, "User must have a phone number"],
+      //required: [true, "User must have a phone number"],
       unique: true,
     },
     address: [String],
@@ -24,11 +24,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["male", "female"],
     },
-    photo: { type: String, default: "default.jpg" },
+    img: {
+      type: {
+        coverImage: {
+          type: Buffer,
+          //required: true,
+        },
+        coverImageType: {
+          type: String,
+          //required: true,
+        },
+      },
+      default: null
+    },
     role: {
       type: String,
       enum: ["user", "seller", "admin", "shipper"],
-      required: true,
+      //required: true,
       default: "user",
     },
     username: {
