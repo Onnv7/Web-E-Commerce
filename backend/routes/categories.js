@@ -1,23 +1,21 @@
 import express from "express";
-import { createCategory, selectAllCategory, deleteCategory, updateCategoryName, updateCategoryQuantity } from "../controllers/categoryController.js";
+import { createMainCategory, updateMainCategory, deleteMainCategory, selectAllMainCategory } from "../controllers/mainCategoryController.js";
 
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
 // create category for shop
-router.post("/", createCategory);
+router.post("/", createMainCategory);
 
 // delete category
-router.delete("/:shopId/:cgrId", deleteCategory);
+router.delete("/:id", deleteMainCategory);
 
-// select all categories by shop id
-router.get("/:shopId", selectAllCategory);
+// select all categories 
+router.get("/", selectAllMainCategory);
 
-// update name category by shop id and category name
-router.get("/:shopId/:cgrId", updateCategoryName);
 
 // update quantity category by shop id and category name
-router.get("/:shopId/:cgrId", updateCategoryQuantity);
+router.put("/:id", updateMainCategory);
 
 export default router;

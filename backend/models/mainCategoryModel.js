@@ -4,9 +4,18 @@ const MainCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      //required: true,
     },
-    img: { type: String, default: "default.jpg" },
+    img: {
+      coverImage: {
+        type: Buffer,
+        // required: true,
+      },
+      coverImageType: {
+        type: String,
+        //required: true,
+      },
+    },
   },
   { timestamps: true }
 );
