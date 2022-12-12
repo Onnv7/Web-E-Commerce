@@ -19,26 +19,27 @@ const SellPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/slug/${slug}`);
-            console.log(data);
             setID(data);
         };
         fetchData();
     }, [slug]);
 
     return (
-        <div>
-            <Navbar />
-            <Header style="hideImg" />
-            <div className="sellContainer">
-                <ProductSell id={id} />
-                <Seller />
-                <ProductDetail id={id} />
-                <ProductEvulate id={id} />
-                <ProductChild />
-                <hr color="#EE9533" />
+        id && (
+            <div>
+                <Navbar />
+                <Header style="hideImg" />
+                <div className="sellContainer">
+                    <ProductSell id={id} />
+                    <Seller />
+                    <ProductDetail id={id} />
+                    <ProductEvulate id={id} />
+                    <ProductChild />
+                    <hr color="#EE9533" />
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        )
     );
 };
 

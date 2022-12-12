@@ -1,8 +1,7 @@
 import MainCategory from "../models/mainCategoryModel.js";
 import { saveFileObj } from "../utils/saveFile.js";
 
-import { getImgPathFromImgData } from "../utils/getUrlImage.js"
-
+import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 
 // create a new shop and up level for user => buyer
 export const createMainCategory = async (req, res, next) => {
@@ -22,15 +21,14 @@ export const createMainCategory = async (req, res, next) => {
 // update a shop
 export const updateMainCategory = async (req, res, next) => {
     try {
-        let image = null
+        let image = null;
         let body;
         // nếu có ảnh
         if (req.body.img !== null) {
             image = getImg(req.body.img);
             body = { ...req.body, img: image };
-        }
-        else {
-            body = { ...req.body }
+        } else {
+            body = { ...req.body };
         }
 
         const updateMainCategory = await MainCategory.updateOne(
@@ -47,16 +45,12 @@ export const updateMainCategory = async (req, res, next) => {
 // delete a shop
 export const deleteMainCategory = async (req, res, next) => {
     try {
-        await MainCategory.deleteOne(
-            { _id: req.params.id }
-        );
+        await MainCategory.deleteOne({ _id: req.params.id });
         res.status(200).json("Main Category has been deleted");
     } catch (err) {
         next(err);
     }
 };
-
-
 
 // select all shop
 export const selectAllMainCategory = async (req, res, next) => {
@@ -75,5 +69,3 @@ export const selectAllMainCategory = async (req, res, next) => {
         next(err);
     }
 };
-
-
