@@ -1,6 +1,7 @@
 import {
   ArrowLeft2,
   ArrowRight2,
+  Crown,
   Heart,
   ShoppingCart,
   Star1,
@@ -9,12 +10,15 @@ import { Link } from "react-router-dom";
 function ProductItem({ product }) {
   return (
     <div className="col c-3">
-      <Link to={`/product/${product._id}`} className="productItem">
+      <Link to={`/product/${product.slug}`} className="productItem">
         <img src={product.imgPath[0]} className="product-img" alt="product" />
         <span className="product-title">{product.name}</span>
         <div className="product-sell">
-          <span>Đã bán 4,5K</span>
-          <span>{product.price}</span>
+          <span>Đã bán {product.soldQuantity}</span>
+          <span>
+            {product.price}
+            <Crown variant="Bold" size={24} className="navIcon" />
+          </span>
         </div>
         <div className="product-rate">
           <div className="product-rating">
