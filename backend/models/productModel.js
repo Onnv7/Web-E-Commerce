@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema({
   shop: {
     type: mongoose.Schema.ObjectId,
     ref: "Shop",
-    required: true,
+    // required: true,
   },
   slug: String,
   quantity: {
