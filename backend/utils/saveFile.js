@@ -1,6 +1,6 @@
 // TODO: add image type to imageMimeTypes
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
-export function getImg(coverEncoded) {
+export function convertImageToData(coverEncoded) {
     if (coverEncoded == null) return;
 
     var data = getDataForImage(coverEncoded);
@@ -33,7 +33,7 @@ export function saveMultipleFile(doc, coverEncoded) {
     doc.img = img;
 }
 // convert from encoded image to data img
-export function getDataForImage(coverEncoded) {
+export function getDataFromImage(coverEncoded) {
     const cover = JSON.parse(coverEncoded);
     var data;
     if (cover != null && imageMimeTypes.includes(cover.type)) {

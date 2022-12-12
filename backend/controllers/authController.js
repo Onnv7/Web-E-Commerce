@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import { saveFileObj } from "../utils/saveFile.js";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
@@ -22,10 +23,13 @@ export const register = async (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
+    const image = req.body.img;
+
     const newUser = new User({
       ...req.body,
       password: hash,
     });
+    await saveFileObj(newUser, image);
     await newUser.save();
     res.status(200).send("User has been created.");
   } catch (err) {

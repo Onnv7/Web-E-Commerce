@@ -1,12 +1,21 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
-
-
+import { getImgPathFromImgData } from "../utils/getUrlImage.js"
+import { getDataFromImage } from "../utils/saveFile.js"
 // update user
 export const updateUser = async (req, res, next) => {
   try {
     const userID = req.params.id;
-
+    let image = null
+    let body;
+    // nếu có ảnh
+    if (req.body.img !== null) {
+      image = getDataFromImage(req.body.img);
+      body = { ...req.body, img: image };
+    }
+    else {
+      body = { ...req.body }
+    }
     const updatedUser = await User.findByIdAndUpdate(
       userID,
       { $set: req.body },
@@ -49,7 +58,11 @@ export const deleteUser = async (req, res, next) => {
 export const selectUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    res.status(200).json(user);
+    let imgPath = "";
+    if (user.img !== null)
+      imgPath = getImgPathFromImgData(user.img);
+    const { img, ...body } = user._doc;
+    res.status(200).json({ ...body, imgPath });
   } catch (err) {
     next(err);
   }

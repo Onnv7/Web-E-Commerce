@@ -4,7 +4,7 @@ import Shop from "../models/shopModel.js";
 import {
     saveSingleFile,
     saveMultipleFile,
-    getDataForImage,
+    getDataFromImage,
 } from "../utils/saveFile.js";
 import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
 
@@ -99,7 +99,7 @@ export const updateProduct = async (req, res, next) => {
         const image = req.body.img.slice(0, req.body.img.length);
         let img = [];
         for (var i = 0; i < image.length; i++) {
-            var data = getDataForImage(image[i]);
+            var data = getDataFromImage(image[i]);
             img.push(data);
         }
         const body = { ...req.body, img: img };
