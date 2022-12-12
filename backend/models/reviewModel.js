@@ -12,7 +12,6 @@ const reviewSchema = new mongoose.Schema(
       ref: "Product",
       required: [true, "Review must be had by product"],
     },
-    //review -> content
     content: {
       type: String,
       required: [true, "Content cannot be empty"],

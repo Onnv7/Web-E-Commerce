@@ -31,10 +31,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "User product have a brand"],
   },
-  color: {
-    type: [String],
-    //required: [true, "User product have a color"],
-  },
   size: {
     type: [String],
     //required: [true, "User product have a color"],
