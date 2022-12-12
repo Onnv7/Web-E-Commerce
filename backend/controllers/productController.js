@@ -1,23 +1,9 @@
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
-import { saveSingleFile, saveMultipleFile } from "../utils/saveFile.js";
+import { saveSingleFile, saveMultipleFile, getDataForImage } from "../utils/saveFile.js";
 import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
 
-// update product
-export const updateProduct = async (req, res, next) => {
-  try {
-    const body = req.body;
-    const update = await Product.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: body },
-      { new: true }
-    )
-    res.status(200).json(update)
-  } catch (error) {
-    next(error)
-  }
-}
 
 // delete product
 export const deleteProduct = async (req, res, next) => {
@@ -61,14 +47,14 @@ export const selectAllProducts = async (req, res, next) => {
 // create a new product
 export const createProduct = async (req, res, next) => {
   try {
-    const img = req.body.img;
+    const image = req.body.img.slice(0, req.body.img.length);
     const body = { ...req.body };
     const product = new Product(body);
     if (typeof req.body.img === 'string') {
-      saveSingleFile(product, img)
+      saveSingleFile(product, image)
     }
     else
-      saveMultipleFile(product, img)
+      saveMultipleFile(product, image)
 
     await product.save();
     res.status(200).send("Product has been created.");
@@ -78,3 +64,24 @@ export const createProduct = async (req, res, next) => {
     next(err)
   }
 }
+
+// update product by id
+export const updateProduct = async (req, res, next) => {
+  try {
+    const image = req.body.img.slice(0, req.body.img.length);
+    let img = [];
+    for (var i = 0; i < image.length; i++) {
+      var data = getDataForImage(image[i]);
+      img.push(data);
+    }
+    const body = { ...req.body, img: img };
+    const update = await Product.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: body },
+      { new: true }
+    );
+    res.status(200).json(update);
+  } catch (error) {
+    next(error);
+  }
+};
