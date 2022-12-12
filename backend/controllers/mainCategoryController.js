@@ -55,12 +55,16 @@ export const deleteMainCategory = async (req, res, next) => {
 // select all shop
 export const selectAllMainCategory = async (req, res, next) => {
     try {
+        let rs = [];
         const mainCategory = await MainCategory.find();
-        let imgPath = "";
-        if (mainCategory.img !== null)
-            imgPath = getImgPathFromImgData(mainCategory.img);
-        const { img, ...body } = mainCategory._doc;
-        res.status(200).json({ ...body, imgPath });
+        mainCategory.forEach((e) => {
+            let imgPath = "";
+            if (e.img !== null)
+                imgPath = getImgPathFromImgData(e.img);
+            const { img, ...body } = e._doc;
+            rs.push({ ...body, imgPath: imgPath })
+        })
+        res.status(200).json(rs);
     } catch (err) {
         next(err);
     }
