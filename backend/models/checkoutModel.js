@@ -26,7 +26,7 @@ const checkoutSchema = new mongoose.Schema(
             ref: "User",
             required: [true, "Checkout must be done by a user"],
         },
-        deliveryAddress: {
+        deliveryInfo: {
             fullName: { type: String, required: true },
             phoneNumber: { type: String, required: true },
             email: { type: String, required: true },
@@ -34,7 +34,6 @@ const checkoutSchema = new mongoose.Schema(
             distinct: { type: String, required: true },
             ward: { type: String, required: true },
             address: { type: String, required: true },
-            note: { type: String },
         },
         totalCost: {
             type: Number,
