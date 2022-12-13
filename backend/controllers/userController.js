@@ -6,22 +6,54 @@ import { getDataFromImage } from "../utils/saveFile.js";
 export const updateUser = async (req, res, next) => {
     try {
         const userID = req.params.id;
-        let image = null;
-        let body;
-        // nếu có ảnh
-        if (req.body.img !== null) {
-            image = getDataFromImage(req.body.img);
-            body = { ...req.body, img: image };
-        } else {
-            body = { ...req.body };
-        }
         const updatedUser = await User.findByIdAndUpdate(
             userID,
             { $set: req.body },
             { new: true }
         );
-        res.status(200).json(updatedUser);
+        let imgPath;
+        if (updatedUser.img === null) {
+            imgPath = "/Img/default-user.png";
+        } else {
+        }
+        const { img, password, ...body } = updatedUser._doc;
+        res.status(200).json({ ...body, imgPath });
     } catch (err) {
+        console.log(err);
+        res.status(500).json({ err: err });
+    }
+};
+
+// export const updateDeliveryInfo = async (req, res, next) => {
+//     try {
+//         console.log(req.body);
+//         const userID = req.params.id;
+//         const updatedUser = await User.updateOne(
+//             { _id: userID },
+//             {
+//                 $push: {
+//                     deliveryInfo: req.body,
+//                 },
+//             },
+//             { new: true }
+//         );
+//         console.log(updatedUser);
+//         res.status(200).json({ deliveryInfo: updatedUser.deliveryInfo });
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ err: err });
+//     }
+// };
+export const updateDeliveryInfo = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const userID = req.params.id;
+        const updatedUser = await User.findById(userID);
+        updatedUser.deliveryInfo = req.body;
+        await updatedUser.save();
+        res.status(200).json({ updatedUser });
+    } catch (err) {
+        console.log(err);
         next(err);
     }
 };
@@ -39,6 +71,25 @@ export const updateUserPassword = async (req, res, next) => {
         );
         res.status(200).json(updatedUser);
     } catch (err) {
+        res.status(500).json({ err: err });
+    }
+};
+
+//Update User Avatar
+export const updateUserImage = async (req, res, next) => {
+    try {
+        let image = getDataFromImage(req.body.img);
+        let body = { img: image };
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { $set: body },
+            { new: true }
+        );
+        const { img, password, ...data } = updatedUser._doc;
+        const imgPath = getImgPathFromImgData(img);
+        res.status(200).json({ ...data, imgPath });
+    } catch (err) {
+        console.log(err);
         next(err);
     }
 };

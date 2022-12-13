@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { saveFileObj } from "../utils/saveFile.js";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 
 // TODO: khoong biet lam gi nua, coi lai va xoa
 export const getUser = (req, res, next) => {
@@ -53,12 +54,13 @@ export const login = async (req, res, next) => {
         if (user.img === null) {
             imgPath = "/Img/default-user.png";
         } else {
+            imgPath = getImgPathFromImgData(user.img);
         }
         const token = jwt.sign(
             { id: user._id, role: user.role },
             process.env.JWT
         );
-        const { img, password, ...otherDetails } = user._doc;
+        const { img, password, deliveryInfo, ...otherDetails } = user._doc;
         //res.cookie("id", `${user._id}`);
         res.cookie("access_token", token)
             .status(200)

@@ -1,0 +1,102 @@
+.profileInfo{
+    width: 100%;
+    max-width: 880px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 5px var(--primary-color);
+    border-radius: 10px;
+    height: 700px;
+}
+.profileInfo-container{
+    padding: 24px;
+}
+.profileInfo-container>h1{
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+.profileInfo-box{
+    display: flex;
+    flex-direction: column;
+}
+.profileInfo-user{
+    margin: 60px 100px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 44px;
+}
+.user-title{
+    display: flex;
+    flex-direction: column;
+    font-size: 2.4rem;
+}
+.user-title>span{
+    margin-bottom: 48px;
+}
+.user-box{
+    flex: 1;
+}
+.user-input{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex: 1;
+    margin-bottom: 48px;
+    
+    &:nth-child(2){
+        margin-bottom: 36px;
+    }
+}
+.user-input>input{
+    font-size: 2.4rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #000;
+    color: #000;
+    flex: 1;
+    margin-right: 18px;
+}
+.user-birth{
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+    gap: 12px;
+    background-color: #FFF;
+    border: 1px solid #000;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 9px 12px;
+    width: 238px;
+}
+.user-birth>input{
+    border: none;
+    outline: none;
+    font-size: 2.4rem;
+}
+.user-sex{
+    display: flex;
+    gap: 48px;
+    font-size: 2.4rem;
+    margin-bottom: 48px;
+}
+.sex-list{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.sex-list>input{
+    width: 24px;
+    height: 24px;
+}
+.profileInfo-box>button {
+    margin: 36px 100px 100px;
+    padding: 16px 0px ;
+    background: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;    
+    font-size: 2.6rem;
+    color: rgba(220, 91, 14, 0.6);
+
+    &:hover{
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+}

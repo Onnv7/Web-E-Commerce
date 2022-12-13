@@ -9,6 +9,7 @@ import ProductPay from "../ProductPay/ProductPay";
 import ProductNote from "../ProductNote/ProductNote";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import AvatarChange from "../AvatarChange/AvatarChange";
 const ProfileNav = () => {
     const { user, loading, error, dispatch } = useContext(AuthContext);
     const location = useLocation();
@@ -19,6 +20,9 @@ const ProfileNav = () => {
             setShowNav("");
             e.stopPropagation();
         } else setShowNav("hide");
+    };
+    const openAvatarChange = () => {
+        setSlide(<AvatarChange />);
     };
     const openProfile = () => {
         setSlide(<ProfileInfo />);
@@ -47,7 +51,12 @@ const ProfileNav = () => {
                 <div className="profile-navBox">
                     <img src={user.imgPath} alt="" />
                     <span>{user.username}</span>
-                    <button>Thay ảnh đại diện</button>
+                    <button
+                        onClick={openAvatarChange}
+                        style={{ cursor: "pointer" }}
+                    >
+                        Thay ảnh đại diện
+                    </button>
                     <ul className="profile-nav">
                         <li className="profile-navItem">
                             <span onClick={showSubNav}>

@@ -25,7 +25,18 @@ const userSchema = new mongoose.Schema(
             //required: [true, "User must have a phone number"],
             // unique: true,
         },
-        address: [String],
+        birthday: { type: String },
+        deliveryInfo: [
+            {
+                fullName: { type: String, required: true },
+                phoneNumber: { type: String, required: true },
+                email: { type: String, required: true },
+                province: { type: String, required: true },
+                distinct: { type: String, required: true },
+                ward: { type: String, required: true },
+                address: { type: String, required: true },
+            },
+        ],
         gender: {
             type: String,
             enum: ["male", "female"],

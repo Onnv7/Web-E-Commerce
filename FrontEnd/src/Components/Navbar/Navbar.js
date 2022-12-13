@@ -51,7 +51,7 @@ const Navbar = () => {
                 </div>
                 <div className="navList">
                     <div className="navList-money">
-                        <span>Số dư: {user.ruby}</span>
+                        <span>Số dư: {user?.ruby}</span>
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
                     <Note1
