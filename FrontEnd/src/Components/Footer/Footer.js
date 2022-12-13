@@ -22,7 +22,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="itemDev-logo">
-                    <img src="../Img/logovip.png" />
+                    <img src="../../Img/logovip.png" />
                     <span>4TL</span>
                 </div>
                 <div className="listDev-Groups">

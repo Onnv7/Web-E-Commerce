@@ -11,17 +11,19 @@
     border-radius: 10px;
     color: #000;
     transition: transform linear 0.1s;
+    min-height: 378px;
+    min-width: 292px;
 }
 .auctionItem:hover{
     transform: translateY(-1px);
-    border: 1px solid var(--primary-color);
     box-shadow: 0px 0px 5px 2px var(--primary-color);
 }
 .auction-img{
     width: 260px;
     height: 190px;
     object-fit: cover;
-    margin: 10px;
+    margin: 10px auto;
+    display: block;
 }
 .auction-title{
     font-size: 1.6rem;

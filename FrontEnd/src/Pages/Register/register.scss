@@ -2,7 +2,7 @@
     background: url("../../../public/Img/pic.png") no-repeat;
     object-fit: cover;
     height: 1024px;
-    background-size: 1440px 1024px;
+    background-size: 100%;
     display: flex;
     justify-content: center;
 }
@@ -30,9 +30,6 @@
     &:hover{
         color: var(--primary-color);
     }
-}
-.active{
-    color: var(--primary-color);
 }
 .register-title__line{
     font-size: 3.2rem;

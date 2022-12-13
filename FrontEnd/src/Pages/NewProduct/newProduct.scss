@@ -1,0 +1,223 @@
+.newProduct{
+    display: flex;
+    justify-content: center;
+    padding: 20px 100px 0;
+    flex-direction: column;
+    align-items: center;
+
+    >span{
+        font-size: 3.2rem;
+        font-family: 'Oswald';
+    }
+}
+.newProduct-box{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    font-size: 1.8rem;
+    >span{
+        flex: 1;
+        font-size: 2.8rem;
+        font-family: 'Oswald';
+        margin-top: 40px;
+    }
+}
+.newProduct-name, .newProduct-brand{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    >span{
+        flex: 0.5;
+        text-align: right;
+    }
+    >input{
+        flex: 2;
+        outline: none;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.8rem;
+    }
+}
+.newProduct-img{
+    display: flex;
+    gap: 20px;
+
+    >span{
+        flex: 0.5;
+        text-align: right;
+    }
+}
+
+.newProduct-imgBox{
+    flex: 2;
+    display: flex;
+    >img{
+        width: 100px;
+        height: 100px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        object-fit: contain;
+        margin-right: 20px;
+    }
+    >button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        background: #FFFFFF;
+        border: 1px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        &:hover{
+            cursor: pointer;
+            border: 1px dashed var(--primary-color);
+            color: var(--primary-color);
+        }
+    }
+}
+.newProduct-size{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    >span{
+        flex: 0.49;
+        text-align: right;
+        
+    }
+}
+.newProduct-sizeBox{
+    flex: 2;
+    >span{
+        width: 100px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        margin-right: 20px;
+    }
+    >button{
+        width: 100px;
+        height: 40px;
+        background: #fff;
+        border: 1px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        &:hover{
+            cursor: pointer;
+            border: 1px dashed var(--primary-color);
+            color: var(--primary-color);
+        }
+    }
+}
+
+.newProduct-quantity{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    >span{
+        flex: 0.49;
+        text-align: right;
+        
+    }
+}
+.newProduct-quantityInput{
+    flex: 2;
+    >input{
+        width: 300px;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        overflow: hidden;
+        padding: 10px;
+        font-size: 1.8rem;
+        outline: none;
+    }
+}
+.newProduct-price{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    >span{
+        flex: 0.49;
+        text-align: right;
+    }
+}
+.newProduct-priceBox{
+    flex: 2;
+}
+.newProduct-priceInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    background: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 0 10px;
+    >input{
+        font-size: 1.8rem;
+        border: none;
+        outline: none;
+        padding: 10px 0;
+    }
+}
+.newProduct-desc{
+    display: flex;
+    gap: 20px;
+
+    >span{
+        flex: 0.5;
+        text-align: right;
+    }
+    >textarea{
+        flex: 2;
+        outline: none;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.8rem;
+        height: 200px;
+    }
+}
+.newProduct-btn{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    
+    >button{
+        width: 242px;
+        height: 48px;
+        border: none;
+        font-size: 2rem;
+        &:nth-child(1){
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0px 0px 4px var(--primary-color);
+            border-radius: 10px;
+            color: var(--primary-color);
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+        &:nth-child(2){
+            background: rgba(220, 91, 14, 0.5);
+            border-radius: 10px;
+            color: #fff;
+            &:hover{
+                cursor: pointer;
+                background-color: var(--primary-color);
+            }
+        }
+    }
+}

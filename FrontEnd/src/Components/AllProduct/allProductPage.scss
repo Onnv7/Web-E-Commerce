@@ -1,0 +1,176 @@
+.allProduct{
+    width: 100%;
+    max-width: 1100px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px var(--primary-color);
+    border-radius: 10px;
+}
+.allProduct-container{
+    padding: 20px;
+}
+.allProduct-search{
+    display: flex;
+    margin-bottom:16px;
+    align-items: center;
+    >button{
+        width: 242px;
+        height: 48px;
+        margin-left: 20px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: inset 0px 0px 4px #DC5B0E;
+        border-radius: 10px;   
+        font-size: 2rem;
+        color: rgba(220, 91, 14, 0.5); 
+    };
+}
+.allProduct-searchItem{
+    width: 798px;
+    height: 52px;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    >span{
+        display: flex;
+        flex: 1;
+        padding-left: 5px;
+        font-size: 1.8rem;
+    }
+    >input{
+        width: 70%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 1.8rem;
+    }
+}
+.allProduct-header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+    >span{
+        &:nth-child(1){
+            flex: 2;
+        }
+        flex: 1;
+    }
+}
+.allProduct-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    margin-top: 15px;
+
+    >span{
+        flex: 1;
+        text-align: center;
+        &:nth-child(3){
+            display: flex;
+            align-items: baseline;
+            color: var(--primary-color);
+            justify-content: center;
+        }
+    }
+    
+    
+}
+.allProduct-name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 2;
+    >img{
+        width: 120px;
+        height: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        object-fit: contain;
+    }
+    >span{
+        font-family: 'Oswald';
+    }
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+.allProduct-action{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    >span{
+        text-decoration: underline;
+        color: var(--primary-color);
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+}
+.modal-deleteProduct{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-deleteProductContainer{
+    width: 600px;
+    min-height: 274px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 24px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+
+    >span{
+        font-size: 3.2rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    >button{
+        width: 560px;
+        height: 50px;
+        margin-bottom: 10px;
+        border: none;
+        font-size: 2.4rem;
+
+        &:nth-of-type(1){
+            background: rgba(220, 91, 14, 0.5);
+            border-radius: 50px;
+            color: #fff;
+            &:hover{
+                cursor: pointer;
+                background-color: var(--primary-color);
+            }
+        }
+        &:nth-of-type(2){
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0px 0px 4px var(--primary-color);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: var(--primary-color);
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+    }
+}

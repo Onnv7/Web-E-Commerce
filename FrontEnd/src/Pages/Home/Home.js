@@ -10,7 +10,7 @@ import './home.scss';
 const Home = () => {
     return (
         <div>
-            <Navbar />
+            <Navbar style="main" />
             <Header />
             <div className="homeContainer">
                 <h1 className="homeTitle">Đấu giá</h1>
@@ -19,7 +19,7 @@ const Home = () => {
                 <Category />
                 <h1 className="homeTitle">Sản phẩm nổi bật</h1>
                 <Product />
-                <hr color="#EE9533" />
+                <hr />
             </div>
             <Footer />
         </div>

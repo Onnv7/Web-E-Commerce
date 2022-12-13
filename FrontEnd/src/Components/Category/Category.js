@@ -6,7 +6,7 @@ const Category = () => {
             <div className="grid wide">
                 <div className="row sm-gutter">
                     <div className="col c-3">
-                        <a href="" className="cateItem">
+                        <a href="/viewshop" className="cateItem">
                             <div className="cateItem-Content">
                                 <img src="../Img/iphone14.png" alt="" />
                                 <span className="cateItem-title">Iphone</span>

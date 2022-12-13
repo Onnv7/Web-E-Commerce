@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Crown } from 'iconsax-react';
 import './walletManage.scss';
 const WalletManage = () => {
+    const [active, setActive] = useState(1);
+    const setClick = (i) => {
+        setActive(i);
+    };
     return (
         <div className="walletManage">
             <div className="walletManage-container">
@@ -12,11 +16,11 @@ const WalletManage = () => {
                         <span>1.000.000</span>
                         <Crown className="walletManage-icon" variant="Bold" size={34} />
                     </div>
-                    <div className="walletManage-payBox none">
+                    <div className={active === 1 ? 'walletManage-payBox' : 'tab-hide'}>
                         <div className="walletManage-title">
                             <span>Nạp Ruby</span>
                             <span></span>
-                            <span>Rút Ruby</span>
+                            <span onClick={() => setClick(2)}>Rút Ruby</span>
                         </div>
                         <div className="walletManage-payment">
                             <span>
@@ -35,9 +39,9 @@ const WalletManage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="walletManage-payBox2">
+                    <div className={active === 2 ? 'walletManage-payBox2' : 'tab-hide'}>
                         <div className="walletManage-title2">
-                            <span>Nạp Ruby</span>
+                            <span onClick={() => setClick(1)}>Nạp Ruby</span>
                             <span></span>
                             <span>Rút Ruby</span>
                         </div>

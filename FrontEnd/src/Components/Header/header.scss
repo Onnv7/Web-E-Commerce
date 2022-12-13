@@ -57,6 +57,10 @@
     border: none;
     margin: 3px;
     outline: none;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
 }
 .headerNav-icon{
     width: 60px;
@@ -115,8 +119,4 @@
     border: 1px solid var(--sub-color);
     bottom: 14px;
     right: -30px;
-}
-.headerList.none,
-.headerImg.none{
-    display: none;
 }

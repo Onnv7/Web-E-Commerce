@@ -4,11 +4,9 @@ import { CloseSquare, Eye, EyeSlash } from 'iconsax-react';
 import ResetPass from '../ResetPass/ResetPass';
 
 const PasswordChange = () => {
-    const [show, setShow] = useState('');
+    const [show, setShow] = useState(false);
     const showReset = () => {
-        if (show === 'show') {
-            setShow('');
-        } else setShow('show');
+        setShow(true);
     };
     return (
         <div className="passwordChange">
@@ -46,7 +44,7 @@ const PasswordChange = () => {
                     </div>
                 </div>
             </div>
-            <ResetPass style={show} />
+            {show && <ResetPass setOpen={setShow} />}
         </div>
     );
 };

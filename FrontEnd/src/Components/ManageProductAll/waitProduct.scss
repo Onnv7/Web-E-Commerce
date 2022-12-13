@@ -1,0 +1,150 @@
+.waitProduct-modal{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.waitProduct-modalContainer{
+    width: 1000px;
+    min-height: 334px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    animation: btn-glide ease .5s;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+
+    >span{
+        text-align: center;
+
+        &:first-child{
+            font-size: 3.2rem;
+            font-family: 'Oswald';
+            margin-bottom: 20px;
+        }
+    }
+}
+.waitProduct-modalBox{
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(220, 91, 14, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+}
+.waitProduct-modalTitle{
+    display: flex;
+    justify-content: space-between;
+
+    >span{
+        &:first-child{
+            font-size: 2rem;
+            font-family: 'Oswald';
+        }
+        &:last-child{
+            color: rgba(220, 91, 14, 0.5);
+            &:hover{
+                cursor: pointer;
+                color: var(--primary-color);
+            }
+        }
+    }
+}
+.waitProduct-modalContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 40px;
+    margin-top: 10px;
+}
+.waitProduct-modalBtn{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    >button{
+        width: 460px;
+        height: 50px;
+        border-radius: 50px;
+        border: none;
+        font-size: 2.4rem;
+
+        &:first-child{
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0px 0px 4px var(--primary-color);
+            color: rgba(220, 91, 14, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover{
+                cursor: pointer;
+                color: var(--primary-color);
+                border: 1px solid var(--primary-color);
+            }
+        }
+        &:last-child{
+            background-color: rgba(220, 91, 14, 0.5);
+            color: #fff;
+            &:hover{
+                cursor: pointer;
+                background-color: var(--primary-color);
+            }
+        }
+    }
+}
+.waitProduct-modalChangeContainer{
+    width: 1000px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    animation: btn-glide ease .5s;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    >span{
+        text-align: center;
+
+        &:first-child{
+            font-size: 3.2rem;
+            font-family: 'Oswald';
+            margin-bottom: 20px;
+        }
+    }
+}
+.waitProduct-modalChangeBox{
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(220, 91, 14, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+
+    >span{
+        font-size: 2rem;
+        font-family: 'Oswald';
+        margin-bottom: 10px;
+    }
+    &:hover{
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+}
+
+
+
+
+@keyframes btn-glide {
+    from{
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

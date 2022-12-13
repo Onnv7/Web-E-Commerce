@@ -1,0 +1,26 @@
+.placeAutionItem{
+    display: inline-block;
+    text-decoration: none;
+    background: #fff;
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 50%);
+    border-radius: 10px;
+    color: #000;
+    transition: transform linear 0.1s;
+    margin-bottom: 10px;
+    min-width: 354px;
+    min-height: 415px;
+}
+.placeAution-img{
+    width: 320px;
+    height: 190px;
+    object-fit: contain;
+    margin: 10px auto;
+    display: block;
+}
+.placeAution-rate{
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px 10px;
+}

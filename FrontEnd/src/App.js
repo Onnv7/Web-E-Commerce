@@ -10,6 +10,15 @@ import Paypal from './Pages/Ruby/Paypal.js';
 import SellPage from './Pages/SellPage/SellPage';
 import CartList from './Pages/CartList/CartList';
 import Profile from './Pages/Profile/Profile';
+import Payment from './Pages/Payment/Payment';
+import SellerPage from './Pages/SellerPage/SellerPage';
+import UpdateProduct from './Pages/UpdateProduct/UpdateProduct';
+import NewProduct from './Pages/NewProduct/NewProduct';
+import DetailProduct from './Pages/DetailProduct/DetailProduct';
+import AuctionPage from './Pages/AuctionPage/AuctionPage';
+import AuctionHistory from './Pages/AuctionHistory/AuctionHistory';
+import ViewShop from './Pages/ViewShop/ViewShop';
+import DetailCategory from './Pages/DetailCategory/DetailCategory';
 function App() {
     return (
         <BrowserRouter>
@@ -25,6 +34,15 @@ function App() {
                 <Route path="/dt" element={<SellPage />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<CartList />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/seller" element={<SellerPage />} />
+                <Route path="/seller/update/:id" element={<UpdateProduct />} />
+                <Route path="/seller/new/:id" element={<NewProduct />} />
+                <Route path="/seller/detail/:id" element={<DetailProduct />} />
+                <Route path="/auction" element={<AuctionPage />} />
+                <Route path="/history" element={<AuctionHistory />} />
+                <Route path="/viewshop" element={<ViewShop />} />
+                <Route path="/detail/:id" element={<DetailCategory />} />
             </Routes>
         </BrowserRouter>
     );
