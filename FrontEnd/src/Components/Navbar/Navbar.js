@@ -44,9 +44,9 @@ const Navbar = ({ style }) => {
                     </div>
                 )}
                 <div className="navList">
-                    <div className="navList-money">
-                        <span>Số dư: 1.000.000</span>
-                        <Crown variant="Bold" size={24} className="navIcon" />
+                    <div className="navList-money navList--space">
+                        <span>Số dư: 0</span>
+                        <Crown variant="Bold" size={24} />
                     </div>
                     <Note1 variant="Bold" className="navIcon" size={24} onClick={gotoNote} />
                     <MessageQuestion variant="Bold" className="navIcon" size={24} />
