@@ -9,21 +9,40 @@
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    
+    align-items: center;   
+}
+.navContainerFull{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+    padding: 0 20px;
 }
 .navList{
     color: var(--primary-color);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
-
+}
+.navListSell{
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    >span{
+        font-size: 2rem;
+        margin-left: 6px;
+    }
+    >img{
+        width: 60px;
+        height: 60px;
+        object-fit: containt;
+    }
 }
 .navItem{
     position: relative;
     color: var(--sub-color);
     margin-right: 48px;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     
     &:hover{
         color: var(--primary-color);
@@ -40,20 +59,16 @@
         top : 50%;
         transform: translateY(-50%);
 }
-.active{
-    color: var(--primary-color);
-}
 .navIcon{
     width: 33px;
     cursor: pointer;
-    margin: 0 14px 8px 0;
 }
 .navList-money{
     display: flex;
     align-items: center;
     gap: 8px;
     >span{
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
 
     &::after{
@@ -62,8 +77,25 @@
         position: absolute;
         height: 24px;
         border-right: 2px solid var(--primary-color);
-        left: calc(50% + 12px);
-        top : 40%;
+        left: 150px;
+        top : 50%;
         transform: translateY(-50%);
+    }
+}
+.navList-user{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 1.8rem;
+    >img{
+        width: 25px;
+        height: 25px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
     }
 }

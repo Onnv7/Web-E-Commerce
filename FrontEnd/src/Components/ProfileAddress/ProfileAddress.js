@@ -1,9 +1,11 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import "./profileAddress.scss";
 import axios from "../../hooks/axios";
 import { default as axiosOriginal } from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+
 const ProfileAddress = () => {
     const [show, setShow] = useState("none");
 
@@ -148,6 +150,77 @@ const ProfileAddress = () => {
             toast.error(err.message);
         }
     };
+
+    const [fullName, setFullName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
+    const [provinceArray, setProvinceArray] = useState([]);
+    const [distinctArray, setDistinctArray] = useState([]);
+    const [wardArray, setWardArray] = useState([]);
+    const [province, setProvince] = useState('');
+    const [distinct, setDistinct] = useState('');
+    const [ward, setWard] = useState('');
+    const [provinceText, setProvinceText] = useState('');
+    const [distinctText, setDistinctText] = useState('');
+    const [wardText, setWardText] = useState('');
+    const [address, setAddress] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axiosOriginal.get('https://provinces.open-api.vn/api/?depth=1');
+                setProvince(data[49].code);
+                setProvinceText(data[49].name);
+                setProvinceArray(data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axiosOriginal.get(`https://provinces.open-api.vn/api/p/${province}/?depth=2`);
+                setDistinct(data.districts[0].code);
+                setDistinctText(data.districts[0].name);
+                setDistinctArray(data.districts);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        if (province) {
+            fetchData();
+            setWardArray([]);
+        }
+    }, [province]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axiosOriginal.get(`https://provinces.open-api.vn/api/d/${distinct}/?depth=2`);
+                setWard(data.wards[0].code);
+                setWardText(data.wards[0].name);
+                setWardArray(data.wards);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        if (distinct) {
+            fetchData();
+        }
+    }, [distinct]);
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        console.log(fullName);
+        console.log(phoneNumber);
+        console.log(email);
+        console.log(provinceText);
+        console.log(distinctText);
+        console.log(wardText);
+        console.log(address);
+    };
+
     return (
         <div className="profileAddress">
             <div className="profileAddress-container">
@@ -189,10 +262,9 @@ const ProfileAddress = () => {
                     ))}
             </div>
             <div className={`addressModal ${show}`}>
-                <form
-                    className="addressModal-container"
-                    onSubmit={submitHandler}
-                >
+
+                <form className="addressModal-container" onSubmit={submitHandler}>
+
                     <span>Thêm địa chỉ mới</span>
                     <div className="addressModal-box">
                         <div className="addressModal-boxList">
@@ -203,37 +275,45 @@ const ProfileAddress = () => {
                                 onChange={(e) => {
                                     setFullName(e.target.value);
                                 }}
+
                                 required
+
                             />
                         </div>
                         <div className="addressModal-boxList">
                             <span>Số điện thoại</span>
+
                             <input
                                 type="text"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 required
                             />
+
                         </div>
                     </div>
                     <div className="addressModal-boxList">
                         <span>Email</span>
+
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+
                     </div>
                     <div className="addressModal-boxList">
                         <span>Thành phố</span>
                         <select
                             value={province}
                             onChange={(e) => {
+
                                 const index =
                                     e.nativeEvent.target.selectedIndex;
                                 setProvinceText(
                                     e.nativeEvent.target[index].text
                                 );
+
                                 setProvince(e.target.value);
                             }}
                             disabled
@@ -253,11 +333,13 @@ const ProfileAddress = () => {
                         <select
                             value={distinct}
                             onChange={(e) => {
+
                                 const index =
                                     e.nativeEvent.target.selectedIndex;
                                 setDistinctText(
                                     e.nativeEvent.target[index].text
                                 );
+
                                 setDistinct(e.target.value);
                             }}
                             required
@@ -277,8 +359,10 @@ const ProfileAddress = () => {
                         <select
                             value={ward}
                             onChange={(e) => {
+
                                 const index =
                                     e.nativeEvent.target.selectedIndex;
+
                                 setWardText(e.nativeEvent.target[index].text);
                                 setWard(e.target.value);
                             }}
@@ -296,12 +380,14 @@ const ProfileAddress = () => {
                     </div>
                     <div className="addressModal-boxList">
                         <span>Địa chỉ cụ thể</span>
+
                         <input
                             type="text"
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             required
                         />
+
                     </div>
                     <div className="addressModal-btn">
                         <button onClick={cancel}>Huỷ</button>

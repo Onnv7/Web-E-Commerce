@@ -1,0 +1,77 @@
+.detailCate{
+    background-color: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    >span{
+        font-size: 2rem;
+        font-family: 'Oswald';
+    }
+}
+.detailCate-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0 0 20px;
+    >span{
+        &:hover{
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+    }
+}
+.detailCate-filter{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 12px 22px;
+    border-radius: 2px;
+}
+.detailCate-filterSelect{
+    >span{
+    min-width: 200px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 2px;
+    background-color: #fff;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    }
+position: relative;
+}
+.detailCate-filterList{
+    position: absolute;
+    left: 0;
+    top: 35px;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 10px 16px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 200px;
+    display: none;
+
+    &::after{
+        content: "";
+        display: block;
+        height: 20px;
+        width: 100%;
+        left: 0;
+        top: -15px;
+        position: absolute;
+    }
+    >span{
+        &:hover{
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+    }
+}
+.detailCate-filterSelect:hover .detailCate-filterList{
+    display: flex;
+}

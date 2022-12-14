@@ -9,22 +9,23 @@ import "./home.scss";
 
 const Home = () => {
   const urlProduct = useRef("/products");
-  return (
-    <div>
-      <Navbar />
-      <Header />
-      <div className="homeContainer">
-        <h1 className="homeTitle">Đấu giá</h1>
-        <Auction />
-        <h1 className="homeTitle">Danh mục nổi bật</h1>
-        <Category />
-        <h1 className="homeTitle">Sản phẩm nổi bật</h1>
-        <Product limit={10} url={urlProduct.current} />
-        <hr color="#EE9533" />
-      </div>
-      <Footer />
-    </div>
-  );
+    return (
+        <div>
+            <Navbar style="main" />
+            <Header />
+            <div className="homeContainer">
+                <h1 className="homeTitle">Đấu giá</h1>
+                <Auction />
+                <h1 className="homeTitle">Danh mục nổi bật</h1>
+                <Category />
+                <h1 className="homeTitle">Sản phẩm nổi bật</h1>
+                <Product limit={10} url={urlProduct.current} />
+                <hr />
+            </div>
+            <Footer />
+        </div>
+    );
+
 };
 
 export default Home;

@@ -126,6 +126,10 @@
         border: none;
         font-size: 2rem;
         color: #fff;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
     }
 }
 .walletManage-input{
@@ -204,7 +208,4 @@
             }
         }
     }
-}
-.walletManage-payBox.none{
-    display: none;
 }

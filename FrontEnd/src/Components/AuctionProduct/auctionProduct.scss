@@ -1,0 +1,94 @@
+.auctionProduct{
+    padding: 40px 100px 20px;
+    width: 100%;
+}
+.auctionProduct-box{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    >img{
+        width: 140px;
+        height: 140px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        object-fit: contain;
+    }
+}
+.auctionProduct-Name{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    >span{
+        &:first-child{
+            font-size: 2.4rem;
+            font-family: 'Oswald';
+        }
+        &:last-child{
+            font-size: 1.8rem;
+        }
+    }
+}
+.auctionProduct-work{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.auctionProduct-time{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 2rem;
+}
+.auctionProduct-price{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    font-size: 2.6rem;
+    font-family: 'Oswald';
+    color: var(--primary-color);
+    >span{
+        display: flex;
+        align-items: flex-end;
+    }
+}
+.auctionProduct-auctionBox{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 190px;
+
+    >button{
+        width: 300px;
+        height: 50px;
+        background: rgba(220, 91, 14, 0.5);
+        border-radius: 10px;
+        border: none;
+        font-size: 2rem;
+        color: #fff;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
+    }
+}
+.auctionProduct-Input{
+    background: #FFFFFF;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+
+    >input{
+        border: none;
+        outline: none;
+        font-size: 2rem;
+
+        &::-webkit-outer-spin-button,&::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+        }
+    }
+}
+.auctionProduct-icon{
+    color: var(--primary-color);
+}

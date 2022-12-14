@@ -7,6 +7,8 @@ import bcrypt from "bcryptjs";
 import axios from "./../../hooks/axios";
 import { toast } from "react-toastify";
 const PasswordChange = () => {
+
+    const [show, setShow] = useState(false);
     const { user, loading, error, dispatch } = useContext(AuthContext);
     const [userDetail, setUserDetail] = useState();
     const [currentPassword, setCurrentPassword] = useState("");
@@ -21,12 +23,9 @@ const PasswordChange = () => {
         };
         fetchData();
     }, [user, reload]);
-
     const showReset = () => {
-        if (show === "show") {
-            setShow("");
-        } else setShow("show");
-    };
+        setShow(true);
+        }
     function checkTextBox() {
         if (currentPassword && newPassword && newPasswordConfirm) {
             return true;
@@ -120,7 +119,7 @@ const PasswordChange = () => {
                     </div> */}
                 </div>
             </div>
-            <ResetPass style={show} />
+            {show && <ResetPass setOpen={setShow} />}
         </div>
     );
 };

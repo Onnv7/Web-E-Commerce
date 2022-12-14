@@ -1,0 +1,33 @@
+.listBuyer{
+    padding: 20px 100px 20px;
+    width: 100%;
+}
+.listBuyer-header{
+    display: flex;
+    justify-content: space-between;
+    >span{
+        flex: 1;
+        text-align: center;
+        font-size: 2.2rem;
+        font-family: 'Oswald';
+    }
+}
+.listBuyer-Item{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    font-size: 2rem;
+    >span{
+        flex: 1;
+        &:nth-child(n+2){
+            text-align: center;
+        }
+        &:nth-child(2){
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald';
+            color: var(--primary-color);
+        }
+    }
+}

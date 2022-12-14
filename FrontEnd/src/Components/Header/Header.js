@@ -46,11 +46,9 @@ const Header = ({ style, styles }) => {
                         <span className="line4"></span>
                     </div>
                 </div>
-                <div
-                    className={
-                        styles === "hideNav" ? "headerList none" : "headerList"
-                    }
-                >
+
+                <div className={styles === 'hideNav' ? 'tab-hide' : 'headerList'}>
+
                     <div className="headerNav">
                         <div className="headerNav-item active">
                             <Home className="headerNav-item__icon" />
@@ -63,11 +61,9 @@ const Header = ({ style, styles }) => {
                                 </div>
                             ))}
                     </div>
-                    <div
-                        className={
-                            style === "hideImg" ? "headerImg none" : "headerImg"
-                        }
-                    >
+
+                    <div className={style === 'hideImg' ? 'tab-hide' : 'headerImg'}>
+
                         <ImageSilder slides={SliderData} />
                     </div>
                 </div>
