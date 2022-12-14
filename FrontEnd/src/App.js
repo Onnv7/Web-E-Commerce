@@ -23,7 +23,7 @@ function App() {
             />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/product/:slug" element={<SellPage />} />
+                <Route path="/products/:slug" element={<SellPage />} />
                 <Route path="/img" element={<Image />} />
                 <Route path="/money" element={<Money />} />
                 <Route path="/paypal" element={<Paypal />} />

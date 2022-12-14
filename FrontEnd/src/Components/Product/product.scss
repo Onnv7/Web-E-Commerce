@@ -12,6 +12,8 @@
     border-radius: 10px;
     transition: transform linear 0.1s;
     margin-bottom: 10px;
+    min-height: 378px;
+    min-width: 292px;
 }
 .productItem:hover{
     border: 1px solid var(--primary-color);
