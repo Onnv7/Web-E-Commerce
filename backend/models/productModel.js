@@ -46,10 +46,6 @@ const productSchema = new mongoose.Schema({
     },
     ratingQuantity: { type: Number, default: 0 },
     soldQuantity: { type: Number, default: 0 },
-    priceDiscount: {
-        type: Number,
-        default: 0,
-    },
     description: {
         type: String,
         required: [true, "A product must have a description"],

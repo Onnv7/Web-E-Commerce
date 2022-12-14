@@ -71,8 +71,8 @@ const ProductSell = ({ id }) => {
                         <div className="productSell-price">
                             <div className="productPrice">
                                 <span>Giá:</span>
+                                <span></span>
                                 <span>{product.price} VNĐ</span>
-                                <span>{product.priceDiscount} VNĐ</span>
                             </div>
                             <div className="productFee">
                                 <span>Phí vận chuyển:</span>
