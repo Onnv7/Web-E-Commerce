@@ -1,18 +1,32 @@
 import express from "express";
-import { updateProduct, deleteProduct, selectProductsByCategory, selectAllProducts, createProduct } from "../controllers/productController.js";
+import {
+    getIDBySlug,
+    getProductById,
+    getAllProducts,
+    updateProduct,
+    deleteProduct,
+    selectProductsByCategory,
+    selectAllProducts,
+    createProduct,
+} from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
+router.get("/", getAllProducts);
 
 // create a new product
 router.post("/", createProduct);
 
 // select all products by shop
-router.get("/:shopId", selectAllProducts);
+router.get("/shop/:shopId", selectAllProducts);
 
 // select all products by category
-router.get("/:shopId/:cgrId", selectProductsByCategory);
+router.get("/shop/:shopId/:cgrId", selectProductsByCategory);
+
+router.get("/slug/:slug", getIDBySlug);
+
+router.get("/:id", getProductById);
 
 // delete a product
 router.delete("/:id", deleteProduct);

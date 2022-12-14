@@ -1,0 +1,9 @@
+.rating{
+    display: flex;
+    .star-light{
+        color:var(--primary-color)
+    }
+    .star-dark{
+        color:#ccc
+    }
+}

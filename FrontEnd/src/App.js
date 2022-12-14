@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
@@ -19,11 +21,19 @@ import AuctionPage from './Pages/AuctionPage/AuctionPage';
 import AuctionHistory from './Pages/AuctionHistory/AuctionHistory';
 import ViewShop from './Pages/ViewShop/ViewShop';
 import DetailCategory from './Pages/DetailCategory/DetailCategory';
+
 function App() {
     return (
         <BrowserRouter>
+            <ToastContainer
+                position="bottom-center"
+                limit={1}
+                autoClose={2000}
+                pauseOnHover={false}
+            />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/products/:slug" element={<SellPage />} />
                 <Route path="/img" element={<Image />} />
                 <Route path="/money" element={<Money />} />
                 <Route path="/paypal" element={<Paypal />} />
@@ -31,7 +41,6 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/thanhtoan" element={<Ruby />} />
-                <Route path="/dt" element={<SellPage />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/payment" element={<Payment />} />
