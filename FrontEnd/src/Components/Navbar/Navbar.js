@@ -1,12 +1,18 @@
-
-import React, { useContext, useState } from 'react';
-import './navbar.scss';
-import { Crown, Crown1, MessageQuestion, Note1, Notification, User } from 'iconsax-react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../context/AuthContext"
+import React, { useContext, useState } from "react";
+import "./navbar.scss";
+import {
+    Crown,
+    Crown1,
+    MessageQuestion,
+    Note1,
+    Notification,
+    User,
+} from "iconsax-react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = ({ style }) => {
- const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const gotoHome = () => {
@@ -22,36 +28,39 @@ const Navbar = ({ style }) => {
         navigate("/profile", { state: { destination: "note" } });
     };
     const handleMove = () => {
-        navigate('/profile', { state: { destination: 'user' } });
+        navigate("/profile", { state: { destination: "user" } });
     };
     return (
         <div className="navbar">
-
-            <div className={style === 'main' ? 'navContainer' : 'navContainerFull'}>
-                {style === 'main' ? (
-                <div className="navList">
-                    <span
-                        className="navItem active navItem--space"
-                        onClick={gotoHome}
-                    >
-                        Trang chủ
-                    </span>
-                    <span className="navItem navItem--space">Đấu giá</span>
-                    <span className="navItem navItem--space">
-                        Kênh bán hàng
-                    </span>
-                    <span
-                        className="navItem navItem--space"
-                        onClick={gotoLogin}
-                    >
-                        Đăng Nhập
-                    </span>
-                    <span className="navItem" onClick={gotoRegister}>
-                        Đăng ký
-                    </span>
-                </div>
+            <div
+                className={
+                    style === "main" ? "navContainer" : "navContainerFull"
+                }
+            >
+                {style === "main" ? (
+                    <div className="navList">
+                        <span
+                            className="navItem active navItem--space"
+                            onClick={gotoHome}
+                        >
+                            Trang chủ
+                        </span>
+                        <span className="navItem navItem--space">Đấu giá</span>
+                        <span className="navItem navItem--space">
+                            Kênh bán hàng
+                        </span>
+                        <span
+                            className="navItem navItem--space"
+                            onClick={gotoLogin}
+                        >
+                            Đăng Nhập
+                        </span>
+                        <span className="navItem" onClick={gotoRegister}>
+                            Đăng ký
+                        </span>
+                    </div>
                 ) : (
-                <div className="navListSell">
+                    <div className="navListSell">
                         <img src="../../Img/logovip.png" alt="" />
                         <span>Trang người bán</span>
                     </div>
@@ -62,14 +71,26 @@ const Navbar = ({ style }) => {
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
 
-                    <Note1 variant="Bold" className="navIcon" size={24} onClick={gotoNote} />
-                    <MessageQuestion variant="Bold" className="navIcon" size={24} />
-                    <Notification variant="Bold" className="navIcon" size={24} />
+                    <Note1
+                        variant="Bold"
+                        className="navIcon"
+                        size={24}
+                        onClick={gotoNote}
+                    />
+                    <MessageQuestion
+                        variant="Bold"
+                        className="navIcon"
+                        size={24}
+                    />
+                    <Notification
+                        variant="Bold"
+                        className="navIcon"
+                        size={24}
+                    />
                     <div className="navList-user" onClick={handleMove}>
-                        <img src="../../Img/iphone14.png" alt="" />
-                        <span>londucdcmmbao</span>
+                        <img src={user.imgPath} alt="" />
+                        <span>{user.name}</span>
                     </div>
-
                 </div>
             </div>
         </div>

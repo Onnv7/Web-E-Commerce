@@ -17,9 +17,6 @@ const Category = () => {
         getCategories();
     }, []);
     return (
-
-        {
-
         categories && (
             <div className="category">
                 <div className="grid wide">
@@ -97,7 +94,6 @@ const Category = () => {
                                 </div>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
