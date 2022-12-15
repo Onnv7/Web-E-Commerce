@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './navbar.scss';
 import { Crown, Crown1, MessageQuestion, Note1, Notification, User } from 'iconsax-react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = ({ style }) => {
+    const { user } = useContext(AuthContext);
+
     const navigate = useNavigate();
     const gotoHome = () => {
         navigate('/');
@@ -44,16 +47,17 @@ const Navbar = ({ style }) => {
                     </div>
                 )}
                 <div className="navList">
-                    <div className="navList-money navList--space">
-                        <span>Số dư: 0</span>
-                        <Crown variant="Bold" size={24} />
+                    <div className="navList-money">
+                        <span>Số dư: {user?.ruby}</span>
+                        <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
+
                     <Note1 variant="Bold" className="navIcon" size={24} onClick={gotoNote} />
                     <MessageQuestion variant="Bold" className="navIcon" size={24} />
                     <Notification variant="Bold" className="navIcon" size={24} />
                     <div className="navList-user" onClick={handleMove}>
-                        <img src="../../Img/iphone14.png" alt="" />
-                        <span>londucdcmmbao</span>
+                        <img src={user.imgPath} alt="" />
+                        <span>{user.name}</span>
                     </div>
                 </div>
             </div>
