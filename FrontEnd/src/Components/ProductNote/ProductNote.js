@@ -9,10 +9,10 @@ import {
     SearchNormal1,
     Shop,
 } from "iconsax-react";
-import { StoreContenxt } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext";
 import { Link } from "react-router-dom";
 const ProductNote = () => {
-    const { state, contextDispatch } = useContext(StoreContenxt);
+    const { state, contextDispatch } = useContext(StoreContext);
     console.log(state);
     const {
         wishlist: { wishlistItems },

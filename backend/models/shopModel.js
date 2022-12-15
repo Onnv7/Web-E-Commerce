@@ -10,7 +10,7 @@ const shopSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: "User",
             required: true,
-            unique: true,
+            // unique: true,
         },
         ratingAverage: {
             type: Number,
@@ -19,34 +19,39 @@ const shopSchema = new mongoose.Schema(
             max: [5, "Rating must be below 5"],
         },
         ratingQuantity: { type: Number, default: 0 },
-        subCategory: {
-            type: [
-                {
-                    name: {
-                        type: String,
-                        required: true,
-                        unique: true,
-                    },
-                    quantity: {
-                        type: Number,
-                        default: 0,
-                    },
-                },
-            ],
-            required: false,
-            default: [
-                {
-                    name: "All",
-                    quantity: 0,
-                },
-            ],
-        },
+        subCategories: [String],
         mainCategory: {
             type: mongoose.Schema.ObjectId,
             ref: "MainCategory",
         },
+        img: {
+            type: {
+                coverImage: {
+                    type: Buffer,
+                    //required: true,
+                },
+                coverImageType: {
+                    type: String,
+                    //required: true,
+                },
+            },
+            default: null,
+        },
     },
     { timestamps: true }
 );
+shopSchema.virtual("imgPath").get(function () {
+    if (
+        this.img.coverImage != null &&
+        this.img.coverImageType != null
+    ) {
+        return `data:${this.img.coverImageType
+            };charset=utf-8;base64,${this.img.coverImage.toString(
+                "base64"
+            )}`
 
+    }
+    return null;
+
+});
 export default mongoose.model("Shop", shopSchema);

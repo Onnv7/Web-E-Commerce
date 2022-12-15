@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 
-export const StoreContenxt = createContext();
+export const StoreContext = createContext();
 
 const initialState = {
     cart: {
@@ -9,6 +9,9 @@ const initialState = {
             : 0,
         cartItems: localStorage.getItem("cartItems")
             ? JSON.parse(localStorage.getItem("cartItems"))
+            : [],
+        shopItems: localStorage.getItem("shopItems")
+            ? JSON.parse(localStorage.getItem("shopItems"))
             : [],
     },
     wishlist: {
@@ -36,6 +39,37 @@ const reducer = (state, action) => {
             );
             return { ...state, wishlist: { ...state.wishlist, wishlistItems } };
         }
+        case "CART_ADD_ITEM": {
+            const newItem = action.payload;
+            let existItem = state.cart.cartItems.find(
+                (item) =>
+                    item._id === newItem._id &&
+                    item.sizeProduct === newItem.sizeProduct
+            );
+            const cartItems = existItem
+                ? state.cart.cartItems.map((item) =>
+                      item._id === newItem._id &&
+                      item.sizeProduct === newItem.sizeProduct
+                          ? newItem
+                          : item
+                  )
+                : [...state.cart.cartItems, newItem];
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            return { ...state, cart: { ...state.cart, cartItems } };
+        }
+        case "SHOP_ADD_ITEM": {
+            const newItem = action.payload;
+            let existItem = state.cart.shopItems.find(
+                (item) => item._id === newItem._id
+            );
+            const shopItems = existItem
+                ? state.cart.shopItems.map((item) =>
+                      item._id === newItem._id ? newItem : item
+                  )
+                : [...state.cart.shopItems, newItem];
+            localStorage.setItem("shopItems", JSON.stringify(shopItems));
+            return { ...state, cart: { ...state.cart, shopItems } };
+        }
         default:
             return state;
     }
@@ -44,8 +78,8 @@ export function StoreProvider(props) {
     const [state, contextDispatch] = useReducer(reducer, initialState);
     const value = { state, contextDispatch };
     return (
-        <StoreContenxt.Provider value={value}>
+        <StoreContext.Provider value={value}>
             {props.children}{" "}
-        </StoreContenxt.Provider>
+        </StoreContext.Provider>
     );
 }

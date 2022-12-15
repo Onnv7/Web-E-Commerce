@@ -35,7 +35,7 @@ export const selectProductsByCategory = async (req, res, next) => {
 // select all products by shop id
 export const selectAllProducts = async (req, res, next) => {
     try {
-        const products = await Product.findOne({ _id: req.params.shopId });
+        const products = await Product.find({ shop: req.params.shopId });
         const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {
@@ -56,7 +56,16 @@ export const getAllProducts = async (req, res, next) => {
 // select product by Id
 export const getProductById = async (req, res, next) => {
     try {
-        const products = await Product.findById(req.params.id);
+        const products = await Product.findById(req.params.id)
+            .populate({
+                path: "shop",
+                // select: "name",
+                transform: (doc) => {
+                    const { img, ...others } = doc._doc
+                    const data = { ...others, imgPath: doc.imgPath }
+                    return data
+                }
+            });
         const { img, ...others } = products._doc;
         const result = {
             ...others,

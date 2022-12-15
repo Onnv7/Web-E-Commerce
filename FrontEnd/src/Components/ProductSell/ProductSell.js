@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./productSell.scss";
 import { Message2, Note1, ShoppingCart, Star1 } from "iconsax-react";
 import axios from "./../../hooks/axios.js";
 import Rating from "../Rating/Rating";
+import { StoreContext } from "../../context/StoreContext";
 
 const ProductSell = ({ id }) => {
+    const { state, contextDispatch } = useContext(StoreContext);
     const [product, setProduct] = useState();
     const [current, setCurrent] = useState(0);
+
     const [count, setCount] = useState(1);
+    const [sizeProduct, setSizeProduct] = useState("");
+
+    const {
+        cart: { indexItem, cartItems, shopItems },
+    } = state;
 
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/${id}`);
             setProduct(data);
+            setSizeProduct(data.sizes[0]);
         };
         fetchData();
     }, [id]);
@@ -25,6 +34,36 @@ const ProductSell = ({ id }) => {
     };
     const countDown = () => {
         setCount(count - 1);
+    };
+    const addtocartHandler = () => {
+        let existItem = cartItems.find(
+            (item) =>
+                item._id === product._id && item.sizeProduct === sizeProduct
+        );
+        const quantityProduct = existItem
+            ? existItem.quantityProduct + count
+            : count;
+        contextDispatch({
+            type: "CART_ADD_ITEM",
+            payload: {
+                _id: product._id,
+                name: product.name,
+                price: product.price,
+                quantityProduct,
+                sizeProduct,
+                shopID: product.shop._id,
+                indexItem,
+            },
+        });
+        contextDispatch({
+            type: "SHOP_ADD_ITEM",
+            payload: {
+                _id: product.shop._id,
+            },
+        });
+    };
+    const buynowHandler = () => {
+        addtocartHandler();
     };
     return (
         product && (
@@ -86,8 +125,13 @@ const ProductSell = ({ id }) => {
                             <div className="product-capacity">
                                 <span>Size: </span>
                                 <div className="product-capacity__size">
-                                    {product.size.map((s) => (
-                                        <button key={s}>{s}</button>
+                                    {product.sizes.map((s) => (
+                                        <button
+                                            key={s}
+                                            onClick={() => setSizeProduct(s)}
+                                        >
+                                            {s}
+                                        </button>
                                     ))}
                                 </div>
                             </div>
@@ -102,7 +146,14 @@ const ProductSell = ({ id }) => {
                                             -
                                         </button>
                                         <span>{count}</span>
-                                        <button onClick={countUp}>+</button>
+                                        <button
+                                            onClick={countUp}
+                                            disabled={
+                                                count === product.quantity
+                                            }
+                                        >
+                                            +
+                                        </button>
                                     </div>
                                 </div>
                                 <span>
@@ -111,10 +162,29 @@ const ProductSell = ({ id }) => {
                                 </span>
                             </div>
                             <div className="productSell-btn">
-                                <button>
-                                    <ShoppingCart size={32} /> Thêm vào giỏ hàng
+                                {product.quantity > 0 && (
+                                    <button onClick={addtocartHandler}>
+                                        <ShoppingCart size={32} /> Thêm vào giỏ
+                                        hàng
+                                    </button>
+                                )}
+
+                                <button
+                                    onClick={buynowHandler}
+                                    style={{
+                                        opacity:
+                                            product.quantity === 0 ? 0.8 : null,
+                                        cursor:
+                                            product.quantity === 0
+                                                ? "not-allowed"
+                                                : null,
+                                    }}
+                                    disabled={product.quantity === 0}
+                                >
+                                    {product.quantity === 0
+                                        ? "Hết hàng"
+                                        : "Mua ngay"}
                                 </button>
-                                <button>Mua ngay</button>
                             </div>
                             <div className="product-payments">
                                 <span>Hỗ trợ thanh toán:</span>
