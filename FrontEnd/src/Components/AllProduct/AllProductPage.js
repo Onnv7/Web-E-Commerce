@@ -27,18 +27,12 @@ const AllProductPage = () => {
         fetchData();
     }, [user]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         console.log(data);
-    //         products(data);
-    //     };
-    //     fetchData();
-    // }, [user]);
     const handleUpdate = (id) => {
         navigate(`/seller/update/${id}`);
     };
-    const handleDetail = () => {
-        navigate("/seller/detail/1");
+    const handleDetail = (id) => {
+        console.log(id);
+        navigate(`/seller/detail/${id}`);
     };
     return (
         <div className="allProduct">
@@ -67,7 +61,7 @@ const AllProductPage = () => {
                         <div className="allProduct-list">
                             <div
                                 className="allProduct-name"
-                                onClick={handleDetail}
+                                onClick={() => handleDetail(product._id)}
                             >
                                 <img src={product.imgPath[0]} alt="" />
                                 <span>{product.name}</span>

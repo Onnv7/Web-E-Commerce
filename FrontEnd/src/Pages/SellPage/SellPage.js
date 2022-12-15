@@ -31,7 +31,7 @@ const SellPage = () => {
                 <Header style="hideImg" />
                 <div className="sellContainer">
                     <ProductSell id={id} />
-                    <Seller />
+                    <Seller id={id} />
                     <ProductDetail id={id} />
                     <ProductEvulate id={id} />
                     <ProductChild />

@@ -89,3 +89,20 @@ export const selectAllShop = async (req, res, next) => {
         next(err);
     }
 };
+
+// select shop by shop id
+export const selectShopByshopID = async (req, res, next) => {
+    try {
+        var imgPath;
+        const shop = await Shop.findById(req.params.shopId);
+        if (shop.img === null) {
+            imgPath = "/Img/default-user.png";
+        } else {
+            imgPath = getImgPathFromImgData(shop.img);
+        }
+        const { img, ...otherDetails } = shop._doc;
+        res.status(200).json({ ...otherDetails, imgPath });
+    } catch (err) {
+        next(err);
+    }
+};

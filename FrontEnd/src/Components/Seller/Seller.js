@@ -1,12 +1,25 @@
-import React from 'react';
-import './seller.scss';
-import { MessageText1, Shop, Star1 } from 'iconsax-react';
-const Seller = () => {
+import React, { useEffect, useState } from "react";
+import "./seller.scss";
+import { MessageText1, Shop, Star1 } from "iconsax-react";
+import axios from "./../../hooks/axios";
+
+const Seller = ({ id }) => {
+    const [shop, setShop] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/products/${id}`);
+        };
+        fetchData();
+    }, [id]);
     return (
         <div className="seller">
             <div className="seller-container">
                 <div className="seller-contact">
-                    <img src="../Img/1-tgdd.jpg" alt="" className="seller-img" />
+                    <img
+                        src="../Img/1-tgdd.jpg"
+                        alt=""
+                        className="seller-img"
+                    />
                     <div className="seller-detail">
                         <span className="seller-name">Thế giới di động</span>
                         <div className="seller-btn">
@@ -46,7 +59,11 @@ const Seller = () => {
             </div>
             <div className="sellerAuc-container none">
                 <div className="seller-contact">
-                    <img src="../Img/1-tgdd.jpg" alt="" className="seller-img" />
+                    <img
+                        src="../Img/1-tgdd.jpg"
+                        alt=""
+                        className="seller-img"
+                    />
                     <div className="sellerAuc-detail">
                         <span className="seller-name">Thế giới di động</span>
                         <button>
