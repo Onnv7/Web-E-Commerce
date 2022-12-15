@@ -120,3 +120,21 @@
     bottom: 14px;
     right: -30px;
 }
+.headerNav-cart{
+    position: relative;
+    width: 60px;
+
+    >span{
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-color: #fff;
+        border-radius: 50%;
+        top: 2px;
+        right: -22px;
+        font-size: 1.4rem;
+        text-align: center;
+        line-height: 24px;
+        border: 1px solid #000;
+    }
+}

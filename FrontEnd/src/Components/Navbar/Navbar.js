@@ -23,6 +23,9 @@ const Navbar = ({ style }) => {
     const handleMove = () => {
         navigate('/profile', { state: { destination: 'user' } });
     };
+    const gotoSell = () => {
+        navigate('/seller');
+    };
     return (
         <div className="navbar">
             <div className={style === 'main' ? 'navContainer' : 'navContainerFull'}>
@@ -43,7 +46,7 @@ const Navbar = ({ style }) => {
                 ) : (
                     <div className="navListSell">
                         <img src="../../Img/logovip.png" alt="" />
-                        <span>Trang người bán</span>
+                        <span onClick={gotoSell}>Trang người bán</span>
                     </div>
                 )}
                 <div className="navList">

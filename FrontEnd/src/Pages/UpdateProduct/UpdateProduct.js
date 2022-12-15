@@ -1,27 +1,27 @@
-import { Crown, GalleryAdd } from "iconsax-react";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Navbar/Navbar";
-import "./updateProduct.scss";
-import axios from "./../../hooks/axios";
-import { FilePond, registerPlugin } from "react-filepond";
-import { toast } from "react-toastify";
+import { Crown, GalleryAdd } from 'iconsax-react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Footer from '../../Components/Footer/Footer';
+import Navbar from '../../Components/Navbar/Navbar';
+import './updateProduct.scss';
+import axios from './../../hooks/axios';
+import { FilePond, registerPlugin } from 'react-filepond';
+import { toast } from 'react-toastify';
 
 // Import FilePond styles
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageResize from "filepond-plugin-image-resize";
-import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
-import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 // Register the plugin
 // Import the Image EXIF Orientation and Image Preview plugins
 // Note: These need to be installed separately
 // `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import { AuthContext } from "../../context/AuthContext";
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { AuthContext } from '../../context/AuthContext';
 
 // Register the plugins
 registerPlugin(
@@ -29,20 +29,20 @@ registerPlugin(
     FilePondPluginImageValidateSize,
     FilePondPluginFileEncode,
     FilePondPluginImagePreview,
-    FilePondPluginImageResize
+    FilePondPluginImageResize,
 );
 
 const UpdateProduct = () => {
     const { user } = useContext(AuthContext);
-    const [name, setName] = useState("");
+    const [name, setName] = useState('');
     const [files, setFiles] = useState([]);
-    const [brand, setBrand] = useState("");
-    const [size, setSize] = useState("");
+    const [brand, setBrand] = useState('');
+    const [size, setSize] = useState('');
     const [sizes, setSizes] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState("");
-    const [subCategory, setSubCategory] = useState("");
+    const [description, setDescription] = useState('');
+    const [subCategory, setSubCategory] = useState('');
     const [subCategories, setSubCategories] = useState([]);
     const [shop, setShop] = useState();
 
@@ -73,15 +73,15 @@ const UpdateProduct = () => {
     }, [id]);
     const navigate = useNavigate();
     const handleCancle = () => {
-        navigate("/seller");
+        navigate('/seller');
     };
     const addsizeHandler = () => {
         if (sizes.find((s) => s === size)) {
-            toast.warning("Size đã tồn tại trong sản phẩm");
+            toast.warning('Size đã tồn tại trong sản phẩm');
             return;
         }
         setSizes((pre) => [...pre, size]);
-        setSize("");
+        setSize('');
     };
 
     const checkProductNameExist = async () => {
@@ -96,7 +96,7 @@ const UpdateProduct = () => {
 
     const handleSubmit = async () => {
         if (await checkProductNameExist()) {
-            toast.warning("Sản phẩm đã tồn tại trong cửa hàng");
+            toast.warning('Sản phẩm đã tồn tại trong cửa hàng');
             return;
         }
         const img = getImageData(files);
@@ -112,7 +112,7 @@ const UpdateProduct = () => {
                 img,
                 subCategory,
             });
-            toast.success("Cập nhật sản phẩm thành công");
+            toast.success('Cập nhật sản phẩm thành công');
         } catch (err) {
             toast.error(err.message);
         }
@@ -120,9 +120,7 @@ const UpdateProduct = () => {
     const getImageData = (files) => {
         let rs = [];
         files.forEach((item) => {
-            var imgData = `{"type":"${
-                item.fileType.split(";")[0]
-            }","data":"${item.getFileEncodeBase64String()}"}`;
+            var imgData = `{"type":"${item.fileType.split(';')[0]}","data":"${item.getFileEncodeBase64String()}"}`;
 
             rs.push(imgData);
         });
@@ -131,28 +129,18 @@ const UpdateProduct = () => {
     return (
         <div>
             <Navbar style="seller" />
-            <hr style={{ width: "100%", margin: 0 }} />
+            <hr style={{ width: '100%', margin: 0 }} />
             <div className="newProduct">
                 <span>Cập nhật sản phẩm</span>
                 <div className="newProduct-box">
                     <span>Thông tin chi tiết</span>
                     <div className="newProduct-name">
                         <span>Tên sản phẩm</span>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                     </div>
                     <div className="newProduct-brand">
                         <span>Thương hiệu</span>
-                        <input
-                            type="text"
-                            value={brand}
-                            onChange={(e) => setBrand(e.target.value)}
-                            required
-                        />
+                        <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} required />
                     </div>
                     <div className="newProduct-size">
                         <span>Danh mục</span>
@@ -162,13 +150,9 @@ const UpdateProduct = () => {
                                     key={s}
                                     onClick={() => setSubCategory(s)}
                                     style={{
-                                        backgroundColor:
-                                            s === subCategory
-                                                ? "var(--sub-color)"
-                                                : null,
-                                        color:
-                                            s === subCategory ? "#fff" : null,
-                                        cursor: "pointer",
+                                        backgroundColor: s === subCategory ? 'var(--sub-color)' : null,
+                                        color: s === subCategory ? '#fff' : null,
+                                        cursor: 'pointer',
                                     }}
                                 >
                                     {s}
@@ -178,17 +162,14 @@ const UpdateProduct = () => {
                     </div>
                     <div className="newProduct-size">
                         <span>Size</span>
-                        <input
-                            type="text"
-                            value={size}
-                            onChange={(e) => setSize(e.target.value)}
-                            required
-                        />
-                        <button onClick={addsizeHandler}>Thêm</button>
-                        <div className="newProduct-sizeBox">
-                            {sizes.map((s) => (
-                                <span key={s}>{s}</span>
-                            ))}
+                        <div className="newProduct-sizeContent">
+                            <input type="text" value={size} onChange={(e) => setSize(e.target.value)} required />
+                            <button onClick={addsizeHandler}>Thêm</button>
+                            <div className="newProduct-sizeBox">
+                                {sizes.map((s) => (
+                                    <span key={s}>{s}</span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     <div className="newProduct-quantity">
@@ -246,10 +227,7 @@ const UpdateProduct = () => {
                     <span>Mô tả sản phẩm</span>
                     <div className="newProduct-desc">
                         <span>Mô tả sản phẩm</span>
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        ></textarea>
+                        <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
                     <div className="newProduct-btn">
                         <button onClick={handleCancle}>Hủy</button>

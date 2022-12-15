@@ -81,6 +81,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.cart-content{
+    flex: 3;
+}
 .cart-productItem{
     display: flex;
     flex: 1;
@@ -160,26 +163,6 @@
 }
 .cart-icon{
     color: rgba(0, 0, 0, 0.5);
-}
-.cart-choose{
-    display: flex;
-    margin-bottom: 10px;
-    justify-content: space-between;
-    font-size: 1.8rem;
-
-    >span{
-        font-size: 1.6rem;
-        color: rgba(220, 91, 14, 0.5);
-        &:hover{
-            cursor: pointer;
-            color: var(--primary-color);
-        }
-    }
-}
-.cart-chooseAll{
-    >span{
-        margin-left: 6px;
-    }
 }
 .cart-confirm{
     flex: 1;

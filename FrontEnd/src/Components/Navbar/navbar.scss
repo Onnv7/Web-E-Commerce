@@ -31,6 +31,10 @@
     >span{
         font-size: 2rem;
         margin-left: 6px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
     >img{
         width: 60px;

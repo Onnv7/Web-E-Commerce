@@ -91,8 +91,41 @@
         
     }
 }
-.newProduct-sizeBox{
+.newProduct-sizeContent{
     flex: 2;
+    >input{
+        width: 300px;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        overflow: hidden;
+        padding: 10px;
+        font-size: 1.8rem;
+        outline: none;
+    }
+    >button{
+        padding: 10px;
+        font-size: 1.8rem;
+        background: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        color: #fff;
+        margin-left: 8px;
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+}
+.newProduct-sizeBox{
+    &:nth-of-type(1){
+        flex: 2;
+    }
+
+    &:last-child{
+        margin-top: 8px;
+    }
     >span{
         width: 100px;
         height: 40px;

@@ -15,6 +15,7 @@ const ResetPass = ({ setOpen }) => {
     return (
         <div className="resetPass">
             <div className={active === 1 ? 'resetPass-container' : 'tab-hide'}>
+                <Back className="comfirmPass-icon" onClick={() => setOpen(false)} />
                 <span>Đặt lại mật khẩu</span>
                 <span>Chọn phương thức để đặt lại mật khẩu</span>
                 <button>
