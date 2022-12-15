@@ -56,6 +56,13 @@ function ProductItem({ product }) {
                             className="product-liked"
                             variant="Bold"
                             onClick={wishlistHandler}
+                            style={{
+                                color: state.wishlist?.wishlistItems.find(
+                                    (item) => item._id === product._id
+                                )
+                                    ? "#DC5B0E"
+                                    : null,
+                            }}
                         />
                         {/* <ShoppingCart className="product-liked" /> */}
                     </div>
