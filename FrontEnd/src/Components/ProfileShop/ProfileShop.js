@@ -59,6 +59,8 @@ const ProfileShop = () => {
         try {
             await axios.post("/shops", {
                 name,
+                user: user._id,
+                subCategory: subCategories,
             });
         } catch (err) {
             toast.error(err.message);
