@@ -10,7 +10,7 @@ const shopSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: "User",
             required: true,
-            unique: true,
+            // unique: true,
         },
         ratingAverage: {
             type: Number,
@@ -26,10 +26,6 @@ const shopSchema = new mongoose.Schema(
                         type: String,
                         required: true,
                         unique: true,
-                    },
-                    quantity: {
-                        type: Number,
-                        default: 0,
                     },
                 },
             ],
