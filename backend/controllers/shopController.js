@@ -7,7 +7,7 @@ const upLevelSeller = async function (req, res, next) {
     try {
         await User.updateOne(
             { _id: req.params.id },
-            { $set: { role: "buyer" } }
+            { $set: { role: "seller" } }
         );
     } catch (err) {
         //next(err);
@@ -26,6 +26,7 @@ export const createShop = async (req, res, next) => {
         await newShop.save();
         res.status(200).send("Shop has been created.");
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };
@@ -34,12 +35,13 @@ export const createShop = async (req, res, next) => {
 export const updateShop = async (req, res, next) => {
     try {
         let img;
-        if (req.body.img !== null)
+        let data;
+        if (req.body.img !== undefined) {
             img = getDataFromImage(req.body.img);
-        else {
-            // TODO: do something
+            data = { ...req.body, img };
+        } else {
+            data = req.body;
         }
-        const data = { ...req.body, img }
         const updatedShop = await Shop.updateOne(
             { user: req.params.userId },
             { $set: data },
