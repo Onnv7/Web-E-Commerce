@@ -59,7 +59,12 @@ export const getProductById = async (req, res, next) => {
         const products = await Product.findById(req.params.id)
             .populate({
                 path: "shop",
-                select: "* -img imgPath",
+                // select: "name",
+                transform: (doc) => {
+                    const { img, ...others } = doc._doc
+                    const data = { ...others, imgPath: doc.imgPath }
+                    return data
+                }
             });
         const { img, ...others } = products._doc;
         const result = {
