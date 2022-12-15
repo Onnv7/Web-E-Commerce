@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    selectShopByshopID,
     createShop,
     deleteShop,
     updateShop,
@@ -14,7 +15,7 @@ const router = express.Router();
 router.get("/", selectAllShop);
 
 // select shop by shop id
-router.get("/shop/:shopId", selectAllShop);
+router.get("/shop/:shopId", selectShopByshopID);
 
 // select one by user id
 router.get("/:userId", selectShop);

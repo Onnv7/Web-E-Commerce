@@ -3,10 +3,10 @@ import "./productSell.scss";
 import { Message2, Note1, ShoppingCart, Star1 } from "iconsax-react";
 import axios from "./../../hooks/axios.js";
 import Rating from "../Rating/Rating";
-import { StoreContenxt } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext";
 
 const ProductSell = ({ id }) => {
-    const { state, contextDispatch } = useContext(StoreContenxt);
+    const { state, contextDispatch } = useContext(StoreContext);
     const [product, setProduct] = useState();
     const [current, setCurrent] = useState(0);
 
@@ -14,13 +14,14 @@ const ProductSell = ({ id }) => {
     const [sizeProduct, setSizeProduct] = useState("");
 
     const {
-        cart: { indexItem, cartItems, storeItems },
+        cart: { indexItem, cartItems, shopItems },
     } = state;
 
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/${id}`);
             setProduct(data);
+            setSizeProduct(data.sizes[0]);
         };
         fetchData();
     }, [id]);
@@ -50,13 +51,20 @@ const ProductSell = ({ id }) => {
                 price: product.price,
                 quantityProduct,
                 sizeProduct,
+                shopID: product.shop._id,
                 indexItem,
             },
         });
-        if (existItem) {
-        }
+        contextDispatch({
+            type: "SHOP_ADD_ITEM",
+            payload: {
+                _id: product.shop._id,
+            },
+        });
     };
-    const buynowHandler = () => {};
+    const buynowHandler = () => {
+        addtocartHandler();
+    };
     return (
         product && (
             <div className="productSell">
