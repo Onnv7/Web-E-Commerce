@@ -63,10 +63,7 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-    subCategory: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Shop.subCategory",
-    },
+    subCategory: String,
 });
 
 productSchema.pre("save", function (next) {

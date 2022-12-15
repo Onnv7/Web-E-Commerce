@@ -86,7 +86,7 @@ const ProductSell = ({ id }) => {
                             <div className="product-capacity">
                                 <span>Size: </span>
                                 <div className="product-capacity__size">
-                                    {product.size.map((s) => (
+                                    {product.sizes.map((s) => (
                                         <button key={s}>{s}</button>
                                     ))}
                                 </div>

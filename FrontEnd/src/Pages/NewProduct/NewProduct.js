@@ -78,7 +78,8 @@ const NewProduct = () => {
     };
 
     const handleSubmit = async () => {
-        if (checkProductNameExist()) {
+        console.log(await checkProductNameExist());
+        if (await checkProductNameExist()) {
             toast.warning("Sản phẩm đã tồn tại trong cửa hàng");
             return;
         }
@@ -93,6 +94,7 @@ const NewProduct = () => {
                 sizes,
                 description,
                 img,
+                subCategory,
             });
             toast.success("Tạo sản phẩm thành công");
         } catch (err) {
