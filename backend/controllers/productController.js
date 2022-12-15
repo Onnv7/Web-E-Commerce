@@ -56,7 +56,11 @@ export const getAllProducts = async (req, res, next) => {
 // select product by Id
 export const getProductById = async (req, res, next) => {
     try {
-        const products = await Product.findById(req.params.id);
+        const products = await Product.findById(req.params.id)
+            .populate({
+                path: "shop",
+                select: "* -img imgPath",
+            });
         const { img, ...others } = products._doc;
         const result = {
             ...others,
