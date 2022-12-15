@@ -1,6 +1,8 @@
 import Shop from "../models/shopModel.js";
 import User from "../models/userModel.js";
 import { updateUser } from "./userController.js";
+import { saveFileObj, getDataFromImage } from "../utils/saveFile.js";
+import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 const upLevelSeller = async function (req, res, next) {
     try {
         await User.updateOne(
@@ -15,10 +17,12 @@ const upLevelSeller = async function (req, res, next) {
 // create a new shop and up level for user => buyer
 export const createShop = async (req, res, next) => {
     try {
+        const image = req.body.img;
         upLevelSeller(req, res, next);
         const newShop = new Shop({
             ...req.body,
         });
+        await saveFileObj(newShop, image);
         await newShop.save();
         res.status(200).send("Shop has been created.");
     } catch (err) {
@@ -29,9 +33,16 @@ export const createShop = async (req, res, next) => {
 // update a shop
 export const updateShop = async (req, res, next) => {
     try {
+        let img;
+        if (req.body.img !== null)
+            img = getDataFromImage(req.body.img);
+        else {
+            // TODO: do something
+        }
+        const data = { ...req.body, img }
         const updatedShop = await Shop.updateOne(
             { user: req.params.userId },
-            { $set: req.body },
+            { $set: data },
             { new: true }
         );
         res.status(200).json(updatedShop);
@@ -53,8 +64,15 @@ export const deleteShop = async (req, res, next) => {
 // select shop by user id
 export const selectShop = async (req, res, next) => {
     try {
+        var imgPath;
         const shop = await Shop.findOne({ user: req.params.userId });
-        res.status(200).json(shop);
+        if (shop.img === null) {
+            imgPath = "/Img/default-user.png";
+        } else {
+            imgPath = getImgPathFromImgData(shop.img);
+        }
+        const { img, ...otherDetails } = shop._doc;
+        res.status(200).json({ ...otherDetails, imgPath });
     } catch (err) {
         next(err);
     }
