@@ -19,24 +19,7 @@ const shopSchema = new mongoose.Schema(
             max: [5, "Rating must be below 5"],
         },
         ratingQuantity: { type: Number, default: 0 },
-        subCategory: {
-            type: [
-                {
-                    name: {
-                        type: String,
-                        required: true,
-                        unique: true,
-                    },
-                },
-            ],
-            required: false,
-            default: [
-                {
-                    name: "All",
-                    quantity: 0,
-                },
-            ],
-        },
+        subCategory: [String],
         mainCategory: {
             type: mongoose.Schema.ObjectId,
             ref: "MainCategory",
