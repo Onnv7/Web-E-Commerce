@@ -8,10 +8,10 @@ import {
 } from "iconsax-react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { StoreContenxt } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext";
 
 function ProductItem({ product }) {
-    const { state, contextDispatch } = useContext(StoreContenxt);
+    const { state, contextDispatch } = useContext(StoreContext);
 
     const wishlistHandler = () => {
         contextDispatch({

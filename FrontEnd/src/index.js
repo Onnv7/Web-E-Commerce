@@ -8,15 +8,15 @@ import { StoreProvider } from "./context/StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.StrictMode>
-        <GlobalStyles>
-            <AuthContextProvider>
-                <StoreProvider>
-                    <App />
-                </StoreProvider>
-            </AuthContextProvider>
-        </GlobalStyles>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <GlobalStyles>
+        <AuthContextProvider>
+            <StoreProvider>
+                <App />
+            </StoreProvider>
+        </AuthContextProvider>
+    </GlobalStyles>
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
