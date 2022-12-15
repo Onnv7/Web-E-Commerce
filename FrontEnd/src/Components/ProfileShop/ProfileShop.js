@@ -1,5 +1,5 @@
 import { GalleryEdit } from "iconsax-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./profileShop.scss";
 import axios from "./../../hooks/axios.js";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ registerPlugin(
     FilePondPluginImageResize
 );
 const ProfileShop = () => {
-    const { user } = AuthContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [name, setName] = useState("");
     const [files, setFiles] = useState([]);
     const [mainCategory, setMainCategory] = useState("");
@@ -54,13 +54,26 @@ const ProfileShop = () => {
         toast.success("Thêm danh mục thành công");
         setSubCategory("");
     };
-
+    const getImageData = (item) => {
+        return `{"type":"${
+            item.fileType.split(";")[0]
+        }","data":"${item.getFileEncodeBase64String()}"}`;
+    };
     const submitHandler = async () => {
         try {
+            let img;
+            if (files[0] === undefined) {
+                toast.warn("You haven't added a photo yet");
+                return;
+            } else {
+                img = getImageData(files[0]);
+            }
             await axios.post("/shops", {
                 name,
                 user: user._id,
-                subCategory: subCategories,
+                mainCategory,
+                subCategories,
+                img,
             });
         } catch (err) {
             toast.error(err.message);
