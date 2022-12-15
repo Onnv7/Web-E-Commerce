@@ -45,6 +45,19 @@ const shopSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: "MainCategory",
         },
+        img: {
+            type: {
+                coverImage: {
+                    type: Buffer,
+                    //required: true,
+                },
+                coverImageType: {
+                    type: String,
+                    //required: true,
+                },
+            },
+            default: null,
+        },
     },
     { timestamps: true }
 );
