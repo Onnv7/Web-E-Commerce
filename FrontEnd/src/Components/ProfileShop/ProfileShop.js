@@ -19,6 +19,7 @@ import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { AuthContext } from "../../context/AuthContext";
 
 // Register the plugins
 registerPlugin(
@@ -29,6 +30,7 @@ registerPlugin(
     FilePondPluginImageResize
 );
 const ProfileShop = () => {
+    const { user } = AuthContext(AuthContext);
     const [name, setName] = useState("");
     const [files, setFiles] = useState([]);
     const [mainCategory, setMainCategory] = useState("");
@@ -42,6 +44,7 @@ const ProfileShop = () => {
         };
         fetchData();
     }, []);
+
     const addCategoryHandler = () => {
         if (subCategories.find((s) => s === subCategory)) {
             toast.warning("Danh mục đã tồn tại trong shop");
@@ -51,11 +54,17 @@ const ProfileShop = () => {
         toast.success("Thêm danh mục thành công");
         setSubCategory("");
     };
-    const submitHandler = () => {
-        console.log(name);
-        console.log(mainCategory);
-        console.log(subCategories);
+
+    const submitHandler = async () => {
+        try {
+            await axios.post("/shops", {
+                name,
+            });
+        } catch (err) {
+            toast.error(err.message);
+        }
     };
+
     return (
         <div className="profileShop">
             <div className="profileShop-container">
