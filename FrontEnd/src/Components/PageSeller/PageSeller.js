@@ -1,35 +1,52 @@
-import React, { useState } from 'react';
-import './pageSeller.scss';
-import { ArrowRight2, Box1, Note1, User } from 'iconsax-react';
-import ManageProduct from '../ManageProduct/ManageProduct';
-import AllProductPage from '../AllProduct/AllProductPage';
-import ProfileShop from '../ProfileShop/ProfileShop';
-import ManageAuction from '../ManageAuction/ManageAuction';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useContext, useEffect, useState } from "react";
+import "./pageSeller.scss";
+import { ArrowRight2, Box1, Note1, User } from "iconsax-react";
+import ManageProduct from "../ManageProduct/ManageProduct";
+import AllProductPage from "../AllProduct/AllProductPage";
+import ProfileShop from "../ProfileShop/ProfileShop";
+import ManageAuction from "../ManageAuction/ManageAuction";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "./../../hooks/axios";
 const PageSeller = () => {
+    const { user } = useContext(AuthContext);
+    const [shop, setShop] = useState();
     const [open, setOpen] = useState(false);
-    const [slide, setSlide] = useState(<ManageProduct />);
+    const [slide, setSlide] = useState(<ProfileShop />);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/shops/${user._id}`);
+            if (data) setShop(data);
+        };
+        fetchData();
+    }, [user]);
+
     const showSubNav = () => {
         if (!open) {
             setOpen(true);
         } else setOpen(false);
     };
     const openAll = () => {
-        setSlide(<AllProductPage />);
+        if (shop) setSlide(<AllProductPage />);
+        else setSlide(<ProfileShop />);
     };
     const openManage = () => {
-        setSlide(<ManageProduct />);
+        if (shop) setSlide(<ManageProduct />);
+        else setSlide(<ProfileShop />);
     };
     const openNew = () => {
-        navigate('/seller/new/1');
+        if (shop) navigate("/seller/new/1");
+        else setSlide(<ProfileShop />);
     };
     const openProfile = () => {
         setSlide(<ProfileShop />);
     };
     const openList = () => {
-        setSlide(<ManageAuction />);
+        if (shop) setSlide(<ManageAuction />);
+        else setSlide(<ProfileShop />);
     };
     return (
         <div className="pageSeller">

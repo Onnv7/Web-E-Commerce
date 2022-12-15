@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "User product have a brand"],
     },
-    size: {
+    sizes: {
         type: [String],
         //required: [true, "User product have a color"],
     },
@@ -63,10 +63,7 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-    subCategory: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Shop.subCategory",
-    },
+    subCategory: String,
 });
 
 productSchema.pre("save", function (next) {
