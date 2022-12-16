@@ -29,13 +29,7 @@ const ProductPay = () => {
                         Đấu giá
                     </button>
                 </div>
-                <div className="productPay-searchBox">
-                    <SearchNormal1 className="productPay-searchIcon" />
-                    <input type="text" placeholder="Tìm kiếm đơn hàng theo tên shop, tên sản phẩm..." />
-                    <button>
-                        <SearchNormal1 className="productPay-searchIcon" />
-                    </button>
-                </div>
+
                 <div className={active === 1 ? 'productPay-list' : 'tab-hide'}>
                     <div className="productPay-item">
                         <div className="productPay-header">

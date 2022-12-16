@@ -12,7 +12,7 @@ const Profile = () => {
 
     return (
         <div>
-            <NavBar />
+            <NavBar style="main" />
             <Header styles="hideNav" />
             <div className="profile-container">
                 <ProfileNav />

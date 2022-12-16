@@ -1,15 +1,9 @@
-import {
-    ArrowLeft2,
-    ArrowRight2,
-    Crown,
-    SearchNormal1,
-    Back,
-} from "iconsax-react";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import "./allProductPage.scss";
-import axios from "./../../hooks/axios";
+import { ArrowLeft2, ArrowRight2, Crown, SearchNormal1, Back } from 'iconsax-react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import './allProductPage.scss';
+import axios from './../../hooks/axios';
 
 const AllProductPage = () => {
     const { user } = useContext(AuthContext);
@@ -37,19 +31,6 @@ const AllProductPage = () => {
     return (
         <div className="allProduct">
             <div className="allProduct-container">
-                <div className="allProduct-search">
-                    <div className="allProduct-searchItem">
-                        <span>Tên sản phẩm</span>
-                        <input
-                            type="text"
-                            placeholder="Nhập tên sản phẩm để tìm kiếm..."
-                        />
-                        <button className="headerSearch-btn">
-                            <SearchNormal1 className="headerSearch-icon" />
-                        </button>
-                    </div>
-                    <button>Thêm sản phẩm</button>
-                </div>
                 <div className="allProduct-header">
                     <span>Thông tin sản phẩm</span>
                     <span>Số lượng trong kho</span>
@@ -59,10 +40,7 @@ const AllProductPage = () => {
                 {products &&
                     products.map((product) => (
                         <div className="allProduct-list">
-                            <div
-                                className="allProduct-name"
-                                onClick={() => handleDetail(product._id)}
-                            >
+                            <div className="allProduct-name" onClick={() => handleDetail(product._id)}>
                                 <img src={product.imgPath[0]} alt="" />
                                 <span>{product.name}</span>
                             </div>
@@ -72,9 +50,7 @@ const AllProductPage = () => {
                                 <Crown variant="Bold" size={15} />
                             </span>
                             <div className="allProduct-action">
-                                <span onClick={() => handleUpdate(product._id)}>
-                                    Cập nhật
-                                </span>
+                                <span onClick={() => handleUpdate(product._id)}>Cập nhật</span>
                                 <span onClick={() => setOpen(true)}>Xoá</span>
                             </div>
                         </div>
@@ -87,10 +63,7 @@ const AllProductPage = () => {
                     </a>
                 </div>
                 <div className="pagination-item ">
-                    <a
-                        href=""
-                        className="pagination-link pagination-link__active"
-                    >
+                    <a href="" className="pagination-link pagination-link__active">
                         1
                     </a>
                 </div>
@@ -118,10 +91,7 @@ const AllProductPage = () => {
             {open && (
                 <div className="modal-deleteProduct none">
                     <div className="modal-deleteProductContainer">
-                        <span>
-                            Bạn chắc chắn muốn xoá sản phẩm này khỏi cửa hàng
-                            của bạn?
-                        </span>
+                        <span>Bạn chắc chắn muốn xoá sản phẩm này khỏi cửa hàng của bạn?</span>
                         <button>Chắc chắn</button>
                         <button onClick={() => setOpen(false)}>
                             <Back size={32} />

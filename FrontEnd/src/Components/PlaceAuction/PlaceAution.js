@@ -5,14 +5,6 @@ import './placeAuction.scss';
 const PlaceAution = () => {
     return (
         <div className="placeAution">
-            <div className="manageProduct-search">
-                <span>Mã đơn hàng</span>
-                <input type="text" placeholder="Tìm kiếm bất cứ thứ gì..." />
-                <button className="headerSearch-btn">
-                    <SearchNormal1 className="headerSearch-icon" />
-                </button>
-            </div>
-
             <div className="grid wide">
                 <div className="row sm-gutter ">
                     <div className="col c-4">

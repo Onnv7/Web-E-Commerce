@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./cartProperty.scss";
-import { ArrowDown2, Crown, Heart, MessageText1, Shop } from "iconsax-react";
-import { AuthContext } from "../../context/AuthContext";
-import { StoreContext } from "../../context/StoreContext";
-import axios from "./../../hooks/axios";
+import React, { useContext, useEffect, useState } from 'react';
+import './cartProperty.scss';
+import { ArrowDown2, Crown, Heart, MessageText1, Shop } from 'iconsax-react';
+import { AuthContext } from '../../context/AuthContext';
+import { StoreContext } from '../../context/StoreContext';
+import axios from './../../hooks/axios';
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
     const { state, contextDispatch } = useContext(StoreContext);
@@ -52,33 +52,21 @@ const CartProperty = () => {
                                         <MessageText1 />
                                         Liên hệ
                                     </button>
-                                    <span>Xóa</span>
                                 </div>
                             </div>
                             {products
-                                .filter(
-                                    (product) => product.shop._id === shop._id
-                                )
+                                .filter((product) => product.shop._id === shop._id)
                                 .map((product) => (
                                     <div className="cart-product">
                                         <input type="checkbox" />
-                                        <img
-                                            src={product.imgPath[0]}
-                                            alt="productImg"
-                                        />
+                                        <img src={product.imgPath[0]} alt="productImg" />
                                         <div className="cart-productProperty">
                                             <div className="cart-productItem">
                                                 <span>{product.name}</span>
                                                 <div className="cart-productBox">
                                                     <div className="cart-productCount">
                                                         <span>Số lượng</span>
-                                                        <input
-                                                            type="text"
-                                                            value={
-                                                                product.quantityProduct
-                                                            }
-                                                            disabled
-                                                        />
+                                                        <input type="text" value={product.quantityProduct} disabled />
                                                     </div>
                                                     <div className="cart-moneySum">
                                                         <span>Giá tiền</span>
@@ -90,9 +78,7 @@ const CartProperty = () => {
                                                 </div>
                                             </div>
                                             <div className="cart-productButton">
-                                                <span>
-                                                    {product.sizeProduct}
-                                                </span>
+                                                <span>{product.sizeProduct}</span>
                                                 <span>Xóa</span>
                                             </div>
                                         </div>
@@ -187,22 +173,13 @@ const CartProperty = () => {
                     </div> */}
                 </div>
                 <div className="cart-confirm">
-                    <div className="cart-choose">
-                        <div className="cart-chooseAll">
-                            <input type="checkbox" />
-                            <span>Chọn tất cả</span>
-                        </div>
-                        <span>Xóa</span>
-                    </div>
                     <div className="cart-comfirmList">
                         <div className="cart-confirmItem">
                             <span>Tổng số lượng</span>
                             <span>
                                 {cartItems.reduce(
-                                    (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.quantityProduct,
-                                    0
+                                    (accumulate, currentValue) => accumulate + currentValue.quantityProduct,
+                                    0,
                                 )}
                             </span>
                         </div>
@@ -211,10 +188,8 @@ const CartProperty = () => {
                             <span>
                                 {cartItems.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.price *
-                                            currentValue.quantityProduct,
-                                    0
+                                        accumulate + currentValue.price * currentValue.quantityProduct,
+                                    0,
                                 )}
                                 <Crown variant="Bold" />
                             </span>

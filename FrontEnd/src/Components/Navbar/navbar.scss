@@ -31,6 +31,10 @@
     >span{
         font-size: 2rem;
         margin-left: 6px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
     >img{
         width: 60px;
@@ -59,28 +63,31 @@
         top : 50%;
         transform: translateY(-50%);
 }
+.navList--space::after{
+    content: "";
+        display: block;
+        position: absolute;
+        height: 24px;
+        border-right: 2px solid var(--primary-color);
+        right: 26px;
+        top : 50%;
+        transform: translateY(-50%);
+}
 .navIcon{
     width: 33px;
     cursor: pointer;
+    position: relative;
+    
 }
 .navList-money{
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
     >span{
         font-size: 1.8rem;
     }
 
-    &::after{
-        content: "";
-        display: block;
-        position: absolute;
-        height: 24px;
-        border-right: 2px solid var(--primary-color);
-        left: 150px;
-        top : 50%;
-        transform: translateY(-50%);
-    }
 }
 .navList-user{
     display: flex;
