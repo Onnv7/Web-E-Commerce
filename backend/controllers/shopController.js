@@ -94,7 +94,10 @@ export const selectAllShop = async (req, res, next) => {
 export const selectShopByshopID = async (req, res, next) => {
     try {
         var imgPath;
-        const shop = await Shop.findById(req.params.shopId);
+        const shop = await Shop.findById(req.params.shopId).populate({
+            path: "user",
+            select: "deliveryInfo"
+        });
         if (shop.img === null) {
             imgPath = "/Img/default-user.png";
         } else {
