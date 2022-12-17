@@ -70,6 +70,18 @@ const reducer = (state, action) => {
             localStorage.setItem("shopItems", JSON.stringify(shopItems));
             return { ...state, cart: { ...state.cart, shopItems } };
         }
+        case "CART_REMOVE_ITEM": {
+            const removeItem = action.payload;
+            const cartItems = state.cart.cartItems.filter(
+                (item) =>
+                    item._id !== removeItem._id ||
+                    (item._id === removeItem._id &&
+                        item.sizeProduct !== removeItem.sizeProduct)
+            );
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            return { ...state, cart: { ...state.cart, cartItems: cartItems } };
+        }
+
         default:
             return state;
     }

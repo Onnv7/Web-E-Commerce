@@ -4,6 +4,7 @@ import { ArrowDown2, Crown, Heart, MessageText1, Shop } from "iconsax-react";
 import { AuthContext } from "../../context/AuthContext";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "./../../hooks/axios";
+import { toast } from "react-toastify";
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
     const { state, contextDispatch } = useContext(StoreContext);
@@ -33,8 +34,21 @@ const CartProperty = () => {
             setShops((pre) => [...pre, data]);
         });
     }, [shopItems]);
-    console.log(products);
-    console.log(shops);
+
+    const handleDeleteProduct = (productDeleted) => {
+        try {
+            contextDispatch({
+                type: "CART_REMOVE_ITEM",
+                payload: productDeleted,
+            });
+
+            setProducts([]);
+            toast.success("Delete product successfully");
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
+
     return (
         <div className="cartProperty">
             <div className="cart-container">
@@ -93,7 +107,15 @@ const CartProperty = () => {
                                                 <span>
                                                     {product.sizeProduct}
                                                 </span>
-                                                <span>Xóa</span>
+                                                <span
+                                                    onClick={() =>
+                                                        handleDeleteProduct(
+                                                            product
+                                                        )
+                                                    }
+                                                >
+                                                    Xóa
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
