@@ -58,9 +58,14 @@ const Navbar = ({ style }) => {
                     <Note1 variant="Bold" className="navIcon" size={24} onClick={gotoNote} />
                     <MessageQuestion variant="Bold" className="navIcon" size={24} />
                     <Notification variant="Bold" className="navIcon" size={24} />
-                    <div className="navList-user" onClick={handleMove}>
+                    <div className="navList-user">
                         <img src={user.imgPath} alt="" />
-                        <span>{user.name}</span>
+                        <span>{user.username}</span>
+                        <div className="navList-userMenu">
+                            <span onClick={handleMove}>Tài khoản của tôi</span>
+                            <span>Đơn mua</span>
+                            <span>Đăng xuất</span>
+                        </div>
                     </div>
                 </div>
             </div>
