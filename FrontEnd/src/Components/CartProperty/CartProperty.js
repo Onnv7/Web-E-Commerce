@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "./../../hooks/axios";
 import { toast } from "react-toastify";
+
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
     const { state, contextDispatch } = useContext(StoreContext);
@@ -66,7 +67,6 @@ const CartProperty = () => {
                                         <MessageText1 />
                                         Liên hệ
                                     </button>
-                                    <span>Xóa</span>
                                 </div>
                             </div>
                             {products
@@ -107,15 +107,7 @@ const CartProperty = () => {
                                                 <span>
                                                     {product.sizeProduct}
                                                 </span>
-                                                <span
-                                                    onClick={() =>
-                                                        handleDeleteProduct(
-                                                            product
-                                                        )
-                                                    }
-                                                >
-                                                    Xóa
-                                                </span>
+                                                <span>Xóa</span>
                                             </div>
                                         </div>
                                     </div>
@@ -209,13 +201,6 @@ const CartProperty = () => {
                     </div> */}
                 </div>
                 <div className="cart-confirm">
-                    <div className="cart-choose">
-                        <div className="cart-chooseAll">
-                            <input type="checkbox" />
-                            <span>Chọn tất cả</span>
-                        </div>
-                        <span>Xóa</span>
-                    </div>
                     <div className="cart-comfirmList">
                         <div className="cart-confirmItem">
                             <span>Tổng số lượng</span>

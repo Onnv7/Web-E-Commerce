@@ -21,22 +21,16 @@ const productSchema = new mongoose.Schema({
         // required: true,
     },
     slug: String,
-    quantity: {
-        type: Number,
-        required: [true, "User product have quantity"],
-        default: 1,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
     brand: {
         type: String,
         required: [true, "User product have a brand"],
     },
-    sizes: {
-        type: [String],
-        //required: [true, "User product have a color"],
+    classify: {
+        type: [{
+            name: { type: String, default: "" },
+            quantity: { type: Number, default: 0 },
+            price: { type: Number, default: 0 },
+        }]
     },
     ratingAverage: {
         type: Number,
@@ -82,8 +76,7 @@ productSchema.virtual("coverImagePath").get(function () {
             this.img[i].coverImageType != null
         ) {
             rs.push(
-                `data:${
-                    this.img[i].coverImageType
+                `data:${this.img[i].coverImageType
                 };charset=utf-8;base64,${this.img[i].coverImage.toString(
                     "base64"
                 )}`

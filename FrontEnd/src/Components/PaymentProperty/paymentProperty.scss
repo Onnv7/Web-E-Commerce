@@ -7,6 +7,9 @@
     gap: 20px;
     flex: 1;
 }
+.PaymentProperty-content{
+    flex: 3;
+}
 .paymentProperty-address{
     display: flex;
     flex-direction: column;
@@ -100,14 +103,14 @@
     flex: 1;
 
     >span{
-        flex: 1;
+        width: 245px;
     }
 }
 .paymentProperty-productQuantity{
     display: flex;
-    flex: 1.5;
     align-items: center;
-    justify-content: space-evenly;
+    gap: 50px;
+    margin-left: 50px;
 }
 .paymentProperty-productCount{
     position: relative;
@@ -126,8 +129,8 @@
     >span{
         position: absolute;
         background-color: #fff;
-        top: -8px;
-        left: -45px;
+        top: -17px;
+        left: -56px;
         color: rgba(0, 0, 0, 0.8);
         padding: 1px 6px;
     }

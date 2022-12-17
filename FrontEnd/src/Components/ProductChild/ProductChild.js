@@ -12,7 +12,7 @@ const ProductChild = () => {
                 </div>
                 <div className="grid wide">
                     <div className="row sm-gutter">
-                        <div className="col c-3">
+                        <div className="col c-4">
                             <a href="" className="productItem">
                                 <img src="../Img/Rolex.png" className="product-img" />
                                 <span className="product-title">
@@ -41,7 +41,7 @@ const ProductChild = () => {
                                 </div>
                             </a>
                         </div>
-                        <div className="col c-3">
+                        <div className="col c-4">
                             <a href="" className="productItem">
                                 <img src="../Img/Rolex.png" className="product-img" />
                                 <span className="product-title">
@@ -70,7 +70,7 @@ const ProductChild = () => {
                                 </div>
                             </a>
                         </div>
-                        <div className="col c-3">
+                        <div className="col c-4">
                             <a href="" className="productItem">
                                 <img src="../Img/Rolex.png" className="product-img" />
                                 <span className="product-title">
@@ -99,7 +99,7 @@ const ProductChild = () => {
                                 </div>
                             </a>
                         </div>
-                        <div className="col c-3">
+                        <div className="col c-4">
                             <a href="" className="productItem">
                                 <img src="../Img/Rolex.png" className="product-img" />
                                 <span className="product-title">

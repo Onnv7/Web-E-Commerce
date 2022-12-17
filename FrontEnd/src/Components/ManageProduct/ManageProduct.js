@@ -33,13 +33,6 @@ const ManageProduct = () => {
                         Đã giao
                     </span>
                 </div>
-                <div className="manageProduct-search">
-                    <span>Mã đơn hàng</span>
-                    <input type="text" placeholder="Nhập mã đơn hàng cần tìm kiếm..." />
-                    <button className="headerSearch-btn">
-                        <SearchNormal1 className="headerSearch-icon" />
-                    </button>
-                </div>
                 <div className="manageProduct-title">
                     <span>Thông tin sản phẩm</span>
                     <span>Số lượng</span>

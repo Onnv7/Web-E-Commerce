@@ -5,13 +5,6 @@ import './auctioning.scss';
 const Auctioning = () => {
     return (
         <div className="auctioning">
-            <div className="manageProduct-search">
-                <span>Mã đơn hàng</span>
-                <input type="text" placeholder="Tìm kiếm bất cứ thứ gì..." />
-                <button className="headerSearch-btn">
-                    <SearchNormal1 className="headerSearch-icon" />
-                </button>
-            </div>
             <div className="auctioning-item">
                 <div className="auctioning-itemTitle">
                     <span>Thế giới di động</span>

@@ -11,13 +11,6 @@ const AuctionList = () => {
     return (
         <div className="auctionList">
             <div className="auctionList-container">
-                <div className="manageProduct-search">
-                    <span>Tên sản phẩm</span>
-                    <input type="text" placeholder="Nhập tên sản phẩm cần tìm kiếm trong danh sách..." />
-                    <button className="headerSearch-btn">
-                        <SearchNormal1 className="headerSearch-icon" />
-                    </button>
-                </div>
                 <div className="auctionList-title">
                     <span>Thông tin sản phẩm</span>
                     <span>Số lượng</span>
