@@ -10,6 +10,7 @@ import reviewRoute from './routes/reviews.js';
 import cookieParser from 'cookie-parser';
 import paypalRoute from './routes/paypals.js';
 import categoryRoute from './routes/categories.js';
+import shippingCostRoute from './routes/shippingCost.js';
 import bodyParser from 'body-parser';
 import { urlencoded, json } from 'express';
 // import mongoosePatchUpdate from "mongoose-patch-update";
@@ -61,6 +62,7 @@ app.use('/backend/checkouts', checkoutRoute);
 app.use('/backend/reviews', reviewRoute);
 app.use('/backend/paypal', paypalRoute);
 app.use('/backend/categories', categoryRoute);
+app.use('/backend/shippingCost', shippingCostRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
