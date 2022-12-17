@@ -1,8 +1,21 @@
-import { Back, CloseCircle, Crown } from 'iconsax-react';
-import React from 'react';
-import './classify.scss';
+import { Back, CloseCircle, Crown } from "iconsax-react";
+import React, { useState } from "react";
+import "./classify.scss";
 
-const Classify = ({ setOpen }) => {
+const Classify = ({ setOpen, setClassifies }) => {
+    const [name, setclassifyName] = useState("");
+    const [quantity, setQuantity] = useState(0);
+    const [price, setPrice] = useState(0);
+    const addClassifyHandler = () => {
+        setClassifies((pre) => [
+            ...pre,
+            {
+                name,
+                quantity,
+                price,
+            },
+        ]);
+    };
     return (
         <div className="modal-classify">
             <div className="modal-classifyContainer">
@@ -10,16 +23,30 @@ const Classify = ({ setOpen }) => {
                 <div className="modal-classifyBox">
                     <div className="product-classifyList">
                         <span>Tên Phân Loại</span>
-                        <input type="text" />
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setclassifyName(e.target.value)}
+                        />
                     </div>
                     <div className="product-classifyList">
                         <span>Số Lượng</span>
-                        <input type="text" />
+                        <input
+                            type="number"
+                            value={quantity}
+                            min={0}
+                            onChange={(e) => setQuantity(e.target.value)}
+                        />
                     </div>
                     <div className="product-classifyList">
                         <span>Giá Bán</span>
                         <div className="product-classifyInput">
-                            <input type="text" />
+                            <input
+                                type="number"
+                                value={price}
+                                min={0}
+                                onChange={(e) => setPrice(e.target.value)}
+                            />
                             <Crown variant="Bold" size={20} />
                         </div>
                     </div>
@@ -28,7 +55,7 @@ const Classify = ({ setOpen }) => {
                     <button onClick={() => setOpen(false)}>
                         <Back /> Quay Lại
                     </button>
-                    <button>Thêm</button>
+                    <button onClick={addClassifyHandler}>Thêm</button>
                 </div>
             </div>
         </div>

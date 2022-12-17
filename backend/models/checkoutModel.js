@@ -4,11 +4,10 @@ const checkoutSchema = new mongoose.Schema(
     {
         productItems: [
             {
-                name: { type: String, required: true },
-                price: { type: Number, required: true },
-                quantity: { type: Number, required: true },
-                sizeProduct: { type: String, required: true },
-                colorProduct: { type: String, required: true },
+                name: { type: String },
+                classifyProduct: { type: String },
+                price: { type: Number },
+                quantityProduct: { type: Number },
                 _id: {
                     type: mongoose.Schema.ObjectId,
                     ref: "Product",
