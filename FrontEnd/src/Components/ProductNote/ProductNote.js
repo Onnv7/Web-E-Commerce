@@ -1,8 +1,16 @@
-import React, { useContext, useState } from 'react';
-import './productNote.scss';
-import { ArrowLeft2, ArrowRight2, Crown, Messages2, MessageText1, SearchNormal1, Shop } from 'iconsax-react';
-import { StoreContext } from '../../context/StoreContext';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import "./productNote.scss";
+import {
+    ArrowLeft2,
+    ArrowRight2,
+    Crown,
+    Messages2,
+    MessageText1,
+    SearchNormal1,
+    Shop,
+} from "iconsax-react";
+import { StoreContext } from "../../context/StoreContext";
+import { Link } from "react-router-dom";
 const ProductNote = () => {
     const { state, contextDispatch } = useContext(StoreContext);
     console.log(state);
@@ -19,48 +27,40 @@ const ProductNote = () => {
         <div className="productNote">
             <div className="productNote-container">
                 <div className="productNote-title">
-                    <button className={active === 1 ? 'click' : ''} onClick={() => handleChange(1)}>
+                    <button
+                        className={active === 1 ? "click" : ""}
+                        onClick={() => handleChange(1)}
+                    >
                         Mua hàng
                     </button>
-                    <button className={active === 2 ? 'click' : ''} onClick={() => handleChange(2)}>
+                    <button
+                        className={active === 2 ? "click" : ""}
+                        onClick={() => handleChange(2)}
+                    >
                         Đấu giá
                     </button>
                 </div>
 
-                <div className={active === 1 ? 'productNote-list' : 'tab-hide'}>
+                <div className={active === 1 ? "productNote-list" : "tab-hide"}>
                     {wishlistItems.map((wishItem) => (
                         <div className="productNote-item" key={wishItem._id}>
-                            <div className="productNote-header">
-                                <div className="productNote-itemTitle">
-                                    <span>Thế giới di động</span>
-                                    <button>
-                                        <Shop />
-                                        Tham quan
-                                    </button>
-                                    <button>
-                                        <MessageText1 variant="Bold" />
-                                        Liên hệ
-                                    </button>
-                                </div>
-                                <span
-                                    onClick={() =>
-                                        contextDispatch({
-                                            type: 'WISHLIST_CHANGE_ITEM',
-                                            payload: wishItem,
-                                        })
-                                    }
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    Xóa
-                                </span>
-                            </div>
                             <div className="productNote-body">
                                 <img src={wishItem.imgPath[0]} alt="" />
                                 <div className="productNote-bodyText">
                                     <span>{wishItem.name}</span>
                                     <div className="productNote-bodyType">
-                                        <span>Thương hiệu: {wishItem.brand}</span>
-                                        <span>Số lượng có sẵn: {' ' + wishItem.quantity}</span>
+                                        <span>
+                                            Thương hiệu: {wishItem.brand}
+                                        </span>
+                                        <span>
+                                            Phân loại:{" "}
+                                            {" " + wishItem.classify[0].name}
+                                        </span>
+                                        <span>
+                                            Số lượng có sẵn:{" "}
+                                            {" " +
+                                                wishItem.classify[0].quantity}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -69,15 +69,15 @@ const ProductNote = () => {
                                     <Link
                                         to={`/products/${wishItem.slug}`}
                                         style={{
-                                            textDecoration: 'none',
-                                            color: '#fff',
+                                            textDecoration: "none",
+                                            color: "#fff",
                                         }}
                                     >
                                         Mua ngay
                                     </Link>
                                 </button>
                                 <span>
-                                    Giá tiền: {wishItem.price}
+                                    Giá tiền: {wishItem.classify[0].price}
                                     <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
@@ -101,7 +101,10 @@ const ProductNote = () => {
                         <div className="productNote-body">
                             <img src="../Img/iphone14.png" alt="" />
                             <div className="productNote-bodyText">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                <span>
+                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
+                                    chính hãng
+                                </span>
                                 <div className="productNote-bodyType">
                                     <span>Tuỳ chọn: 512G</span>
                                     <span>Số lượng: 1</span>
@@ -116,7 +119,11 @@ const ProductNote = () => {
                         </div>
                     </div>
                 </div>
-                <div className={active === 2 ? 'productNoteAuc-list' : 'tab-hide'}>
+                <div
+                    className={
+                        active === 2 ? "productNoteAuc-list" : "tab-hide"
+                    }
+                >
                     <div className="productNote-item">
                         <div className="productNote-header">
                             <div className="productNoteAuc-itemTitle">
@@ -131,9 +138,14 @@ const ProductNote = () => {
                         <div className="productNote-body">
                             <img src="../Img/iphone14.png" alt="" />
                             <div className="productNote-bodyText">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                <span>
+                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
+                                    chính hãng
+                                </span>
                                 <div className="productNote-bodyType">
-                                    <span>Thời gian còn lại: 2 ngày 8 giờ 21 phút</span>
+                                    <span>
+                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
+                                    </span>
                                     <span>Số lượng: 1</span>
                                 </div>
                             </div>
@@ -142,10 +154,12 @@ const ProductNote = () => {
                             <button>Tiếp tục đấu giá</button>
                             <div className="productNoteAuc-footerInfo">
                                 <span>
-                                    Mức đấu giá mới nhất: 800 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất: 800{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                                 <span>
-                                    Mức đấu giá mới nhất của bạn: 400 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất của bạn: 400{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
                         </div>
@@ -164,9 +178,14 @@ const ProductNote = () => {
                         <div className="productNote-body">
                             <img src="../Img/iphone14.png" alt="" />
                             <div className="productNote-bodyText">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                <span>
+                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
+                                    chính hãng
+                                </span>
                                 <div className="productNote-bodyType">
-                                    <span>Thời gian còn lại: 2 ngày 8 giờ 21 phút</span>
+                                    <span>
+                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
+                                    </span>
                                     <span>Số lượng: 1</span>
                                 </div>
                             </div>
@@ -175,10 +194,12 @@ const ProductNote = () => {
                             <button>Tiếp tục đấu giá</button>
                             <div className="productNoteAuc-footerInfo">
                                 <span>
-                                    Mức đấu giá mới nhất: 800 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất: 800{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                                 <span>
-                                    Mức đấu giá mới nhất của bạn: 400 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất của bạn: 400{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
                         </div>
@@ -197,9 +218,14 @@ const ProductNote = () => {
                         <div className="productNote-body">
                             <img src="../Img/iphone14.png" alt="" />
                             <div className="productNote-bodyText">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                <span>
+                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
+                                    chính hãng
+                                </span>
                                 <div className="productNote-bodyType">
-                                    <span>Thời gian còn lại: 2 ngày 8 giờ 21 phút</span>
+                                    <span>
+                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
+                                    </span>
                                     <span>Số lượng: 1</span>
                                 </div>
                             </div>
@@ -208,10 +234,12 @@ const ProductNote = () => {
                             <button>Tiếp tục đấu giá</button>
                             <div className="productNoteAuc-footerInfo">
                                 <span>
-                                    Mức đấu giá mới nhất: 800 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất: 800{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                                 <span>
-                                    Mức đấu giá mới nhất của bạn: 400 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất của bạn: 400{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
                         </div>
@@ -230,9 +258,14 @@ const ProductNote = () => {
                         <div className="productNote-body">
                             <img src="../Img/iphone14.png" alt="" />
                             <div className="productNote-bodyText">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                <span>
+                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
+                                    chính hãng
+                                </span>
                                 <div className="productNote-bodyType">
-                                    <span>Thời gian còn lại: 2 ngày 8 giờ 21 phút</span>
+                                    <span>
+                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
+                                    </span>
                                     <span>Số lượng: 1</span>
                                 </div>
                             </div>
@@ -241,10 +274,12 @@ const ProductNote = () => {
                             <button>Tiếp tục đấu giá</button>
                             <div className="productNoteAuc-footerInfo">
                                 <span>
-                                    Mức đấu giá mới nhất: 800 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất: 800{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                                 <span>
-                                    Mức đấu giá mới nhất của bạn: 400 <Crown size={34} variant="Bold" />
+                                    Mức đấu giá mới nhất của bạn: 400{" "}
+                                    <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
                         </div>

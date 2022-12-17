@@ -29,10 +29,6 @@ const Seller = ({ id }) => {
                                     <Shop size={24} />
                                     Tham quan
                                 </button>
-                                <button>
-                                    <MessageText1 size={24} />
-                                    Liên hệ
-                                </button>
                             </div>
                         </div>
                     </div>

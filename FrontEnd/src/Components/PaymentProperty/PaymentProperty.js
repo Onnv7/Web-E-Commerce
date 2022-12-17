@@ -159,10 +159,6 @@ const PaymentProperty = () => {
                                             <Shop />
                                             Tham quan
                                         </button>
-                                        <button>
-                                            <MessageText1 />
-                                            Liên hệ
-                                        </button>
                                     </div>
                                 </div>
                                 {products
