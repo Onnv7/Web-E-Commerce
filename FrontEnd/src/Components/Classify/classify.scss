@@ -28,6 +28,12 @@
         font-family: 'Oswald';
     }
 }
+.modal-classifyBox{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
 .product-classifyList{
     >input{
         flex: 3;

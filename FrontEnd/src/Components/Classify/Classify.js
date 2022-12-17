@@ -7,7 +7,7 @@ const Classify = ({ setOpen }) => {
         <div className="modal-classify">
             <div className="modal-classifyContainer">
                 <span>Thêm phân loại</span>
-                <div className="product-classifyBox">
+                <div className="modal-classifyBox">
                     <div className="product-classifyList">
                         <span>Tên Phân Loại</span>
                         <input type="text" />
