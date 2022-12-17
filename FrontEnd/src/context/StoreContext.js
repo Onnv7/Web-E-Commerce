@@ -44,12 +44,12 @@ const reducer = (state, action) => {
             let existItem = state.cart.cartItems.find(
                 (item) =>
                     item._id === newItem._id &&
-                    item.sizeProduct === newItem.sizeProduct
+                    item.classifyProduct === newItem.classifyProduct
             );
             const cartItems = existItem
                 ? state.cart.cartItems.map((item) =>
                       item._id === newItem._id &&
-                      item.sizeProduct === newItem.sizeProduct
+                      item.classifyProduct === newItem.classifyProduct
                           ? newItem
                           : item
                   )
@@ -76,12 +76,27 @@ const reducer = (state, action) => {
                 (item) =>
                     item._id !== removeItem._id ||
                     (item._id === removeItem._id &&
-                        item.sizeProduct !== removeItem.sizeProduct)
+                        item.classifyProduct !== removeItem.classifyProduct)
             );
             localStorage.setItem("cartItems", JSON.stringify(cartItems));
             return { ...state, cart: { ...state.cart, cartItems: cartItems } };
         }
-
+        case "SHOP_REMOVE_ITEM": {
+            const removeItem = action.payload;
+            const shopItems = state.cart.shopItems.filter(
+                (item) => item._id !== removeItem._id
+            );
+            localStorage.setItem("shopItems", JSON.stringify(shopItems));
+            return { ...state, cart: { ...state.cart, shopItems: shopItems } };
+        }
+        case "CART_CLEAR": {
+            localStorage.removeItem("cartItems");
+            return { ...state, cart: { ...state.cart, cartItems: [] } };
+        }
+        case "SHOP_CLEAR": {
+            localStorage.removeItem("shopItems");
+            return { ...state, cart: { ...state.cart, shopItems: [] } };
+        }
         default:
             return state;
     }
@@ -91,7 +106,7 @@ export function StoreProvider(props) {
     const value = { state, contextDispatch };
     return (
         <StoreContext.Provider value={value}>
-            {props.children}{" "}
+            {props.children}
         </StoreContext.Provider>
     );
 }

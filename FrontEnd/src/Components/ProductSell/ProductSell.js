@@ -11,17 +11,17 @@ const ProductSell = ({ id }) => {
     const [current, setCurrent] = useState(0);
 
     const [count, setCount] = useState(1);
-    const [sizeProduct, setSizeProduct] = useState("");
+    const [classifyProduct, setclassifyProduct] = useState("");
 
     const {
-        cart: { indexItem, cartItems, shopItems },
+        cart: { cartItems, shopItems },
     } = state;
 
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/${id}`);
             setProduct(data);
-            setSizeProduct(data.sizes[0]);
+            setclassifyProduct(data.classify[0]);
         };
         fetchData();
     }, [id]);
@@ -38,8 +38,10 @@ const ProductSell = ({ id }) => {
     const addtocartHandler = () => {
         let existItem = cartItems.find(
             (item) =>
-                item._id === product._id && item.sizeProduct === sizeProduct
+                item._id === product._id &&
+                item.classifyProduct === classifyProduct.name
         );
+        console.log(existItem);
         const quantityProduct = existItem
             ? existItem.quantityProduct + count
             : count;
@@ -48,11 +50,10 @@ const ProductSell = ({ id }) => {
             payload: {
                 _id: product._id,
                 name: product.name,
-                price: product.price,
+                price: classifyProduct.price,
                 quantityProduct,
-                sizeProduct,
+                classifyProduct: classifyProduct.name,
                 shopID: product.shop._id,
-                indexItem,
             },
         });
         contextDispatch({
@@ -111,7 +112,7 @@ const ProductSell = ({ id }) => {
                             <div className="productPrice">
                                 <span>Giá:</span>
                                 <span></span>
-                                <span>{product.price} VNĐ</span>
+                                <span>{classifyProduct.price} VNĐ</span>
                             </div>
                             <div className="productFee">
                                 <span>Phí vận chuyển:</span>
@@ -123,14 +124,16 @@ const ProductSell = ({ id }) => {
                         </div>
                         <div className="productList">
                             <div className="product-capacity">
-                                <span>Size: </span>
+                                <span>Phân loại: </span>
                                 <div className="product-capacity__size">
-                                    {product.sizes.map((s) => (
+                                    {product.classify.map((s, index) => (
                                         <button
-                                            key={s}
-                                            onClick={() => setSizeProduct(s)}
+                                            key={index}
+                                            onClick={() =>
+                                                setclassifyProduct(s)
+                                            }
                                         >
-                                            {s}
+                                            {s.name}
                                         </button>
                                     ))}
                                 </div>
@@ -149,7 +152,8 @@ const ProductSell = ({ id }) => {
                                         <button
                                             onClick={countUp}
                                             disabled={
-                                                count === product.quantity
+                                                count ===
+                                                classifyProduct.quantity
                                             }
                                         >
                                             +
@@ -157,12 +161,12 @@ const ProductSell = ({ id }) => {
                                     </div>
                                 </div>
                                 <span>
-                                    Hiện có: {product.quantity} sản phẩm trong
-                                    kho
+                                    Hiện có: {classifyProduct.quantity} sản phẩm
+                                    trong kho
                                 </span>
                             </div>
                             <div className="productSell-btn">
-                                {product.quantity > 0 && (
+                                {classifyProduct.quantity > 0 && (
                                     <button onClick={addtocartHandler}>
                                         <ShoppingCart size={32} /> Thêm vào giỏ
                                         hàng
@@ -173,15 +177,17 @@ const ProductSell = ({ id }) => {
                                     onClick={buynowHandler}
                                     style={{
                                         opacity:
-                                            product.quantity === 0 ? 0.8 : null,
+                                            classifyProduct.quantity === 0
+                                                ? 0.8
+                                                : null,
                                         cursor:
-                                            product.quantity === 0
+                                            classifyProduct.quantity === 0
                                                 ? "not-allowed"
                                                 : null,
                                     }}
-                                    disabled={product.quantity === 0}
+                                    disabled={classifyProduct.quantity === 0}
                                 >
-                                    {product.quantity === 0
+                                    {classifyProduct.quantity === 0
                                         ? "Hết hàng"
                                         : "Mua ngay"}
                                 </button>

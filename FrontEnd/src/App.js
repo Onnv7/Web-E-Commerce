@@ -38,18 +38,21 @@ function App() {
                 <Route path="/money" element={<Money />} />
                 <Route path="/paypal" element={<Paypal />} />
                 <Route path="/simg" element={<Show />} />
+
                 <Route path="/products/:slug" element={<SellPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/payment" element={<Payment />} />
+
                 <Route path="/seller" element={<SellerPage />} />
                 <Route path="/seller/update/:id" element={<UpdateProduct />} />
-                <Route path="/seller/new/:id" element={<NewProduct />} />
+                <Route path="/seller/new" element={<NewProduct />} />
                 <Route path="/seller/detail/:id" element={<DetailProduct />} />
                 <Route path="/auction" element={<AuctionPage />} />
                 <Route path="/history" element={<AuctionHistory />} />
+
                 <Route path="/viewshop" element={<ViewShop />} />
                 <Route path="/detail/:id" element={<DetailCategory />} />
             </Routes>
