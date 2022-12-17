@@ -1,27 +1,27 @@
-import { Crown, GalleryAdd } from "iconsax-react";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Navbar/Navbar";
-import "./detailProduct.scss";
-import axios from "./../../hooks/axios";
-import { FilePond, registerPlugin } from "react-filepond";
-import { toast } from "react-toastify";
+import { CloseCircle, Crown, GalleryAdd } from 'iconsax-react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Footer from '../../Components/Footer/Footer';
+import Navbar from '../../Components/Navbar/Navbar';
+import './detailProduct.scss';
+import axios from './../../hooks/axios';
+import { FilePond, registerPlugin } from 'react-filepond';
+import { toast } from 'react-toastify';
 
 // Import FilePond styles
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageResize from "filepond-plugin-image-resize";
-import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
-import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 // Register the plugin
 // Import the Image EXIF Orientation and Image Preview plugins
 // Note: These need to be installed separately
 // `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import { AuthContext } from "../../context/AuthContext";
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { AuthContext } from '../../context/AuthContext';
 
 // Register the plugins
 registerPlugin(
@@ -29,20 +29,20 @@ registerPlugin(
     FilePondPluginImageValidateSize,
     FilePondPluginFileEncode,
     FilePondPluginImagePreview,
-    FilePondPluginImageResize
+    FilePondPluginImageResize,
 );
 
 const DetailProduct = () => {
     const { user } = useContext(AuthContext);
-    const [name, setName] = useState("");
+    const [name, setName] = useState('');
     const [files, setFiles] = useState([]);
-    const [brand, setBrand] = useState("");
-    const [size, setSize] = useState("");
+    const [brand, setBrand] = useState('');
+    const [size, setSize] = useState('');
     const [sizes, setSizes] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState("");
-    const [subCategory, setSubCategory] = useState("");
+    const [description, setDescription] = useState('');
+    const [subCategory, setSubCategory] = useState('');
     const [subCategories, setSubCategories] = useState([]);
     const [shop, setShop] = useState();
 
@@ -73,15 +73,15 @@ const DetailProduct = () => {
     }, [id]);
     const navigate = useNavigate();
     const handleClose = () => {
-        navigate("/seller");
+        navigate('/seller');
     };
     const addsizeHandler = () => {
         if (sizes.find((s) => s === size)) {
-            toast.warning("Size đã tồn tại trong sản phẩm");
+            toast.warning('Size đã tồn tại trong sản phẩm');
             return;
         }
         setSizes((pre) => [...pre, size]);
-        setSize("");
+        setSize('');
     };
 
     const checkProductNameExist = async () => {
@@ -96,7 +96,7 @@ const DetailProduct = () => {
 
     const handleSubmit = async () => {
         if (await checkProductNameExist()) {
-            toast.warning("Sản phẩm đã tồn tại trong cửa hàng");
+            toast.warning('Sản phẩm đã tồn tại trong cửa hàng');
             return;
         }
         const img = getImageData(files);
@@ -112,7 +112,7 @@ const DetailProduct = () => {
                 img,
                 subCategory,
             });
-            toast.success("Cập nhật sản phẩm thành công");
+            toast.success('Cập nhật sản phẩm thành công');
         } catch (err) {
             toast.error(err.message);
         }
@@ -120,9 +120,7 @@ const DetailProduct = () => {
     const getImageData = (files) => {
         let rs = [];
         files.forEach((item) => {
-            var imgData = `{"type":"${
-                item.fileType.split(";")[0]
-            }","data":"${item.getFileEncodeBase64String()}"}`;
+            var imgData = `{"type":"${item.fileType.split(';')[0]}","data":"${item.getFileEncodeBase64String()}"}`;
 
             rs.push(imgData);
         });
@@ -131,7 +129,7 @@ const DetailProduct = () => {
     return (
         <div>
             <Navbar style="seller" />
-            <hr style={{ width: "100%", margin: 0 }} />
+            <hr style={{ width: '100%', margin: 0 }} />
             <div className="newProduct">
                 <span>Chi tiết sản phẩm</span>
                 <div className="newProduct-box">
@@ -144,19 +142,15 @@ const DetailProduct = () => {
                         <span>Thương hiệu</span>
                         <input type="text" value={brand} required disabled />
                     </div>
-                    <div className="newProduct-size">
+                    <div className="newProduct-specialized">
                         <span>Danh mục</span>
-                        <div className="newProduct-sizeBox">
+                        <div className="newProduct-specializedBox">
                             {subCategories.map((s) => (
                                 <span
                                     key={s}
                                     style={{
-                                        backgroundColor:
-                                            s === subCategory
-                                                ? "var(--sub-color)"
-                                                : null,
-                                        color:
-                                            s === subCategory ? "#fff" : null,
+                                        backgroundColor: s === subCategory ? 'var(--sub-color)' : null,
+                                        color: s === subCategory ? '#fff' : null,
                                     }}
                                 >
                                     {s}
@@ -164,36 +158,43 @@ const DetailProduct = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="newProduct-size">
-                        <span>Size</span>
-                        <div className="newProduct-sizeBox">
-                            {sizes.map((s) => (
-                                <span key={s}>{s}</span>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="newProduct-quantity">
-                        <span>Số lượng sản phẩm trong kho hàng</span>
-                        <div className="newProduct-quantityInput">
-                            <input
-                                type="number"
-                                min={0}
-                                value={quantity}
-                                disabled
-                            />
-                        </div>
-                    </div>
-                    <div className="newProduct-price">
-                        <span>Giá bán</span>
-                        <div className="newProduct-priceBox">
-                            <div className="newProduct-priceInput">
-                                <input
-                                    type="number"
-                                    min={0}
-                                    value={price}
-                                    disabled
-                                />
-                                <Crown variant="Bold" className="active" />
+                    <div className="newProduct-classify">
+                        <span>Phân loại</span>
+                        <div className="newProduct-classifyContent">
+                            <div className="product-classifyBox">
+                                <div className="product-classifyList">
+                                    <span>Tên</span>
+                                    <div className="product-classifyItem">
+                                        <span>Đỏ 512G</span>
+                                        <CloseCircle className="product-classifyIcon" size={20} />
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>Đỏ 512G</span>
+                                        <CloseCircle className="product-classifyIcon" size={20} />
+                                    </div>
+                                </div>
+                                <div className="product-classifyList">
+                                    <span>Số lượng</span>
+                                    <div className="product-classifyItem">
+                                        <span>20</span>
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>20</span>
+                                    </div>
+                                </div>
+                                <div className="product-classifyList">
+                                    <span>Giá</span>
+                                    <div className="product-classifyItem">
+                                        <span>
+                                            20 <Crown variant="Bold" size={20} />
+                                        </span>
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>
+                                            20 <Crown variant="Bold" size={20} />
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

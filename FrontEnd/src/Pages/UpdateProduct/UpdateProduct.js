@@ -1,4 +1,4 @@
-import { Crown, GalleryAdd } from 'iconsax-react';
+import { CloseCircle, Crown, GalleryAdd } from 'iconsax-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
@@ -22,6 +22,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { AuthContext } from '../../context/AuthContext';
+import Classify from '../../Components/Classify/Classify';
 
 // Register the plugins
 registerPlugin(
@@ -45,6 +46,7 @@ const UpdateProduct = () => {
     const [subCategory, setSubCategory] = useState('');
     const [subCategories, setSubCategories] = useState([]);
     const [shop, setShop] = useState();
+    const [open, setOpen] = useState(false);
 
     const { id } = useParams();
 
@@ -142,9 +144,9 @@ const UpdateProduct = () => {
                         <span>Thương hiệu</span>
                         <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} required />
                     </div>
-                    <div className="newProduct-size">
-                        <span>Danh mục</span>
-                        <div className="newProduct-sizeBox">
+                    <div className="newProduct-specialized">
+                        <span>Chuyên ngành</span>
+                        <div className="newProduct-specializedBox">
                             {subCategories.map((s) => (
                                 <span
                                     key={s}
@@ -160,44 +162,47 @@ const UpdateProduct = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="newProduct-size">
-                        <span>Size</span>
-                        <div className="newProduct-sizeContent">
-                            <input type="text" value={size} onChange={(e) => setSize(e.target.value)} required />
-                            <button onClick={addsizeHandler}>Thêm</button>
-                            <div className="newProduct-sizeBox">
-                                {sizes.map((s) => (
-                                    <span key={s}>{s}</span>
-                                ))}
+                    <div className="newProduct-classify">
+                        <span>Phân loại</span>
+                        <div className="newProduct-classifyContent">
+                            <div className="product-classifyBox">
+                                <div className="product-classifyList">
+                                    <span>Tên</span>
+                                    <div className="product-classifyItem">
+                                        <span>Đỏ 512G</span>
+                                        <CloseCircle className="product-classifyIcon" size={20} />
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>Đỏ 512G</span>
+                                        <CloseCircle className="product-classifyIcon" size={20} />
+                                    </div>
+                                </div>
+                                <div className="product-classifyList">
+                                    <span>Số lượng</span>
+                                    <div className="product-classifyItem">
+                                        <span>20</span>
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>20</span>
+                                    </div>
+                                </div>
+                                <div className="product-classifyList">
+                                    <span>Giá</span>
+                                    <div className="product-classifyItem">
+                                        <span>
+                                            20 <Crown variant="Bold" size={20} />
+                                        </span>
+                                    </div>
+                                    <div className="product-classifyItem">
+                                        <span>
+                                            20 <Crown variant="Bold" size={20} />
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
+                            <button onClick={() => setOpen(true)}>Thêm phân loại</button>
                         </div>
-                    </div>
-                    <div className="newProduct-quantity">
-                        <span>Số lượng sản phẩm trong kho hàng</span>
-                        <div className="newProduct-quantityInput">
-                            <input
-                                type="number"
-                                min={0}
-                                value={quantity}
-                                onChange={(e) => setQuantity(e.target.value)}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="newProduct-price">
-                        <span>Giá bán</span>
-                        <div className="newProduct-priceBox">
-                            <div className="newProduct-priceInput">
-                                <input
-                                    type="number"
-                                    min={0}
-                                    value={price}
-                                    onChange={(e) => setPrice(e.target.value)}
-                                    required
-                                />
-                                <Crown variant="Bold" className="active" />
-                            </div>
-                        </div>
+                        {open && <Classify setOpen={setOpen} />}
                     </div>
                     {/* <div className="newProduct-img">
                         <span>Hình ảnh sản phẩm</span>
