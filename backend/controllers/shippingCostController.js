@@ -7,10 +7,26 @@ const zoneThree = ["Quận 7", "Quận 8", "Quận 9"]
 // body gồm starting Number, destination Number, cost Number
 export const updateShipCost = async (req, res, next) => {
     try {
+        let startPoint, endPoint;
+        let start = req.body.starting;
+        let end = req.body.destination;
+        if (start < end) {
+            startPoint = start;
+            endPoint = end;
+        }
+        else if (start > end) {
+            startPoint = end;
+            endPoint = start;
+        }
+        // cung zone
+        else {
+            startPoint = 0;
+            endPoint = 0;
+        }
         const shipCost = await ShippingCost.findOneAndUpdate(
             {
-                starting: req.body.starting,
-                destination: req.body.destination,
+                starting: startPoint,
+                destination: endPoint,
             },
             {
                 $set: req.body
@@ -42,11 +58,31 @@ export const createShipCost = async (req, res, next) => {
 
 export const calculate = async (req, res, next) => {
     try {
+        let startPoint, endPoint;
+
         const start = getZoneName(req.query.start)
         const end = getZoneName(req.query.end);
+        // cung quan
+        if (req.query.start === req.query.end) {
+            startPoint = -1;
+            endPoint = -1;
+        }
+        else if (start < end) {
+            startPoint = start;
+            endPoint = end;
+        }
+        else if (start > end) {
+            startPoint = end;
+            endPoint = start;
+        }
+        // cung zone
+        else {
+            startPoint = 0;
+            endPoint = 0;
+        }
         const shipCost = await ShippingCost.find({
-            starting: start,
-            destination: end
+            starting: startPoint,
+            destination: endPoint
         })
         res.status(200).json(shipCost);
     } catch (err) {
