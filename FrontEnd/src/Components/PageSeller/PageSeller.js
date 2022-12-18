@@ -38,7 +38,7 @@ const PageSeller = () => {
         else setSlide(<ProfileShop />);
     };
     const openNew = () => {
-        if (shop) navigate("/seller/new/1");
+        if (shop) navigate("/seller/new");
         else setSlide(<ProfileShop />);
     };
     const openProfile = () => {

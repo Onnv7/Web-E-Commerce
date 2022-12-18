@@ -56,16 +56,15 @@ export const getAllProducts = async (req, res, next) => {
 // select product by Id
 export const getProductById = async (req, res, next) => {
     try {
-        const products = await Product.findById(req.params.id)
-            .populate({
-                path: "shop",
-                // select: "name",
-                transform: (doc) => {
-                    const { img, ...others } = doc._doc
-                    const data = { ...others, imgPath: doc.imgPath }
-                    return data
-                }
-            });
+        const products = await Product.findById(req.params.id).populate({
+            path: "shop",
+            // select: "name",
+            transform: (doc) => {
+                const { img, ...others } = doc._doc;
+                const data = { ...others, imgPath: doc.imgPath };
+                return data;
+            },
+        });
         const { img, ...others } = products._doc;
         const result = {
             ...others,
@@ -98,6 +97,7 @@ export const createProduct = async (req, res, next) => {
         await product.save();
         res.status(200).send("Product has been created.");
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };

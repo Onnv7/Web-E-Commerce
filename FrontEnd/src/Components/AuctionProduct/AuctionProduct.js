@@ -27,9 +27,14 @@ const AuctionProduct = () => {
                 </div>
             </div>
             <div className="auctionProduct-auctionBox">
-                <div className="auctionProduct-Input">
-                    <input type="number" placeholder="Nhập số tiền định đấu giá" min={0} />
-                    <Crown variant="Bold" className="auctionProduct-icon" />
+                <div className="auctionProduct-InputBox">
+                    <div className="auctionProduct-Input">
+                        <input type="number" placeholder="Nhập số tiền định đấu giá" min={0} />
+                        <Crown variant="Bold" className="auctionProduct-icon" />
+                    </div>
+                    <div className="auctionProduct-Input">
+                        <input type="text" placeholder="Đường dẵn tối sản phẩm..." />
+                    </div>
                 </div>
                 <button>Đấu Giá</button>
             </div>

@@ -31,7 +31,7 @@ function ProductItem({ product }) {
                 <div className="product-sell">
                     <span>Đã bán {product.soldQuantity}</span>
                     <span>
-                        {product.price}
+                        {product.classify[0].price}
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </span>
                 </div>

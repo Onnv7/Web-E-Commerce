@@ -98,7 +98,7 @@ const WaitProduct = () => {
                     )}
                     {open2 && (
                         <div className="waitProduct-modalChangeContainer">
-                            <span>Chuẩn bị đơn hàng</span>
+                            <span>Thay đổi địa chỉ kho hàng / lấy hàng</span>
                             <div className="waitProduct-modalChangeBox">
                                 <span>Địa chỉ kho hàng / lấy hàng</span>
 
@@ -133,9 +133,6 @@ const WaitProduct = () => {
                                 </button>
                                 <button onClick={handleClose}>Hoàn Tất</button>
                             </div>
-                            <span>
-                                Xe vận chuyển sẽ đến lấy hàng trong ngày khi bạn hoàn tất quá trình chuẩn bị đơn hàng.
-                            </span>
                         </div>
                     )}
                 </div>

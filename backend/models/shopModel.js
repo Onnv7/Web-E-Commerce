@@ -12,6 +12,12 @@ const shopSchema = new mongoose.Schema(
             required: true,
             // unique: true,
         },
+        addressInfo: {
+            province: { type: String, required: true },
+            distinct: { type: String, required: true },
+            ward: { type: String, required: true },
+            address: { type: String, required: true },
+        },
         ratingAverage: {
             type: Number,
             default: 0,

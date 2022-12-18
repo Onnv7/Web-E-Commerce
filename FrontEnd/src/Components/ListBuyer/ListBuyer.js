@@ -8,6 +8,7 @@ const ListBuyer = () => {
             <div className="listBuyer-header">
                 <span>Người bán</span>
                 <span>Mức đấu giá</span>
+                <span>Đường dẫn tới sản phẩm</span>
                 <span>Thời gian ra giá</span>
             </div>
             <div className="listBuyer-Item">
@@ -15,6 +16,7 @@ const ListBuyer = () => {
                 <span>
                     300 <Crown variant="Bold" />
                 </span>
+                <span>http://dsdsđs</span>
                 <span>14h34, 28/12/2022</span>
             </div>
             <div className="listBuyer-Item">
@@ -22,6 +24,7 @@ const ListBuyer = () => {
                 <span>
                     300 <Crown variant="Bold" />
                 </span>
+                <span>http://dsdsđs</span>
                 <span>14h34, 28/12/2022</span>
             </div>
             <div className="listBuyer-Item">
@@ -29,6 +32,7 @@ const ListBuyer = () => {
                 <span>
                     300 <Crown variant="Bold" />
                 </span>
+                <span>http://dsdsđs</span>
                 <span>14h34, 28/12/2022</span>
             </div>
             <div className="listBuyer-Item">
@@ -36,6 +40,7 @@ const ListBuyer = () => {
                 <span>
                     300 <Crown variant="Bold" />
                 </span>
+                <span>http://dsdsđs</span>
                 <span>14h34, 28/12/2022</span>
             </div>
             <div className="listBuyer-Item">
@@ -43,6 +48,7 @@ const ListBuyer = () => {
                 <span>
                     300 <Crown variant="Bold" />
                 </span>
+                <span>http://dsdsđs</span>
                 <span>14h34, 28/12/2022</span>
             </div>
         </div>
