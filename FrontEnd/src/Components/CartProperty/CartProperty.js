@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./cartProperty.scss";
-import { ArrowDown2, Crown, Heart, MessageText1, Shop } from "iconsax-react";
-import { AuthContext } from "../../context/AuthContext";
-import { StoreContext } from "../../context/StoreContext";
-import axios from "./../../hooks/axios";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from 'react';
+import './cartProperty.scss';
+import { ArrowDown2, Crown, Heart, MessageText1, Shop } from 'iconsax-react';
+import { AuthContext } from '../../context/AuthContext';
+import { StoreContext } from '../../context/StoreContext';
+import axios from './../../hooks/axios';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
@@ -41,13 +41,11 @@ const CartProperty = () => {
     const handleDeleteProduct = async (productDeleted) => {
         try {
             contextDispatch({
-                type: "CART_REMOVE_ITEM",
+                type: 'CART_REMOVE_ITEM',
                 payload: productDeleted,
             });
 
-            const { data: shopDeleted } = await axios.get(
-                `/shops/shop/${productDeleted.shop._id}`
-            );
+            const { data: shopDeleted } = await axios.get(`/shops/shop/${productDeleted.shop._id}`);
 
             const count = products.reduce((accumulate, currentValue) => {
                 if (currentValue.shop._id === productDeleted.shop._id) {
@@ -57,12 +55,12 @@ const CartProperty = () => {
             }, 0);
             if (count === 1) {
                 contextDispatch({
-                    type: "SHOP_REMOVE_ITEM",
+                    type: 'SHOP_REMOVE_ITEM',
                     payload: shopDeleted,
                 });
             }
             setProducts([]);
-            toast.success("Delete product successfully");
+            toast.success('Delete product successfully');
         } catch (err) {
             toast.error(err.message);
         }
@@ -84,40 +82,25 @@ const CartProperty = () => {
                                     </div>
                                 </div>
                                 {products
-                                    .filter(
-                                        (product) =>
-                                            product.shop._id === shop._id
-                                    )
+                                    .filter((product) => product.shop._id === shop._id)
                                     .map((product) => (
-                                        <div
-                                            className="cart-product"
-                                            key={product._id}
-                                        >
+                                        <div className="cart-product" key={product._id}>
                                             <input type="checkbox" />
-                                            <img
-                                                src={product.imgPath[0]}
-                                                alt="productImg"
-                                            />
+                                            <img src={product.imgPath[0]} alt="productImg" />
                                             <div className="cart-productProperty">
                                                 <div className="cart-productItem">
                                                     <span>{product.name}</span>
                                                     <div className="cart-productBox">
                                                         <div className="cart-productCount">
-                                                            <span>
-                                                                Số lượng
-                                                            </span>
+                                                            <span>Số lượng</span>
                                                             <input
                                                                 type="text"
-                                                                value={
-                                                                    product.quantityProduct
-                                                                }
+                                                                value={product.quantityProduct}
                                                                 disabled
                                                             />
                                                         </div>
                                                         <div className="cart-moneySum">
-                                                            <span>
-                                                                Giá tiền
-                                                            </span>
+                                                            <span>Giá tiền</span>
                                                             <span>
                                                                 {product.price}
                                                                 <Crown variant="Bold" />
@@ -126,21 +109,8 @@ const CartProperty = () => {
                                                     </div>
                                                 </div>
                                                 <div className="cart-productButton">
-                                                    <span>
-                                                        Phân loại:{" "}
-                                                        {
-                                                            product.classifyProduct
-                                                        }
-                                                    </span>
-                                                    <span
-                                                        onClick={() =>
-                                                            handleDeleteProduct(
-                                                                product
-                                                            )
-                                                        }
-                                                    >
-                                                        Xóa
-                                                    </span>
+                                                    <span>Phân loại: {product.classifyProduct}</span>
+                                                    <span onClick={() => handleDeleteProduct(product)}>Xóa</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -244,10 +214,8 @@ const CartProperty = () => {
                             <span>Tổng số lượng</span>
                             <span>
                                 {cartItems.reduce(
-                                    (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.quantityProduct,
-                                    0
+                                    (accumulate, currentValue) => accumulate + currentValue.quantityProduct,
+                                    0,
                                 )}
                             </span>
                         </div>
@@ -256,10 +224,8 @@ const CartProperty = () => {
                             <span>
                                 {cartItems.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.price *
-                                            currentValue.quantityProduct,
-                                    0
+                                        accumulate + currentValue.price * currentValue.quantityProduct,
+                                    0,
                                 )}
                                 <Crown variant="Bold" />
                             </span>
@@ -269,18 +235,15 @@ const CartProperty = () => {
                                 <Link
                                     to="/payment"
                                     style={{
-                                        textDecoration: "none",
-                                        color: "#fff",
+                                        textDecoration: 'none',
+                                        color: '#fff',
                                     }}
                                 >
                                     Xác nhận
                                 </Link>
                             </button>
                         ) : (
-                            <button
-                                style={{ opacity: 0.8, cursor: "not-allowed" }}
-                                disabled
-                            >
+                            <button style={{ opacity: 0.8, cursor: 'not-allowed' }} disabled>
                                 Xác nhận
                             </button>
                         )}
