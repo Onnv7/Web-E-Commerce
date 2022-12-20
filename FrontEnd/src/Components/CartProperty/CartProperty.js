@@ -90,7 +90,7 @@ const CartProperty = () => {
                                     )
                                     .map((product) => (
                                         <div
-                                            className="cart-product"
+                                            className="cartProperty-productBox"
                                             key={product._id}
                                         >
                                             <input type="checkbox" />
@@ -98,11 +98,11 @@ const CartProperty = () => {
                                                 src={product.imgPath[0]}
                                                 alt="productImg"
                                             />
-                                            <div className="cart-productProperty">
-                                                <div className="cart-productItem">
+                                            <div className="cartProperty-productProperty">
+                                                <div className="cartProperty-productContent">
                                                     <span>{product.name}</span>
-                                                    <div className="cart-productBox">
-                                                        <div className="cart-productCount">
+                                                    <div className="cartProperty-productQuantity">
+                                                        <div className="cartProperty-productCount">
                                                             <span>
                                                                 Số lượng
                                                             </span>
@@ -114,7 +114,7 @@ const CartProperty = () => {
                                                                 disabled
                                                             />
                                                         </div>
-                                                        <div className="cart-moneySum">
+                                                        <div className="cartProperty-moneySum">
                                                             <span>
                                                                 Giá tiền
                                                             </span>
@@ -132,15 +132,7 @@ const CartProperty = () => {
                                                             product.classifyProduct
                                                         }
                                                     </span>
-                                                    <span
-                                                        onClick={() =>
-                                                            handleDeleteProduct(
-                                                                product
-                                                            )
-                                                        }
-                                                    >
-                                                        Xóa
-                                                    </span>
+                                                    <span>Xóa</span>
                                                 </div>
                                             </div>
                                         </div>

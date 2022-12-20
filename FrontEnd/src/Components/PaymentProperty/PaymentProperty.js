@@ -151,15 +151,16 @@ const PaymentProperty = () => {
                             </div>
                         </div>
                         {shops.map((shop) => (
-                            <div className="cart-contentBox" key={shop._id}>
-                                <div className="cart-title">
+                            <div
+                                className="paymentProperty-product"
+                                key={shop._id}
+                            >
+                                <div className="paymentProperty-productBrand">
                                     <span>{shop.name}</span>
-                                    <div className="cart-infoShop">
-                                        <button>
-                                            <Shop />
-                                            Tham quan
-                                        </button>
-                                    </div>
+                                    <button>
+                                        <Shop />
+                                        Tham quan
+                                    </button>
                                 </div>
                                 {products
                                     .filter(
@@ -168,7 +169,7 @@ const PaymentProperty = () => {
                                     )
                                     .map((product) => (
                                         <div
-                                            className="cart-product"
+                                            className="paymentProperty-productBox"
                                             key={product._id}
                                         >
                                             <input type="checkbox" />
@@ -176,11 +177,11 @@ const PaymentProperty = () => {
                                                 src={product.imgPath[0]}
                                                 alt="productImg"
                                             />
-                                            <div className="cart-productProperty">
-                                                <div className="cart-productItem">
+                                            <div className="paymentProperty-productProperty">
+                                                <div className="paymentProperty-productContent">
                                                     <span>{product.name}</span>
-                                                    <div className="cart-productBox">
-                                                        <div className="cart-productCount">
+                                                    <div className="paymentProperty-productQuantity">
+                                                        <div className="paymentProperty-productCount">
                                                             <span>
                                                                 Số lượng
                                                             </span>
@@ -192,7 +193,7 @@ const PaymentProperty = () => {
                                                                 disabled
                                                             />
                                                         </div>
-                                                        <div className="cart-moneySum">
+                                                        <div className="paymentProperty-moneySum">
                                                             <span>
                                                                 Giá tiền
                                                             </span>

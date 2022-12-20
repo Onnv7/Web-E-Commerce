@@ -6,6 +6,9 @@
     display: flex;
     gap: 20px;
 }
+.cart-content{
+    flex: 3;
+}
 .cart-contentBox{
     width: 900px;
     background-color: #fff;
@@ -63,9 +66,9 @@
         }
     }
 }
-.cart-product{
+.cartProperty-productBox{
     display: flex;
-    gap: 10px;
+    gap: 12px;
     margin-top: 32px;
 
     >img{
@@ -76,29 +79,29 @@
         object-fit: contain;
     }
 }
-.cart-productProperty{
+.cartProperty-productProperty{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    width: 100%;
+
 }
-.cart-content{
-    flex: 3;
-}
-.cart-productItem{
+.cartProperty-productContent{
     display: flex;
     flex: 1;
 
     >span{
-        flex: 1;
+        width: 245px;
     }
 }
-.cart-productBox{
+.cartProperty-productQuantity{
     display: flex;
-    flex: 1.5;
     align-items: center;
-    justify-content: space-evenly;
+    gap: 50px;
+    margin-left: 50px;
 }
-.cart-productCount{
+.cartProperty-productCount{
     position: relative;
     >input{
         width: 70px;
@@ -115,13 +118,13 @@
     >span{
         position: absolute;
         background-color: #fff;
-        top: -8px;
-        left: -45px;
+        top: -17px;
+        left: -56px;
         color: rgba(0, 0, 0, 0.8);
         padding: 1px 6px;
     }
 }
-.cart-moneySum{
+.cartProperty-moneySum{
     display: flex;
     align-items: baseline;
     gap: 16px;
@@ -129,7 +132,7 @@
     >span{
         &:nth-child(2){
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             gap: 4px;
             font-size: 2rem;
             color: var(--primary-color);
