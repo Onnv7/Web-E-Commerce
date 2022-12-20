@@ -108,6 +108,7 @@
     }
 }
 .profleShop-productList{
+    margin-top: 10px;
     &:nth-of-type(1){
         flex: 2;
         width: 100%;
@@ -125,6 +126,23 @@
         margin-right: 20px;
         &:hover{
             cursor: pointer;
+        }
+    }
+}
+.profileShop-address{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    >span{
+        font-size: 1.8rem;
+        &:first-child{
+            flex: 0.5;
+            text-align: right;
+        }
+        &:last-child{
+            flex: 2;
         }
     }
 }

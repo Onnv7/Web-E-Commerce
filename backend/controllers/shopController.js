@@ -1,5 +1,6 @@
 import Shop from "../models/shopModel.js";
 import User from "../models/userModel.js";
+import Checkout from "../models/checkoutModel.js";
 import { updateUser } from "./userController.js";
 import { saveFileObj, getDataFromImage } from "../utils/saveFile.js";
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
@@ -91,10 +92,12 @@ export const selectAllShop = async (req, res, next) => {
 };
 
 // select shop by shop id
-export const selectShopByshopID = async (req, res, next) => {
+export const selectShopByShopID = async (req, res, next) => {
     try {
         var imgPath;
-        const shop = await Shop.findById(req.params.shopId);
+        const shop = await Shop.findById(req.params.shopId).populate(
+            "mainCategory"
+        );
         if (shop.img === null) {
             imgPath = "/Img/default-user.png";
         } else {

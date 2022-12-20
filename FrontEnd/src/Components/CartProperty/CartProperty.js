@@ -93,7 +93,6 @@ const CartProperty = () => {
                                             className="cart-product"
                                             key={product._id}
                                         >
-                                            <input type="checkbox" />
                                             <img
                                                 src={product.imgPath[0]}
                                                 alt="productImg"
@@ -148,7 +147,7 @@ const CartProperty = () => {
                             </div>
                         ))
                     ) : (
-                        <div class="text-center">
+                        <div class="cartImg-center">
                             <img src="/Img/empty_cart.png" alt="empty" />
                         </div>
                     )}

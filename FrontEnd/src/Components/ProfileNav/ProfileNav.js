@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
-import { Note1, Notification, ShoppingCart, User } from "iconsax-react";
+import {
+    Heart,
+    Note1,
+    Notification,
+    ShoppingBag,
+    ShoppingCart,
+    User,
+} from "iconsax-react";
 import "./profileNav.scss";
 import ProfileAddress from "../ProfileAddress/ProfileAddress";
 import PasswordChange from "../PasswordChange/PasswordChange";
@@ -88,13 +95,13 @@ const ProfileNav = () => {
                         </li>
                         <li className="profile-navItem">
                             <span onClick={openCart}>
-                                <ShoppingCart variant="Bold" />
-                                Giỏ hàng
+                                <ShoppingBag variant="Bold" />
+                                Đơn hàng đã mua
                             </span>
                         </li>
                         <li className="profile-navItem">
                             <span onClick={openNote}>
-                                <Note1 variant="Bold" />
+                                <Heart variant="Bold" />
                                 Danh sách lưu ý
                             </span>
                         </li>

@@ -137,7 +137,7 @@ const NewProduct = () => {
                         />
                     </div>
                     <div className="newProduct-specialized">
-                        <span>Chuyên ngành</span>
+                        <span>Danh mục</span>
                         <div className="newProduct-specializedBox">
                             {subCategories.map((s) => (
                                 <span
@@ -180,6 +180,10 @@ const NewProduct = () => {
                                         </div>
                                         <div className="product-classifyItem">
                                             <span>{classify.price}</span>
+                                            <CloseCircle
+                                                className="product-classifyIcon"
+                                                size={20}
+                                            />
                                         </div>
                                     </div>
                                 ))}

@@ -1,29 +1,18 @@
 import mongoose from "mongoose";
 
-const checkoutSchema = new mongoose.Schema(
+const checkoutAuctionSchema = new mongoose.Schema(
     {
-        productItems: [
-            {
-                name: { type: String },
-                classifyProduct: { type: String },
-                price: { type: Number },
-                quantityProduct: { type: Number },
-                _id: {
-                    type: mongoose.Schema.ObjectId,
-                    ref: "Product",
-                    required: true,
-                },
-            },
-        ],
-        shop: {
-            type: mongoose.Schema.ObjectId,
-            ref: "Shop",
-            required: true,
-        },
         user: {
             type: mongoose.Schema.ObjectId,
             ref: "User",
-            required: [true, "Checkout must be done by a user"],
+        },
+        shop: {
+            type: mongoose.Schema.ObjectId,
+            ref: "Shop",
+        },
+        auction: {
+            type: mongoose.Schema.ObjectId,
+            ref: "Auction",
         },
         deliveryInfo: {
             fullName: { type: String, required: true },
@@ -55,4 +44,4 @@ const checkoutSchema = new mongoose.Schema(
     }
 );
 
-export default mongoose.model("Checkout", checkoutSchema);
+export default mongoose.model("CheckoutAuction", checkoutAuctionSchema);

@@ -71,6 +71,7 @@ const Navbar = ({ style }) => {
                 )}
                 <div className="navList">
                     <div className="navList-money">
+                        {console.log(user)}
                         <span>Số dư: {user?.ruby}</span>
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
