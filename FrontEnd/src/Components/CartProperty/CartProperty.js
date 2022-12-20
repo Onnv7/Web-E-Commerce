@@ -99,9 +99,9 @@ const CartProperty = () => {
                                                 alt="productImg"
                                             />
                                             <div className="cart-productProperty">
-                                                <div className="cart-productItem">
+                                                <div className="cart-productContent">
                                                     <span>{product.name}</span>
-                                                    <div className="cart-productBox">
+                                                    <div className="cart-productQuantity">
                                                         <div className="cart-productCount">
                                                             <span>
                                                                 Số lượng
