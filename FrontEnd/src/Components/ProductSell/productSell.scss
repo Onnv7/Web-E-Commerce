@@ -42,7 +42,7 @@
     }
 }
 .productSell-item,
-.productAuction-item{
+.productAuction-items{
     display: flex;
     flex-direction: column;
 }
@@ -299,6 +299,10 @@
         background-color: rgba(220, 91, 14, 0.8);
         border-radius: 10px;
         color: #fff;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
     }
     &:last-child{
         background-color: #FFF;
@@ -309,6 +313,10 @@
         align-items: center;
         justify-content: center;
         gap: 5px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
 }
 .productAuction-paymentsBox{

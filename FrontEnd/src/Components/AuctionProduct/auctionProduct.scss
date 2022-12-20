@@ -56,6 +56,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 190px;
+    align-items: center;
 
     >button{
         width: 300px;
@@ -87,6 +88,9 @@
         &::-webkit-outer-spin-button,&::-webkit-inner-spin-button{
             -webkit-appearance: none;
         }
+    }
+    &:last-child{
+        margin-top: 10px;
     }
 }
 .auctionProduct-icon{

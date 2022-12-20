@@ -1,0 +1,156 @@
+.navbar{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+.navContainer{
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+}
+.navContainerFull{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+    padding: 0 20px;
+}
+.navList{
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.navListSell{
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    >span{
+        font-size: 2rem;
+        margin-left: 6px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+    >img{
+        width: 60px;
+        height: 60px;
+        object-fit: containt;
+    }
+}
+.navItem{
+    position: relative;
+    color: var(--sub-color);
+    margin-right: 48px;
+    font-size: 1.8rem;
+    
+    &:hover{
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+}
+.navItem--space::after{
+        content: "";
+        display: block;
+        position: absolute;
+        height: 24px;
+        border-right: 2px solid var(--primary-color);
+        right: -24px;
+        top : 50%;
+        transform: translateY(-50%);
+}
+.navList--space::after{
+    content: "";
+        display: block;
+        position: absolute;
+        height: 24px;
+        border-right: 2px solid var(--primary-color);
+        right: 26px;
+        top : 50%;
+        transform: translateY(-50%);
+}
+.navIcon{
+    width: 33px;
+    cursor: pointer;
+    position: relative;
+    
+}
+.navList-money{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    >span{
+        font-size: 1.8rem;
+    }
+
+}
+.navList-user{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 1.8rem;
+    position: relative;
+    >img{
+        width: 25px;
+        height: 25px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    &:hover{
+        cursor: pointer;
+        .navList-userMenu{
+            display: block;
+        }
+    }
+}
+
+.navList-userMenu{
+    position: absolute;
+    z-index: 9999;
+    padding-left : 0px;
+    top: 120%;
+    right: 0;
+    width: 200px;
+    background-color: var(--sub-color);
+    border-radius: 5px;
+    list-style: none;
+    box-shadow: 0 1px 1px #e0e0e0;
+    display: none;
+    color: #fff;
+
+    >span{
+        font-size: 1.4rem;
+        display: block;
+        padding: 8px 16px;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
+    }
+
+    &::before{
+        content: "";
+        border-width: 20px 27px;
+        border-style: solid;
+        border-color: transparent transparent var(--sub-color) transparent;
+        position: absolute;
+        right: 0px;
+        top: -29px;
+        z-index: -1;
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        display: block;
+        top: -8px;
+        right: 0;
+        width: 56%;
+        height: 8px;
+    }
+}

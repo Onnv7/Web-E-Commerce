@@ -20,6 +20,7 @@ const PaymentProperty = () => {
     const [deliveryIndex, setDeliveryIndex] = useState(0);
     const [note, setNote] = useState("");
     const [shipCost, setShipCost] = useState(20);
+    const [open, setOpen] = useState(false);
     const totalCost = useMemo(
         () =>
             cartItems.reduce(
@@ -109,7 +110,9 @@ const PaymentProperty = () => {
                                 <span>
                                     Thông tin người nhận và địa chỉ nhận hàng
                                 </span>
-                                <span>Thay đổi</span>
+                                <span onClick={() => setOpen(true)}>
+                                    Thay đổi
+                                </span>
                             </div>
                             <div className="paymentProperty-addressInfo">
                                 <span>
@@ -169,7 +172,7 @@ const PaymentProperty = () => {
                                     )
                                     .map((product) => (
                                         <div
-                                            className="paymentProperty-productBox"
+                                            className="cart-product"
                                             key={product._id}
                                         >
                                             <input type="checkbox" />
@@ -177,11 +180,11 @@ const PaymentProperty = () => {
                                                 src={product.imgPath[0]}
                                                 alt="productImg"
                                             />
-                                            <div className="paymentProperty-productProperty">
-                                                <div className="paymentProperty-productContent">
+                                            <div className="cart-productProperty">
+                                                <div className="cart-productItem">
                                                     <span>{product.name}</span>
-                                                    <div className="paymentProperty-productQuantity">
-                                                        <div className="paymentProperty-productCount">
+                                                    <div className="cart-productBox">
+                                                        <div className="cart-productCount">
                                                             <span>
                                                                 Số lượng
                                                             </span>
@@ -193,7 +196,7 @@ const PaymentProperty = () => {
                                                                 disabled
                                                             />
                                                         </div>
-                                                        <div className="paymentProperty-moneySum">
+                                                        <div className="cart-moneySum">
                                                             <span>
                                                                 Giá tiền
                                                             </span>
@@ -267,6 +270,47 @@ const PaymentProperty = () => {
                         </button>
                     </div>
                 </div>
+                {open && (
+                    <div className="waitProduct-modalChangeContainer">
+                        <span>Thay đổi địa chỉ</span>
+                        <div className="waitProduct-modalChangeBox">
+                            <span>Địa chỉ giao hàng</span>
+
+                            <div className="waitProduct-modalContent">
+                                <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                            </div>
+                        </div>
+                        <div className="waitProduct-modalChangeBox">
+                            <span>Địa chỉ giao hàng</span>
+
+                            <div className="waitProduct-modalContent">
+                                <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                            </div>
+                        </div>
+                        <div className="waitProduct-modalChangeBox">
+                            <span>Địa chỉ giao hàng</span>
+
+                            <div className="waitProduct-modalContent">
+                                <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                            </div>
+                        </div>
+                        <div className="waitProduct-modalBtn">
+                            <button onClick={() => setOpen(false)}>
+                                <Back size={32} />
+                                Quay lại
+                            </button>
+                            <button onClick={() => setOpen(false)}>
+                                Hoàn Tất
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         )
     );
