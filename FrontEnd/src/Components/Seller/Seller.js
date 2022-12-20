@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import './seller.scss';
-import { MessageText1, Shop, Star1 } from 'iconsax-react';
-import axios from './../../hooks/axios';
+import React, { useEffect, useState } from "react";
+import "./seller.scss";
+import { MessageText1, Shop, Star1 } from "iconsax-react";
+import axios from "./../../hooks/axios";
+import formatter from "./../../hooks/formatter";
+import { useNavigate } from "react-router-dom";
 
 const Seller = ({ id }) => {
     const [shop, setShop] = useState();
@@ -12,16 +14,24 @@ const Seller = ({ id }) => {
         };
         fetchData();
     }, [id]);
+    const navigate = useNavigate();
+    const gotoshopHandler = () => {
+        navigate(`/shop/${shop._id}`);
+    };
     return (
         shop && (
             <div className="seller">
                 <div className="seller-container">
                     <div className="seller-contact">
-                        <img src={shop.imgPath} alt="shop" className="seller-img" />
+                        <img
+                            src={shop.imgPath}
+                            alt="shop"
+                            className="seller-img"
+                        />
                         <div className="seller-detail">
                             <span className="seller-name">{shop.name}</span>
                             <div className="seller-btn">
-                                <button>
+                                <button onClick={gotoshopHandler}>
                                     <Shop size={24} />
                                     Tham quan
                                 </button>
@@ -39,16 +49,18 @@ const Seller = ({ id }) => {
                                 <span>{shop.ratingAverage}⭐</span>
                             </div>
                         </div>
-                        {/* <div className="review-rate">
-                        <div className="rate-text">
-                            <span>Tỉ lệ phản hồi: </span>
-                            <span>99.98%</span>
+                        <div className="review-rate">
+                            <div className="rate-text">
+                                <span>Tham gia: </span>
+                                <span>
+                                    {formatter.format(new Date(shop.createdAt))}
+                                </span>
+                            </div>
+                            <div className="rate-text">
+                                <span>Địa chỉ: </span>
+                                <span>6.7k</span>
+                            </div>
                         </div>
-                        <div className="rate-text">
-                            <span>Người theo dõi: </span>
-                            <span>6.7k</span>
-                        </div>
-                    </div> */}
                     </div>
                 </div>
             </div>

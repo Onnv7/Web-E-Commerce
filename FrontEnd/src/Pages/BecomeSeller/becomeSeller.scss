@@ -1,0 +1,41 @@
+.becomeSeller{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+.becomeSeller-container{
+    width: 100%;
+    max-width: 1100px;
+    box-shadow: inset 0px 0px 4px var(--primary-color);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 4px;
+    >span{
+        &:nth-child(2){
+            font-size: 3.2rem;
+            font-family: 'Oswald' ;
+        }
+        &:nth-child(3){
+            font-size: 1.8rem;
+        }
+    }
+    >button{
+        width: 100px;
+        height: 40px;
+        background: rgba(220, 91, 14, 0.5);
+        border-radius: 10px;
+        border: none;
+        font-size: 2rem;
+        color: #fff;
+        &:hover{
+            cursor: pointer;
+            background-color: var(--primary-color);
+        }
+    }
+
+}

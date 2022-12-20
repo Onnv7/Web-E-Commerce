@@ -1,12 +1,24 @@
 import { Back, CloseCircle, Crown } from "iconsax-react";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import "./classify.scss";
 
-const Classify = ({ setOpen, setClassifies }) => {
+const Classify = ({ setOpen, classifies, setClassifies }) => {
     const [name, setclassifyName] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
+    const checkExist = () => {
+        if (classifies.find((c) => c.name === name)) {
+            return true;
+        }
+        return false;
+    };
     const addClassifyHandler = () => {
+        console.log(checkExist());
+        if (checkExist()) {
+            toast.error("Phân loại đã tồn tại trong sản phẩm");
+            return;
+        }
         setClassifies((pre) => [
             ...pre,
             {
@@ -15,6 +27,7 @@ const Classify = ({ setOpen, setClassifies }) => {
                 price,
             },
         ]);
+        toast.success("Phân loại đã được thêm thành công");
     };
     return (
         <div className="modal-classify">

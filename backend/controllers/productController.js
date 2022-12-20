@@ -35,7 +35,17 @@ export const selectProductsByCategory = async (req, res, next) => {
 // select all products by shop id
 export const selectAllProducts = async (req, res, next) => {
     try {
-        const products = await Product.find({ shop: req.params.shopId });
+        let products;
+        if (req.query.cate) {
+            products = await Product.find({
+                shop: req.params.shopId,
+                subCategory: req.query.cate,
+            });
+        } else {
+            products = await Product.find({
+                shop: req.params.shopId,
+            });
+        }
         const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {

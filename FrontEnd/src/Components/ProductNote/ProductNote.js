@@ -4,6 +4,7 @@ import {
     ArrowLeft2,
     ArrowRight2,
     Crown,
+    Heart,
     Messages2,
     MessageText1,
     SearchNormal1,
@@ -22,6 +23,12 @@ const ProductNote = () => {
 
     const handleChange = (i) => {
         setActive(i);
+    };
+    const wishlistHandler = (product) => {
+        contextDispatch({
+            type: "WISHLIST_CHANGE_ITEM",
+            payload: product,
+        });
     };
     return (
         <div className="productNote">
@@ -76,6 +83,24 @@ const ProductNote = () => {
                                         Mua ngay
                                     </Link>
                                 </button>
+                                <div>
+                                    <span>Nhấn để bỏ thích</span>
+                                    <Heart
+                                        className="product-liked"
+                                        variant="Bold"
+                                        onClick={() =>
+                                            wishlistHandler(wishItem)
+                                        }
+                                        style={{
+                                            color: state.wishlist?.wishlistItems.find(
+                                                (item) =>
+                                                    item._id === wishItem._id
+                                            )
+                                                ? "#DC5B0E"
+                                                : null,
+                                        }}
+                                    />
+                                </div>
                                 <span>
                                     Giá tiền: {wishItem.classify[0].price}
                                     <Crown size={34} variant="Bold" />

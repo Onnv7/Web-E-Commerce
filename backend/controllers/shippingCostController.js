@@ -1,8 +1,8 @@
 import ShippingCost from "../models/shippingCostModel.js";
 
-const zoneOne = ["Quận 1", "Quận 2", "Quận 3"]
-const zoneTwo = ["Quận 4", "Quận 5", "Quận 6"]
-const zoneThree = ["Quận 7", "Quận 8", "Quận 9"]
+const zoneOne = ["Quận 1", "Quận 2", "Quận 3"];
+const zoneTwo = ["Quận 4", "Quận 5", "Quận 6"];
+const zoneThree = ["Quận 7", "Quận 8", "Quận 9"];
 
 // body gồm starting Number, destination Number, cost Number
 export const updateShipCost = async (req, res, next) => {
@@ -13,8 +13,7 @@ export const updateShipCost = async (req, res, next) => {
         if (start < end) {
             startPoint = start;
             endPoint = end;
-        }
-        else if (start > end) {
+        } else if (start > end) {
             startPoint = end;
             endPoint = start;
         }
@@ -29,49 +28,44 @@ export const updateShipCost = async (req, res, next) => {
                 destination: endPoint,
             },
             {
-                $set: req.body
+                $set: req.body,
             }
-        )
+        );
         res.status(200).json("Shipping Cost has been updated.");
-
     } catch (err) {
         console.log(err);
         res.status(500).json({ err: err });
     }
-}
+};
 
 export const createShipCost = async (req, res, next) => {
     try {
-        const start = getZoneName(req.body.start)
+        const start = getZoneName(req.body.start);
         const end = getZoneName(req.body.end);
-        const body = { starting: start, destination: end, cost: req.body.cost }
-        const shipCost = new ShippingCost(body)
+        const body = { starting: start, destination: end, cost: req.body.cost };
+        const shipCost = new ShippingCost(body);
         await shipCost.save();
         res.status(200).json("Shipping Cost has been created.");
-
     } catch (err) {
         console.log(err);
         res.status(500).json({ err: err });
     }
-}
-
+};
 
 export const calculate = async (req, res, next) => {
     try {
         let startPoint, endPoint;
 
-        const start = getZoneName(req.query.start)
+        const start = getZoneName(req.query.start);
         const end = getZoneName(req.query.end);
         // cung quan
         if (req.query.start === req.query.end) {
             startPoint = -1;
             endPoint = -1;
-        }
-        else if (start < end) {
+        } else if (start < end) {
             startPoint = start;
             endPoint = end;
-        }
-        else if (start > end) {
+        } else if (start > end) {
             startPoint = end;
             endPoint = start;
         }
@@ -82,8 +76,8 @@ export const calculate = async (req, res, next) => {
         }
         const shipCost = await ShippingCost.find({
             starting: startPoint,
-            destination: endPoint
-        })
+            destination: endPoint,
+        });
         res.status(200).json(shipCost);
     } catch (err) {
         console.log(err);
@@ -94,13 +88,10 @@ export const calculate = async (req, res, next) => {
 function getZoneName(address) {
     if (zoneOne.includes(address)) {
         return 1;
-    }
-    else if (zoneTwo.includes(address)) {
+    } else if (zoneTwo.includes(address)) {
         return 2;
-    }
-    else if (zoneThree.includes(address)) {
+    } else if (zoneThree.includes(address)) {
         return 3;
     }
     return null;
 }
-

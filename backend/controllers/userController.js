@@ -2,6 +2,69 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 import { getDataFromImage } from "../utils/saveFile.js";
+
+export const countUser = async (req, res, next) => {
+    try {
+        const countMonth = countUserPerMonth();
+        const countWeek = countUserPerWeek();
+        const countDay = countUserPerDay();
+        res.status(200).json({
+            day: countDay,
+            week: countWeek,
+            month: countMonth,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+const countUserPerMonth = async () => {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+
+    const endOfMonth = new Date();
+    endOfMonth.setMonth(endOfMonth.getMonth() + 1);
+    endOfMonth.setDate(0);
+
+    const count = await User.countDocuments({
+        createdAt: {
+            $gte: startOfMonth,
+            $lt: endOfMonth,
+        },
+    });
+    return count;
+};
+const countUserPerWeek = async () => {
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date();
+    endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const count = await User.countDocuments({
+        createdAt: {
+            $gte: startOfWeek,
+            $lt: endOfWeek,
+        },
+    });
+    return count;
+};
+const countUserPerDay = async () => {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const count = await User.countDocuments({
+        createdAt: {
+            $gte: startOfDay,
+            $lt: endOfDay,
+        },
+    });
+    return count;
+};
 // update user
 export const updateUser = async (req, res, next) => {
     try {
@@ -19,8 +82,9 @@ export const updateUser = async (req, res, next) => {
         const { img, password, ...body } = updatedUser._doc;
         res.status(200).json({ ...body, imgPath });
     } catch (err) {
-        console.log(err);
-        res.status(500).json({ err: err });
+        // console.log(err);
+        // res.status(500).json({ err: err });
+        next(err);
     }
 };
 

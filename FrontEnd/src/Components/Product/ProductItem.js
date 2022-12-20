@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 
-function ProductItem({ product }) {
+function ProductItem({ product, col }) {
     const { state, contextDispatch } = useContext(StoreContext);
 
     const wishlistHandler = () => {
@@ -20,7 +20,7 @@ function ProductItem({ product }) {
         });
     };
     return (
-        <div className="col c-3">
+        <div className={`col ${col}`}>
             <div className="productItem">
                 <img
                     src={product.imgPath[0]}

@@ -32,6 +32,7 @@ import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { toast } from "react-toastify";
 
 // Register the plugins
 registerPlugin(
@@ -54,6 +55,7 @@ const ProductPay = () => {
     const [product, setProduct] = useState();
     const [rating, setRating] = useState(0);
     const [contentReview, setContentReview] = useState("");
+    const [reviews, setReviews] = useState([]);
     const [files, setFiles] = useState([]);
 
     useEffect(() => {
@@ -63,10 +65,53 @@ const ProductPay = () => {
         };
         fetchData();
     }, [user]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/reviews/user/${user._id}`);
+            setReviews(data);
+        };
+        fetchData();
+    }, [user]);
     // useEffect(() => {});
 
     const rebuyHandler = (slug) => {
         navigate(`/products/${slug}`);
+    };
+    const getImageData = (files) => {
+        let rs = [];
+        files.forEach((item) => {
+            var imgData = `{"type":"${
+                item.fileType.split(";")[0]
+            }","data":"${item.getFileEncodeBase64String()}"}`;
+
+            rs.push(imgData);
+        });
+        return rs;
+    };
+    const img = getImageData(files);
+    const addReviewHandler = async () => {
+        if (rating === 0) {
+            toast.warning("Bạn phải chọn số sao muốn đánh giá ");
+            return;
+        } else if (contentReview.trim() === "") {
+            toast.warning("Bạn phải nhập nội dung đánh giá");
+            return;
+        }
+        try {
+            await axios.post("/reviews", {
+                user: user._id,
+                product: product._id._id,
+                content: contentReview,
+                rating,
+                img,
+            });
+            toast.success("Đánh giá sản phẩm thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+    const gotoshopHandler = (id) => {
+        navigate(`/shop/${id}`);
     };
     return (
         <div className="productPay">
@@ -96,17 +141,22 @@ const ProductPay = () => {
                             <div className="productPay-item" key={checkout._id}>
                                 <div className="productPay-header">
                                     <div className="productPay-itemTitle">
-                                        <span>Thế giới di động</span>
-                                        <button>
+                                        <span>{checkout.shop.name}</span>
+                                        <button
+                                            onClick={() =>
+                                                gotoshopHandler(
+                                                    checkout.shop._id
+                                                )
+                                            }
+                                        >
                                             <Shop />
                                             Tham quan
                                         </button>
                                     </div>
                                     <span>Mã đơn: {checkout._id} </span>
                                 </div>
-                                TODO: Đổi _id thành product
-                                {checkout.productItems.map((product) => (
-                                    <div>
+                                {checkout.productItems.map((product, index) => (
+                                    <div key={index}>
                                         <div className="productPay-body">
                                             <img
                                                 src={product._id.imgPath[0]}
@@ -149,14 +199,29 @@ const ProductPay = () => {
                                                 >
                                                     Mua lại
                                                 </button>
-                                                <button
-                                                    onClick={() => {
-                                                        setProduct(product);
-                                                        setOpen(true);
-                                                    }}
-                                                >
-                                                    Đánh giá
-                                                </button>
+                                                {reviews.find(
+                                                    (item) =>
+                                                        item.product ===
+                                                        product._id._id
+                                                ) != null ? (
+                                                    <button
+                                                        disabled
+                                                        style={{
+                                                            cursor: "not-allowed",
+                                                        }}
+                                                    >
+                                                        Đã Đánh giá
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => {
+                                                            setProduct(product);
+                                                            setOpen(true);
+                                                        }}
+                                                    >
+                                                        Đánh giá
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -244,20 +309,21 @@ const ProductPay = () => {
                             <FilePond
                                 files={files}
                                 onupdatefiles={setFiles}
-                                allowMultiple={false}
+                                allowMultiple={true}
                                 maxFiles={3}
                                 maxFileSize="3MB"
                                 //server="/api"
                                 name="img"
-                                labelIdle="Thêm ảnh để đánh giá"
+                                labelIdle={"Thêm ảnh tối đa 3 ảnh"}
                             />
-
                             <div className="modalComment-btn">
                                 <button onClick={() => setOpen(false)}>
                                     <Back />
                                     Quay lại
                                 </button>
-                                <button>Hoàn tất</button>
+                                <button onClick={addReviewHandler}>
+                                    Hoàn tất
+                                </button>
                             </div>
                         </div>
                     </div>

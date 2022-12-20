@@ -44,11 +44,7 @@ function Reviews({ id, limit }) {
                             <span>{review.content}</span>
                             <div className="comment-img">
                                 {review.imgPathReview.map((r, index) => (
-                                    <img
-                                        src="../Img/iphone14.png"
-                                        alt=""
-                                        key={index}
-                                    />
+                                    <img src={r} alt="" key={index} />
                                 ))}
                             </div>
                         </div>

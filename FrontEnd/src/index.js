@@ -5,15 +5,18 @@ import GlobalStyles from "./Components/GlobalStyles";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext.js";
 import { StoreProvider } from "./context/StoreContext";
+import { PaginationContextProvider } from "./context/PaginationContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     // <React.StrictMode>
     <GlobalStyles>
         <AuthContextProvider>
-            <StoreProvider>
-                <App />
-            </StoreProvider>
+            <PaginationContextProvider>
+                <StoreProvider>
+                    <App />
+                </StoreProvider>
+            </PaginationContextProvider>
         </AuthContextProvider>
     </GlobalStyles>
     // </React.StrictMode>
