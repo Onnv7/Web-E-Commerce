@@ -1,0 +1,104 @@
+.homePage-countBox{
+    display: flex;
+    gap: 53px;
+}
+.homePage-count{
+    background: #FFFFFF;
+    border: 1px solid rgba(220, 91, 14, 0.5);
+    box-shadow: 4px 4px 5px rgba(220, 91, 14, 0.4);
+    border-radius: 10px;
+    height: 140px;
+    padding: 16px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    >span{
+        &:nth-child(1){
+            font-size: 2rem;
+            font-family: 'Oswald';
+        }
+        &:nth-child(2){
+            font-size: 3.6rem;
+            color: var(--primary-color);
+        }
+        &:nth-child(3){
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+    }
+}
+.homePage-icon{
+    position: absolute;
+    right: 20px;
+    transform: translateY(150%);
+}
+.homePage-manage{
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+.homePage-walletManage{
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid rgba(220, 91, 14, 0.5);
+    box-shadow: 4px 4px 5px rgba(220, 91, 14, 0.4);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 20px 30px;
+    gap: 60px;
+    >span{
+        display: flex;
+        justify-content: space-between;
+        font-size: 2rem;
+        font-family: 'Oswald';
+    }
+}
+.homePage-walletCount{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    >span{
+        &:nth-child(3){
+            font-size: 2.4rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+}
+.homePage-walletCountList{
+    display: flex;
+    justify-content: space-between;
+}
+.homePage-walletCountItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    >span{
+        &:nth-child(2){
+            display: flex;
+            align-items: flex-end;
+            color: var(--primary-color);
+        }
+    }
+}
+.homePage-chart{
+    flex: 2;
+    background: #FFFFFF;
+    border: 1px solid rgba(220, 91, 14, 0.5);
+    box-shadow: 4px 4px 5px rgba(220, 91, 14, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    >span{
+        font-size: 2rem;
+        font-family: 'Oswald';
+    }
+}
