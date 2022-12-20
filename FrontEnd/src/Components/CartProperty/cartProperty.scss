@@ -85,6 +85,7 @@
     justify-content: space-between;
     width: 100%;
 }
+
 .cart-productContent{
     display: flex;
     flex: 1;
@@ -93,7 +94,9 @@
         width: 245px;
     }
 }
+
 .cart-productQuantity{
+
     display: flex;
     align-items: center;
     gap: 50px;
