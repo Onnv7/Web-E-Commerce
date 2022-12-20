@@ -8,6 +8,7 @@ const checkoutSchema = new mongoose.Schema(
                 classifyProduct: { type: String },
                 price: { type: Number },
                 quantityProduct: { type: Number },
+                //TODO: Sửa thành product
                 _id: {
                     type: mongoose.Schema.ObjectId,
                     ref: "Product",

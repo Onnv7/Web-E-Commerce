@@ -38,7 +38,32 @@ export const selectCheckout = async (req, res, next) => {
 // select all checkouts by user
 export const selectAllCheckoutByUser = async (req, res, next) => {
     try {
-        const checkouts = await Checkout.find({ user: req.params.userId });
+        const checkouts = await Checkout.find({ user: req.params.userId })
+            .populate({
+                path: "productItems",
+                // select: "name",
+                // transform: (doc) => {
+                //     const { img, ...others } = doc._doc
+                //     const data = { ...others, imgPath: doc.imgPath }
+                //     return data
+                // },
+                populate: {
+                    //TODO: Sửa thành product
+                    path: "_id",
+                    transform: (doc) => {
+                        const { img, slug, ...others } = doc._doc;
+                        const data = {
+                            slug,
+                            imgPath: doc.coverImagePath,
+                        };
+                        return data;
+                    },
+                },
+            })
+            .populate({
+                path: "shop",
+                select: "name",
+            });
         res.status(200).json(checkouts);
     } catch (error) {
         next(error);

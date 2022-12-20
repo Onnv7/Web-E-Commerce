@@ -50,7 +50,7 @@ function App() {
                 <Route path="/auction" element={<AuctionPage />} />
                 <Route path="/history" element={<AuctionHistory />} />
 
-                <Route path="/viewshop" element={<ViewShop />} />
+                <Route path="/shop/:id" element={<ViewShop />} />
                 <Route path="/detail/:id" element={<DetailCategory />} />
             </Routes>
         </BrowserRouter>
