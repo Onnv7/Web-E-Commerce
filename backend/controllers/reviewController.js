@@ -40,10 +40,6 @@ export const selectAllReviewsByProduct = async (req, res, next) => {
         let i = 0;
         for (i; i < review.length; i++) {
             const { user, img, ...others } = review[i]._doc;
-            console.log(
-                "🚀 ~ file: reviewController.js:33 ~ selectAllReviewsByProduct ~ img",
-                img.length
-            );
             let imgPathUser;
             if (user.img !== null)
                 imgPathUser = getImgPathFromImgData(user.img);
@@ -109,6 +105,12 @@ export const createReview = async (req, res, next) => {
             saveSingleFile(review, image);
         } else saveMultipleFile(review, image);
         await review.save();
+        const product = await Product.findById(review.product);
+        product.ratingAverage =
+            (product.ratingAverage * product.ratingQuantity + review.rating) /
+            (product.ratingQuantity + 1);
+        product.ratingQuantity += 1;
+        await product.save();
         res.status(200).json("Review has been created.");
     } catch (error) {
         // console.log(error);

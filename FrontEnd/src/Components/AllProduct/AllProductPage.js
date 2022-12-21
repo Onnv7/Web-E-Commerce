@@ -40,8 +40,8 @@ const AllProductPage = () => {
             <div className="allProduct-container">
                 <div className="allProduct-header">
                     <span>Thông tin sản phẩm</span>
-                    <span>Số lượng trong kho</span>
-                    <span>Giá</span>
+                    <span>Số lượng đã bán</span>
+                    <span>Danh mục</span>
                     <span>Thao Tác</span>
                 </div>
                 {products &&
@@ -51,13 +51,13 @@ const AllProductPage = () => {
                                 className="allProduct-name"
                                 onClick={() => handleDetail(product._id)}
                             >
-                                <img src={product.imgPath[0]} alt="" />
+                                <img src={product.imgPath} alt="" />
                                 <span>{product.name}</span>
                             </div>
-                            <span>{product.classify[0].quantity}</span>
+                            <span>{product.soldQuantity}</span>
                             <span>
-                                {product.classify[0].price}
-                                <Crown variant="Bold" size={15} />
+                                {product.subCategory}
+                                {/* <Crown variant="Bold" size={15} /> */}
                             </span>
                             <div className="allProduct-action">
                                 <span onClick={() => handleUpdate(product._id)}>

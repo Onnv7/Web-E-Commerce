@@ -45,19 +45,22 @@ function App() {
                     path="/seller/auction/:id"
                     element={<AuctionProductPage />}
                 />
+                <Route
+                    path="/seller/history/:id"
+                    element={<AuctionHistory />}
+                />
+
                 <Route path="/products/:slug" element={<SellPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/payment" element={<Payment />} />
-
                 <Route path="/seller" element={<SellerPage />} />
                 <Route path="/seller/update/:id" element={<UpdateProduct />} />
                 <Route path="/seller/new" element={<NewProduct />} />
                 <Route path="/seller/detail/:id" element={<DetailProduct />} />
                 <Route path="/auction" element={<AuctionPage />} />
-                <Route path="/history" element={<AuctionHistory />} />
                 <Route path="/seller/become" element={<BecomeSeller />} />
 
                 <Route path="/shop/:id" element={<ViewShop />} />

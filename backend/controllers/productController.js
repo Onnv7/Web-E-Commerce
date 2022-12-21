@@ -6,8 +6,39 @@ import {
     saveMultipleFile,
     getDataFromImage,
 } from "../utils/saveFile.js";
-import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
+import {
+    getUrlImageForArrObject,
+    getImgPathFromImgData,
+} from "../utils/getUrlImage.js";
 import { getTextSearch } from "../utils/formatIO.js";
+
+// select products by main category
+export const selectAllProductsByMainCategory = async (req, res, next) => {
+    try {
+        const shops = await Shop.find(
+            {
+                mainCategory: req.params.cgrId,
+            },
+            { _id: 1 }
+        );
+        const shopId = [];
+        shops.forEach((shop) => {
+            shopId.push(shop._id);
+        });
+        console.log(
+            "🚀 ~ file: productController.js:25 ~ selectAllProductsByMainCategory ~ shopIds",
+            shopId
+        );
+        // const products = [];
+        // for (const shop of shops) {
+        //     const allProducts = await Product.find({ shop: shop._id });
+        // }
+        // const result = getUrlImageForArrObject(products);
+        res.status(200).json(shopId);
+    } catch (error) {
+        next(error);
+    }
+};
 
 // search products
 export const searchProduct = async (req, res, next) => {
@@ -46,20 +77,36 @@ export const selectProductsByCategory = async (req, res, next) => {
 };
 
 // select all products by shop id
-export const selectAllProducts = async (req, res, next) => {
+export const selectAllProductsByShopId = async (req, res, next) => {
     try {
-        let products;
-        if (req.query.cate) {
-            products = await Product.find({
-                shop: req.params.shopId,
-                subCategory: req.query.cate,
-            });
-        } else {
-            products = await Product.find({
-                shop: req.params.shopId,
-            });
+        // let products;
+        // if (req.query.cate) {
+        //     products = await Product.find({
+        //         shop: req.params.shopId,
+        //         subCategory: req.query.cate,
+        //     });
+        // } else {
+        //     products = await Product.find({
+        //         shop: req.params.shopId,
+        //     });
+        // }
+        const result = [];
+        const products = await Product.find({ shop: req.params.shopId });
+        for (const product of products) {
+            const shop = await Shop.findById(product.shop);
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: product._id,
+                name: product.name,
+                soldQuantity: product.soldQuantity,
+                subCategory: product.subCategory,
+                imgPath,
+            };
+            result.push(data);
         }
-        const result = getUrlImageForArrObject(products);
+        // const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {
         next(err);
@@ -69,8 +116,26 @@ export const selectAllProducts = async (req, res, next) => {
 // select all products
 export const getAllProducts = async (req, res, next) => {
     try {
+        const result = [];
         const products = await Product.find({});
-        const result = getUrlImageForArrObject(products);
+        for (const product of products) {
+            const shop = await Shop.findById(product.shop);
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: product._id,
+                name: product.name,
+                soldQuantity: product.soldQuantity,
+                price: product.classify[0].price,
+                ratingAverage: product.ratingAverage,
+                slug: product.slug,
+                address,
+                imgPath,
+            };
+            result.push(data);
+        }
+        // const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {
         next(err);

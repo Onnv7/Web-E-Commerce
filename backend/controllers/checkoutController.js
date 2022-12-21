@@ -3,6 +3,15 @@ import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
 
+export const selectAllCheckouts = async (req, res, next) => {
+    try {
+        const checkouts = await Checkout.find();
+        res.status(200).json(checkouts);
+    } catch (error) {
+        next(error);
+    }
+};
+
 // delete a checkout
 export const deleteCheckout = async (req, res, next) => {
     try {
@@ -27,7 +36,7 @@ export const updateCheckout = async (req, res, next) => {
 };
 
 // select a checkout
-export const selectCheckout = async (req, res, next) => {
+export const selectCheckoutById = async (req, res, next) => {
     try {
         const checkout = await Checkout.findOne({
             _id: req.params.id,
@@ -100,8 +109,6 @@ export const createCheckout = async (req, res, next) => {
                 {
                     $inc: {
                         "classify.$.quantity": -item.quantityProduct,
-                    },
-                    $inc: {
                         soldQuantity: +1,
                     },
                 }
@@ -127,6 +134,7 @@ export const createCheckout = async (req, res, next) => {
 export const shopRevenue = async (req, res, next) => {
     try {
         let startDate = new Date(req.params.startDate);
+
         let endDate = new Date(req.params.endDate);
         const checkout = await Checkout.find({
             shop: req.params.shopId,
@@ -167,8 +175,10 @@ export const shopRevenue = async (req, res, next) => {
 
 export const adminRevenue = async (req, res, next) => {
     try {
-        let startDate = new Date(req.params.startDate);
-        let endDate = new Date(req.params.endDate);
+        // yyyy-MM-dd
+        let startDate = new Date(req.query.startDate);
+        let endDate = new Date(req.query.endDate);
+        endDate.setDate(endDate.getDate() + 1);
         const checkout = await Checkout.aggregate([
             {
                 $match: {
@@ -198,6 +208,7 @@ export const adminRevenue = async (req, res, next) => {
             },
             { $sort: { _id: 1 } },
         ]);
+
         res.status(200).json(checkout);
     } catch (error) {
         next(error);

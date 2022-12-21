@@ -24,7 +24,7 @@ function ProductItem({ product, col }) {
         <div className={`col ${col}`}>
             <div className="productItem">
                 <img
-                    src={product.imgPath[0]}
+                    src={product.imgPath}
                     className="product-img"
                     alt="product"
                 />
@@ -32,7 +32,7 @@ function ProductItem({ product, col }) {
                 <div className="product-sell">
                     <span>Đã bán {product.soldQuantity}</span>
                     <span>
-                        {product.classify[0].price}
+                        {product.price}
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </span>
                 </div>
@@ -41,7 +41,7 @@ function ProductItem({ product, col }) {
                         rating={Math.round(product.ratingAverage)}
                         caption=" "
                     />
-                    <span>Hà Nội</span>
+                    <span>{product.address}</span>
                 </div>
                 <div className="product-buy">
                     <Link to={`/products/${product.slug}`}>

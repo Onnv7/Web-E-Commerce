@@ -9,6 +9,7 @@ import {
     selectUser,
     selectAllUsers,
     countUser,
+    selectAllSellers,
 } from "../controllers/userController.js";
 import { verifyToken, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -18,6 +19,8 @@ const router = express.Router();
 // TODO: check using
 // select all users
 router.get("/", selectAllUsers);
+
+router.get("/seller", selectAllSellers);
 
 // ! admin
 // TODO: check using

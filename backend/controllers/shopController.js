@@ -4,12 +4,9 @@ import Checkout from "../models/checkoutModel.js";
 import { updateUser } from "./userController.js";
 import { saveFileObj, getDataFromImage } from "../utils/saveFile.js";
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
-const upLevelSeller = async function (req, res, next) {
+const upLevelSeller = async function (id) {
     try {
-        await User.updateOne(
-            { _id: req.params.id },
-            { $set: { role: "seller" } }
-        );
+        await User.updateOne({ _id: id }, { $set: { role: "seller" } });
     } catch (err) {
         //next(err);
     }
@@ -19,7 +16,7 @@ const upLevelSeller = async function (req, res, next) {
 export const createShop = async (req, res, next) => {
     try {
         const image = req.body.img;
-        upLevelSeller(req, res, next);
+        upLevelSeller(req.body.user);
         const newShop = new Shop({
             ...req.body,
         });

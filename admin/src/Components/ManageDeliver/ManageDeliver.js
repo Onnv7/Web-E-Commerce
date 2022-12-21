@@ -1,9 +1,24 @@
-import { Back, Crown, TruckFast } from 'iconsax-react';
-import React, { useState } from 'react';
-import './manageDeliver.scss';
+import { Back, Crown, TruckFast } from "iconsax-react";
+import React, { useState, useEffect } from "react";
+import "./manageDeliver.scss";
+import axios from "./../../hooks/axios";
 
 const ManageDeliver = () => {
     const [open, setOpen] = useState(false);
+    const [info, setInfo] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchData = async () => {
+                const { data } = await axios.get("/shippingCost");
+                console.log(data);
+                setInfo(data);
+            };
+            fetchData();
+        } catch (err) {
+            console.error(err);
+        }
+    }, []);
+
     return (
         <div className="manageDeliver">
             <div className="manageDeliver-fee">
@@ -19,15 +34,15 @@ const ManageDeliver = () => {
                     </div>
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
-                            <span>PHÍ VẬN CHUYỂN - CÙNG QUẬN</span>
+                            <span>PHÍ VẬN CHUYỂN</span>
                             <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG 1 {'<'}--{'>'} VÙNG 2
+                                VÙNG 1 {"<"}--{">"} VÙNG 2
                             </span>
                             <span>
-                                VÙNG 2 {'<'}--{'>'} VÙNG 3
+                                VÙNG 2 {"<"}--{">"} VÙNG 3
                             </span>
                         </div>
                         <span>
@@ -39,28 +54,25 @@ const ManageDeliver = () => {
                 <div className="manageDeliver-feeList">
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
-                            <span>PHÍ VẬN CHUYỂN - CÙNG QUẬN</span>
+                            <span>PHÍ VẬN CHUYỂN - CÙNG VÙNG</span>
                             <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
                         </div>
                         <span>
-                            Free <Crown size={30} variant="Bold" />
+                            30 <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
-                            <span>PHÍ VẬN CHUYỂN - CÙNG QUẬN</span>
+                            <span>PHÍ VẬN CHUYỂN</span>
                             <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG 1 {'<'}--{'>'} VÙNG 2
-                            </span>
-                            <span>
-                                VÙNG 2 {'<'}--{'>'} VÙNG 3
+                                VÙNG 1 {"<"}--{">"} VÙNG 3
                             </span>
                         </div>
                         <span>
-                            35 <Crown variant="Bold" />
+                            45 <Crown variant="Bold" />
                         </span>
                     </div>
                 </div>
@@ -77,7 +89,7 @@ const ManageDeliver = () => {
                             <span>Quận Tân Phú</span>
                             <span>Quận 1</span>
                             <span>Quận 3</span>
-                            <span>Quận 4</span>
+                            <span>Quận 5</span>
                             <span>Quận 10</span>
                             <span>Quận 11</span>
                         </div>
@@ -87,6 +99,7 @@ const ManageDeliver = () => {
                         <div className="manageDeliver-place">
                             <span>Quận Bình Thạnh</span>
                             <span>Quận Bình Tân</span>
+                            <span>Quận 2</span>
                             <span>Quận 4</span>
                             <span>Quận 6</span>
                             <span>Quận 8</span>

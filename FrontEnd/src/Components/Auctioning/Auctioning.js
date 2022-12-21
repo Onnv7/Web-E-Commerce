@@ -1,8 +1,21 @@
-import { ArrowLeft2, ArrowRight2, Crown, SearchNormal1 } from 'iconsax-react';
-import React from 'react';
-import './auctioning.scss';
+import { ArrowLeft2, ArrowRight2, Crown, SearchNormal1 } from "iconsax-react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./auctioning.scss";
+import axios from "./../../hooks/axios";
 
 const Auctioning = () => {
+    const [auctions, setAuctions] = useState();
+    const navigate = useNavigate();
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get("/auction");
+            console.log(data);
+            setAuctions(data);
+        };
+        fetchData();
+    }, []);
+
     return (
         <div className="auctioning">
             <div className="auctioning-item">
@@ -13,7 +26,10 @@ const Auctioning = () => {
                 <div className="auctioning-itemBox">
                     <img src="../Img/iphone14.png" alt="" />
                     <div className="auctioning-itemDesc">
-                        <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                        <span>
+                            Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính
+                            hãng
+                        </span>
                         <div className="auctioning-itemDetail">
                             <span>Thời gian còn lại: 2 ngày 8 giờ 21 phút</span>
                             <span>Số lượng: 1</span>
@@ -24,13 +40,15 @@ const Auctioning = () => {
                     <button>Tiếp tục đấu giá</button>
                     <div className="auctioning-itemPrice">
                         <span>
-                            Giá khởi điểm: 1000 <Crown variant="Bold" size={34} />
+                            Giá khởi điểm: 1000{" "}
+                            <Crown variant="Bold" size={34} />
                         </span>
                         <span>
                             Giá hiện tại: 300 <Crown variant="Bold" size={34} />
                         </span>
                         <span>
-                            Giá mới nhất bạn đưa ra: 400 <Crown variant="Bold" size={34} />
+                            Giá mới nhất bạn đưa ra: 400{" "}
+                            <Crown variant="Bold" size={34} />
                         </span>
                     </div>
                 </div>
@@ -42,7 +60,10 @@ const Auctioning = () => {
                     </a>
                 </div>
                 <div className="pagination-item ">
-                    <a href="" className="pagination-link pagination-link__active">
+                    <a
+                        href=""
+                        className="pagination-link pagination-link__active"
+                    >
                         1
                     </a>
                 </div>

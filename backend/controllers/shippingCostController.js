@@ -1,8 +1,35 @@
 import ShippingCost from "../models/shippingCostModel.js";
 
-const zoneOne = ["Quận 1", "Quận 2", "Quận 3"];
-const zoneTwo = ["Quận 4", "Quận 5", "Quận 6"];
-const zoneThree = ["Quận 7", "Quận 8", "Quận 9"];
+const zoneOne = [
+    "Quận Tân Bình",
+    "Quận Phú Nhuận",
+    "Quận Gò Vấp",
+    "Quận Tân Phú",
+    "Quận 1",
+    "Quận 3",
+    "Quận 5",
+    "Quận 10",
+    "Quận 11",
+];
+const zoneTwo = [
+    "Quận Bình Thạnh",
+    "Quận Bình Tân",
+    "Quận 4",
+    "Quận 6",
+    "Quận 8",
+    "Quận 9",
+    "Quận 12",
+    "Thành phố Thủ Đức",
+];
+const zoneThree = [
+    "Huyện Hóc Môn",
+    "Huyện Bình Chánh",
+    "Huyện Bình Chánh",
+    "Huyện Nhà Bè",
+    "Quận 7",
+    "Huyện Củ Chi",
+    "Huyện Cần Giờ",
+];
 
 // body gồm starting Number, destination Number, cost Number
 export const updateShipCost = async (req, res, next) => {
@@ -40,10 +67,10 @@ export const updateShipCost = async (req, res, next) => {
 
 export const createShipCost = async (req, res, next) => {
     try {
-        const start = getZoneName(req.body.start);
-        const end = getZoneName(req.body.end);
+        const start = req.body.start;
+        const end = req.body.end;
         const body = { starting: start, destination: end, cost: req.body.cost };
-        const shipCost = new ShippingCost(body);
+        const shipCost = new ShippingCost(req.body);
         await shipCost.save();
         res.status(200).json("Shipping Cost has been created.");
     } catch (err) {
@@ -52,7 +79,48 @@ export const createShipCost = async (req, res, next) => {
     }
 };
 
-export const calculate = async (req, res, next) => {
+export const getAllShipCost = async (req, res, next) => {
+    try {
+        const shipCost = await ShippingCost.find({});
+        res.status(200).json(shipCost);
+    } catch (err) {
+        res.status(500).json({ err: err });
+        next(err);
+    }
+};
+
+export const getShipCostByZone = async (req, res, next) => {
+    try {
+        let startPoint, endPoint;
+        const start = Number(req.query.start);
+        const end = Number(req.query.end);
+        if ((start === -1) & (end === -1)) {
+            startPoint = -1;
+            endPoint = -1;
+        } else if (start < end) {
+            startPoint = start;
+            endPoint = end;
+        } else if (start > end) {
+            startPoint = end;
+            endPoint = start;
+        }
+        // cung zone
+        else {
+            startPoint = 0;
+            endPoint = 0;
+        }
+        const shipCost = await ShippingCost.find({
+            starting: startPoint,
+            destination: endPoint,
+        });
+        res.status(200).json(shipCost);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ err: err });
+    }
+};
+
+export const getShipCost = async (req, res, next) => {
     try {
         let startPoint, endPoint;
 

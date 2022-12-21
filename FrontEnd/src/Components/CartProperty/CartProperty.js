@@ -269,17 +269,31 @@ const CartProperty = () => {
                             </span>
                         </div>
                         {cartItems.length > 0 ? (
-                            <button>
-                                <Link
-                                    to="/payment"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "#fff",
-                                    }}
-                                >
-                                    Xác nhận
-                                </Link>
-                            </button>
+                            user.username && user.deliveryInfo ? (
+                                <button>
+                                    <Link
+                                        to="/payment"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        Xác nhận
+                                    </Link>
+                                </button>
+                            ) : (
+                                <button>
+                                    <Link
+                                        to="/profile"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        Xác nhận
+                                    </Link>
+                                </button>
+                            )
                         ) : (
                             <button
                                 style={{ opacity: 0.8, cursor: "not-allowed" }}

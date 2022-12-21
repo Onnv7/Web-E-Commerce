@@ -22,6 +22,7 @@ const PaymentProperty = () => {
     const [note, setNote] = useState("");
     const [shipCost, setShipCost] = useState(20);
     const [open, setOpen] = useState(false);
+    const [shippingShops, setShippingShops] = useState([]);
     const totalCostItems = useMemo(
         () =>
             cartItems.reduce(
@@ -70,16 +71,32 @@ const PaymentProperty = () => {
             setShops((pre) => [...pre, data]);
         });
     }, [shopItems]);
-
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/users/${user._id}`);
-            console.log(data);
             setUserDetail(data);
         };
         fetchData();
     }, [user]);
-
+    useEffect(() => {
+        console.log(userDetail);
+        if (userDetail) {
+            setShippingShops([]);
+            shops.forEach(async (element) => {
+                console.log(element.addressInfo.distinct);
+                console.log(userDetail.deliveryInfo[deliveryIndex].distinct);
+                console.log(
+                    `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`.trim()
+                );
+                const { data } = await axios.get(
+                    `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
+                );
+                console.log(data);
+                setShippingShops((pre) => [...pre, ...data.map((d) => d.cost)]);
+            });
+        }
+    }, [deliveryIndex, shops, userDetail]);
+    console.log(shippingShops);
     const gotoShop = (id) => {
         navigate(`/shop/${id}`);
     };
@@ -172,7 +189,7 @@ const PaymentProperty = () => {
                                 </span>
                             </div>
                         </div>
-                        {shops.map((shop) => (
+                        {shops.map((shop, index) => (
                             <div
                                 className="paymentProperty-product"
                                 key={shop._id}
@@ -194,7 +211,6 @@ const PaymentProperty = () => {
                                             className="paymentProperty-productBox"
                                             key={product._id}
                                         >
-                                            <input type="checkbox" />
                                             <img
                                                 src={product.imgPath[0]}
                                                 alt="productImg"
@@ -234,11 +250,13 @@ const PaymentProperty = () => {
                                             </div>
                                         </div>
                                     ))}
+
                                 <textarea
                                     placeholder="Lưu ý cho người mua hàng"
                                     value={note}
                                     onChange={(e) => setNote(e.target.value)}
                                 />
+                                <div>ShippingCost : {shippingShops[index]}</div>
                             </div>
                         ))}
                     </div>

@@ -50,8 +50,9 @@ const ProfileNav = () => {
         setSlide(<ProductNote />);
     };
     useEffect(() => {
-        if (location.state.destination === "note") setSlide(<ProductNote />);
-        else setSlide(<ProfileInfo />);
+        // if (location.state.destination === "note") setSlide(<ProductNote />);
+        // else
+        setSlide(<ProfileInfo />);
     }, slide);
     return (
         <div className="profileNav">

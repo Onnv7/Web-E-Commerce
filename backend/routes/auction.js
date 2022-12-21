@@ -7,6 +7,7 @@ import {
     reverseAuction,
     createAuction,
     selectAllAuctionsByUserId,
+    selectAllAuctionsByBidderId,
 } from "../controllers/auctionController.js";
 const router = express.Router();
 // !admin
@@ -16,6 +17,8 @@ router.get("/", selectAllAuctions);
 // !user
 // select auction by id
 router.get("/all/:userId", selectAllAuctionsByUserId);
+
+router.get("/bidder/:bidderId", selectAllAuctionsByBidderId);
 
 // !user
 // select auction by id
