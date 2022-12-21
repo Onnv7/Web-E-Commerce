@@ -142,6 +142,7 @@
         width: 130px;
         background: #FFFFFF;
         border: 1px dashed rgba(0, 0, 0, 0.5);
+        padding: 5px 0;
         border-radius: 5px;
         color: rgba(0, 0, 0, 0.5);
         &:hover{
@@ -161,23 +162,12 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    text-align: center;
     >span{
         flex: 1;
         font-size: 1.8rem;
         font-family: 'Oswald';
     }
-    &:last-child{
-        .product-classifyItem{
-
-            color: var(--primary-color);
-        }
-    }
-    &:first-child{
-        .product-classifyItem{
-            position: relative;
-        }
-    }
-
 }
 
 .product-classifyItem{
@@ -193,6 +183,11 @@
         justify-content: center;
         gap: 5px;
         font-size: 1.8rem;
+    }
+    &:last-child{
+        color: var(--primary-color);
+        position: relative;
+
     }
 }
 .product-classifyIcon{

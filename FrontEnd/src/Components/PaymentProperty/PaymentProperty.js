@@ -1,11 +1,11 @@
-import { ArrowDown2, Back, Crown, MessageText1, Shop } from 'iconsax-react';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import { StoreContext } from '../../context/StoreContext';
-import './paymentProperty.scss';
-import axios from './../../hooks/axios';
-import { toast } from 'react-toastify';
+import { ArrowDown2, Back, Crown, MessageText1, Shop } from "iconsax-react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { StoreContext } from "../../context/StoreContext";
+import "./paymentProperty.scss";
+import axios from "./../../hooks/axios";
+import { toast } from "react-toastify";
 
 const PaymentProperty = () => {
     const { user } = useContext(AuthContext);
@@ -18,20 +18,22 @@ const PaymentProperty = () => {
     const [products, setProducts] = useState([]);
     const [shops, setShops] = useState([]);
     const [deliveryIndex, setDeliveryIndex] = useState(0);
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState("");
     const [shipCost, setShipCost] = useState(20);
     const [open, setOpen] = useState(false);
     const totalCost = useMemo(
         () =>
             cartItems.reduce(
-                (accumulate, currentValue) => accumulate + currentValue.price * currentValue.quantityProduct,
-                0,
+                (accumulate, currentValue) =>
+                    accumulate +
+                    currentValue.price * currentValue.quantityProduct,
+                0
             ) + shipCost,
-        [cartItems],
+        [cartItems]
     );
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate('/cart');
+        navigate("/cart");
     };
     useEffect(() => {
         setProducts([]);
@@ -70,7 +72,9 @@ const PaymentProperty = () => {
     const checkoutHandler = () => {
         try {
             shopItems.forEach(async (shopItem) => {
-                const dataItems = cartItems.filter((item) => item.shopID === shopItem._id);
+                const dataItems = cartItems.filter(
+                    (item) => item.shopID === shopItem._id
+                );
 
                 const data = {
                     productItems: dataItems,
@@ -79,15 +83,15 @@ const PaymentProperty = () => {
                     deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
                     totalCost,
                     shipCost,
-                    status: 'waiting',
+                    status: "waiting",
                     note,
                 };
-                await axios.post('/checkouts', data);
+                await axios.post("/checkouts", data);
             });
-            // contextDispatch({ type: "CART_CLEAR" });
-            // contextDispatch({ type: "SHOP_CLEAR" });
+            contextDispatch({ type: "CART_CLEAR" });
+            contextDispatch({ type: "SHOP_CLEAR" });
 
-            toast.success('Thanh toán thành công');
+            toast.success("Thanh toán thành công");
             // window.setTimeout(() => {
             //     navigate("/");
             // }, 3000);
@@ -103,51 +107,99 @@ const PaymentProperty = () => {
                     <div className="PaymentProperty-content">
                         <div className="paymentProperty-address">
                             <div className="paymentProperty-addressTitle">
-                                <span>Thông tin người nhận và địa chỉ nhận hàng</span>
-                                <span onClick={() => setOpen(true)}>Thay đổi</span>
+                                <span>
+                                    Thông tin người nhận và địa chỉ nhận hàng
+                                </span>
+                                <span onClick={() => setOpen(true)}>
+                                    Thay đổi
+                                </span>
                             </div>
                             <div className="paymentProperty-addressInfo">
-                                <span>Họ và tên: {userDetail.deliveryInfo[deliveryIndex].fullName}</span>
-                                <span>Số điện thoại: {userDetail.deliveryInfo[deliveryIndex].phoneNumber}</span>
                                 <span>
-                                    Địa chỉ: {userDetail.deliveryInfo[deliveryIndex].address},{' '}
-                                    {userDetail.deliveryInfo[deliveryIndex].ward},{' '}
-                                    {userDetail.deliveryInfo[deliveryIndex].distinct},{' '}
-                                    {userDetail.deliveryInfo[deliveryIndex].province}
+                                    Họ và tên:{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .fullName
+                                    }
+                                </span>
+                                <span>
+                                    Số điện thoại:{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .phoneNumber
+                                    }
+                                </span>
+                                <span>
+                                    Địa chỉ:{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .address
+                                    }
+                                    ,{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .ward
+                                    }
+                                    ,{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .distinct
+                                    }
+                                    ,{" "}
+                                    {
+                                        userDetail.deliveryInfo[deliveryIndex]
+                                            .province
+                                    }
                                 </span>
                             </div>
                         </div>
                         {shops.map((shop) => (
-                            <div className="cart-contentBox" key={shop._id}>
-                                <div className="cart-title">
+                            <div
+                                className="paymentProperty-product"
+                                key={shop._id}
+                            >
+                                <div className="paymentProperty-productBrand">
                                     <span>{shop.name}</span>
-                                    <div className="cart-infoShop">
-                                        <button>
-                                            <Shop />
-                                            Tham quan
-                                        </button>
-                                    </div>
+                                    <button>
+                                        <Shop />
+                                        Tham quan
+                                    </button>
                                 </div>
                                 {products
-                                    .filter((product) => product.shop._id === shop._id)
+                                    .filter(
+                                        (product) =>
+                                            product.shop._id === shop._id
+                                    )
                                     .map((product) => (
-                                        <div className="cart-product" key={product._id}>
+                                        <div
+                                            className="paymentProperty-productBox"
+                                            key={product._id}
+                                        >
                                             <input type="checkbox" />
-                                            <img src={product.imgPath[0]} alt="productImg" />
-                                            <div className="cart-productProperty">
-                                                <div className="cart-productItem">
+                                            <img
+                                                src={product.imgPath[0]}
+                                                alt="productImg"
+                                            />
+                                            <div className="paymentProperty-productProperty">
+                                                <div className="paymentProperty-productContent">
                                                     <span>{product.name}</span>
-                                                    <div className="cart-productBox">
-                                                        <div className="cart-productCount">
-                                                            <span>Số lượng</span>
+                                                    <div className="paymentProperty-productQuantity">
+                                                        <div className="paymentProperty-productCount">
+                                                            <span>
+                                                                Số lượng
+                                                            </span>
                                                             <input
                                                                 type="text"
-                                                                value={product.quantityProduct}
+                                                                value={
+                                                                    product.quantityProduct
+                                                                }
                                                                 disabled
                                                             />
                                                         </div>
-                                                        <div className="cart-moneySum">
-                                                            <span>Giá tiền</span>
+                                                        <div className="paymentProperty-moneySum">
+                                                            <span>
+                                                                Giá tiền
+                                                            </span>
                                                             <span>
                                                                 {product.price}
                                                                 <Crown variant="Bold" />
@@ -155,9 +207,11 @@ const PaymentProperty = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="cart-productButton">
-                                                    <span>Phân loại: {product.classifyProduct}</span>
-                                                </div>
+
+                                                <span>
+                                                    Phân loại:{" "}
+                                                    {product.classifyProduct}
+                                                </span>
                                             </div>
                                         </div>
                                     ))}
@@ -175,8 +229,10 @@ const PaymentProperty = () => {
                             <span>
                                 {cartItems.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate + currentValue.price * currentValue.quantityProduct,
-                                    0,
+                                        accumulate +
+                                        currentValue.price *
+                                            currentValue.quantityProduct,
+                                    0
                                 )}
                                 <Crown variant="Bold" />
                             </span>
@@ -185,8 +241,10 @@ const PaymentProperty = () => {
                             <span>Tổng số lượng</span>
                             <span>
                                 {cartItems.reduce(
-                                    (accumulate, currentValue) => accumulate + currentValue.quantityProduct,
-                                    0,
+                                    (accumulate, currentValue) =>
+                                        accumulate +
+                                        currentValue.quantityProduct,
+                                    0
                                 )}
                             </span>
                         </div>
@@ -210,41 +268,45 @@ const PaymentProperty = () => {
                     </div>
                 </div>
                 {open && (
-                    <div className="waitProduct-modalChangeContainer">
-                        <span>Thay đổi địa chỉ</span>
-                        <div className="waitProduct-modalChangeBox">
-                            <span>Địa chỉ giao hàng</span>
+                    <div className="waitProduct-modal">
+                        <div className="waitProduct-modalChangeContainer">
+                            <span>Thay đổi địa chỉ</span>
+                            <div className="waitProduct-modalChangeBox">
+                                <span>Địa chỉ giao hàng</span>
 
-                            <div className="waitProduct-modalContent">
-                                <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                <div className="waitProduct-modalContent">
+                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="waitProduct-modalChangeBox">
-                            <span>Địa chỉ giao hàng</span>
+                            <div className="waitProduct-modalChangeBox">
+                                <span>Địa chỉ giao hàng</span>
 
-                            <div className="waitProduct-modalContent">
-                                <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                <div className="waitProduct-modalContent">
+                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="waitProduct-modalChangeBox">
-                            <span>Địa chỉ giao hàng</span>
+                            <div className="waitProduct-modalChangeBox">
+                                <span>Địa chỉ giao hàng</span>
 
-                            <div className="waitProduct-modalContent">
-                                <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                <div className="waitProduct-modalContent">
+                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
+                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
+                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="waitProduct-modalBtn">
-                            <button onClick={() => setOpen(false)}>
-                                <Back size={32} />
-                                Quay lại
-                            </button>
-                            <button onClick={() => setOpen(false)}>Hoàn Tất</button>
+                            <div className="waitProduct-modalBtn">
+                                <button onClick={() => setOpen(false)}>
+                                    <Back size={32} />
+                                    Quay lại
+                                </button>
+                                <button onClick={() => setOpen(false)}>
+                                    Hoàn Tất
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}

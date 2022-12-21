@@ -71,17 +71,17 @@ const Navbar = ({ style }) => {
                 )}
                 <div className="navList">
                     <div className="navList-money">
+                        {console.log(user)}
                         <span>Số dư: {user?.ruby}</span>
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
 
-                    <Note1
+                    <Heart
                         variant="Bold"
                         className="navIcon"
                         size={24}
                         onClick={gotoNote}
                     />
-                    <Heart variant="Bold" className="navIcon" size={24} />
                     <div className="navList-user">
                         <img src={user.imgPath} alt="" />
                         <span>{user.username}</span>

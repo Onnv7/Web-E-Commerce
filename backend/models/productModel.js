@@ -26,11 +26,14 @@ const productSchema = new mongoose.Schema({
         required: [true, "User product have a brand"],
     },
     classify: {
-        type: [{
-            name: { type: String, default: "" },
-            quantity: { type: Number, default: 0 },
-            price: { type: Number, default: 0 },
-        }]
+        type: [
+            {
+                // TODO: unique vi dang find by name de cap nhat quantity
+                name: { type: String, default: "" },
+                quantity: { type: Number, default: 0 },
+                price: { type: Number, default: 0 },
+            },
+        ],
     },
     ratingAverage: {
         type: Number,
@@ -76,7 +79,8 @@ productSchema.virtual("coverImagePath").get(function () {
             this.img[i].coverImageType != null
         ) {
             rs.push(
-                `data:${this.img[i].coverImageType
+                `data:${
+                    this.img[i].coverImageType
                 };charset=utf-8;base64,${this.img[i].coverImage.toString(
                     "base64"
                 )}`

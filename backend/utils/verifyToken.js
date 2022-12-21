@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/error.js";
 
-
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
-    //console.log("🚀 ~ file: verifyToken.js ~ line 18 ~ verifyToken ~ token", token)
     if (!token) {
         return next(createError(401, "You are not authenticated!"));
     }
@@ -12,15 +10,17 @@ export const verifyToken = (req, res, next) => {
         if (err) return next(createError(403, "Token is not valid!"));
         req.user = user;
         next();
-    })
+    });
 };
 
 export const verifyUser = (req, res, next) => {
     verifyToken(req, res, () => {
-        if (req.user.id === req.params.id && req.user.role === "user") {
+        if (
+            req.user.id === req.params.id &&
+            (req.user.role === "user" || req.user.role === "seller")
+        ) {
             next();
-        }
-        else {
+        } else {
             return next(createError(403, "You are not user!"));
         }
     });
@@ -30,8 +30,7 @@ export const verifyBuyer = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.id === req.params.id && req.user.role === "buyer") {
             next();
-        }
-        else {
+        } else {
             return next(createError(403, "You are not seller!"));
         }
     });
@@ -41,8 +40,7 @@ export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, next, () => {
         if (req.user.id === req.params.id && req.user.role === "admin") {
             next();
-        }
-        else {
+        } else {
             return next(createError(403, "You are not admin!"));
         }
     });

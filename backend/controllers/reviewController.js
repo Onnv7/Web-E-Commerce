@@ -17,6 +17,16 @@ export const selectReview = async (req, res, next) => {
     }
 };
 
+// select a reviews by user ID
+export const selectReviewByUserID = async (req, res, next) => {
+    try {
+        const result = await Review.find({ user: req.params.id });
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 // select all reviews by product
 export const selectAllReviewsByProduct = async (req, res, next) => {
     try {
@@ -30,12 +40,16 @@ export const selectAllReviewsByProduct = async (req, res, next) => {
         let i = 0;
         for (i; i < review.length; i++) {
             const { user, img, ...others } = review[i]._doc;
+            console.log(
+                "🚀 ~ file: reviewController.js:33 ~ selectAllReviewsByProduct ~ img",
+                img.length
+            );
             let imgPathUser;
             if (user.img !== null)
                 imgPathUser = getImgPathFromImgData(user.img);
             else imgPathUser = "/Img/default-user.png";
             let imgPathReview;
-            if (img !== null) imgPathReview = getUrlImageArr(img);
+            if (img !== null) imgPathReview = review[i].coverImagePath;
             else imgPathReview = "";
             const result = {
                 ...others,
@@ -88,6 +102,7 @@ export const updateReview = async (req, res, next) => {
 // create a new review
 export const createReview = async (req, res, next) => {
     try {
+        console.log(req.body.product);
         const image = req.body.img.slice(0, req.body.img.length);
         const body = { ...req.body };
         const review = new Review(body);
@@ -97,6 +112,7 @@ export const createReview = async (req, res, next) => {
         await review.save();
         res.status(200).json("Review has been created.");
     } catch (error) {
+        // console.log(error);
         next(error);
     }
 };

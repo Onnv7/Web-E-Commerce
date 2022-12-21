@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Crown } from 'iconsax-react';
-import './walletManage.scss';
+import React, { useState } from "react";
+import { Crown } from "iconsax-react";
+import "./walletManage.scss";
 const WalletManage = () => {
     const [active, setActive] = useState(1);
     const setClick = (i) => {
@@ -14,9 +14,17 @@ const WalletManage = () => {
                     <span>Số dư hiện tại</span>
                     <div className="walletManage-box">
                         <span>1.000.000</span>
-                        <Crown className="walletManage-icon" variant="Bold" size={34} />
+                        <Crown
+                            className="walletManage-icon"
+                            variant="Bold"
+                            size={34}
+                        />
                     </div>
-                    <div className={active === 1 ? 'walletManage-payBox' : 'tab-hide'}>
+                    <div
+                        className={
+                            active === 1 ? "walletManage-payBox" : "tab-hide"
+                        }
+                    >
                         <div className="walletManage-title">
                             <span>Nạp Ruby</span>
                             <span></span>
@@ -24,12 +32,23 @@ const WalletManage = () => {
                         </div>
                         <div className="walletManage-payment">
                             <span>
-                                Tỷ lệ quy đổi: 1 <Crown className="walletManage-icon" variant="Bold" /> = 1$
+                                Tỷ lệ quy đổi: 1{" "}
+                                <Crown
+                                    className="walletManage-icon"
+                                    variant="Bold"
+                                />{" "}
+                                = 1$
                             </span>
                             <div className="walletManage-paymentBox">
                                 <div className="walletManage-input">
-                                    <input type="number" placeholder="Nhập số lượng Ruby muốn nạp" />
-                                    <Crown className="walletManage-icon" variant="Bold" />
+                                    <input
+                                        type="number"
+                                        placeholder="Nhập số lượng Ruby muốn nạp"
+                                    />
+                                    <Crown
+                                        className="walletManage-icon"
+                                        variant="Bold"
+                                    />
                                 </div>
                                 <button>Nạp</button>
                             </div>
@@ -39,7 +58,11 @@ const WalletManage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={active === 2 ? 'walletManage-payBox2' : 'tab-hide'}>
+                    <div
+                        className={
+                            active === 2 ? "walletManage-payBox2" : "tab-hide"
+                        }
+                    >
                         <div className="walletManage-title2">
                             <span onClick={() => setClick(1)}>Nạp Ruby</span>
                             <span></span>
@@ -47,12 +70,24 @@ const WalletManage = () => {
                         </div>
                         <div className="walletManage-payment">
                             <span>
-                                Tỷ lệ quy đổi: 1 <Crown className="walletManage-icon" variant="Bold" /> = 1$
+                                Tỷ lệ quy đổi: 1{" "}
+                                <Crown
+                                    className="walletManage-icon"
+                                    variant="Bold"
+                                />{" "}
+                                = 1$
                             </span>
                             <div className="walletManage-paymentBox">
                                 <div className="walletManage-input">
-                                    <input type="number" placeholder="Nhập số lượng Ruby muốn rút" min={1} />
-                                    <Crown className="walletManage-icon" variant="Bold" />
+                                    <input
+                                        type="number"
+                                        placeholder="Nhập số lượng Ruby muốn rút"
+                                        min={1}
+                                    />
+                                    <Crown
+                                        className="walletManage-icon"
+                                        variant="Bold"
+                                    />
                                 </div>
                                 <button>Rút</button>
                             </div>

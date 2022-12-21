@@ -13,6 +13,35 @@ import {
 import "./productPay.scss";
 import axios from "./../../hooks/axios";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Star from "./../Star/Star";
+
+// Import React FilePond
+import { FilePond, registerPlugin } from "react-filepond";
+
+// Import FilePond styles
+import "filepond/dist/filepond.min.css";
+import FilePondPluginImageResize from "filepond-plugin-image-resize";
+import FilePondPluginFileEncode from "filepond-plugin-file-encode";
+import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+// Register the plugin
+// Import the Image EXIF Orientation and Image Preview plugins
+// Note: These need to be installed separately
+// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { toast } from "react-toastify";
+
+// Register the plugins
+registerPlugin(
+    FilePondPluginFileValidateSize,
+    FilePondPluginImageValidateSize,
+    FilePondPluginFileEncode,
+    FilePondPluginImagePreview,
+    FilePondPluginImageResize
+);
 
 const ProductPay = () => {
     const { user } = useContext(AuthContext);
@@ -21,8 +50,14 @@ const ProductPay = () => {
     const setClick = (i) => {
         setActive(i);
     };
+    const navigate = useNavigate();
     const [checkouts, setCheckouts] = useState([]);
-    // const [shops, setShops] = useState([]);
+    const [product, setProduct] = useState();
+    const [rating, setRating] = useState(0);
+    const [contentReview, setContentReview] = useState("");
+    const [reviews, setReviews] = useState([]);
+    const [files, setFiles] = useState([]);
+
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/checkouts/all/${user._id}`);
@@ -30,8 +65,54 @@ const ProductPay = () => {
         };
         fetchData();
     }, [user]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/reviews/user/${user._id}`);
+            setReviews(data);
+        };
+        fetchData();
+    }, [user]);
     // useEffect(() => {});
 
+    const rebuyHandler = (slug) => {
+        navigate(`/products/${slug}`);
+    };
+    const getImageData = (files) => {
+        let rs = [];
+        files.forEach((item) => {
+            var imgData = `{"type":"${
+                item.fileType.split(";")[0]
+            }","data":"${item.getFileEncodeBase64String()}"}`;
+
+            rs.push(imgData);
+        });
+        return rs;
+    };
+    const img = getImageData(files);
+    const addReviewHandler = async () => {
+        if (rating === 0) {
+            toast.warning("Bạn phải chọn số sao muốn đánh giá ");
+            return;
+        } else if (contentReview.trim() === "") {
+            toast.warning("Bạn phải nhập nội dung đánh giá");
+            return;
+        }
+        try {
+            await axios.post("/reviews", {
+                user: user._id,
+                product: product._id._id,
+                content: contentReview,
+                rating,
+                img,
+            });
+            toast.success("Đánh giá sản phẩm thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+    const gotoshopHandler = (id) => {
+        navigate(`/shop/${id}`);
+    };
     return (
         <div className="productPay">
             <div className="productPay-container">
@@ -60,19 +141,25 @@ const ProductPay = () => {
                             <div className="productPay-item" key={checkout._id}>
                                 <div className="productPay-header">
                                     <div className="productPay-itemTitle">
-                                        <span>Thế giới di động</span>
-                                        <button>
+                                        <span>{checkout.shop.name}</span>
+                                        <button
+                                            onClick={() =>
+                                                gotoshopHandler(
+                                                    checkout.shop._id
+                                                )
+                                            }
+                                        >
                                             <Shop />
                                             Tham quan
                                         </button>
                                     </div>
                                     <span>Mã đơn: {checkout._id} </span>
                                 </div>
-                                {checkout.productItems.map((product) => (
-                                    <div>
+                                {checkout.productItems.map((product, index) => (
+                                    <div key={index}>
                                         <div className="productPay-body">
                                             <img
-                                                src="../Img/iphone14.png"
+                                                src={product._id.imgPath[0]}
                                                 alt=""
                                             />
                                             <div className="productPay-bodyText">
@@ -103,14 +190,38 @@ const ProductPay = () => {
                                         </div>
                                         <div className="productPay-footer">
                                             <div className="productPay-footerBtn">
-                                                <button>Mua lại</button>
                                                 <button
                                                     onClick={() =>
-                                                        setOpen(true)
+                                                        rebuyHandler(
+                                                            product._id.slug
+                                                        )
                                                     }
                                                 >
-                                                    Đánh giá
+                                                    Mua lại
                                                 </button>
+                                                {reviews.find(
+                                                    (item) =>
+                                                        item.product ===
+                                                        product._id._id
+                                                ) != null ? (
+                                                    <button
+                                                        disabled
+                                                        style={{
+                                                            cursor: "not-allowed",
+                                                        }}
+                                                    >
+                                                        Đã Đánh giá
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => {
+                                                            setProduct(product);
+                                                            setOpen(true);
+                                                        }}
+                                                    >
+                                                        Đánh giá
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -157,87 +268,62 @@ const ProductPay = () => {
                         </div>
                     </div>
                 </div>
-                <div className="pagination">
-                    <div className="pagination-item">
-                        <a href="" className="pagination-link">
-                            <ArrowLeft2 />
-                        </a>
-                    </div>
-                    <div className="pagination-item ">
-                        <a
-                            href=""
-                            className="pagination-link pagination-link__active"
-                        >
-                            1
-                        </a>
-                    </div>
-                    <div className="pagination-item">
-                        <a href="" className="pagination-link">
-                            2
-                        </a>
-                    </div>
-                    <div className="pagination-item">
-                        <a href="" className="pagination-link">
-                            3
-                        </a>
-                    </div>
-                    <div className="pagination-item">
-                        <a href="" className="pagination-link">
-                            ...
-                        </a>
-                    </div>
-                    <div className="pagination-item">
-                        <a href="" className="pagination-link">
-                            <ArrowRight2 />
-                        </a>
-                    </div>
-                </div>
+
                 {open && (
                     <div className="modalComment">
                         <div className="modalComment-container">
                             <span>Đánh giá sản phẩm</span>
                             <div className="modalComment-product">
-                                <img src="../Img/iphone14.png" alt="" />
+                                <img
+                                    src={product._id.imgPath[0]}
+                                    alt="product"
+                                />
                                 <div className="modalComment-productName">
-                                    <span>
-                                        Iphone 14 Pro Max - Deep Purple (Tím) -
-                                        Hàng chính hãng
-                                    </span>
+                                    <span>{product.name}</span>
                                     <div className="modalComment-productDetail">
-                                        <span>Size: 512GB</span>
-                                        <span>Màu sắc: Deep Purple</span>
+                                        <span>
+                                            Phân loại: {product.classifyProduct}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div className="modalComment-rate">
                                 <span>Chất lượng sản phẩm</span>
                                 <div className="modalComent-rateBox">
-                                    <Star1 variant="Bold" />
-                                    <Star1 variant="Bold" />
-                                    <Star1 variant="Bold" />
-                                    <Star1 variant="Bold" />
-                                    <Star1 variant="Bold" />
+                                    <Star setRating={setRating} />
                                 </div>
                             </div>
 
-                            <textarea></textarea>
+                            <textarea
+                                value={contentReview}
+                                onChange={(e) =>
+                                    setContentReview(e.target.value)
+                                }
+                            ></textarea>
+
                             <div className="modalComment-imgBox">
-                                <img src="../Img/iphone14.png" alt="" />
-                                <img src="../Img/iphone14.png" alt="" />
-                                <img src="../Img/iphone14.png" alt="" />
-                                <img src="../Img/iphone14.png" alt="" />
-                                <img src="../Img/iphone14.png" alt="" />
                                 <button>
                                     <GalleryAdd />
-                                    Thêm hình ảnh
                                 </button>
                             </div>
+                            <FilePond
+                                files={files}
+                                onupdatefiles={setFiles}
+                                allowMultiple={true}
+                                maxFiles={3}
+                                maxFileSize="3MB"
+                                //server="/api"
+                                name="img"
+                                labelIdle={"Thêm ảnh tối đa 3 ảnh"}
+                            />
                             <div className="modalComment-btn">
                                 <button onClick={() => setOpen(false)}>
                                     <Back />
                                     Quay lại
                                 </button>
-                                <button>Hoàn tất</button>
+                                <button onClick={addReviewHandler}>
+                                    Hoàn tất
+                                </button>
                             </div>
                         </div>
                     </div>

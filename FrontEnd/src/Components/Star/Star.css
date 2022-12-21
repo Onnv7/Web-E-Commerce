@@ -1,0 +1,31 @@
+.star-container {
+  /* background-color: #fff;
+  width: 500px;
+  margin: 30px auto;
+  padding: 30px; */
+}
+
+.star-container {
+  font-size: 18px;
+  text-align: center;
+}
+
+.star-container .wrapper_star {
+  width: auto;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.star-container .star {
+  font-size: 25px;
+  margin: 0 5px;
+}
+
+.star-container .star.active {
+  color: #ffc000;
+}
+
+.star-container .star_message {
+  font-size: 16px;
+  margin-top: 15px;
+}

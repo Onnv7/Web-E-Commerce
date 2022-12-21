@@ -47,17 +47,11 @@ const shopSchema = new mongoose.Schema(
     { timestamps: true }
 );
 shopSchema.virtual("imgPath").get(function () {
-    if (
-        this.img.coverImage != null &&
-        this.img.coverImageType != null
-    ) {
-        return `data:${this.img.coverImageType
-            };charset=utf-8;base64,${this.img.coverImage.toString(
-                "base64"
-            )}`
-
+    if (this.img.coverImage != null && this.img.coverImageType != null) {
+        return `data:${
+            this.img.coverImageType
+        };charset=utf-8;base64,${this.img.coverImage.toString("base64")}`;
     }
     return null;
-
 });
 export default mongoose.model("Shop", shopSchema);
