@@ -97,6 +97,16 @@ const reducer = (state, action) => {
             localStorage.removeItem("shopItems");
             return { ...state, cart: { ...state.cart, shopItems: [] } };
         }
+        case "LOGOUT": {
+            localStorage.removeItem("shopItems");
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("wishlistItems");
+            return {
+                ...state,
+                cart: { ...state.cart, cartItems: [] },
+                wishlist: { ...state.cart, shopItems: [] },
+            };
+        }
         default:
             return state;
     }

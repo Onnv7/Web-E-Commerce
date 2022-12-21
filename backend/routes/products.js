@@ -8,6 +8,8 @@ import {
     selectProductsByCategory,
     selectAllProducts,
     createProduct,
+    getAllProductsAndSort,
+    searchProduct,
 } from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -15,6 +17,12 @@ const router = express.Router();
 
 // ! none
 router.get("/", getAllProducts);
+
+// ! none
+router.get("/search", searchProduct);
+
+// asc tang, desc giam
+router.get("/sort/:sort", getAllProductsAndSort);
 
 // !seller
 // create a new product

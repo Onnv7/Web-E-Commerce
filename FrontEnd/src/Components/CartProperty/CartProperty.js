@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "./../../hooks/axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const CartProperty = () => {
     } = state;
     const [products, setProducts] = useState([]);
     const [shops, setShops] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         setProducts([]);
         cartItems.forEach(async (element) => {
@@ -67,6 +67,9 @@ const CartProperty = () => {
             toast.error(err.message);
         }
     };
+    const gotoShop = (id) => {
+        navigate(`/shop/${id}`);
+    };
     return (
         <div className="cartProperty">
             <div className="cart-container">
@@ -77,7 +80,9 @@ const CartProperty = () => {
                                 <div className="cart-title">
                                     <span>{shop.name}</span>
                                     <div className="cart-infoShop">
-                                        <button>
+                                        <button
+                                            onClick={() => gotoShop(shop._id)}
+                                        >
                                             <Shop />
                                             Tham quan
                                         </button>

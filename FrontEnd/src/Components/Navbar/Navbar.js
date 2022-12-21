@@ -11,10 +11,12 @@ import {
 } from "iconsax-react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import Cookies from "js-cookie";
+import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = ({ style }) => {
-    const { user } = useContext(AuthContext);
-
+    const { user, dispatch } = useContext(AuthContext);
+    const { contextDispatch } = useContext(StoreContext);
     const navigate = useNavigate();
     const gotoHome = () => {
         navigate("/");
@@ -33,6 +35,15 @@ const Navbar = ({ style }) => {
     };
     const gotoSell = () => {
         navigate("/seller");
+    };
+    const logoutHandler = async () => {
+        navigate("/");
+        await dispatch({ type: "LOGOUT" });
+        await contextDispatch({ type: "LOGOUT" });
+        Cookies.remove("userInfo");
+    };
+    const loginHandler = () => {
+        gotoLogin();
     };
     return (
         <div className="navbar">
@@ -71,7 +82,6 @@ const Navbar = ({ style }) => {
                 )}
                 <div className="navList">
                     <div className="navList-money">
-                        {console.log(user)}
                         <span>Số dư: {user?.ruby}</span>
                         <Crown variant="Bold" size={24} className="navIcon" />
                     </div>
@@ -83,13 +93,24 @@ const Navbar = ({ style }) => {
                         onClick={gotoNote}
                     />
                     <div className="navList-user">
-                        <img src={user.imgPath} alt="" />
-                        <span>{user.username}</span>
-                        <div className="navList-userMenu">
-                            <span onClick={handleMove}>Tài khoản của tôi</span>
-                            <span>Đơn mua</span>
-                            <span>Đăng xuất</span>
-                        </div>
+                        <img
+                            src={user?.imgPath || "/Img/default-user.png"}
+                            alt="img"
+                        />
+                        <span>{user?.username || "Người dùng"}</span>
+                        {user ? (
+                            <div className="navList-userMenu">
+                                <span onClick={handleMove}>
+                                    Tài khoản của tôi
+                                </span>
+                                <span>Đơn mua</span>
+                                <span onClick={logoutHandler}>Đăng xuất</span>
+                            </div>
+                        ) : (
+                            <div className="navList-userMenu">
+                                <span onClick={loginHandler}>Đăng nhập</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

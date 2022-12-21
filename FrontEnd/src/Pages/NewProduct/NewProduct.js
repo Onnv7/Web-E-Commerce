@@ -5,8 +5,8 @@ import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 import "./newProduct.scss";
 import axios from "./../../hooks/axios";
-import { FilePond, registerPlugin } from "react-filepond";
 import { toast } from "react-toastify";
+import { FilePond, registerPlugin } from "react-filepond";
 
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -212,6 +212,7 @@ const NewProduct = () => {
                             <Classify
                                 setOpen={setOpen}
                                 setClassifies={setClassifies}
+                                classifies={classifies}
                             />
                         )}
                     </div>

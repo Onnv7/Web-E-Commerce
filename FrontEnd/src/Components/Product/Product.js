@@ -5,302 +5,83 @@ import {
     ShoppingCart,
     Star1,
 } from "iconsax-react";
-import React, { useEffect, useState } from "react";
+import { Pagination } from "react-bootstrap";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import "./product.scss";
 import axios from "../../hooks/axios";
 import ProductItem from "./ProductItem";
+import { PaginationContext } from "../../context/PaginationContext.js";
 
 const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
+    const { productsPage, totalPages, dispatch } =
+        useContext(PaginationContext);
+    const productData = useRef([]);
+    productData.current = products;
+    const indexPage = useRef(1);
+    const pageCount = 2;
+    let index = [];
+    for (let number = 1; number <= totalPages; number++) {
+        index.push(
+            <Pagination.Item
+                key={number}
+                active={number === indexPage.current}
+                onClick={(e) => {
+                    handleChangePage(e);
+                }}
+            >
+                {number}
+            </Pagination.Item>
+        );
+    }
+    const handleChangePage = async (e) => {
+        if (!Number(e.target.innerHTML)) return;
+        indexPage.current = Number(e.target.innerHTML);
+        dispatch({
+            type: "START",
+            payload: {
+                items: productData.current,
+                currentPage: indexPage.current,
+                pageCount: pageCount,
+            },
+        });
+    };
+    useEffect(() => {
+        const init = async () => {
+            indexPage.current = 1;
+            // const { data } = await axios.get();
+            // productData.current = data;
+            const result = {
+                items: productData.current,
+                currentPage: indexPage.current,
+                pageCount: pageCount,
+            };
+            dispatch({ type: "START", payload: result });
+        };
+        init();
+    }, [products]);
+    console.log(productsPage);
     return (
-        products && (
+        productsPage && (
             <div className="product">
                 <div className="grid wide">
                     <div className="row sm-gutter">
-                        {products && Array.isArray(products) ? (
-                            //! Trường hợp getAllProducts
-                            products
-                                .slice(0, limit)
-                                .map((product) => (
-                                    <ProductItem
-                                        product={product}
-                                        key={product._id}
-                                        col={col}
-                                    ></ProductItem>
-                                ))
-                        ) : (
-                            //! Trường hợp getProduct By id
+                        {productsPage.map((product) => (
                             <ProductItem
-                                product={products}
-                                key={products._id}
+                                product={product}
+                                key={product._id}
+                                col={col}
                             ></ProductItem>
-                        )}
-                        <div className={`col ${col}`}>
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className={`col ${col}`}>
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className={`col ${col}`}>
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className={`col ${col}`}>
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className={`col ${col}`}>
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className="col c-3 c-4">
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className="col c-3 c-4">
-                            <a href="" className="productItem">
-                                <img
-                                    src="../Img/Rolex.png"
-                                    className="product-img"
-                                />
-                                <span className="product-title">
-                                    Đồng hò Rolex đính kim cương màu vàng kim
-                                    xuất bản năm 2020
-                                </span>
-                                <div className="product-sell">
-                                    <span>Đã bán 4,5K</span>
-                                    <span>500.000 VNĐ</span>
-                                </div>
-                                <div className="product-rate">
-                                    <div className="product-rating">
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                        <Star1 variant="Bold" />
-                                    </div>
-                                    <span>Hà Nội</span>
-                                </div>
-                                <div className="product-buy">
-                                    <button className="product-btn">
-                                        Đấu giá ngay
-                                    </button>
-                                    <div className="product-shop">
-                                        <Heart
-                                            className="product-liked"
-                                            variant="Bold"
-                                        />
-                                        <ShoppingCart className="product-liked" />
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div className="pagination">
+                        ))}
+
+                        {/* //     <ProductItem
+                        //         product={products}
+                        //         key={products._id}
+                        //     ></ProductItem>
+                        // )} */}
+                        <Pagination className="shop-pagination">
+                            {index}
+                        </Pagination>
+                        {/* <div className="pagination">
                             <div className="pagination-item">
                                 <a href="" className="pagination-link">
                                     <ArrowLeft2 />
@@ -344,7 +125,7 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
                                     <ArrowRight2 />
                                 </a>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

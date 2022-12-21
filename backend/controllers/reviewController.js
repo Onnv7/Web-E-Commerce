@@ -102,8 +102,7 @@ export const updateReview = async (req, res, next) => {
 // create a new review
 export const createReview = async (req, res, next) => {
     try {
-        console.log(req.body.product);
-        const image = req.body.img.slice(0, req.body.img.length);
+        const image = req.body.img;
         const body = { ...req.body };
         const review = new Review(body);
         if (typeof req.body.img === "string") {

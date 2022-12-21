@@ -91,7 +91,10 @@ export const success = async (req, res, next) => {
                 //console.log(JSON.stringify(payment));
                 axios.patch(url, data);
                 // TODO: code redirect to frontend
-                res.status(200).json("ok");
+                res.status(200).json({
+                    success: true,
+                    message: "Payment success",
+                });
             }
         }
     );

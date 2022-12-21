@@ -28,7 +28,7 @@ router.get("/username/:username", selectUserByUserName);
 // count user per day, week, month
 router.get("/count", countUser);
 
-// ! admin
+// ! user
 // TODO: check using
 // select a user
 router.get("/:id", selectUser);

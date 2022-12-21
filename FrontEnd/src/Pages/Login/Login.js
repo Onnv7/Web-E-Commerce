@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext.js";
 import axios from "../../hooks/axios.js";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -30,6 +31,7 @@ const Login = () => {
             });
             if (data.img === null) {
             }
+            Cookies.set("userInfo", JSON.stringify(data));
             dispatch({ type: "LOGIN_SUCCESS", payload: data });
             navigate("/");
         } catch (err) {

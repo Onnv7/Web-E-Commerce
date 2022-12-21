@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import './header.scss';
-import { Home, Judge, SearchNormal1, ShoppingCart } from 'iconsax-react';
-import ImageSilder from '../ImageSlider/ImageSilder';
-import { SliderData } from '../ImageSlider/SliderData';
-import axios from '../../hooks/axios';
+import React, { useContext, useEffect, useState } from "react";
+import "./header.scss";
+import { Home, Judge, SearchNormal1, ShoppingCart } from "iconsax-react";
+import ImageSilder from "../ImageSlider/ImageSilder";
+import { SliderData } from "../ImageSlider/SliderData";
+import axios from "../../hooks/axios";
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 const Header = ({ style, styles }) => {
+    const { state } = useContext(StoreContext);
+    const {
+        cart: { cartItems },
+    } = state;
     const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const getCategories = async () => {
             try {
-                const res = await axios.get('/categories');
+                const res = await axios.get("/categories");
                 setCategories(res.data);
             } catch (err) {
                 console.log(err);
@@ -17,6 +24,9 @@ const Header = ({ style, styles }) => {
         };
         getCategories();
     }, []);
+    const gotoCartHandler = () => {
+        navigate("/cart");
+    };
     return (
         <div className="header">
             <div className="headerContainer">
@@ -38,16 +48,32 @@ const Header = ({ style, styles }) => {
                                 <SearchNormal1 className="headerSearch-icon" />
                             </button>
                         </div>
-                        <div className="headerNav-cart">
-                            <ShoppingCart variant="Bold" className="headerNav-icon" />
-                            <span>3</span>
+                        <div
+                            className="headerNav-cart"
+                            onClick={gotoCartHandler}
+                            style={{ cursor: "pointer" }}
+                        >
+                            <ShoppingCart
+                                variant="Bold"
+                                className="headerNav-icon"
+                            />
+                            <span>
+                                {cartItems.reduce(
+                                    (accumulate, currentValue) =>
+                                        accumulate +
+                                        currentValue.quantityProduct,
+                                    0
+                                )}
+                            </span>
                         </div>
                         <Judge variant="Bold" className="headerNav-icon" />
                         <span className="line4"></span>
                     </div>
                 </div>
 
-                <div className={styles === 'hideNav' ? 'tab-hide' : 'headerList'}>
+                <div
+                    className={styles === "hideNav" ? "tab-hide" : "headerList"}
+                >
                     <div className="headerNav">
                         <div className="headerNav-item active">
                             <Home className="headerNav-item__icon" />
@@ -61,7 +87,11 @@ const Header = ({ style, styles }) => {
                             ))}
                     </div>
 
-                    <div className={style === 'hideImg' ? 'tab-hide' : 'headerImg'}>
+                    <div
+                        className={
+                            style === "hideImg" ? "tab-hide" : "headerImg"
+                        }
+                    >
                         <ImageSilder slides={SliderData} />
                     </div>
                 </div>

@@ -6,11 +6,16 @@ import {
     deleteAuction,
     reverseAuction,
     createAuction,
+    selectAllAuctionsByUserId,
 } from "../controllers/auctionController.js";
 const router = express.Router();
 // !admin
 //  select all auctions
 router.get("/", selectAllAuctions);
+
+// !user
+// select auction by id
+router.get("/all/:userId", selectAllAuctionsByUserId);
 
 // !user
 // select auction by id

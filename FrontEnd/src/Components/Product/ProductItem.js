@@ -9,6 +9,7 @@ import {
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import Rating from "../Rating/Rating";
 
 function ProductItem({ product, col }) {
     const { state, contextDispatch } = useContext(StoreContext);
@@ -36,13 +37,10 @@ function ProductItem({ product, col }) {
                     </span>
                 </div>
                 <div className="product-rate">
-                    <div className="product-rating">
-                        <Star1 variant="Bold" />
-                        <Star1 variant="Bold" />
-                        <Star1 variant="Bold" />
-                        <Star1 variant="Bold" />
-                        <Star1 variant="Bold" />
-                    </div>
+                    <Rating
+                        rating={Math.round(product.ratingAverage)}
+                        caption=" "
+                    />
                     <span>Hà Nội</span>
                 </div>
                 <div className="product-buy">

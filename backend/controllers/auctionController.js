@@ -1,4 +1,7 @@
 import Auction from "../models/auctionModel.js";
+import { saveFileObj, saveMultipleFile } from "../utils/saveFile.js";
+import { getImgPathFromImgData, getUrlImageArr } from "../utils/getUrlImage.js";
+import { getFormatDate } from "../utils/formatIO.js";
 
 export const reverseAuction = async (req, res, next) => {
     try {
@@ -41,7 +44,6 @@ export const createAuction = async (req, res, next) => {
         if (typeof req.body.img === "string") {
             saveSingleFile(product, image);
         } else saveMultipleFile(product, image);
-        auction.currentPrice = product.price;
         auction.product = product;
         await auction.save();
         res.status(200).json({
@@ -53,10 +55,61 @@ export const createAuction = async (req, res, next) => {
     }
 };
 
+export const selectAllAuctionsByUserId = async (req, res, next) => {
+    try {
+        const auctions = await Auction.find({ buyer: req.params.userId });
+        const result = [];
+        auctions.forEach((auction) => {
+            const product = auction.product;
+            const name = product.name;
+            const image = product.img[0];
+            const imgPath = getImgPathFromImgData(image);
+            const quantity = product.quantity;
+            const startTime = getFormatDate(auction.createdAt);
+            const endTime = getFormatDate(auction.endTime);
+            const currentPrice = auction.currentPrice;
+            const body = {
+                _id: auction._id,
+                name,
+                imgPath,
+                quantity,
+                startTime,
+                endTime,
+                currentPrice,
+            };
+            result.push(body);
+        });
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const selectAllAuctions = async (req, res, next) => {
     try {
+        const result = [];
         const auctions = await Auction.find({});
-        res.status(200).json(auctions);
+        for (const auction of auctions) {
+            const {
+                product,
+                startingPrice,
+                currentPrice,
+                auctionHistory,
+                endTime,
+            } = auction._doc;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: auction._id,
+                name: product.name,
+                countAuction: auctionHistory.length,
+                startingPrice,
+                currentPrice,
+                endTime: getFormatDate(endTime),
+                imgPath,
+            };
+            result.push(data);
+        }
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }
@@ -65,8 +118,28 @@ export const selectAllAuctions = async (req, res, next) => {
 export const selectAuctionById = async (req, res, next) => {
     try {
         const auction = await Auction.findById(req.params.id);
-        res.status(200).json(auction);
+        const {
+            product,
+            startingPrice,
+            endTime,
+            currentPrice,
+            auctionHistory,
+        } = auction._doc;
+        const imgPath = getUrlImageArr(auction.product.img);
+        const data = {
+            name: product.name,
+            description: product.description,
+            quantity: product.quantity,
+            imgPath,
+            currentPrice,
+            startingPrice,
+            startTime: getFormatDate(auction.createdAt),
+            endTime: getFormatDate(endTime),
+            countAuction: auctionHistory.length,
+        };
+        res.status(200).json(data);
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };

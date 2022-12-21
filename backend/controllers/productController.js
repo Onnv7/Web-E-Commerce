@@ -7,6 +7,19 @@ import {
     getDataFromImage,
 } from "../utils/saveFile.js";
 import { getUrlImageForArrObject } from "../utils/getUrlImage.js";
+import { getTextSearch } from "../utils/formatIO.js";
+
+// search products
+export const searchProduct = async (req, res, next) => {
+    try {
+        const input = getTextSearch(req.query.text);
+        let products = await Product.find({ $text: { $search: input } });
+        const result = getUrlImageForArrObject(products);
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
 
 // delete product
 export const deleteProduct = async (req, res, next) => {
@@ -63,6 +76,20 @@ export const getAllProducts = async (req, res, next) => {
         next(err);
     }
 };
+
+// select all products and sort
+export const getAllProductsAndSort = async (req, res, next) => {
+    try {
+        const sort = req.params.sort === 1 ? 1 : -1;
+
+        // const products = await Product.find({}).sort(classify[0].price: sort);
+        const result = getUrlImageForArrObject(products);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 // select product by Id
 export const getProductById = async (req, res, next) => {
     try {

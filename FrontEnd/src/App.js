@@ -41,7 +41,10 @@ function App() {
                 <Route path="/paypal" element={<Paypal />} />
                 <Route path="/simg" element={<Show />} />
 
-                <Route path="/auction/:id" element={<AuctionProductPage />} />
+                <Route
+                    path="/seller/auction/:id"
+                    element={<AuctionProductPage />}
+                />
                 <Route path="/products/:slug" element={<SellPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

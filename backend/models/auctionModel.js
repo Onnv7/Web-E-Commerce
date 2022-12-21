@@ -22,7 +22,6 @@ const auctionSchema = new mongoose.Schema(
                     },
                 },
             ],
-            price: Number,
         },
         startingPrice: { type: Number },
         currentPrice: { type: Number },

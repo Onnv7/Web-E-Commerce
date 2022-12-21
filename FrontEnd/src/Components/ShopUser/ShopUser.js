@@ -57,7 +57,7 @@ const ShopUser = () => {
                             </div>
                             <div className="rate-text">
                                 <span>Địa chỉ: </span>
-                                <span>6.7k</span>
+                                <span>{`${shop.addressInfo.address}, ${shop.addressInfo.ward}, ${shop.addressInfo.distinct}`}</span>
                             </div>
                         </div>
                     </div>

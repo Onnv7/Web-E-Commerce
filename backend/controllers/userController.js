@@ -174,7 +174,7 @@ export const selectUser = async (req, res, next) => {
         const user = await User.findById(req.params.id);
         let imgPath = "";
         if (user.img !== null) imgPath = getImgPathFromImgData(user.img);
-        const { img, ...body } = user._doc;
+        const { img, password, ...body } = user._doc;
         res.status(200).json({ ...body, imgPath });
     } catch (err) {
         next(err);
