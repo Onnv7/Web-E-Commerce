@@ -1,7 +1,8 @@
-import { Box1, Home, Note, User, ArrowRight2 } from 'iconsax-react';
+import { Box1, Home, Note, User, ArrowRight2, Category } from 'iconsax-react';
 import React, { useEffect, useState } from 'react';
 import HomePage from '../HomePage/HomePage';
 import ManageBuyer from '../ManageBuyer/ManageBuyer';
+import ManageCategory from '../ManageCategory/ManageCategory';
 import ManageDeliver from '../ManageDeliver/ManageDeliver';
 import ManageRevenue from '../ManageRevenue/ManageRevenue';
 import ManageSeller from '../ManageSeller/ManageSeller';
@@ -27,6 +28,9 @@ const AdminHome = () => {
 
     const openDeliver = () => {
         setSlide(<ManageDeliver />);
+    };
+    const openCategory = () => {
+        setSlide(<ManageCategory />);
     };
 
     return (
@@ -59,6 +63,10 @@ const AdminHome = () => {
                 <span onClick={openDeliver}>
                     <Box1 variant="Bold" />
                     Quản lí vận chuyển
+                </span>
+                <span onClick={openCategory}>
+                    <Category variant="Bold" />
+                    Quản lí Danh Mục
                 </span>
             </div>
 

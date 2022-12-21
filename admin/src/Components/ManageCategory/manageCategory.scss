@@ -1,0 +1,24 @@
+.manageCategory{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    
+}
+.manageCategory-Item{
+    background: #FFFFFF;
+    border: 1px solid #DC5B0E;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    font-size: 2.4rem;
+}
+.manageCategory-Icon{
+    position: absolute;
+    top: -12px;
+    background-color: #fff;
+    color: var(--primary-color);
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
