@@ -4,11 +4,12 @@ import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 import {
     createCheckout,
     selectAllCheckoutByUser,
-    selectCheckout,
+    selectCheckoutById,
     updateCheckout,
     deleteCheckout,
     shopRevenue,
     adminRevenue,
+    selectAllCheckouts,
 } from "../controllers/checkoutController.js";
 const router = express.Router();
 
@@ -16,22 +17,26 @@ const router = express.Router();
 // create a new checkout
 router.post("/", createCheckout);
 
+// !admin
+// FIXME: de test, co gi xoa
+router.get("/", selectAllCheckouts);
+
 // !user
 // select all checkout by user
 router.get("/all/:userId", selectAllCheckoutByUser);
 
 // !admin
+// Truen query ?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd
+router.get("/revenueAdmin", adminRevenue);
+
+// !admin
 // TODO: check using
 // select a checkout
-router.get("/:id", selectCheckout);
+router.get("/:id", selectCheckoutById);
 
 // !seller
 // select shop by shop id
 router.get("/revenue/:shopId", shopRevenue);
-
-// !admin
-// select shop by shop id
-router.get("/revenueAdmin/:shopId", adminRevenue);
 
 // !user
 // TODO: check using

@@ -134,6 +134,13 @@ const ProductSell = ({ id }) => {
                                             onClick={() =>
                                                 setclassifyProduct(s)
                                             }
+                                            style={{
+                                                color:
+                                                    s.name ===
+                                                    classifyProduct.name
+                                                        ? "var(--primary-color)"
+                                                        : null,
+                                            }}
                                         >
                                             {s.name}
                                         </button>

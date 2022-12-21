@@ -1,57 +1,46 @@
-import { Crown } from 'iconsax-react';
-import React from 'react';
-import './listBuyer.scss';
+import { Crown } from "iconsax-react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./listBuyer.scss";
+import axios from "./../../hooks/axios";
 
 const ListBuyer = () => {
+    const { id } = useParams();
+    const [auction, setAuction] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/auction/${id}`);
+            console.log(data);
+            setAuction(data);
+        };
+        fetchData();
+    }, [id]);
     return (
-        <div className="listBuyer">
-            <div className="listBuyer-header">
-                <span>Người bán</span>
-                <span>Mức đấu giá</span>
-                <span>Đường dẫn tới sản phẩm</span>
-                <span>Thời gian ra giá</span>
+        auction && (
+            <div className="listBuyer">
+                <div className="listBuyer-header">
+                    <span>Người bán</span>
+                    <span>Mức đấu giá</span>
+                    <span>Thời gian ra giá</span>
+                </div>
+                {auction.shop.map((a, index) => (
+                    <div className="listBuyer-Item" key={index}>
+                        <Link
+                            to={`/shop/${a._id}`}
+                            style={{ color: "#000", textDecoration: "none" }}
+                        >
+                            <span>{a.name}</span>
+                        </Link>
+                        <span>
+                            {a.price}
+                            <Crown variant="Bold" />
+                        </span>
+                        <span>{a.time}</span>
+                    </div>
+                ))}
             </div>
-            <div className="listBuyer-Item">
-                <span>buyer1</span>
-                <span>
-                    300 <Crown variant="Bold" />
-                </span>
-                <span>http://dsdsđs</span>
-                <span>14h34, 28/12/2022</span>
-            </div>
-            <div className="listBuyer-Item">
-                <span>buyer1</span>
-                <span>
-                    300 <Crown variant="Bold" />
-                </span>
-                <span>http://dsdsđs</span>
-                <span>14h34, 28/12/2022</span>
-            </div>
-            <div className="listBuyer-Item">
-                <span>buyer1</span>
-                <span>
-                    300 <Crown variant="Bold" />
-                </span>
-                <span>http://dsdsđs</span>
-                <span>14h34, 28/12/2022</span>
-            </div>
-            <div className="listBuyer-Item">
-                <span>buyer1</span>
-                <span>
-                    300 <Crown variant="Bold" />
-                </span>
-                <span>http://dsdsđs</span>
-                <span>14h34, 28/12/2022</span>
-            </div>
-            <div className="listBuyer-Item">
-                <span>buyer1</span>
-                <span>
-                    300 <Crown variant="Bold" />
-                </span>
-                <span>http://dsdsđs</span>
-                <span>14h34, 28/12/2022</span>
-            </div>
-        </div>
+        )
     );
 };
 

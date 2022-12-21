@@ -1,0 +1,20 @@
+.inputBox {
+    cursor: pointer;
+    color: gray;
+    text-align: center;
+    font-size: 1.8rem;
+    float: right;
+    background: #FFFFFF;
+    outline: none;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+  }
+.calendarWrap{
+    position: absolute;
+    right: 50px;
+    top: 20px;
+    z-index: 9999;
+}
+.rdrDateRangePickerWrapper{
+    background-color: var(--primary-color);
+}

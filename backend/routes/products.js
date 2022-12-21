@@ -6,8 +6,11 @@ import {
     updateProduct,
     deleteProduct,
     selectProductsByCategory,
-    selectAllProducts,
+    selectAllProductsByShopId,
     createProduct,
+    getAllProductsAndSort,
+    searchProduct,
+    selectAllProductsByMainCategory,
 } from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -16,13 +19,22 @@ const router = express.Router();
 // ! none
 router.get("/", getAllProducts);
 
+// ! none
+router.get("/search", searchProduct);
+
+// ! unknown
+router.get("/category/:cgrId", selectAllProductsByMainCategory);
+
+// asc tang, desc giam
+router.get("/sort/:sort", getAllProductsAndSort);
+
 // !seller
 // create a new product
 router.post("/", createProduct);
 
 // ! none
 // select all products by shop
-router.get("/shop/:shopId", selectAllProducts);
+router.get("/shop/:shopId", selectAllProductsByShopId);
 
 // ! none
 // select all products by category

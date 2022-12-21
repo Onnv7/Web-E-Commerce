@@ -75,22 +75,37 @@
     align-items: center;
     width: 100%;
     margin-top: 16px;
-}
-.pagination-link{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: var(--primary-color);
     margin-right: 10px;
     font-size: 1.8rem;
 }
-.pagination-link__active{
+.page-item.active{
     width: 28px;
     height: 28px;
     background-color: var(--primary-color);
     color: #fff;
     border-radius: 5px;
+    text-align: center;
+    line-height: 28px;
+    .page-link{
+        color: #fff;
+        text-decoration: none;
+    }
 }
-
+.page-link{
+    color: var(--primary-color);
+    >span{
+        display: none;
+    }
+}
+.page-item{
+    margin-right: 8px;
+    >a{
+        text-decoration: none;
+        padding: 10px;
+    }
+    &::marker{
+        color: #fff;
+    }
+}

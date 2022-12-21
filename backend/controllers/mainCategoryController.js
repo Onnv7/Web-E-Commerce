@@ -3,6 +3,23 @@ import { saveFileObj } from "../utils/saveFile.js";
 
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 
+// select all product in main category
+export const selectAllProductInMainCategory = async (req, res, next) => {
+    try {
+        let rs = [];
+        const mainCategory = await MainCategory.find();
+        mainCategory.forEach((e) => {
+            let imgPath = "";
+            if (e.img !== null) imgPath = getImgPathFromImgData(e.img);
+            const { img, ...body } = e._doc;
+            rs.push({ ...body, imgPath: imgPath });
+        });
+        res.status(200).json(rs);
+    } catch (err) {
+        next(err);
+    }
+};
+
 // create a new shop and up level for user => buyer
 export const createMainCategory = async (req, res, next) => {
     try {
@@ -59,11 +76,10 @@ export const selectAllMainCategory = async (req, res, next) => {
         const mainCategory = await MainCategory.find();
         mainCategory.forEach((e) => {
             let imgPath = "";
-            if (e.img !== null)
-                imgPath = getImgPathFromImgData(e.img);
+            if (e.img !== null) imgPath = getImgPathFromImgData(e.img);
             const { img, ...body } = e._doc;
-            rs.push({ ...body, imgPath: imgPath })
-        })
+            rs.push({ ...body, imgPath: imgPath });
+        });
         res.status(200).json(rs);
     } catch (err) {
         next(err);
