@@ -279,11 +279,12 @@ export const selectAllUsers = async (req, res, next) => {
                 user._doc;
             const data = {
                 _id,
-                name,
-                email,
-                phoneNumber,
+                name: name === undefined ? "Chưa cập nhật" : name,
+                email: email === undefined ? "Chưa cập nhật" : email,
+                phoneNumber:
+                    phoneNumber === undefined ? "Chưa cập nhật" : phoneNumber,
                 username,
-                gender,
+                gender: gender === undefined ? "Chưa cập nhật" : gender,
             };
             result.push(data);
         });

@@ -19,12 +19,10 @@ const ManageSeller = () => {
             const fetchData = async () => {
                 const { data } = await axios.get("/users/seller");
                 setInfo(data);
-                console.log(data);
             };
             fetchData();
             const fetchCount = async () => {
                 const { data } = await axios.get("/users/count/seller");
-                console.log(count);
                 setCount(data);
             };
             fetchCount();
@@ -32,18 +30,6 @@ const ManageSeller = () => {
             console.error(err);
         }
     }, []);
-    // useEffect(() => {
-    //     try {
-    //         const fetchData1 = async () => {
-    //             const { data } = await axios.get("/users/count/seller");
-    //             console.log(count);
-    //             setCount(data);
-    //         };
-    //         fetchData1();
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }, []);
     return (
         <div className="manageSeller">
             <div className="manageRevenue-countBox">
@@ -89,19 +75,13 @@ const ManageSeller = () => {
                                 <TableCell className="tableCell managerSeller-fz">
                                     Username
                                 </TableCell>
-                                <TableCell className="tableCell managerSeller-fz">
-                                    Password
-                                </TableCell>
-                                <TableCell className="tableCell managerSeller-fz">
-                                    Thao Tác
-                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {info.map((row, i) => (
+                            {info.map((row) => (
                                 <TableRow key={row._id}>
                                     <TableCell className="tableCell">
-                                        {i + 1}
+                                        {row._id}
                                     </TableCell>
                                     <TableCell className="tableCell">
                                         {row.name}
@@ -117,15 +97,6 @@ const ManageSeller = () => {
                                     </TableCell>
                                     <TableCell className="tableCell">
                                         {row.username}
-                                    </TableCell>
-                                    <TableCell className="tableCell">
-                                        {row.password}
-                                    </TableCell>
-                                    <TableCell className="tableCell">
-                                        <ProfileDelete
-                                            color="#FF0000"
-                                            variant="Bold"
-                                        />
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -57,21 +57,22 @@ const ProductPay = () => {
     const [contentReview, setContentReview] = useState("");
     const [reviews, setReviews] = useState([]);
     const [files, setFiles] = useState([]);
-
+    const [reload, setReload] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/checkouts/all/${user._id}`);
+            console.log(data);
             setCheckouts(data);
         };
         fetchData();
-    }, [user]);
+    }, [user, reload]);
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/reviews/user/${user._id}`);
             setReviews(data);
         };
         fetchData();
-    }, [user]);
+    }, [user, reload]);
     // useEffect(() => {});
 
     const rebuyHandler = (slug) => {
@@ -112,6 +113,17 @@ const ProductPay = () => {
     };
     const gotoshopHandler = (id) => {
         navigate(`/shop/${id}`);
+    };
+    const receivedProductHandler = async (id) => {
+        try {
+            await axios.patch(`/checkouts/${id}`, {
+                status: "delivered",
+            });
+            setReload(!reload);
+            toast.success("Bạn đã nhận được hàng thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
     return (
         <div className="productPay">
@@ -229,13 +241,32 @@ const ProductPay = () => {
                                 <div className="productPay-footer">
                                     <span>
                                         Trạng thái:{" "}
-                                        <span>{checkout.status}</span>
+                                        <span>
+                                            {checkout.status === "waiting"
+                                                ? "Chờ giao hàng"
+                                                : checkout.status ===
+                                                  "delivering"
+                                                ? "Đang giao hàng"
+                                                : "Đã giao hàng"}
+                                        </span>
                                     </span>
                                     <span>
                                         Tổng tiền: {checkout.totalCost}{" "}
                                         <Crown size={34} variant="Bold" />
                                     </span>
                                 </div>
+                                {checkout.status === "delivering" && (
+                                    <button
+                                        onClick={() =>
+                                            receivedProductHandler(checkout._id)
+                                        }
+                                    >
+                                        Đã nhận được hàng
+                                    </button>
+                                )}
+                                {checkout.status === "delivered" && (
+                                    <p> Đã nhận được hàng</p>
+                                )}
                             </div>
                         ))}
                 </div>

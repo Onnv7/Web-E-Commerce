@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const PlaceAution = () => {
     const [auctions, setAuctions] = useState();
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get("/auction");

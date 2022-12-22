@@ -20,7 +20,7 @@ export const selectAllProductInMainCategory = async (req, res, next) => {
     }
 };
 
-// create a new shop and up level for user => buyer
+// create main category
 export const createMainCategory = async (req, res, next) => {
     try {
         const image = req.body.img;

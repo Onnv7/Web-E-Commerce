@@ -33,7 +33,7 @@ function ProductItem({ product, col }) {
                     <span>Đã bán {product.soldQuantity}</span>
                     <span>
                         {product.price}
-                        <Crown variant="Bold" size={24} className="navIcon" />
+                        <Crown variant="Bold" size={24} className="active" />
                     </span>
                 </div>
                 <div className="product-rate">

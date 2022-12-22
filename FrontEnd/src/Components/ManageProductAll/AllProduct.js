@@ -65,13 +65,7 @@ const AllProduct = () => {
                             : "Đã giao"}
                     </span>
                     <div className="manageProduct-comfirm">
-                        <span>
-                            {checkout.status === "waiting"
-                                ? "Chuẩn bị đơn hàng"
-                                : checkout.status === "delivering"
-                                ? "Chi tiết đơn hàng"
-                                : "Chi tiết đơn hàng"}
-                        </span>
+                        <span>Ngày tạo: {checkout.createdAt}</span>
                     </div>
                 </div>
             </div>

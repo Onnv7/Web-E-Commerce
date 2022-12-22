@@ -1,0 +1,125 @@
+.manageCategory{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    >button{
+        padding: 5px 10px;
+        font-size: 2rem;
+        border: none;
+        background-color: var(--primary-color);
+        color: #fff;
+        border-radius: 4px;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+}
+.manageCategory-Item{
+    background: #FFFFFF;
+    border: 1px solid #DC5B0E;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    font-size: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    >img{
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 10px;
+        border: 1px solid #000;
+        margin-bottom: 10px;
+    }
+}
+.manageCategory-Icon{
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background-color: #fff;
+    color: var(--primary-color);
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+.modal-manageCategory{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.modal-manageCategoryContainer{
+    width: 300px;
+    min-height: 242px;
+    background: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 30px 60px;
+    animation: btn-glide ease .5s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    >span{
+        font-size: 2.4rem;
+        font-family: 'Oswald';
+    }
+    >img{
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border: 1px solid #000;
+        border-radius: 10px;
+    }
+    >input{
+        font-size: 2rem;
+        outline: none;
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        padding: 5px 10px;
+    }
+}
+.modal-manageCategoryBtn{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    >button{
+        width: 100px;
+        height: 50px;
+        font-size: 2.4rem;
+        border: none;
+        &:first-child{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0px 0px 4px var(--primary-color);
+            border-radius: 50px;
+            color: var(--sub-color);
+            &:hover{
+                cursor: pointer;
+                color: var(--primary-color);
+            }
+        }
+        &:last-child{
+            background: rgba(220, 91, 14, 0.7);
+            border-radius: 50px;
+            color: #fff;
+            &:hover{
+                cursor: pointer;
+                background-color: var(--primary-color);
+            }
+        }   
+    }
+}
