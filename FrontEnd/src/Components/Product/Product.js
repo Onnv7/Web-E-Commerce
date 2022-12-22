@@ -17,6 +17,7 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
         useContext(PaginationContext);
     const productData = useRef([]);
     productData.current = products;
+    const [productList, setProductList] = useState([]);
     const indexPage = useRef(1);
     const pageCount = 2;
     let index = [];
@@ -45,11 +46,25 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
             },
         });
     };
+    // const init = async () => {
+    //     indexPage.current = 1;
+    //     // const { data } = await axios.get();
+    //     // productData.current = data;
+    //     productData.current = products;
+    //     const result = {
+    //         items: productData.current,
+    //         currentPage: indexPage.current,
+    //         pageCount: pageCount,
+    //     };
+    //     dispatch({ type: "START", payload: result });
+    // };
+    // init();
     useEffect(() => {
         const init = async () => {
             indexPage.current = 1;
             // const { data } = await axios.get();
             // productData.current = data;
+            productData.current = products;
             const result = {
                 items: productData.current,
                 currentPage: indexPage.current,
@@ -58,11 +73,11 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
             dispatch({ type: "START", payload: result });
         };
         init();
-    }, [products]);
-    console.log(productsPage);
+    }, [productData.current, products]);
     return (
         productsPage && (
             <div className="product">
+                {console.log("REDNDER CONNN")}
                 <div className="grid wide">
                     <div className="row sm-gutter">
                         {productsPage.map((product) => (
@@ -73,59 +88,9 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
                             ></ProductItem>
                         ))}
 
-                        {/* //     <ProductItem
-                        //         product={products}
-                        //         key={products._id}
-                        //     ></ProductItem>
-                        // )} */}
                         <Pagination className="shop-pagination">
                             {index}
                         </Pagination>
-                        {/* <div className="pagination">
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    <ArrowLeft2 />
-                                </a>
-                            </div>
-                            <div className="pagination-item ">
-                                <a
-                                    href=""
-                                    className="pagination-link pagination-link__active"
-                                >
-                                    1
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    2
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    3
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    ...
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    98
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    99
-                                </a>
-                            </div>
-                            <div className="pagination-item">
-                                <a href="" className="pagination-link">
-                                    <ArrowRight2 />
-                                </a>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

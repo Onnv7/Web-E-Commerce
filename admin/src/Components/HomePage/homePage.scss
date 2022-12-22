@@ -29,6 +29,10 @@
             align-items: center;
             text-decoration: underline;
             color: var(--primary-color);
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ const checkoutAuctionSchema = new mongoose.Schema(
         },
         totalCost: {
             type: Number,
-            required: true,
+            // required: true,
         },
         shipCost: {
             type: Number,

@@ -12,8 +12,10 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import ManageBuyer from "../ManageBuyer/ManageBuyer";
+import ManageSeller from "../ManageSeller/ManageSeller";
 
-const HomePage = () => {
+const HomePage = ({ setSlide }) => {
     const [revenue, setRevenue] = useState([]);
     const data1 = [
         { name: "January", Total: 1200 },
@@ -30,6 +32,7 @@ const HomePage = () => {
             key: "selection",
         },
     ]);
+    const [count, setCount] = useState({});
     const startDate = `${dates[0].startDate.getFullYear()}-${
         dates[0].startDate.getMonth() + 1
     }-${dates[0].startDate.getDate()}`;
@@ -47,7 +50,17 @@ const HomePage = () => {
                     `/checkouts/revenueAdmin?startDate=${startDate}&endDate=${endDate}`
                 );
                 setRevenue(data);
-                console.log(data);
+            };
+            fetchData();
+        } catch (err) {
+            console.error(err);
+        }
+    }, [dates]);
+    useEffect(() => {
+        try {
+            const fetchData = async () => {
+                const { data } = await axios.get("/users/statistics");
+                setCount(data);
             };
             fetchData();
         } catch (err) {
@@ -59,8 +72,8 @@ const HomePage = () => {
             <div className="homePage-countBox">
                 <div className="homePage-count">
                     <span>NGƯỜI MUA - KHÁCH HÀNG</span>
-                    <span>100</span>
-                    <span>Chi tiết</span>
+                    <span>{count.countBuyer}</span>
+
                     <Profile2User
                         variant="Bold"
                         size={40}
@@ -69,8 +82,7 @@ const HomePage = () => {
                 </div>
                 <div className="homePage-count">
                     <span>NGƯỜI BÁN - CHỦ SHOP</span>
-                    <span>100</span>
-                    <span>Chi tiết</span>
+                    <span>{count.countSeller}</span>
                     <Shop
                         variant="Bold"
                         size={40}
@@ -79,8 +91,7 @@ const HomePage = () => {
                 </div>
                 <div className="homePage-count">
                     <span>DOANH THU (THÁNG)</span>
-                    <span>100</span>
-                    <span>Chi tiết</span>
+                    <span>{count.revenueThisMonth}</span>
                     <MoneyRecive size={40} className="homePage-icon active" />
                 </div>
             </div>

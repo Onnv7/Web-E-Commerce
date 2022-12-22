@@ -11,6 +11,7 @@ import Money from "./Pages/Ruby/Money.js";
 import Paypal from "./Pages/Ruby/Paypal.js";
 import SellPage from "./Pages/SellPage/SellPage";
 import CartList from "./Pages/CartList/CartList";
+import CartAuctionList from "./Pages/CartAuctionList/CartAuctionList";
 import Profile from "./Pages/Profile/Profile";
 import Payment from "./Pages/Payment/Payment";
 import SellerPage from "./Pages/SellerPage/SellerPage";
@@ -34,6 +35,7 @@ function App() {
                 pauseOnHover={false}
             />
             <Routes>
+                {/* Admin */}
                 <Route path="/" element={<Home />} />
                 <Route path="/img" element={<Image />} />
                 <Route path="/thanhtoan" element={<Ruby />} />
@@ -41,6 +43,11 @@ function App() {
                 <Route path="/paypal" element={<Paypal />} />
                 <Route path="/simg" element={<Show />} />
 
+                {/* Auth */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
+                {/* Auction */}
                 <Route
                     path="/seller/auction/:id"
                     element={<AuctionProductPage />}
@@ -49,25 +56,26 @@ function App() {
                     path="/seller/history/:id"
                     element={<AuctionHistory />}
                 />
+                <Route path="/auction" element={<AuctionPage />} />
+                <Route path="/cartauction" element={<CartAuctionList />} />
 
+                {/* User */}
                 <Route path="/products/:slug" element={<SellPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/payment" element={<Payment />} />
-                <Route path="/seller" element={<SellerPage />} />
-                <Route path="/seller/update/:id" element={<UpdateProduct />} />
-                <Route path="/seller/new" element={<NewProduct />} />
-                <Route path="/seller/detail/:id" element={<DetailProduct />} />
-                <Route path="/auction" element={<AuctionPage />} />
-                <Route path="/seller/become" element={<BecomeSeller />} />
-
                 <Route path="/shop/:id" element={<ViewShop />} />
                 <Route
                     path="/search/category/:id"
                     element={<DetailCategory />}
                 />
+
+                {/* Seller */}
+                <Route path="/seller" element={<SellerPage />} />
+                <Route path="/seller/update/:id" element={<UpdateProduct />} />
+                <Route path="/seller/new" element={<NewProduct />} />
+                <Route path="/seller/detail/:id" element={<DetailProduct />} />
+                <Route path="/seller/become" element={<BecomeSeller />} />
             </Routes>
         </BrowserRouter>
     );

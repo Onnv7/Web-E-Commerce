@@ -51,7 +51,21 @@ export const searchProduct = async (req, res, next) => {
     try {
         const input = getTextSearch(req.query.text);
         let products = await Product.find({ $text: { $search: input } });
-        const result = getUrlImageForArrObject(products);
+        const result = [];
+        for (const product of products) {
+            const shop = await Shop.findById(product.shop);
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: product._id,
+                name: product.name,
+                soldQuantity: product.soldQuantity,
+                subCategory: product.subCategory,
+                imgPath,
+            };
+            result.push(data);
+        }
         res.status(200).json(result);
     } catch (error) {
         next(error);

@@ -37,7 +37,7 @@ const Navbar = ({ style }) => {
         navigate("/seller");
     };
     const logoutHandler = async () => {
-        navigate("/");
+        navigate("/login");
         await dispatch({ type: "LOGOUT" });
         await contextDispatch({ type: "LOGOUT" });
         Cookies.remove("userInfo");

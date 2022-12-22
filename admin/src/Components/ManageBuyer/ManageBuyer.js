@@ -65,12 +65,18 @@ const ManageBuyer = () => {
         },
     ];
     const [count, setCount] = useState({});
+    const [info, setInfo] = useState([]);
     useEffect(() => {
         try {
-            const fetchData = async () => {
+            const fetchCount = async () => {
                 const { data } = await axios.get("/users/count/buyer");
-                console.log(count);
                 setCount(data);
+            };
+            fetchCount();
+            const fetchData = async () => {
+                const { data } = await axios.get("/users/");
+                console.log(data);
+                setInfo(data);
             };
             fetchData();
         } catch (err) {
@@ -120,42 +126,30 @@ const ManageBuyer = () => {
                                     Username
                                 </TableCell>
                                 <TableCell className="tableCell managerSeller-fz">
-                                    Password
-                                </TableCell>
-                                <TableCell className="tableCell managerSeller-fz">
                                     Giới tính
-                                </TableCell>
-                                <TableCell className="tableCell managerSeller-fz">
-                                    Thao Tác
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.id}>
+                            {info.map((row) => (
+                                <TableRow key={row._id}>
                                     <TableCell className="tableCell">
-                                        {row.id}
+                                        {row._id}
                                     </TableCell>
                                     <TableCell className="tableCell">
                                         {row.name}
                                     </TableCell>
                                     <TableCell className="tableCell">
-                                        {row.nameS}
-                                    </TableCell>
-                                    <TableCell className="tableCell">
                                         {row.email}
                                     </TableCell>
                                     <TableCell className="tableCell">
-                                        {row.sdt}
+                                        {row.phoneNumber}
                                     </TableCell>
                                     <TableCell className="tableCell">
                                         {row.username}
                                     </TableCell>
                                     <TableCell className="tableCell">
-                                        {row.password}
-                                    </TableCell>
-                                    <TableCell className="tableCell">
-                                        {row.actiton}
+                                        {row.gender}
                                     </TableCell>
                                 </TableRow>
                             ))}

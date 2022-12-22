@@ -1,5 +1,8 @@
 .rating{
     display: flex;
+    >div{
+        display: flex;
+    }
     .star-light{
         color:var(--primary-color)
     }

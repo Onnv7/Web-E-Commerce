@@ -48,7 +48,7 @@ const WaitProduct = () => {
             toast.error(error.message);
         }
     };
-    const handleOpen = (id) => {
+    const handleOpen = (id, note) => {
         setOpen(true);
         setOpen1(true);
         setSeller({
@@ -56,6 +56,7 @@ const WaitProduct = () => {
             name: user?.name || user?.username,
             phoneNumber: user?.phoneNumber,
             addressInfo: shop.addressInfo,
+            note,
         });
     };
     const handleClose = () => {
@@ -99,24 +100,12 @@ const WaitProduct = () => {
                     <span>
                         {checkout.totalCost} <Crown variant="Bold" size={20} />
                     </span>
-                    <span>
-                        {checkout.status === "waiting"
-                            ? "Chờ lấy hàng"
-                            : checkout.status === "delivering"
-                            ? "Đang giao"
-                            : "Đã giao"}
-                    </span>
+                    <span>Chờ lấy hàng</span>
                     <div
                         className="manageProduct-comfirm"
-                        onClick={() => handleOpen(checkout._id)}
+                        onClick={() => handleOpen(checkout._id, checkout.note)}
                     >
-                        <span>
-                            {checkout.status === "waiting"
-                                ? "Chuẩn bị đơn hàng"
-                                : checkout.status === "delivering"
-                                ? "Chi tiết đơn hàng"
-                                : "Chi tiết đơn hàng"}
-                        </span>
+                        <span>Chuẩn bị đơn hàng</span>
                     </div>
                 </div>
                 {open && (
@@ -144,20 +133,10 @@ const WaitProduct = () => {
                                 </div>
                                 <div className="waitProduct-modalBox">
                                     <div className="waitProduct-modalTitle">
-                                        <span>Địa chỉ kho hàng / lấy hàng</span>
+                                        <span>Lưu ý cho người bán</span>
                                     </div>
                                     <div className="waitProduct-modalContent">
-                                        <span>
-                                            Họ và tên:{" "}
-                                            {seller?.name || seller?.username}
-                                        </span>
-                                        <span>
-                                            Số điện thoại: {seller?.phoneNumber}
-                                        </span>
-                                        <span>
-                                            Địa chỉ:{" "}
-                                            {`${seller.addressInfo.address}, ${seller.addressInfo.ward}, ${seller.addressInfo.distinct}, ${seller.addressInfo.province}`}
-                                        </span>
+                                        <span>{seller?.note}</span>
                                     </div>
                                 </div>
                                 <div className="waitProduct-modalBtn">

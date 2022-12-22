@@ -1,17 +1,18 @@
-import { Box1, Home, Note, User, ArrowRight2 } from 'iconsax-react';
-import React, { useEffect, useState } from 'react';
-import HomePage from '../HomePage/HomePage';
-import ManageBuyer from '../ManageBuyer/ManageBuyer';
-import ManageDeliver from '../ManageDeliver/ManageDeliver';
-import ManageRevenue from '../ManageRevenue/ManageRevenue';
-import ManageSeller from '../ManageSeller/ManageSeller';
-import './adminHome.scss';
+import { Box1, Home, Note, User, ArrowRight2, Category } from "iconsax-react";
+import React, { useEffect, useState } from "react";
+import ManageSeller from "../ManageSeller/ManageSeller";
+import ManageBuyer from "../ManageBuyer/ManageBuyer";
+import HomePage from "../HomePage/HomePage";
+import ManageDeliver from "../ManageDeliver/ManageDeliver";
+import ManageRevenue from "../ManageRevenue/ManageRevenue";
+import ManageCategory from "../ManageCategory/ManageCategory";
+import "./adminHome.scss";
 
 const AdminHome = () => {
     const [open, setOpen] = useState(false);
     const [slide, setSlide] = useState(<HomePage />);
     const openHome = () => {
-        setSlide(<HomePage />);
+        setSlide(<HomePage setSlide={setSlide} />);
     };
     const openRevenue = () => {
         setSlide(<ManageRevenue />);
@@ -27,6 +28,9 @@ const AdminHome = () => {
 
     const openDeliver = () => {
         setSlide(<ManageDeliver />);
+    };
+    const openCategory = () => {
+        setSlide(<ManageCategory />);
     };
 
     return (
@@ -59,6 +63,10 @@ const AdminHome = () => {
                 <span onClick={openDeliver}>
                     <Box1 variant="Bold" />
                     Quản lí vận chuyển
+                </span>
+                <span onClick={openCategory}>
+                    <Category variant="Bold" />
+                    Quản lí Danh Mục
                 </span>
             </div>
 

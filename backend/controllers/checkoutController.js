@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
+import { getFormatDate } from "../utils/formatIO.js";
 export const selectAllCheckouts = async (req, res, next) => {
     try {
         const checkouts = await Checkout.find();
@@ -73,7 +74,7 @@ export const selectCheckoutByShopIdAndStatus = async (req, res, next) => {
                 _id,
                 totalCost,
                 status,
-                createdAt,
+                createdAt: getFormatDate(createdAt),
                 productList,
                 note,
                 deliveryInfo,
@@ -114,7 +115,7 @@ export const selectCheckoutByShopId = async (req, res, next) => {
                 _id,
                 totalCost,
                 status,
-                createdAt,
+                createdAt: getFormatDate(createdAt),
                 productList,
                 note,
             };

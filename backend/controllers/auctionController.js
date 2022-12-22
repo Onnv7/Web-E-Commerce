@@ -62,14 +62,11 @@ export const createAuction = async (req, res, next) => {
 export const selectAllAuctionsByBidderId = async (req, res, next) => {
     try {
         const bidderId = req.params.bidderId;
-        const auctions = await Auction.find(
-            {
-                auctionHistory: {
-                    $elemMatch: { bidder: bidderId },
-                },
+        const auctions = await Auction.find({
+            auctionHistory: {
+                $elemMatch: { bidder: bidderId },
             },
-            { "auctionHistory.$.price": 1 }
-        );
+        });
         const result = [];
         auctions.forEach((auction) => {
             const product = auction.product;
@@ -77,8 +74,13 @@ export const selectAllAuctionsByBidderId = async (req, res, next) => {
             const image = product.img[0];
             const imgPath = getImgPathFromImgData(image);
             const quantity = product.quantity;
-            // const startTime = getFormatDate(auction.createdAt);
-            console.log(auction.auctionHistory);
+            let yourPrice;
+            for (const item of auction.auctionHistory.reverse()) {
+                if (item.bidder.toString() === bidderId) {
+                    yourPrice = item.price;
+                    break;
+                }
+            }
             const endTime = getFormatDate(auction.endTime);
             const currentPrice = auction.currentPrice;
             const body = {
@@ -88,6 +90,7 @@ export const selectAllAuctionsByBidderId = async (req, res, next) => {
                 endTime,
                 startingPrice: auction.startingPrice,
                 currentPrice,
+                yourPrice,
                 imgPath,
             };
             result.push(body);
