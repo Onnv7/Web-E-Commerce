@@ -1,143 +1,188 @@
-import { Back, Crown } from 'iconsax-react';
-import React, { useState } from 'react';
-import './waitProduct.scss';
+import { Back, Crown } from "iconsax-react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import "./waitProduct.scss";
+import axios from "./../../hooks/axios";
+import { toast } from "react-toastify";
 
 const WaitProduct = () => {
     const [open, setOpen] = useState(false);
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
-    const handleOpen = () => {
+    const { user } = useContext(AuthContext);
+    const [shop, setShop] = useState();
+    const [checkouts, setCheckouts] = useState([]);
+    const [reload, setReload] = useState(false);
+    const [seller, setSeller] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`shops/${user._id}`);
+            console.log(user);
+            console.log(data);
+            setShop(data);
+        };
+        fetchData();
+    }, [user]);
+
+    useEffect(() => {
+        if (shop) {
+            const fetchData = async () => {
+                const { data } = await axios.get(
+                    `/checkouts/shop/waiting/${shop._id}`
+                );
+                console.log(data);
+                setCheckouts(data);
+            };
+            fetchData();
+        }
+    }, [shop, reload]);
+
+    const prepareProductHandler = async (id) => {
+        try {
+            await axios.patch(`/checkouts/${id}`, {
+                status: "delivering",
+            });
+            setReload(!reload);
+            toast.success("Chuẩn bị hàng thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+    const handleOpen = (id) => {
         setOpen(true);
         setOpen1(true);
-    };
-    const handleChange = () => {
-        setOpen2(true);
-        setOpen1(false);
-    };
-    const handleBack = () => {
-        setOpen1(true);
-        setOpen2(false);
+        setSeller({
+            _id: id,
+            name: user?.name || user?.username,
+            phoneNumber: user?.phoneNumber,
+            addressInfo: shop.addressInfo,
+        });
     };
     const handleClose = () => {
         setOpen(false);
         setOpen1(false);
         setOpen2(false);
     };
+    const handleClosePro = () => {
+        setOpen(false);
+        setOpen1(false);
+        setOpen2(false);
+        prepareProductHandler(seller._id);
+    };
     return (
-        <>
-            <div className="manageProduct-List">
+        checkouts &&
+        checkouts.map((checkout) => (
+            <div className="manageProduct-List" key={checkout._id}>
                 <div className="manageProduct-user">
-                    <span>nguoimua1</span>
-                    <span>Mã đơn: abcxyz123321</span>
+                    <span>Mã đơn: {checkout._id}</span>
                 </div>
                 <div className="manageProduct-item">
                     <div className="manageProduct-content">
-                        <div className="manageProduct-box">
-                            <div className="manageProduct-product">
-                                <img src="../Img/iphone14.png" alt="" />
-                                <div className="manageProduct-info">
-                                    <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
-                                    <div className="manageProduct-infoType">
-                                        <span>Size: 512G</span>
-                                        <span>Màu sắc: Deep Purple</span>
+                        {checkout.productList.map((product, index) => (
+                            <div className="manageProduct-box" key={index}>
+                                <div className="manageProduct-product">
+                                    <img src={product.imgPath} alt="" />
+                                    <div className="manageProduct-info">
+                                        <span>{product.name}</span>
+                                        <div className="manageProduct-infoType">
+                                            <span>
+                                                Phân loại:{" "}
+                                                {product.classifyProduct}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
+                                <span>{product.quantityProduct}</span>
                             </div>
-                            <span>1</span>
-                        </div>
-                        <div className="manageProduct-box">
-                            <div className="manageProduct-product">
-                                <img src="../Img/iphone14.png" alt="" />
-                                <div className="manageProduct-info">
-                                    <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
-                                    <div className="manageProduct-infoType">
-                                        <span>Size: 512G</span>
-                                        <span>Màu sắc: Deep Purple</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span>1</span>
-                        </div>
+                        ))}
                     </div>
                     <span>
-                        1600 <Crown variant="Bold" />
+                        {checkout.totalCost} <Crown variant="Bold" size={20} />
                     </span>
-                    <span>Chờ xác nhận</span>
-                    <div className="manageProduct-comfirm">
-                        <span onClick={handleOpen}>Chuẩn bị đơn hàng</span>
+                    <span>
+                        {checkout.status === "waiting"
+                            ? "Chờ lấy hàng"
+                            : checkout.status === "delivering"
+                            ? "Đang giao"
+                            : "Đã giao"}
+                    </span>
+                    <div
+                        className="manageProduct-comfirm"
+                        onClick={() => handleOpen(checkout._id)}
+                    >
+                        <span>
+                            {checkout.status === "waiting"
+                                ? "Chuẩn bị đơn hàng"
+                                : checkout.status === "delivering"
+                                ? "Chi tiết đơn hàng"
+                                : "Chi tiết đơn hàng"}
+                        </span>
                     </div>
                 </div>
+                {open && (
+                    <div className="waitProduct-modal">
+                        {open1 && (
+                            <div className="waitProduct-modalContainer">
+                                <span>Chuẩn bị đơn hàng</span>
+                                <div className="waitProduct-modalBox">
+                                    <div className="waitProduct-modalTitle">
+                                        <span>Địa chỉ kho hàng / lấy hàng</span>
+                                    </div>
+                                    <div className="waitProduct-modalContent">
+                                        <span>
+                                            Họ và tên:{" "}
+                                            {seller?.name || seller?.username}
+                                        </span>
+                                        <span>
+                                            Số điện thoại: {seller?.phoneNumber}
+                                        </span>
+                                        <span>
+                                            Địa chỉ:{" "}
+                                            {`${seller.addressInfo.address}, ${seller.addressInfo.ward}, ${seller.addressInfo.distinct}, ${seller.addressInfo.province}`}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="waitProduct-modalBox">
+                                    <div className="waitProduct-modalTitle">
+                                        <span>Địa chỉ kho hàng / lấy hàng</span>
+                                    </div>
+                                    <div className="waitProduct-modalContent">
+                                        <span>
+                                            Họ và tên:{" "}
+                                            {seller?.name || seller?.username}
+                                        </span>
+                                        <span>
+                                            Số điện thoại: {seller?.phoneNumber}
+                                        </span>
+                                        <span>
+                                            Địa chỉ:{" "}
+                                            {`${seller.addressInfo.address}, ${seller.addressInfo.ward}, ${seller.addressInfo.distinct}, ${seller.addressInfo.province}`}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="waitProduct-modalBtn">
+                                    <button onClick={handleClose}>
+                                        <Back size={32} />
+                                        Quay lại
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            handleClosePro();
+                                        }}
+                                    >
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                                <span>
+                                    Xe vận chuyển sẽ đến lấy hàng trong ngày khi
+                                    bạn hoàn tất quá trình chuẩn bị đơn hàng.
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
-            {open && (
-                <div className="waitProduct-modal">
-                    {open1 && (
-                        <div className="waitProduct-modalContainer">
-                            <span>Chuẩn bị đơn hàng</span>
-                            <div className="waitProduct-modalBox">
-                                <div className="waitProduct-modalTitle">
-                                    <span>Địa chỉ kho hàng / lấy hàng</span>
-                                    <span onClick={handleChange}>Thay đổi</span>
-                                </div>
-                                <div className="waitProduct-modalContent">
-                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
-                                </div>
-                            </div>
-                            <div className="waitProduct-modalBtn">
-                                <button onClick={handleClose}>
-                                    <Back size={32} />
-                                    Quay lại
-                                </button>
-                                <button onClick={handleClose}>Hoàn Tất</button>
-                            </div>
-                            <span>
-                                Xe vận chuyển sẽ đến lấy hàng trong ngày khi bạn hoàn tất quá trình chuẩn bị đơn hàng.
-                            </span>
-                        </div>
-                    )}
-                    {open2 && (
-                        <div className="waitProduct-modalChangeContainer">
-                            <span>Thay đổi địa chỉ kho hàng / lấy hàng</span>
-                            <div className="waitProduct-modalChangeBox">
-                                <span>Địa chỉ kho hàng / lấy hàng</span>
-
-                                <div className="waitProduct-modalContent">
-                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
-                                </div>
-                            </div>
-                            <div className="waitProduct-modalChangeBox">
-                                <span>Địa chỉ kho hàng / lấy hàng</span>
-
-                                <div className="waitProduct-modalContent">
-                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
-                                </div>
-                            </div>
-                            <div className="waitProduct-modalChangeBox">
-                                <span>Địa chỉ kho hàng / lấy hàng</span>
-
-                                <div className="waitProduct-modalContent">
-                                    <span>Họ và tên: Nguyễn Tiến Phát</span>
-                                    <span>Số điện thoại: Nguyễn Tiến Phát</span>
-                                    <span>Địa chỉ: Nguyễn Tiến Phát</span>
-                                </div>
-                            </div>
-                            <div className="waitProduct-modalBtn">
-                                <button onClick={handleBack}>
-                                    <Back size={32} />
-                                    Quay lại
-                                </button>
-                                <button onClick={handleClose}>Hoàn Tất</button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            )}
-        </>
+        ))
     );
 };
 

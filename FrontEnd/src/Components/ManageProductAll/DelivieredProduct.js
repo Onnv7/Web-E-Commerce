@@ -1,8 +1,38 @@
-import { Back, Crown } from 'iconsax-react';
-import React, { useState } from 'react';
+import { Back, Crown } from "iconsax-react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "./../../hooks/axios";
 
 const DelivieredProduct = () => {
     const [open, setOpen] = useState(false);
+
+    const { user } = useContext(AuthContext);
+    const [shop, setShop] = useState();
+    const [checkouts, setCheckouts] = useState([]);
+    const [reload, setReload] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`shops/${user._id}`);
+            console.log(user);
+            console.log(data);
+            setShop(data);
+        };
+        fetchData();
+    }, [user]);
+
+    useEffect(() => {
+        if (shop) {
+            const fetchData = async () => {
+                const { data } = await axios.get(
+                    `/checkouts/shop/waiting/${shop._id}`
+                );
+                console.log(data);
+                setCheckouts(data);
+            };
+            fetchData();
+        }
+    }, [shop, reload]);
+
     return (
         <>
             <div className="manageProduct-List">
@@ -16,7 +46,10 @@ const DelivieredProduct = () => {
                             <div className="manageProduct-product">
                                 <img src="../Img/iphone14.png" alt="" />
                                 <div className="manageProduct-info">
-                                    <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                    <span>
+                                        Iphone 14 Pro Max - Deep Purple (Tím) -
+                                        Hàng chính hãng
+                                    </span>
                                     <div className="manageProduct-infoType">
                                         <span>Size: 512G</span>
                                         <span>Màu sắc: Deep Purple</span>
@@ -29,7 +62,10 @@ const DelivieredProduct = () => {
                             <div className="manageProduct-product">
                                 <img src="../Img/iphone14.png" alt="" />
                                 <div className="manageProduct-info">
-                                    <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                    <span>
+                                        Iphone 14 Pro Max - Deep Purple (Tím) -
+                                        Hàng chính hãng
+                                    </span>
                                     <div className="manageProduct-infoType">
                                         <span>Size: 512G</span>
                                         <span>Màu sắc: Deep Purple</span>
@@ -44,7 +80,9 @@ const DelivieredProduct = () => {
                     </span>
                     <span>Đã giao</span>
                     <div className="manageProduct-comfirm">
-                        <span onClick={() => setOpen(true)}>Chi tiết đơn hàng</span>
+                        <span onClick={() => setOpen(true)}>
+                            Chi tiết đơn hàng
+                        </span>
                     </div>
                 </div>
             </div>
@@ -61,12 +99,21 @@ const DelivieredProduct = () => {
                                 <div className="manageProduct-content">
                                     <div className="manageProduct-box">
                                         <div className="manageProduct-product">
-                                            <img src="../Img/iphone14.png" alt="" />
+                                            <img
+                                                src="../Img/iphone14.png"
+                                                alt=""
+                                            />
                                             <div className="manageProduct-info">
-                                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
+                                                <span>
+                                                    Iphone 14 Pro Max - Deep
+                                                    Purple (Tím) - Hàng chính
+                                                    hãng
+                                                </span>
                                                 <div className="manageProduct-infoType">
                                                     <span>Size: 512G</span>
-                                                    <span>Màu sắc: Deep Purple</span>
+                                                    <span>
+                                                        Màu sắc: Deep Purple
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +129,9 @@ const DelivieredProduct = () => {
                             </div>
                         </div>
                         <div className="deliverProduct-modalBox">
-                            <span>Thông tin người nhận và địa chỉ nhận hàng</span>
+                            <span>
+                                Thông tin người nhận và địa chỉ nhận hàng
+                            </span>
                             <div className="waitProduct-modalContent">
                                 <span>Họ và tên: Nguyễn Tiến Phát</span>
                                 <span>Số điện thoại: Nguyễn Tiến Phát</span>

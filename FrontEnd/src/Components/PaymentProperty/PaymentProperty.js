@@ -19,7 +19,7 @@ const PaymentProperty = () => {
     const [shops, setShops] = useState([]);
     const [deliveryIndex, setDeliveryIndex] = useState(0);
     const [deliveryTempIndex, setDeliveryTempIndex] = useState();
-    const [note, setNote] = useState("");
+    const [notes, setNotes] = useState([]);
     const [shipCost, setShipCost] = useState(20);
     const [open, setOpen] = useState(false);
     const [shippingShops, setShippingShops] = useState([]);
@@ -92,7 +92,16 @@ const PaymentProperty = () => {
                     `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
                 );
                 console.log(data);
-                setShippingShops((pre) => [...pre, ...data.map((d) => d.cost)]);
+                setShippingShops((pre) => [
+                    ...pre,
+                    ...data.map((d) => {
+                        return {
+                            _id: element._id,
+                            cost: d.cost,
+                            addressInfo: element.addressInfo,
+                        };
+                    }),
+                ]);
             });
         }
     }, [deliveryIndex, shops, userDetail]);
@@ -102,7 +111,7 @@ const PaymentProperty = () => {
     };
     const checkoutHandler = () => {
         try {
-            shopItems.forEach(async (shopItem) => {
+            shopItems.forEach(async (shopItem, index) => {
                 const dataItems = cartItems.filter(
                     (item) => item.shopID === shopItem._id
                 );
@@ -112,15 +121,18 @@ const PaymentProperty = () => {
                         currentValue.price * currentValue.quantityProduct,
                     0
                 );
+                const ship = shippingShops.find(
+                    (ship) => ship._id === shopItem._id
+                );
                 const data = {
                     productItems: dataItems,
                     shop: shopItem._id,
                     user: user._id,
                     deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
                     totalCost: cost,
-                    shipCost,
+                    shipCost: ship.cost,
                     status: "waiting",
-                    note,
+                    note: notes[index],
                 };
                 await axios.post("/checkouts", data);
             });
@@ -252,11 +264,27 @@ const PaymentProperty = () => {
                                     ))}
 
                                 <textarea
-                                    placeholder="Lưu ý cho người mua hàng"
-                                    value={note}
-                                    onChange={(e) => setNote(e.target.value)}
+                                    placeholder="Lưu ý cho người bán hàng"
+                                    value={notes[index]}
+                                    onChange={(e) =>
+                                        setNotes((pre) => {
+                                            notes[index] = e.target.value;
+                                            return notes;
+                                        })
+                                    }
                                 />
-                                <div>ShippingCost : {shippingShops[index]}</div>
+                                <div>
+                                    Vận chuyển từ:{" "}
+                                    {shippingShops[index]?.addressInfo.address},{" "}
+                                    {shippingShops[index]?.addressInfo.ward},{" "}
+                                    {shippingShops[index]?.addressInfo.distinct}
+                                    ,{" "}
+                                    {shippingShops[index]?.addressInfo.province}{" "}
+                                </div>
+                                <div>
+                                    Phí vận chuyển :{" "}
+                                    {shippingShops[index]?.cost}
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -288,13 +316,30 @@ const PaymentProperty = () => {
                         <div className="paymentProperty-confirmItem">
                             <span>Tổng phí vận chuyển</span>
                             <span>
-                                {shipCost} <Crown variant="Bold" />
+                                {shippingShops.reduce(
+                                    (accumulate, currentValue) =>
+                                        accumulate + currentValue.cost,
+                                    0
+                                )}{" "}
+                                <Crown variant="Bold" />
                             </span>
                         </div>
                         <div className="paymentProperty-confirmItem">
                             <span>Tổng thanh toán</span>
                             <span>
-                                {totalCost} <Crown variant="Bold" />
+                                {cartItems.reduce(
+                                    (accumulate, currentValue) =>
+                                        accumulate +
+                                        currentValue.price *
+                                            currentValue.quantityProduct,
+                                    0
+                                ) +
+                                    shippingShops.reduce(
+                                        (accumulate, currentValue) =>
+                                            accumulate + currentValue.cost,
+                                        0
+                                    )}{" "}
+                                <Crown variant="Bold" />
                             </span>
                         </div>
                         <button onClick={checkoutHandler}>Xác nhận</button>

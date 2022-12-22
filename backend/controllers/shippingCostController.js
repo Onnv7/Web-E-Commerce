@@ -37,7 +37,10 @@ export const updateShipCost = async (req, res, next) => {
         let startPoint, endPoint;
         let start = req.body.starting;
         let end = req.body.destination;
-        if (start < end) {
+        if ((start === -1) & (end === -1)) {
+            startPoint = -1;
+            endPoint = -1;
+        } else if (start < end) {
             startPoint = start;
             endPoint = end;
         } else if (start > end) {
@@ -109,7 +112,7 @@ export const getShipCostByZone = async (req, res, next) => {
             startPoint = 0;
             endPoint = 0;
         }
-        const shipCost = await ShippingCost.find({
+        const shipCost = await ShippingCost.findOne({
             starting: startPoint,
             destination: endPoint,
         });

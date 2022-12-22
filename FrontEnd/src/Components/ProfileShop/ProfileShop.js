@@ -182,6 +182,7 @@ const ProfileShop = () => {
                 mainCategory,
                 subCategories,
                 img,
+                addressInfo,
             });
             toast.success("Cập nhật shop thành công");
             setReload(!reload);

@@ -2,7 +2,7 @@ import Checkout from "../models/checkoutModel.js";
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
 import Shop from "../models/shopModel.js";
-
+import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 export const selectAllCheckouts = async (req, res, next) => {
     try {
         const checkouts = await Checkout.find();
@@ -35,6 +35,97 @@ export const updateCheckout = async (req, res, next) => {
     }
 };
 
+// select checkout by shop and status
+export const selectCheckoutByShopIdAndStatus = async (req, res, next) => {
+    try {
+        const checkouts = await Checkout.find({
+            shop: req.params.shopId,
+            status: req.params.status,
+        })
+            .populate("productItems._id")
+            .populate("user")
+            .sort({ createdAt: -1 });
+        const result = [];
+        for (const checkout of checkouts) {
+            const {
+                _id,
+                totalCost,
+                productItems,
+                user,
+                status,
+                createdAt,
+                note,
+                deliveryInfo,
+            } = checkout._doc;
+            const productList = [];
+            for (const productItem of productItems) {
+                const { img } = productItem._id._doc;
+
+                const data = {
+                    name: productItem.name,
+                    classifyProduct: productItem.classifyProduct,
+                    quantityProduct: productItem.quantityProduct,
+                    imgPath: getImgPathFromImgData(img[0]),
+                };
+                productList.push(data);
+            }
+            const data = {
+                _id,
+                totalCost,
+                status,
+                createdAt,
+                productList,
+                note,
+                deliveryInfo,
+            };
+            result.push(data);
+        }
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// select all checkouts by shop
+export const selectCheckoutByShopId = async (req, res, next) => {
+    try {
+        const checkouts = await Checkout.find({
+            shop: req.params.shopId,
+        })
+            .populate("productItems._id")
+            .sort({ createdAt: -1 });
+        const result = [];
+        for (const checkout of checkouts) {
+            const { _id, totalCost, productItems, status, createdAt, note } =
+                checkout._doc;
+            const productList = [];
+            for (const productItem of productItems) {
+                const { img } = productItem._id._doc;
+
+                const data = {
+                    name: productItem.name,
+                    classifyProduct: productItem.classifyProduct,
+                    quantityProduct: productItem.quantityProduct,
+                    imgPath: getImgPathFromImgData(img[0]),
+                };
+                productList.push(data);
+            }
+            const data = {
+                _id,
+                totalCost,
+                status,
+                createdAt,
+                productList,
+                note,
+            };
+            result.push(data);
+        }
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 // select a checkout
 export const selectCheckoutById = async (req, res, next) => {
     try {
@@ -46,19 +137,13 @@ export const selectCheckoutById = async (req, res, next) => {
         next(error);
     }
 };
-
+// FIXME: bi cham cai nay
 // select all checkouts by user
 export const selectAllCheckoutByUser = async (req, res, next) => {
     try {
         const checkouts = await Checkout.find({ user: req.params.userId })
             .populate({
                 path: "productItems",
-                // select: "name",
-                // transform: (doc) => {
-                //     const { img, ...others } = doc._doc
-                //     const data = { ...others, imgPath: doc.imgPath }
-                //     return data
-                // },
                 populate: {
                     //TODO: Sửa thành product
                     path: "_id",
@@ -115,8 +200,8 @@ export const createCheckout = async (req, res, next) => {
             );
         }
         // update ruby for buyer and seller
-        seller.ruby += totalCost * (1 - rate);
-        buyer.ruby -= totalCost + shipCost;
+        seller.ruby += Number(totalCost) * (1 - rate);
+        buyer.ruby -= Number(totalCost) + Number(shipCost);
         await seller.save();
         await buyer.save();
         const checkout = new Checkout(req.body);

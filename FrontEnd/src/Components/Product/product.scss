@@ -109,3 +109,20 @@
         color: #fff;
     }
 }
+.pagination-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-size: 1.8rem;
+}
+.pagination-link__active{
+    width: 28px;
+    height: 28px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+}

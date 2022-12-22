@@ -23,7 +23,7 @@ router.get("/", getAllProducts);
 router.get("/search", searchProduct);
 
 // ! unknown
-router.get("/category/:cgrId", selectAllProductsByMainCategory);
+router.get("/mainCategory/:cgrId", selectAllProductsByMainCategory);
 
 // asc tang, desc giam
 router.get("/sort/:sort", getAllProductsAndSort);

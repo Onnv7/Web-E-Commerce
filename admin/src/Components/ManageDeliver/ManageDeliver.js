@@ -5,20 +5,123 @@ import axios from "./../../hooks/axios";
 
 const ManageDeliver = () => {
     const [open, setOpen] = useState(false);
-    const [info, setInfo] = useState([]);
+    const [zone1, setZone1] = useState({});
+    const [zone2, setZone2] = useState({});
+    const [zone3, setZone3] = useState({});
+    const [zone4, setZone4] = useState({});
+    const [zone5, setZone5] = useState({});
+    const [info, setInfo] = useState({});
+    const [info1, setInfo1] = useState({});
+    const [cost, setCost] = useState();
     useEffect(() => {
         try {
-            const fetchData = async () => {
-                const { data } = await axios.get("/shippingCost");
+            const fetchZone1 = async () => {
+                const { data } = await axios.get(
+                    "/shippingCost/zone?start=-1&end=-1"
+                );
                 console.log(data);
-                setInfo(data);
+                setZone1(data);
             };
-            fetchData();
+            fetchZone1();
+            const fetchZone2 = async () => {
+                const { data } = await axios.get(
+                    "/shippingCost/zone?start=0&end=0"
+                );
+                console.log(data);
+                setZone2(data);
+            };
+            fetchZone2();
+            const fetchZone3 = async () => {
+                const { data } = await axios.get(
+                    "/shippingCost/zone?start=1&end=2"
+                );
+                setZone3(data);
+            };
+            fetchZone3();
+            const fetchZone4 = async () => {
+                const { data } = await axios.get(
+                    "/shippingCost/zone?start=2&end=3"
+                );
+                setZone4(data);
+            };
+            fetchZone4();
+            const fetchZone5 = async () => {
+                const { data } = await axios.get(
+                    "/shippingCost/zone?start=1&end=3"
+                );
+                setZone5(data);
+            };
+            fetchZone5();
         } catch (err) {
             console.error(err);
         }
     }, []);
-
+    const handleOpen = (zone, sameZone) => {
+        setOpen(true);
+        setInfo(zone);
+        setInfo1(sameZone);
+    };
+    const handleUpdate = async (e) => {
+        e.stopPropagation();
+        try {
+            const deliverCost = cost;
+            if (info1 === undefined) {
+                await axios.patch("/shippingCost/update", {
+                    starting: info.starting,
+                    destination: info.destination,
+                    cost: Number(deliverCost),
+                });
+                setOpen(false);
+            } else {
+                await axios.patch("/shippingCost/update", {
+                    starting: info.starting,
+                    destination: info.destination,
+                    cost: deliverCost,
+                });
+                await axios.patch("/shippingCost/update", {
+                    starting: info1.starting,
+                    destination: info1.destination,
+                    cost: deliverCost,
+                });
+                setOpen(false);
+            }
+            if (info.starting === -1 && info.destination === -1) {
+                setZone1((prev) => {
+                    zone1.cost = deliverCost;
+                    return zone1;
+                });
+            }
+            if (info.starting === 0 && info.destination === 0) {
+                setZone2((prev) => {
+                    zone2.cost = deliverCost;
+                    return zone2;
+                });
+            }
+            if (
+                info.starting === 1 &&
+                info.destination === 2 &&
+                info1.starting === 2 &&
+                info1.destination === 3
+            ) {
+                setZone3((prev) => {
+                    zone3.cost = deliverCost;
+                    return zone3;
+                });
+                setZone4((prev) => {
+                    zone4.cost = deliverCost;
+                    return zone4;
+                });
+            }
+            if (info.starting === 1 && info.destination === 3) {
+                setZone5((prev) => {
+                    zone5.cost = deliverCost;
+                    return zone5;
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className="manageDeliver">
             <div className="manageDeliver-fee">
@@ -26,27 +129,35 @@ const ManageDeliver = () => {
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
                             <span>PHÍ VẬN CHUYỂN - CÙNG QUẬN</span>
-                            <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
+                            <span onClick={() => handleOpen(zone1)}>
+                                THAY ĐỔI
+                            </span>
                         </div>
                         <span>
-                            Free <Crown size={30} variant="Bold" />
+                            {zone1.cost === 0 ? "Free" : zone1.cost}
+                            <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
                             <span>PHÍ VẬN CHUYỂN</span>
-                            <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
+                            <span onClick={() => handleOpen(zone3, zone4)}>
+                                THAY ĐỔI
+                            </span>
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG 1 {"<"}--{">"} VÙNG 2
+                                VÙNG {zone3.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone3.destination}
                             </span>
                             <span>
-                                VÙNG 2 {"<"}--{">"} VÙNG 3
+                                VÙNG {zone4.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone4.destination}
                             </span>
                         </div>
                         <span>
-                            35 <Crown size={30} variant="Bold" />
+                            {zone3.cost && zone4.cost}
+                            <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                 </div>
@@ -55,24 +166,30 @@ const ManageDeliver = () => {
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
                             <span>PHÍ VẬN CHUYỂN - CÙNG VÙNG</span>
-                            <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
+                            <span onClick={() => handleOpen(zone2)}>
+                                THAY ĐỔI
+                            </span>
                         </div>
                         <span>
-                            30 <Crown size={30} variant="Bold" />
+                            {zone2.cost}
+                            <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                     <div className="manageDeliver-feeItem">
                         <div className="manageDeliver-feeTitle">
                             <span>PHÍ VẬN CHUYỂN</span>
-                            <span onClick={() => setOpen(true)}>THAY ĐỔI</span>
+                            <span onClick={() => handleOpen(zone5)}>
+                                THAY ĐỔI
+                            </span>
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG 1 {"<"}--{">"} VÙNG 3
+                                VÙNG {zone5.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone5.destination}
                             </span>
                         </div>
                         <span>
-                            45 <Crown variant="Bold" />
+                            {zone5.cost} <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                 </div>
@@ -128,7 +245,11 @@ const ManageDeliver = () => {
                         <div className="modal-changeShipBox">
                             <span>Phí Ship</span>
                             <div className="modal-changeShipInput">
-                                <input type="number" />
+                                <input
+                                    type="number"
+                                    onChange={(e) => setCost(e.target.value)}
+                                    defaultValue={info.cost}
+                                />
                                 <Crown size={20} variant="Bold" />
                             </div>
                         </div>
@@ -137,7 +258,7 @@ const ManageDeliver = () => {
                                 <Back size={32} />
                                 Quay Lại
                             </button>
-                            <button>Xác Nhận</button>
+                            <button onClick={handleUpdate}>Xác Nhận</button>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import axios from "../../hooks/axios";
 
 const ManageSeller = () => {
     const [info, setInfo] = useState([]);
+    const [count, setCount] = useState({});
     useEffect(() => {
         try {
             const fetchData = async () => {
@@ -21,29 +22,47 @@ const ManageSeller = () => {
                 console.log(data);
             };
             fetchData();
+            const fetchCount = async () => {
+                const { data } = await axios.get("/users/count/seller");
+                console.log(count);
+                setCount(data);
+            };
+            fetchCount();
         } catch (err) {
             console.error(err);
         }
     }, []);
+    // useEffect(() => {
+    //     try {
+    //         const fetchData1 = async () => {
+    //             const { data } = await axios.get("/users/count/seller");
+    //             console.log(count);
+    //             setCount(data);
+    //         };
+    //         fetchData1();
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }, []);
     return (
         <div className="manageSeller">
             <div className="manageRevenue-countBox">
                 <div className="manageRevenue-count">
                     <span>TỔNG SHOP MỖI - NGÀY</span>
                     <span>
-                        100 <Shop variant="Bold" size={30} />
+                        {count.day} <Shop variant="Bold" size={30} />
                     </span>
                 </div>
                 <div className="manageRevenue-count">
                     <span>TỔNG SHOP MỖI - TUẦN</span>
                     <span>
-                        100 <Shop variant="Bold" size={30} />
+                        {count.week} <Shop variant="Bold" size={30} />
                     </span>
                 </div>
                 <div className="manageRevenue-count">
                     <span>TỔNG SHOP MỖI - THÁNG</span>
                     <span>
-                        100 <Shop variant="Bold" size={30} />
+                        {count.month} <Shop variant="Bold" size={30} />
                     </span>
                 </div>
             </div>

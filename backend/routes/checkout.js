@@ -9,6 +9,8 @@ import {
     deleteCheckout,
     shopRevenue,
     adminRevenue,
+    selectCheckoutByShopIdAndStatus,
+    selectCheckoutByShopId,
     selectAllCheckouts,
 } from "../controllers/checkoutController.js";
 const router = express.Router();
@@ -29,14 +31,22 @@ router.get("/all/:userId", selectAllCheckoutByUser);
 // Truen query ?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd
 router.get("/revenueAdmin", adminRevenue);
 
+// !seller
+// select revenue by shop id
+router.get("/revenue/:shopId", shopRevenue);
+
+// !seller
+// select checkout by shop id and status
+router.get("/shop/:status/:shopId/", selectCheckoutByShopIdAndStatus);
+
+// !seller
+// select checkout by shop id
+router.get("/shop/:shopId", selectCheckoutByShopId);
+
 // !admin
 // TODO: check using
 // select a checkout
 router.get("/:id", selectCheckoutById);
-
-// !seller
-// select shop by shop id
-router.get("/revenue/:shopId", shopRevenue);
 
 // !user
 // TODO: check using
