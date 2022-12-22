@@ -32,6 +32,7 @@ export const updateCheckout = async (req, res, next) => {
         );
         res.status(200).json(result);
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };
@@ -171,7 +172,6 @@ export const selectAllCheckoutByUser = async (req, res, next) => {
 };
 
 // create a new checkout
-// TODO: them +1 cho so luong da ban
 export const createCheckout = async (req, res, next) => {
     try {
         // TODO: chỉnh phần trăm ăn lời tại rate

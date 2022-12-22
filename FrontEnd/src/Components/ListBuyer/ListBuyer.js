@@ -24,7 +24,7 @@ const ListBuyer = () => {
                     <span>Mức đấu giá</span>
                     <span>Thời gian ra giá</span>
                 </div>
-                {auction.shop.map((a, index) => (
+                {auction.auctionHistory.map((a, index) => (
                     <div className="listBuyer-Item" key={index}>
                         <Link
                             to={`/shop/${a._id}`}

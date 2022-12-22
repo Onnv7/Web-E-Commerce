@@ -36,6 +36,14 @@
     margin: 0 60px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    &::after{
+        position: absolute;
+        content: "";
+        width: 100%;
+        top: -20px;
+        border: 1px solid var(--sub-color);
+    }
 }
 .profileAddress-item{
     
@@ -66,23 +74,13 @@
     border-radius: 10px;
     color: #fff;
     font-size: 2.6rem;
-    &:first-child{
-        background-color: #fff;
-        color: rgba(220, 91, 14, 0.6);
+    background-color: #fff;
+    color: rgba(220, 91, 14, 0.6);
         &:hover{
             cursor: pointer;
             background-color: var(--primary-color);
             color: #fff;
         }
-    }
-    &:last-child{
-        background-color: rgba(220, 91, 14, 0.7);
-        &:hover{
-            cursor: pointer;
-            color: var(--primary-color);
-        }
-    }
-
 }
 .addressModal{
     position: fixed;

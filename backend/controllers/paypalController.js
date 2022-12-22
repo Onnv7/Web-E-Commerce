@@ -10,6 +10,7 @@ paypal.configure({
 });
 
 export const pay = async (req, res, next) => {
+    console.log("Pay");
     const money = req.body.money;
     const userID = req.params.id; //getIdUser(req, res, next);
     const create_payment_json = {

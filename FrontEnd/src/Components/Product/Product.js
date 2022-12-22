@@ -15,7 +15,7 @@ import { PaginationContext } from "../../context/PaginationContext.js";
 const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
     const { productsPage, totalPages, dispatch } =
         useContext(PaginationContext);
-    const productData = useRef([]);
+    let productData = useRef([]);
     productData.current = products;
     const [productList, setProductList] = useState([]);
     const indexPage = useRef(1);
@@ -46,25 +46,12 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
             },
         });
     };
-    // const init = async () => {
-    //     indexPage.current = 1;
-    //     // const { data } = await axios.get();
-    //     // productData.current = data;
-    //     productData.current = products;
-    //     const result = {
-    //         items: productData.current,
-    //         currentPage: indexPage.current,
-    //         pageCount: pageCount,
-    //     };
-    //     dispatch({ type: "START", payload: result });
-    // };
-    // init();
     useEffect(() => {
         const init = async () => {
             indexPage.current = 1;
             // const { data } = await axios.get();
             // productData.current = data;
-            productData.current = products;
+            // productData.current = products;
             const result = {
                 items: productData.current,
                 currentPage: indexPage.current,
@@ -73,11 +60,10 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
             dispatch({ type: "START", payload: result });
         };
         init();
-    }, [productData.current, products]);
+    }, [products]);
     return (
         productsPage && (
             <div className="product">
-                {console.log("REDNDER CONNN")}
                 <div className="grid wide">
                     <div className="row sm-gutter">
                         {productsPage.map((product) => (

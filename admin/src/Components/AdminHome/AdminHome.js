@@ -4,18 +4,15 @@ import ManageSeller from "../ManageSeller/ManageSeller";
 import ManageBuyer from "../ManageBuyer/ManageBuyer";
 import HomePage from "../HomePage/HomePage";
 import ManageDeliver from "../ManageDeliver/ManageDeliver";
-import ManageRevenue from "../ManageRevenue/ManageRevenue";
 import ManageCategory from "../ManageCategory/ManageCategory";
 import "./adminHome.scss";
 
 const AdminHome = () => {
     const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
     const [slide, setSlide] = useState(<HomePage />);
     const openHome = () => {
         setSlide(<HomePage setSlide={setSlide} />);
-    };
-    const openRevenue = () => {
-        setSlide(<ManageRevenue />);
     };
 
     const openBuyer = () => {
@@ -32,17 +29,12 @@ const AdminHome = () => {
     const openCategory = () => {
         setSlide(<ManageCategory />);
     };
-
     return (
         <div className="adminHome">
             <div className="adminHome-navbar">
                 <span onClick={openHome}>
                     <Home variant="Bold" />
                     Trang chủ
-                </span>
-                <span onClick={openRevenue}>
-                    <Note variant="Bold" />
-                    Quản lý Doanh Thu
                 </span>
                 <span onClick={() => setOpen(true)}>
                     <User variant="Bold" />

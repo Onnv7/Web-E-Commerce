@@ -12,13 +12,13 @@ import {
 } from "iconsax-react";
 import { StoreContext } from "../../context/StoreContext";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const ProductNote = () => {
     const { state, contextDispatch } = useContext(StoreContext);
-    console.log(state);
     const {
         wishlist: { wishlistItems },
     } = state;
-
+    console.log(wishlistItems);
     const [active, setActive] = useState(1);
 
     const handleChange = (i) => {
@@ -29,6 +29,7 @@ const ProductNote = () => {
             type: "WISHLIST_CHANGE_ITEM",
             payload: product,
         });
+        toast.success("Bỏ thích sản phẩm thành công");
     };
     return (
         <div className="productNote">
@@ -40,33 +41,19 @@ const ProductNote = () => {
                     >
                         Mua hàng
                     </button>
-                    <button
-                        className={active === 2 ? "click" : ""}
-                        onClick={() => handleChange(2)}
-                    >
-                        Đấu giá
-                    </button>
                 </div>
 
                 <div className={active === 1 ? "productNote-list" : "tab-hide"}>
                     {wishlistItems.map((wishItem) => (
                         <div className="productNote-item" key={wishItem._id}>
                             <div className="productNote-body">
-                                <img src={wishItem.imgPath[0]} alt="" />
+                                <img src={wishItem.imgPath} alt="" />
                                 <div className="productNote-bodyText">
                                     <span>{wishItem.name}</span>
                                     <div className="productNote-bodyType">
                                         <span>
-                                            Thương hiệu: {wishItem.brand}
-                                        </span>
-                                        <span>
-                                            Phân loại:{" "}
-                                            {" " + wishItem.classify[0].name}
-                                        </span>
-                                        <span>
-                                            Số lượng có sẵn:{" "}
-                                            {" " +
-                                                wishItem.classify[0].quantity}
+                                            Số lượng đã bán:{" "}
+                                            {" " + wishItem.soldQuantity}
                                         </span>
                                     </div>
                                 </div>
@@ -102,213 +89,12 @@ const ProductNote = () => {
                                     />
                                 </div>
                                 <span>
-                                    Giá tiền: {wishItem.classify[0].price}
+                                    Giá tiền: {wishItem.price}
                                     <Crown size={34} variant="Bold" />
                                 </span>
                             </div>
                         </div>
                     ))}
-                    <div className="productNote-item">
-                        <div className="productNote-header">
-                            <div className="productNote-itemTitle">
-                                <span>Thế giới di động</span>
-                                <button>
-                                    <Shop />
-                                    Tham quan
-                                </button>
-                                <button>
-                                    <MessageText1 variant="Bold" />
-                                    Liên hệ
-                                </button>
-                            </div>
-                            <span>Xóa</span>
-                        </div>
-                        <div className="productNote-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productNote-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <div className="productNote-bodyType">
-                                    <span>Tuỳ chọn: 512G</span>
-                                    <span>Số lượng: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="productNote-footer">
-                            <button>Mua ngay</button>
-                            <span>
-                                Giá tiền: 800 <Crown size={34} variant="Bold" />
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    className={
-                        active === 2 ? "productNoteAuc-list" : "tab-hide"
-                    }
-                >
-                    <div className="productNote-item">
-                        <div className="productNote-header">
-                            <div className="productNoteAuc-itemTitle">
-                                <span>Thế giới di động</span>
-                                <button>
-                                    <Messages2 />
-                                    Trò chuyện với người mua
-                                </button>
-                            </div>
-                            <span>Xóa</span>
-                        </div>
-                        <div className="productNote-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productNote-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <div className="productNote-bodyType">
-                                    <span>
-                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
-                                    </span>
-                                    <span>Số lượng: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="productNoteAuc-footer">
-                            <button>Tiếp tục đấu giá</button>
-                            <div className="productNoteAuc-footerInfo">
-                                <span>
-                                    Mức đấu giá mới nhất: 800{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                                <span>
-                                    Mức đấu giá mới nhất của bạn: 400{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="productNote-item">
-                        <div className="productNote-header">
-                            <div className="productNoteAuc-itemTitle">
-                                <span>Thế giới di động</span>
-                                <button>
-                                    <Messages2 />
-                                    Trò chuyện với người mua
-                                </button>
-                            </div>
-                            <span>Xóa</span>
-                        </div>
-                        <div className="productNote-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productNote-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <div className="productNote-bodyType">
-                                    <span>
-                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
-                                    </span>
-                                    <span>Số lượng: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="productNoteAuc-footer">
-                            <button>Tiếp tục đấu giá</button>
-                            <div className="productNoteAuc-footerInfo">
-                                <span>
-                                    Mức đấu giá mới nhất: 800{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                                <span>
-                                    Mức đấu giá mới nhất của bạn: 400{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="productNote-item">
-                        <div className="productNote-header">
-                            <div className="productNoteAuc-itemTitle">
-                                <span>Thế giới di động</span>
-                                <button>
-                                    <Messages2 />
-                                    Trò chuyện với người mua
-                                </button>
-                            </div>
-                            <span>Xóa</span>
-                        </div>
-                        <div className="productNote-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productNote-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <div className="productNote-bodyType">
-                                    <span>
-                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
-                                    </span>
-                                    <span>Số lượng: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="productNoteAuc-footer">
-                            <button>Tiếp tục đấu giá</button>
-                            <div className="productNoteAuc-footerInfo">
-                                <span>
-                                    Mức đấu giá mới nhất: 800{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                                <span>
-                                    Mức đấu giá mới nhất của bạn: 400{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="productNote-item">
-                        <div className="productNote-header">
-                            <div className="productNoteAuc-itemTitle">
-                                <span>Thế giới di động</span>
-                                <button>
-                                    <Messages2 />
-                                    Trò chuyện với người mua
-                                </button>
-                            </div>
-                            <span>Xóa</span>
-                        </div>
-                        <div className="productNote-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productNote-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <div className="productNote-bodyType">
-                                    <span>
-                                        Thời gian còn lại: 2 ngày 8 giờ 21 phút
-                                    </span>
-                                    <span>Số lượng: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="productNoteAuc-footer">
-                            <button>Tiếp tục đấu giá</button>
-                            <div className="productNoteAuc-footerInfo">
-                                <span>
-                                    Mức đấu giá mới nhất: 800{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                                <span>
-                                    Mức đấu giá mới nhất của bạn: 400{" "}
-                                    <Crown size={34} variant="Bold" />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

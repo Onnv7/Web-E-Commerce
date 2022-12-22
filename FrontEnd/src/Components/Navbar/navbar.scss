@@ -81,9 +81,8 @@
 }
 .navList-money{
     display: flex;
-    align-items: center;
-    gap: 8px;
     position: relative;
+    align-items: flex-end;
     >span{
         font-size: 1.8rem;
     }

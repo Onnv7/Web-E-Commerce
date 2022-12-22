@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res) => res.render("index"));
 
 // !user
-router.post("/pay/:id", verifyUser, pay);
+router.post("/pay/:id", pay);
 
 // !user
 //delete

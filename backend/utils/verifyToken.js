@@ -28,7 +28,7 @@ export const verifyUser = (req, res, next) => {
 
 export const verifyBuyer = (req, res, next) => {
     verifyToken(req, res, () => {
-        if (req.user.id === req.params.id && req.user.role === "buyer") {
+        if (req.user.id === req.params.id && req.user.role === "seller") {
             next();
         } else {
             return next(createError(403, "You are not seller!"));

@@ -15,6 +15,32 @@ import { getTextSearch } from "../utils/formatIO.js";
 // select products by main category
 export const selectAllProductsByMainCategory = async (req, res, next) => {
     try {
+        if (req.params.cgrId === "all") {
+            const shopIds = await Shop.find().select("_id");
+
+            const products = await Product.find({
+                shop: { $in: shopIds },
+            }).populate("shop");
+            const result = [];
+            for (const product of products) {
+                const { shop } = product._doc;
+                const address =
+                    shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+                const imgPath = getImgPathFromImgData(product.img[0]);
+                const data = {
+                    _id: product._id,
+                    name: product.name,
+                    soldQuantity: product.soldQuantity,
+                    price: product.classify[0].price,
+                    ratingAverage: product.ratingAverage,
+                    slug: product.slug,
+                    address,
+                    imgPath,
+                };
+                result.push(data);
+            }
+            res.status(200).json(result);
+        }
         const shopIds = await Shop.find({
             mainCategory: req.params.cgrId,
         }).select("_id");
@@ -50,7 +76,22 @@ export const selectAllProductsByMainCategory = async (req, res, next) => {
 export const searchProduct = async (req, res, next) => {
     try {
         const input = getTextSearch(req.query.text);
-        let products = await Product.find({ $text: { $search: input } });
+        const cgrId = req.query.cgrId;
+
+        let products;
+        if (cgrId === "all") {
+            products = await Product.find({
+                $text: { $search: input },
+            }).populate("classify");
+        } else if (cgrId !== null) {
+            products = await Product.find()
+                .populate("shop")
+                .find({ mainCategory: cgrId })
+                .find({
+                    $text: { $search: input },
+                });
+        }
+
         const result = [];
         for (const product of products) {
             const shop = await Shop.findById(product.shop);
@@ -61,11 +102,16 @@ export const searchProduct = async (req, res, next) => {
                 _id: product._id,
                 name: product.name,
                 soldQuantity: product.soldQuantity,
+                price: product.classify[0].price,
                 subCategory: product.subCategory,
+                ratingAverage: product.ratingAverage,
+                slug: product.slug,
+                address,
                 imgPath,
             };
             result.push(data);
         }
+
         res.status(200).json(result);
     } catch (error) {
         next(error);

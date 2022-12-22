@@ -178,9 +178,6 @@ const ProfileAddress = () => {
                                 {d.distinct}, {d.province}
                             </span>
                             <div className="profileAddress-btn">
-                                <button onClick={() => updateHandler(d._id)}>
-                                    Cập nhật
-                                </button>
                                 <button onClick={() => deleteHandler(d._id)}>
                                     Xóa
                                 </button>

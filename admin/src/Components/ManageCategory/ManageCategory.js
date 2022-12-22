@@ -1,6 +1,7 @@
 import { CloseCircle } from "iconsax-react";
 import React, { useState, useEffect } from "react";
 import axios from "./../../hooks/axios";
+import { toast } from "react-toastify";
 import "./manageCategory.scss";
 
 // Import React FilePond
@@ -40,6 +41,7 @@ const ManageCategory = () => {
             const fetchData = async () => {
                 const { data } = await axios.get("/categories/");
                 setInfo(data);
+                console.log(data);
             };
             fetchData();
         } catch (error) {
@@ -65,70 +67,65 @@ const ManageCategory = () => {
                 img,
             });
             setReload(!reload);
-            alert("Thêm danh mục chính thành công");
+            toast.message("Thêm danh mục chính thành công");
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    const handleDel = async (id) => {
+        try {
+            console.log(id);
+            await axios.delete(`/categories/${id}`);
+            setReload(!reload);
+            toast.message("Xóa danh mục chính thành công");
         } catch (error) {
             console.log(error.message);
         }
     };
     return (
         <div className="manageCategory">
-            {info.map((item) => (
+            <div className="manageCategory-container">
+                {info.map((item) => (
+                    <div key={item._id} className="manageCategory-Item">
+                        <img src={item.imgPath} alt="" />
+                        <span>{item.name}</span>
+                        <CloseCircle
+                            className="manageCategory-Icon"
+                            size={24}
+                            onClick={() => {
+                                handleDel(item._id);
+                            }}
+                        />
+                    </div>
+                ))}
                 <div className="manageCategory-Item">
-                    <img src={item.imgPath} alt="" />
-                    <span>{item.name}</span>
+                    <img src="../../Img/iphone14.png" alt="" />
+
+                    <span>Loại 1</span>
                     <CloseCircle className="manageCategory-Icon" size={24} />
                 </div>
-            ))}
-            <div className="manageCategory-Item">
-                <img src="../../Img/iphone14.png" alt="" />
-
-                <span>Loại 1</span>
-                <CloseCircle className="manageCategory-Icon" size={24} />
             </div>
-            <button onClick={() => setOpen(true)}>Tạo Danh Mục</button>
-            <FilePond
-                files={files}
-                onupdatefiles={setFiles}
-                allowMultiple={false}
-                maxFiles={3}
-                maxFileSize="3MB"
-                //server="/api"
-                name="img"
-                labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-            />
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            {open && (
-                <div className="modal-manageCategory">
-                    <div className="modal-manageCategoryContainer">
-                        <span>Tạo Danh Mục</span>
-                        <FilePond
-                            files={files}
-                            onupdatefiles={setFiles}
-                            allowMultiple={false}
-                            maxFiles={3}
-                            maxFileSize="3MB"
-                            //server="/api"
-                            name="img"
-                            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-                        />
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        <div className="modal-manageCategoryBtn">
-                            <button onClick={() => setOpen(false)}>Hủy</button>
-                            <button onClick={createMainCategoryHandler}>
-                                Tạo
-                            </button>
-                        </div>
-                    </div>
+            <div className="manageCategory-create">
+                <span>Tạo Danh Mục Mới</span>
+                <FilePond
+                    files={files}
+                    onupdatefiles={setFiles}
+                    allowMultiple={false}
+                    maxFiles={3}
+                    maxFileSize="3MB"
+                    //server="/api"
+                    name="img"
+                    labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                />
+                <div className="manageCategory-input">
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <button onClick={createMainCategoryHandler}>Tạo</button>
                 </div>
-            )}
+            </div>
         </div>
     );
 };

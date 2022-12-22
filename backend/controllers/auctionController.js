@@ -166,6 +166,7 @@ export const selectAuctionById = async (req, res, next) => {
     try {
         const auction = await Auction.findById(req.params.id);
         const {
+            _id,
             product,
             startingPrice,
             endTime,
@@ -188,10 +189,12 @@ export const selectAuctionById = async (req, res, next) => {
         const buyer = await User.findById(auction.buyer);
         const imgPathUser = getImgPathFromImgData(buyer.img);
         const user = {
+            _id: buyer._id,
             name: buyer.name,
             imgPath: imgPathUser,
         };
         const data = {
+            _id,
             name: product.name,
             description: product.description,
             quantity: product.quantity,
@@ -203,7 +206,7 @@ export const selectAuctionById = async (req, res, next) => {
             start: auction.createdAt,
             end: endTime,
             countAuction: auctionHistory.length,
-            shop,
+            auctionHistory: shop,
             user,
         };
         res.status(200).json(data);

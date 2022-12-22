@@ -9,22 +9,11 @@
 }
 .auctionList-title{
     font-size: 1.8rem;
+    display: flex;
+    justify-content: space-between;
     >span{
-        &:nth-child(1){
-            margin: 0 120px;
-        }
-        &:nth-child(2){
-            margin-left: 120px;
-        }
-        &:nth-child(3){
-            margin-left: 21px;
-        }
-        &:nth-child(4){
-            margin-left: 100px;
-        }
-        &:nth-child(5){
-            float: right;
-        }
+        flex: 1;
+        text-align: center;
     }
 }
 .auctionList-item{
@@ -38,11 +27,14 @@
 
     >span{
         font-size: 2rem;
+        flex: 1;
+        text-align: center;
         &:nth-of-type(2){
             display: flex;
             align-items: flex-start;
             gap: 4px;
             color: var(--primary-color);
+            justify-content: center;
         }
     }
 }
@@ -50,7 +42,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-
+    flex: 1;
     >img{
         width: 120px;
         height: 120px;
@@ -69,7 +61,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+    flex: 1;
+    text-align: center;
 }
 .auctionList-action{
     display: flex;
