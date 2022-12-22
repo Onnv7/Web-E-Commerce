@@ -65,6 +65,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 10px;
 }
 .manageProduct-title{
     display: flex;
@@ -110,11 +111,23 @@
 .manageProduct-box{
     display: flex;
     gap: 20px;
+    position: relative;
+    
     >span{
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    &:nth-child(n+2){
+       &::after{
+        position: absolute;
+        content: "";
+        display: block;
+        border: 1px solid var(--primary-color) ;
+        top: -10px;
+        width: 100%;
+       }
     }
 }
 .manageProduct-product{

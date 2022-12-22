@@ -8,8 +8,10 @@ import {
     deleteUser,
     selectUser,
     selectAllUsers,
-    countUser,
+    countBuyer,
     selectAllSellers,
+    countSeller,
+    generalStatistics,
 } from "../controllers/userController.js";
 import { verifyToken, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -20,6 +22,9 @@ const router = express.Router();
 // select all users
 router.get("/", selectAllUsers);
 
+// ! admin
+// TODO: check using
+// select all sellers
 router.get("/seller", selectAllSellers);
 
 // ! admin
@@ -29,7 +34,17 @@ router.get("/username/:username", selectUserByUserName);
 // ! admin
 // TODO: check using
 // count user per day, week, month
-router.get("/count", countUser);
+router.get("/count/buyer", countBuyer);
+
+// ! admin
+// TODO: check using
+// count user per day, week, month
+router.get("/count/seller", countSeller);
+
+// ! admin
+// TODO: check using
+// count seller per day, week, month
+router.get("/statistics", generalStatistics);
 
 // ! user
 // TODO: check using

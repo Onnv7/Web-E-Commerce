@@ -64,7 +64,10 @@ function App() {
                 <Route path="/seller/become" element={<BecomeSeller />} />
 
                 <Route path="/shop/:id" element={<ViewShop />} />
-                <Route path="/detail/:id" element={<DetailCategory />} />
+                <Route
+                    path="/search/category/:id"
+                    element={<DetailCategory />}
+                />
             </Routes>
         </BrowserRouter>
     );

@@ -15,26 +15,32 @@ import { getTextSearch } from "../utils/formatIO.js";
 // select products by main category
 export const selectAllProductsByMainCategory = async (req, res, next) => {
     try {
-        const shops = await Shop.find(
-            {
-                mainCategory: req.params.cgrId,
-            },
-            { _id: 1 }
-        );
-        const shopId = [];
-        shops.forEach((shop) => {
-            shopId.push(shop._id);
-        });
-        console.log(
-            "🚀 ~ file: productController.js:25 ~ selectAllProductsByMainCategory ~ shopIds",
-            shopId
-        );
-        // const products = [];
-        // for (const shop of shops) {
-        //     const allProducts = await Product.find({ shop: shop._id });
-        // }
-        // const result = getUrlImageForArrObject(products);
-        res.status(200).json(shopId);
+        const shopIds = await Shop.find({
+            mainCategory: req.params.cgrId,
+        }).select("_id");
+
+        const products = await Product.find({
+            shop: { $in: shopIds },
+        }).populate("shop");
+        const result = [];
+        for (const product of products) {
+            const { shop } = product._doc;
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: product._id,
+                name: product.name,
+                soldQuantity: product.soldQuantity,
+                price: product.classify[0].price,
+                ratingAverage: product.ratingAverage,
+                slug: product.slug,
+                address,
+                imgPath,
+            };
+            result.push(data);
+        }
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }
@@ -79,17 +85,6 @@ export const selectProductsByCategory = async (req, res, next) => {
 // select all products by shop id
 export const selectAllProductsByShopId = async (req, res, next) => {
     try {
-        // let products;
-        // if (req.query.cate) {
-        //     products = await Product.find({
-        //         shop: req.params.shopId,
-        //         subCategory: req.query.cate,
-        //     });
-        // } else {
-        //     products = await Product.find({
-        //         shop: req.params.shopId,
-        //     });
-        // }
         const result = [];
         const products = await Product.find({ shop: req.params.shopId });
         for (const product of products) {
@@ -106,7 +101,6 @@ export const selectAllProductsByShopId = async (req, res, next) => {
             };
             result.push(data);
         }
-        // const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {
         next(err);
@@ -135,7 +129,6 @@ export const getAllProducts = async (req, res, next) => {
             };
             result.push(data);
         }
-        // const result = getUrlImageForArrObject(products);
         res.status(200).json(result);
     } catch (err) {
         next(err);

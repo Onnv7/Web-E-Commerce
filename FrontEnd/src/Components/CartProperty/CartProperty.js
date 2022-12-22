@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const CartProperty = () => {
     const { user } = useContext(AuthContext);
+    const [userDetail, setUserDetail] = useState();
     const { state, contextDispatch } = useContext(StoreContext);
     const {
         cart: { cartItems, shopItems },
@@ -16,6 +17,13 @@ const CartProperty = () => {
     const [products, setProducts] = useState([]);
     const [shops, setShops] = useState([]);
     const navigate = useNavigate();
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/users/${user._id}`);
+            setUserDetail(data);
+        };
+        fetchData();
+    }, [user]);
     useEffect(() => {
         setProducts([]);
         cartItems.forEach(async (element) => {
@@ -268,8 +276,11 @@ const CartProperty = () => {
                                 <Crown variant="Bold" />
                             </span>
                         </div>
+
                         {cartItems.length > 0 ? (
-                            user.username && user.deliveryInfo ? (
+                            userDetail &&
+                            userDetail.name &&
+                            userDetail.deliveryInfo ? (
                                 <button>
                                     <Link
                                         to="/payment"
@@ -289,6 +300,11 @@ const CartProperty = () => {
                                             textDecoration: "none",
                                             color: "#fff",
                                         }}
+                                        onClick={() =>
+                                            toast.warning(
+                                                "Trước khi tiến thành thanh toán, phải cập nhật lại thông tin cá nhân và địa chỉ "
+                                            )
+                                        }
                                     >
                                         Xác nhận
                                     </Link>

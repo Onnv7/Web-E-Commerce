@@ -1,14 +1,27 @@
 import User from "../models/userModel.js";
 import Shop from "../models/shopModel.js";
+import Checkout from "../models/checkoutModel.js";
 import bcrypt from "bcryptjs";
 import { getImgPathFromImgData } from "../utils/getUrlImage.js";
 import { getDataFromImage } from "../utils/saveFile.js";
 
-export const countUser = async (req, res, next) => {
+// FIXME
+export const generalStatistics = async (req, res, next) => {
     try {
-        const countMonth = countUserPerMonth();
-        const countWeek = countUserPerWeek();
-        const countDay = countUserPerDay();
+        const countBuyer = await User.countDocuments();
+        const countSeller = await User.countDocuments({ role: "seller" });
+        const revenueThisMonth = await revenueThisMonthAdmin();
+        res.status(200).json({ countBuyer, countSeller, revenueThisMonth });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const countBuyer = async (req, res, next) => {
+    try {
+        const countMonth = await countUserPerMonth(0);
+        const countWeek = await countUserPerWeek(0);
+        const countDay = await countUserPerDay(0);
         res.status(200).json({
             day: countDay,
             week: countWeek,
@@ -18,23 +31,75 @@ export const countUser = async (req, res, next) => {
         next(error);
     }
 };
-const countUserPerMonth = async () => {
+
+export const countSeller = async (req, res, next) => {
+    try {
+        const countMonth = await countUserPerMonth(1);
+        const countWeek = await countUserPerWeek(1);
+        const countDay = await countUserPerDay(1);
+        res.status(200).json({
+            day: countDay,
+            week: countWeek,
+            month: countMonth,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+export const revenueThisMonthAdmin = async () => {
+    try {
+        const currentMonth = new Date().getMonth(); // Lấy tháng hiện tại
+        const currentYear = new Date().getFullYear(); // Lấy năm hiện tại
+        const startOfMonth = new Date(currentYear, currentMonth, 1); // Ngày bắt đầu của tháng hiện tại
+        const endOfMonth = new Date(currentYear, currentMonth + 1, 1); // Ngày kết thúc của tháng hiện tại
+        const revenue = await Checkout.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+                },
+            },
+            {
+                $group: {
+                    _id: null,
+                    total: { $sum: "$totalCost" },
+                },
+            },
+            {
+                $project: {
+                    total: { $multiply: ["$total", 0.25] },
+                },
+            },
+        ]);
+        return revenue[0].total;
+    } catch (error) {}
+};
+const countUserPerMonth = async (flag) => {
     const startOfMonth = new Date();
     startOfMonth.setDate(1);
 
     const endOfMonth = new Date();
     endOfMonth.setMonth(endOfMonth.getMonth() + 1);
     endOfMonth.setDate(0);
-
-    const count = await User.countDocuments({
-        createdAt: {
-            $gte: startOfMonth,
-            $lt: endOfMonth,
-        },
-    });
+    let count;
+    if (flag === 0) {
+        count = await User.countDocuments({
+            createdAt: {
+                $gte: startOfMonth,
+                $lt: endOfMonth,
+            },
+        });
+    } else {
+        count = await User.countDocuments({
+            role: "seller",
+            createdAt: {
+                $gte: startOfMonth,
+                $lt: endOfMonth,
+            },
+        });
+    }
     return count;
 };
-const countUserPerWeek = async () => {
+const countUserPerWeek = async (flag) => {
     const startOfWeek = new Date();
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
     startOfWeek.setHours(0, 0, 0, 0);
@@ -43,27 +108,49 @@ const countUserPerWeek = async () => {
     endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
     endOfWeek.setHours(23, 59, 59, 999);
 
-    const count = await User.countDocuments({
-        createdAt: {
-            $gte: startOfWeek,
-            $lt: endOfWeek,
-        },
-    });
+    let count;
+    if (flag === 0) {
+        count = await User.countDocuments({
+            createdAt: {
+                $gte: startOfWeek,
+                $lt: endOfWeek,
+            },
+        });
+    } else {
+        count = await User.countDocuments({
+            role: "seller",
+            createdAt: {
+                $gte: startOfWeek,
+                $lt: endOfWeek,
+            },
+        });
+    }
     return count;
 };
-const countUserPerDay = async () => {
+const countUserPerDay = async (flag) => {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
 
-    const count = await User.countDocuments({
-        createdAt: {
-            $gte: startOfDay,
-            $lt: endOfDay,
-        },
-    });
+    let count;
+    if (flag === 0) {
+        count = await User.countDocuments({
+            createdAt: {
+                $gte: startOfDay,
+                $lt: endOfDay,
+            },
+        });
+    } else {
+        count = await User.countDocuments({
+            role: "seller",
+            createdAt: {
+                $gte: startOfDay,
+                $lt: endOfDay,
+            },
+        });
+    }
     return count;
 };
 // update user

@@ -1,52 +1,81 @@
-import { Crown } from 'iconsax-react';
-import React from 'react';
+import { Crown } from "iconsax-react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "./../../hooks/axios";
 
 const AllProduct = () => {
+    const { user } = useContext(AuthContext);
+    const [shop, setShop] = useState();
+    const [checkouts, setCheckouts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`shops/${user._id}`);
+            console.log(data);
+            setShop(data);
+        };
+        fetchData();
+    }, [user]);
+
+    useEffect(() => {
+        if (shop) {
+            const fetchData = async () => {
+                const { data } = await axios.get(`/checkouts/shop/${shop._id}`);
+                console.log(data);
+                setCheckouts(data);
+            };
+            fetchData();
+        }
+    }, [shop]);
     return (
-        <div className="manageProduct-List">
-            <div className="manageProduct-user">
-                <span>nguoimua1</span>
-                <span>Mã đơn: abcxyz123321</span>
-            </div>
-            <div className="manageProduct-item">
-                <div className="manageProduct-content">
-                    <div className="manageProduct-box">
-                        <div className="manageProduct-product">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="manageProduct-info">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
-                                <div className="manageProduct-infoType">
-                                    <span>Size: 512G</span>
-                                    <span>Màu sắc: Deep Purple</span>
+        checkouts &&
+        checkouts.map((checkout) => (
+            <div className="manageProduct-List" key={checkout._id}>
+                <div className="manageProduct-user">
+                    <span>Mã đơn: {checkout._id}</span>
+                </div>
+                <div className="manageProduct-item">
+                    <div className="manageProduct-content">
+                        {checkout.productList.map((product, index) => (
+                            <div className="manageProduct-box" key={index}>
+                                <div className="manageProduct-product">
+                                    <img src={product.imgPath} alt="" />
+                                    <div className="manageProduct-info">
+                                        <span>{product.name}</span>
+                                        <div className="manageProduct-infoType">
+                                            <span>
+                                                Phân loại:{" "}
+                                                {product.classifyProduct}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <span>{product.quantityProduct}</span>
                             </div>
-                        </div>
-                        <span>1</span>
+                        ))}
                     </div>
-                    <div className="manageProduct-box">
-                        <div className="manageProduct-product">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="manageProduct-info">
-                                <span>Iphone 14 Pro Max - Deep Purple (Tím) - Hàng chính hãng</span>
-                                <div className="manageProduct-infoType">
-                                    <span>Size: 512G</span>
-                                    <span>Màu sắc: Deep Purple</span>
-                                </div>
-                            </div>
-                        </div>
-                        <span>1</span>
+                    <span>
+                        {checkout.totalCost} <Crown variant="Bold" size={20} />
+                    </span>
+                    <span>
+                        {checkout.status === "waiting"
+                            ? "Chờ lấy hàng"
+                            : checkout.status === "delivering"
+                            ? "Đang giao"
+                            : "Đã giao"}
+                    </span>
+                    <div className="manageProduct-comfirm">
+                        <span>
+                            {checkout.status === "waiting"
+                                ? "Chuẩn bị đơn hàng"
+                                : checkout.status === "delivering"
+                                ? "Chi tiết đơn hàng"
+                                : "Chi tiết đơn hàng"}
+                        </span>
                     </div>
                 </div>
-                <span>
-                    1600 <Crown variant="Bold" size={20} />
-                </span>
-                <span>Chờ xác nhận</span>
-                <div className="manageProduct-comfirm">
-                    <span>Xác nhận đơn hàng</span>
-                    <span>Hủy đơn hàng</span>
-                </div>
             </div>
-        </div>
+        ))
     );
 };
 
