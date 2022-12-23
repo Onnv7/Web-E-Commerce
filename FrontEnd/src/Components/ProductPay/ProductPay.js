@@ -222,38 +222,62 @@ const ProductPay = () => {
                                         </div>
                                         <div className="productPay-footer">
                                             <div className="productPay-footerBtn">
-                                                <button
-                                                    onClick={() =>
-                                                        rebuyHandler(
-                                                            product._id.slug
-                                                        )
-                                                    }
-                                                >
-                                                    Mua lại
-                                                </button>
-                                                {reviews.find(
-                                                    (item) =>
-                                                        item.product ===
-                                                        product._id._id
-                                                ) != null ? (
-                                                    <button
-                                                        disabled
-                                                        style={{
-                                                            cursor: "not-allowed",
-                                                        }}
-                                                    >
-                                                        Đã Đánh giá
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => {
-                                                            setProduct(product);
-                                                            setOpen(true);
-                                                        }}
-                                                    >
-                                                        Đánh giá
-                                                    </button>
-                                                )}
+                                                {checkout.status ===
+                                                "delivered" ? (
+                                                    reviews.find(
+                                                        (item) =>
+                                                            item.product ===
+                                                            product._id._id
+                                                    ) != null ? (
+                                                        <>
+                                                            <button
+                                                                onClick={() =>
+                                                                    rebuyHandler(
+                                                                        product
+                                                                            ._id
+                                                                            .slug
+                                                                    )
+                                                                }
+                                                            >
+                                                                Mua lại
+                                                            </button>
+                                                            <button
+                                                                disabled
+                                                                style={{
+                                                                    cursor: "not-allowed",
+                                                                }}
+                                                            >
+                                                                Đã Đánh giá
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button
+                                                                onClick={() =>
+                                                                    rebuyHandler(
+                                                                        product
+                                                                            ._id
+                                                                            .slug
+                                                                    )
+                                                                }
+                                                            >
+                                                                Mua lại
+                                                            </button>
+                                                            <button
+                                                                onClick={() => {
+                                                                    setProduct(
+                                                                        product
+                                                                    );
+                                                                    setOpen(
+                                                                        true
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Đánh giá
+                                                            </button>
+                                                        </>
+                                                    )
+                                                ) : null}
                                             </div>
                                         </div>
                                     </div>
@@ -372,11 +396,6 @@ const ProductPay = () => {
                                 }
                             ></textarea>
 
-                            <div className="modalComment-imgBox">
-                                <button>
-                                    <GalleryAdd />
-                                </button>
-                            </div>
                             <FilePond
                                 files={files}
                                 onupdatefiles={setFiles}

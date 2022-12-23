@@ -1,6 +1,8 @@
 import CheckoutAuction from "../models/checkoutAuctionModel.js";
 import { getImgPathFromImgData, getUrlImageArr } from "../utils/getUrlImage.js";
 import { getFormatDate } from "../utils/formatIO.js";
+import Shop from "../models/shopModel.js";
+import User from "../models/userModel.js";
 
 export const createCheckoutAuction = async (req, res, next) => {
     try {
@@ -189,6 +191,7 @@ export const selectAuctionById = async (req, res, next) => {
 
 export const updateCheckoutAuction = async (req, res, next) => {
     try {
+        console.log(req.body);
         const rate = 0.25;
         const { totalCost, shipCost } = req.body;
         const update = await CheckoutAuction.findByIdAndUpdate(

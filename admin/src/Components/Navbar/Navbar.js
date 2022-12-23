@@ -15,13 +15,6 @@ const Navbar = () => {
         await dispatch({ type: "LOGOUT" });
         Cookies.remove("userInfo");
     };
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await axios.get(`/users/${user._id}`);
-            setData(data);
-        };
-        fetchData();
-    }, [user]);
 
     return (
         <div className="navbar">
@@ -32,13 +25,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="navList">
-                    <div className="navList-money">
-                        <span>Số dư: {data.ruby}</span>
-                        <Crown variant="Bold" size={24} className="navIcon" />
-                    </div>
                     <div className="navList-user">
-                        <img src={data.imgPath} alt="" />
-                        <span>{data.username}</span>
+                        <img src={user?.imgPath} alt="" />
+                        <span>{user?.username}</span>
                         <div className="navList-userMenu">
                             <span onClick={logoutHandler}>Đăng xuất</span>
                         </div>

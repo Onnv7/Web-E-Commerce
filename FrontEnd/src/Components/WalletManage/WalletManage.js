@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./walletManage.scss";
 import { toast } from "react-toastify";
 import axios from "../../hooks/axios";
+import { useNavigate } from "react-router-dom";
 const WalletManage = () => {
     const { user } = useContext(AuthContext);
     const [active, setActive] = useState(1);
@@ -11,8 +12,8 @@ const WalletManage = () => {
     const setClick = (i) => {
         setActive(i);
     };
-    console.log(cost);
-    console.log(user._id);
+    const navigate = useNavigate();
+    const [money, setMoney] = useState();
     const handlePay = async () => {
         const ruby = cost;
         console.log(ruby);
@@ -27,6 +28,9 @@ const WalletManage = () => {
         } catch (error) {
             toast.error(error);
         }
+    };
+    const handleClick = (e) => {
+        navigate("/paypal", { state: { money } });
     };
     const url = `http://localhost:8800/backend/paypal/pay/${user._id}`;
     return (
@@ -59,8 +63,18 @@ const WalletManage = () => {
                             <div className="walletManage-paymentBox">
                                 <div className="walletManage-input">
                                     <form action={url} method="post">
-                                        <input type="text" name="money" />
-                                        <input type="submit" value="Buy" />
+                                        <input
+                                            type="text"
+                                            name="money"
+                                            value={money}
+                                            onChange={(e) =>
+                                                setMoney(e.target.value)
+                                            }
+                                        />
+                                        <input
+                                            onClick={handleClick}
+                                            value="Buy"
+                                        />
                                     </form>
                                 </div>
                             </div>

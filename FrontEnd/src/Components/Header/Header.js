@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./header.scss";
-import { Home, Judge, SearchNormal1, ShoppingCart } from "iconsax-react";
+import {
+    Home,
+    Judge,
+    SearchNormal1,
+    ShoppingCart,
+    BagTimer,
+} from "iconsax-react";
 import ImageSilder from "../ImageSlider/ImageSilder";
 import { SliderData } from "../ImageSlider/SliderData";
 import axios from "../../hooks/axios";
@@ -52,6 +58,13 @@ const Header = ({ style, styles }) => {
             toast.error("Bạn không được vào khu của người dùng");
         }
     };
+    const gotoCartAuction = () => {
+        if (user.role === "user") {
+            navigate("/cartauction");
+        } else {
+            toast.error("Bạn không được vào khu của người dùng");
+        }
+    };
     return (
         <div className="header">
             <div className="headerContainer">
@@ -92,6 +105,11 @@ const Header = ({ style, styles }) => {
                                 )}
                             </span>
                         </div>
+                        <BagTimer
+                            variant="Bold"
+                            className="headerNav-icon"
+                            onClick={gotoCartAuction}
+                        />
                         <Judge
                             variant="Bold"
                             className="headerNav-icon"

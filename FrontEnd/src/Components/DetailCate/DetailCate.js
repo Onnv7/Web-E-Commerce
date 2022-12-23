@@ -10,16 +10,12 @@ const DetailCate = () => {
     const { id } = useParams();
     const [url, setUrl] = useState(`/products/mainCategory/${id}`);
     const [products, setProducts] = useState([]);
-    console.log("🚀 ~ file: =products", products);
     const location = useLocation();
     const productsData = useRef();
     const mainCategories = useRef([]);
     const setClick = (i) => {
         setActive(i);
     };
-    console.log("ID: ", id);
-    console.log("URL : ", url);
-    console.log("helllo", location.state);
     // const params = new URLSearchParams(location.search).get(`${url}`);
     // console.log("helllo", params);
     const navigate = useNavigate();

@@ -92,14 +92,16 @@ export const success = async (req, res, next) => {
                 //console.log(JSON.stringify(payment));
                 axios.patch(url, data);
                 // TODO: code redirect to frontend
-                res.status(200).json({
-                    success: true,
-                    message: "Payment success",
-                });
+                res.status(200)
+                    .json({
+                        success: true,
+                        message: "Payment success",
+                    })
+                    .redirect();
             }
         }
     );
-
+    console.log("OK");
     //if (paid) {
     // const response = await fetch(
     //   "http://localhost:8080/backend/users/636e50e30d18bab0b2ef6261",

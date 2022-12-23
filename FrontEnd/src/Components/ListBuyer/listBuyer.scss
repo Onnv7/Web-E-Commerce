@@ -17,6 +17,10 @@
     justify-content: space-between;
     margin-top: 40px;
     font-size: 2rem;
+    >a{
+        flex:1;
+        text-align: center;
+    }
     >span{
         flex: 1;
         &:nth-child(n+2){

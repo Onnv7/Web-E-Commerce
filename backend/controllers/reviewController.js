@@ -6,6 +6,7 @@ import {
     saveMultipleFile,
 } from "../utils/saveFile.js";
 import { getImgPathFromImgData, getUrlImageArr } from "../utils/getUrlImage.js";
+import Product from "../models/productModel.js";
 
 // select a reviews
 export const selectReview = async (req, res, next) => {

@@ -114,7 +114,6 @@ const Navbar = ({ style }) => {
                                 <span onClick={handleMove}>
                                     Tài khoản của tôi
                                 </span>
-                                <span>Đơn mua</span>
                                 <span onClick={logoutHandler}>Đăng xuất</span>
                             </div>
                         ) : (

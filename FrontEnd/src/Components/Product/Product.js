@@ -19,7 +19,7 @@ const Product = ({ cat, filters, sort, limit, col = "c-3", products }) => {
     productData.current = products;
     const [productList, setProductList] = useState([]);
     const indexPage = useRef(1);
-    const pageCount = 2;
+    const pageCount = 8;
     let index = [];
     for (let number = 1; number <= totalPages; number++) {
         index.push(

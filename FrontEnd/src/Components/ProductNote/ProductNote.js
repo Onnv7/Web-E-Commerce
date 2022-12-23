@@ -44,7 +44,7 @@ const ProductNote = () => {
                 </div>
 
                 <div className={active === 1 ? "productNote-list" : "tab-hide"}>
-                    {wishlistItems.map((wishItem) => (
+                    {wishlistItems?.map((wishItem) => (
                         <div className="productNote-item" key={wishItem._id}>
                             <div className="productNote-body">
                                 <img src={wishItem.imgPath} alt="" />

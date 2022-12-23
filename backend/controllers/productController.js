@@ -12,6 +12,37 @@ import {
 } from "../utils/getUrlImage.js";
 import { getTextSearch } from "../utils/formatIO.js";
 
+export const selectProductsRating = async (req, res, next) => {
+    try {
+        const result = [];
+        const products = await Product.find().sort({ ratingAverage: -1 });
+        for (const product of products) {
+            const shop = await Shop.findById(product.shop);
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            let imgPath;
+            try {
+                imgPath = getImgPathFromImgData(product.img[0]);
+            } catch (e) {}
+            const data = {
+                _id: product._id,
+
+                name: product.name,
+                soldQuantity: product.soldQuantity,
+                price: product.classify[0].price,
+                ratingAverage: product.ratingAverage,
+                slug: product.slug,
+                address,
+                imgPath,
+            };
+            result.push(data);
+        }
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 // select products by main category
 export const selectAllProductsByMainCategory = async (req, res, next) => {
     try {
@@ -131,11 +162,26 @@ export const deleteProduct = async (req, res, next) => {
 // select products by category
 export const selectProductsByCategory = async (req, res, next) => {
     try {
+        const result = [];
         const products = await Product.find({
             shop: req.params.idShop,
             category: req.params.idCgr,
         });
-        const result = getUrlImageForArrObject(products);
+        for (const product of products) {
+            const shop = await Shop.findById(product.shop);
+            const address =
+                shop.addressInfo.distinct + " - " + shop.addressInfo.ward;
+            const imgPath = getImgPathFromImgData(product.img[0]);
+            const data = {
+                _id: product._id,
+                name: product.name,
+                slug: product.slug,
+                soldQuantity: product.soldQuantity,
+                subCategory: product.subCategory,
+                imgPath,
+            };
+            result.push(data);
+        }
         res.status(200).json(result);
     } catch (error) {
         next(error);
@@ -155,6 +201,7 @@ export const selectAllProductsByShopId = async (req, res, next) => {
             const data = {
                 _id: product._id,
                 name: product.name,
+                slug: product.slug,
                 soldQuantity: product.soldQuantity,
                 subCategory: product.subCategory,
                 imgPath,

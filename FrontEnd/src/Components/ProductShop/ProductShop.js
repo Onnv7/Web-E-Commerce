@@ -45,6 +45,7 @@ const ProductShop = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/shop/${id}`);
+            console.log(data);
             setProducts(data);
         };
         fetchData();
@@ -56,6 +57,7 @@ const ProductShop = () => {
         const { data } = await axios.get(
             `/products/shop/${id}?cate=${category}`
         );
+        console.log(data);
         setProducts(data);
     };
     return (

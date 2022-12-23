@@ -87,10 +87,11 @@ const PaymentProperty = () => {
     const gotoShop = (id) => {
         navigate(`/shop/${id}`);
     };
-    const checkoutHandler = () => {
+    const checkoutHandler = async () => {
         try {
             let successPayment = 1;
-            shopItems.forEach(async (shopItem, index) => {
+            let index = 0;
+            for (const shopItem of shopItems) {
                 const dataItems = cartItems.filter(
                     (item) => item.shopID === shopItem._id
                 );
@@ -120,7 +121,39 @@ const PaymentProperty = () => {
                     user.ruby = user.ruby - (cost + ship.cost);
                     dispatch({ type: "USER_RELOAD", payload: user });
                 }
-            });
+                ++index;
+            }
+            // shopItems.forEach(async (shopItem, index) => {
+            //     const dataItems = cartItems.filter(
+            //         (item) => item.shopID === shopItem._id
+            //     );
+            //     const cost = dataItems.reduce(
+            //         (accumulate, currentValue) =>
+            //             accumulate +
+            //             currentValue.price * currentValue.quantityProduct,
+            //         0
+            //     );
+            //     const ship = shippingShops.find(
+            //         (ship) => ship._id === shopItem._id
+            //     );
+            //     const data = {
+            //         productItems: dataItems,
+            //         shop: shopItem._id,
+            //         user: user._id,
+            //         deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
+            //         totalCost: cost,
+            //         shipCost: ship.cost,
+            //         status: "waiting",
+            //         note: notes[index],
+            //     };
+            //     if (userDetail.ruby < cost + ship.cost) {
+            //         successPayment = 0;
+            //     } else {
+            //         await axios.post("/checkouts", data);
+            //         user.ruby = user.ruby - (cost + ship.cost);
+            //         dispatch({ type: "USER_RELOAD", payload: user });
+            //     }
+            // });
             if (successPayment) {
                 contextDispatch({ type: "CART_CLEAR" });
                 contextDispatch({ type: "SHOP_CLEAR" });

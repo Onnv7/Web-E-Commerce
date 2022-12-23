@@ -134,7 +134,7 @@ const ManageDeliver = () => {
                             </span>
                         </div>
                         <span>
-                            {zone1.cost === 0 ? "Free" : zone1.cost}
+                            {zone1?.cost === 0 ? "Free" : zone1?.cost}
                             <Crown size={30} variant="Bold" />
                         </span>
                     </div>
@@ -147,16 +147,16 @@ const ManageDeliver = () => {
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG {zone3.starting} {"<"}--{">"} VÙNG{" "}
-                                {zone3.destination}
+                                VÙNG {zone3?.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone3?.destination}
                             </span>
                             <span>
-                                VÙNG {zone4.starting} {"<"}--{">"} VÙNG{" "}
-                                {zone4.destination}
+                                VÙNG {zone4?.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone4?.destination}
                             </span>
                         </div>
                         <span>
-                            {zone3.cost && zone4.cost}
+                            {zone3?.cost && zone4?.cost}
                             <Crown size={30} variant="Bold" />
                         </span>
                     </div>
@@ -171,7 +171,7 @@ const ManageDeliver = () => {
                             </span>
                         </div>
                         <span>
-                            {zone2.cost}
+                            {zone2?.cost}
                             <Crown size={30} variant="Bold" />
                         </span>
                     </div>
@@ -184,12 +184,12 @@ const ManageDeliver = () => {
                         </div>
                         <div className="manageDeliver-feePlace">
                             <span>
-                                VÙNG {zone5.starting} {"<"}--{">"} VÙNG{" "}
-                                {zone5.destination}
+                                VÙNG {zone5?.starting} {"<"}--{">"} VÙNG{" "}
+                                {zone5?.destination}
                             </span>
                         </div>
                         <span>
-                            {zone5.cost} <Crown size={30} variant="Bold" />
+                            {zone5?.cost} <Crown size={30} variant="Bold" />
                         </span>
                     </div>
                 </div>
@@ -248,7 +248,7 @@ const ManageDeliver = () => {
                                 <input
                                     type="number"
                                     onChange={(e) => setCost(e.target.value)}
-                                    defaultValue={info.cost}
+                                    defaultValue={info?.cost}
                                 />
                                 <Crown size={20} variant="Bold" />
                             </div>

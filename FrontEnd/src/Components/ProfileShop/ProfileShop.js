@@ -162,6 +162,7 @@ const ProfileShop = () => {
             toast.success("Tạo shop thành công");
             setReload(!reload);
             //TODO: Cần kiếm cách để trang seller reload loại
+            window.location.reload();
         } catch (err) {
             toast.error(err.message);
         }

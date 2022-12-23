@@ -76,28 +76,68 @@ const PaymentAuctionProperty = () => {
     const checkoutHandler = async () => {
         try {
             let successPayment = 1;
-            checkoutAuctions.forEach(async (checkoutAuction, index) => {
+            let index = 0;
+            for (const checkoutAuction of checkoutAuctions) {
                 const data = {
                     deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
-                    shipCost: shippingShops.reduce(
-                        (accumulate, currentValue) =>
-                            accumulate + currentValue.cost,
-                        0
-                    ),
+                    shipCost: shippingShops[index].cost,
+                    totalCost: checkoutAuction.totalCost,
                     status: "waiting",
                     note: notes[index],
                 };
-                await axios.patch(
-                    `/checkoutAuction/${checkoutAuction._id}`,
-                    data
+                if (
+                    userDetail.ruby <
+                    checkoutAuction.totalCost + shippingShops[index].cost
+                ) {
+                    successPayment = 0;
+                } else {
+                    await axios.patch(
+                        `/checkoutAuction/${checkoutAuction._id}`,
+                        data
+                    );
+                    user.ruby =
+                        user.ruby -
+                        (checkoutAuction.totalCost + shippingShops[index].cost);
+                    dispatch({ type: "USER_RELOAD", payload: user });
+                }
+                ++index;
+            }
+            // checkoutAuctions.forEach(async (checkoutAuction, index) => {
+            //     const data = {
+            //         deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
+            //         shipCost: shippingShops[index].cost,
+            //         totalCost: checkoutAuction.totalCost,
+            //         status: "waiting",
+            //         note: notes[index],
+            //     };
+            //     if (
+            //         userDetail.ruby <
+            //         checkoutAuction.totalCost + shippingShops[index].cost
+            //     ) {
+            //         successPayment = 0;
+            //     } else {
+            //         await axios.patch(
+            //             `/checkoutAuction/${checkoutAuction._id}`,
+            //             data
+            //         );
+            //         user.ruby =
+            //             user.ruby -
+            //             (checkoutAuction.totalCost + shippingShops[index].cost);
+            //         dispatch({ type: "USER_RELOAD", payload: user });
+            //     }
+            // });
+            if (successPayment) {
+                toast.success(
+                    "Thanh toán đơn hàng đấu giá thành công, chúng tôi sẽ chuyển bạn về trang chính sau vài giây"
                 );
-            });
-            toast.success(
-                "Thanh toán đơn hàng đấu giá thành công, chúng tôi sẽ chuyển bạn về trang chính sau vài giây"
-            );
-            window.setTimeout(() => {
-                navigate("/");
-            }, 3000);
+                window.setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            } else {
+                throw new Error(
+                    "Bạn không đủ tiền để thanh toán! Vui lòng nạp thêm số dư để có thể tiếp tục mua sắm!"
+                );
+            }
         } catch (error) {
             toast.error(error.message);
         }

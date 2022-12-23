@@ -24,7 +24,9 @@ dotenv.config();
 const connect = async () => {
     try {
         // node > 17 => 127.0.0.1 else localhost
-        await mongoose.connect("mongodb://localhost:27017/web-ec"); //process.env.MONGO //mongodb://localhost:27017/web-ec
+        await mongoose.connect(
+            "mongodb+srv://4TL:ghw3h8HJiUwBEioK@cluster0.vijfszk.mongodb.net/test"
+        ); //process.env.MONGO //mongodb://localhost:27017/web-ec
         console.log("Connected to mongoDB.");
     } catch (error) {
         throw error;

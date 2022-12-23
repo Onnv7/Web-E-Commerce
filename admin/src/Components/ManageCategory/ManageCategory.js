@@ -98,12 +98,6 @@ const ManageCategory = () => {
                         />
                     </div>
                 ))}
-                <div className="manageCategory-Item">
-                    <img src="../../Img/iphone14.png" alt="" />
-
-                    <span>Loại 1</span>
-                    <CloseCircle className="manageCategory-Icon" size={24} />
-                </div>
             </div>
             <div className="manageCategory-create">
                 <span>Tạo Danh Mục Mới</span>

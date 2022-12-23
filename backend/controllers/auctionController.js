@@ -110,7 +110,10 @@ export const selectAllAuctionsByUserId = async (req, res, next) => {
             const product = auction.product;
             const name = product.name;
             const image = product.img[0];
-            const imgPath = getImgPathFromImgData(image);
+            let imgPath;
+            try {
+                imgPath = getImgPathFromImgData(image);
+            } catch (error) {}
             const quantity = product.quantity;
             const startTime = getFormatDate(auction.createdAt);
             const endTime = getFormatDate(auction.endTime);
@@ -144,7 +147,10 @@ export const selectAllAuctions = async (req, res, next) => {
                 auctionHistory,
                 endTime,
             } = auction._doc;
-            const imgPath = getImgPathFromImgData(product.img[0]);
+            let imgPath;
+            try {
+                imgPath = getImgPathFromImgData(product.img[0]);
+            } catch (error) {}
             const data = {
                 _id: auction._id,
                 name: product.name,
