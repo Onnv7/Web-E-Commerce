@@ -66,7 +66,6 @@ const AuctionItem = () => {
         }
         const finalShop =
             auction.auctionHistory[auction.auctionHistory.length - 1];
-        console.log(finalShop);
         const data = {
             user: auction.user._id,
             shop: finalShop._id,
@@ -227,9 +226,7 @@ const AuctionItem = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="productFee">
-                            <button onClick={timeoutHandler}>Chốt</button>
-                        </div>
+                        <div className="productFee"></div>
                         <div className="productAuction-paymentsBox">
                             <div className="product-payments">
                                 <span>Hỗ trợ thanh toán:</span>

@@ -44,7 +44,7 @@ const ShopUser = () => {
                             </div>
                             <div className="rate-text">
                                 <span>Số sao: </span>
-                                <span>{shop.ratingAverage}⭐</span>
+                                <span>{Math.round(shop.ratingAverage)}⭐</span>
                             </div>
                         </div>
                         <div className="review-rate">
