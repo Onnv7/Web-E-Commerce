@@ -26,7 +26,6 @@ export const selectProductsRating = async (req, res, next) => {
             } catch (e) {}
             const data = {
                 _id: product._id,
-
                 name: product.name,
                 soldQuantity: product.soldQuantity,
                 price: product.classify[0].price,

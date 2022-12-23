@@ -112,9 +112,14 @@ export const createReview = async (req, res, next) => {
             (product.ratingQuantity + 1);
         product.ratingQuantity += 1;
         await product.save();
+        const shop = await Product.findById(product.shop);
+        shop.ratingAverage =
+            (shop.ratingAverage * shop.ratingAverage + review.rating) /
+            (shop.ratingAverage + 1);
+        shop.ratingAverage += 1;
+        await shop.save();
         res.status(200).json("Review has been created.");
     } catch (error) {
-        // console.log(error);
         next(error);
     }
 };

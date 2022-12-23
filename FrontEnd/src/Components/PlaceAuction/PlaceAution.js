@@ -4,6 +4,7 @@ import {
     Heart,
     SearchNormal1,
     Star1,
+    Crown,
 } from "iconsax-react";
 import React, { useEffect, useState } from "react";
 import "./placeAuction.scss";
@@ -42,17 +43,19 @@ const PlaceAution = () => {
                                     <span className="auction-title">
                                         {auction.name}
                                     </span>
-                                    <div className="auction-sell">
-                                        <span>Số người đã tham gia:</span>
-                                        <span>70 người</span>
-                                    </div>
                                     <div className="auction-priceStart">
                                         <span>Giá khởi điểm:</span>
-                                        <span>{auction.startingPrice}Đ</span>
+                                        <span>
+                                            {auction.startingPrice}{" "}
+                                            <Crown variant="Bold" />
+                                        </span>
                                     </div>
                                     <div className="auction-priceCurrent">
                                         <span>Giá hiện tại:</span>
-                                        <span>{auction.currentPrice}Đ</span>
+                                        <span>
+                                            {auction.currentPrice}{" "}
+                                            <Crown variant="Bold" />
+                                        </span>
                                     </div>
                                     <div className="placeAution-rate">
                                         <span>Kết thúc</span>

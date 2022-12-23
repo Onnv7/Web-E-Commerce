@@ -18,18 +18,18 @@ import { verifyToken, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 const router = express.Router();
 
 // select all users
-router.get("/", selectAllUsers);
+router.get("/", verifyAdmin, selectAllUsers);
 
 // select all sellers
-router.get("/seller", selectAllSellers);
+router.get("/seller", verifyAdmin, selectAllSellers);
 
 router.get("/username/:username", selectUserByUserName);
 
 // count user per day, week, month
-router.get("/count/buyer", countBuyer);
+router.get("/count/buyer", verifyAdmin, countBuyer);
 
 // count user per day, week, month
-router.get("/count/seller", countSeller);
+router.get("/count/seller", verifyAdmin, countSeller);
 
 // count seller per day, week, month
 router.get("/statistics", generalStatistics);
