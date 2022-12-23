@@ -1,6 +1,7 @@
 import { Crown, GalleryAdd } from "iconsax-react";
 import React, { useContext, useState } from "react";
 import "./newAuction.scss";
+import { useNavigate } from "react-router-dom";
 import { FilePond, registerPlugin } from "react-filepond";
 
 // Import FilePond styles
@@ -41,6 +42,7 @@ const NewAuction = () => {
     const [currentPrice, setCurrentPrice] = useState(0);
     const [time, setTime] = useState(1);
     const [auctionHistory, setAuctionHistory] = useState();
+    const navigate = useNavigate();
 
     const setClick = (i) => {
         setActive(i);
@@ -79,6 +81,9 @@ const NewAuction = () => {
             toast.success(
                 "Sản phẩm phẩm đã được đưa lên sàn đấu giá thành công"
             );
+            window.setTimeout(() => {
+                navigate("/");
+            }, 1000);
         } catch (err) {
             toast.error(err.message);
         }

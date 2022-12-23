@@ -9,11 +9,13 @@ import Image from "./Pages/Image/image.js";
 import Show from "./Pages/Image/Show.js";
 import Money from "./Pages/Ruby/Money.js";
 import Paypal from "./Pages/Ruby/Paypal.js";
+import MyPaypalButton from "./Pages/Ruby/an.js";
 import SellPage from "./Pages/SellPage/SellPage";
 import CartList from "./Pages/CartList/CartList";
 import CartAuctionList from "./Pages/CartAuctionList/CartAuctionList";
 import Profile from "./Pages/Profile/Profile";
 import Payment from "./Pages/Payment/Payment";
+import PaymentAuction from "./Pages/PaymentAuction/PaymentAuction";
 import SellerPage from "./Pages/SellerPage/SellerPage";
 import UpdateProduct from "./Pages/UpdateProduct/UpdateProduct";
 import NewProduct from "./Pages/NewProduct/NewProduct";
@@ -41,6 +43,7 @@ function App() {
                 <Route path="/thanhtoan" element={<Ruby />} />
                 <Route path="/money" element={<Money />} />
                 <Route path="/paypal" element={<Paypal />} />
+                <Route path="/an" element={<MyPaypalButton />} />
                 <Route path="/simg" element={<Show />} />
 
                 {/* Auth */}
@@ -58,6 +61,7 @@ function App() {
                 />
                 <Route path="/auction" element={<AuctionPage />} />
                 <Route path="/cartauction" element={<CartAuctionList />} />
+                <Route path="/paymentauction" element={<PaymentAuction />} />
 
                 {/* User */}
                 <Route path="/products/:slug" element={<SellPage />} />
@@ -65,10 +69,7 @@ function App() {
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/shop/:id" element={<ViewShop />} />
-                <Route
-                    path="/search/category/:id"
-                    element={<DetailCategory />}
-                />
+                <Route path="/categories/:id" element={<DetailCategory />} />
 
                 {/* Seller */}
                 <Route path="/seller" element={<SellerPage />} />

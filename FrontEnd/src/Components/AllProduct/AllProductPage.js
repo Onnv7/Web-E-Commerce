@@ -68,41 +68,7 @@ const AllProductPage = () => {
                         </div>
                     ))}
             </div>
-            <div className="manageProduct-pagination">
-                <div className="pagination-item">
-                    <a href="" className="pagination-link">
-                        <ArrowLeft2 />
-                    </a>
-                </div>
-                <div className="pagination-item ">
-                    <a
-                        href=""
-                        className="pagination-link pagination-link__active"
-                    >
-                        1
-                    </a>
-                </div>
-                <div className="pagination-item">
-                    <a href="" className="pagination-link">
-                        2
-                    </a>
-                </div>
-                <div className="pagination-item">
-                    <a href="" className="pagination-link">
-                        3
-                    </a>
-                </div>
-                <div className="pagination-item">
-                    <a href="" className="pagination-link">
-                        ...
-                    </a>
-                </div>
-                <div className="pagination-item">
-                    <a href="" className="pagination-link">
-                        <ArrowRight2 />
-                    </a>
-                </div>
-            </div>
+
             {open && (
                 <div className="modal-deleteProduct none">
                     <div className="modal-deleteProductContainer">

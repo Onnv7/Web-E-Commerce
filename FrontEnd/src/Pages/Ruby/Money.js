@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { useState } from "react";
+
 const Money = () => {
     const navigate = useNavigate();
     const [money, setMoney] = useState();
@@ -12,19 +13,21 @@ const Money = () => {
     //         navigate("/paypal");
     //     }
     // }
-    const handleChange = (e) => {
-        setMoney(e.target.value);
-    }
+    const handleClick = (e) => {
+        navigate("/paypal", { state: { money } });
+    };
     return (
         <div>
             <form>
-                <input type="Number" name="money" onChange={handleChange} />
-                <Link to={`/paypal`}>
-                    <input type="submit" value="Buy" />
-                </Link>
+                <input
+                    type="Number"
+                    name="money"
+                    value={money}
+                    onChange={(e) => setMoney(e.target.value)}
+                />
+                <input onClick={handleClick} value="Buy" />
             </form>
         </div>
     );
-
 };
 export default Money;

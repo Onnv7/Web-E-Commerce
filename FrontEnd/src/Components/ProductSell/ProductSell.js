@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./productSell.scss";
-import { Message2, Note1, ShoppingCart, Star1 } from "iconsax-react";
+import { Message2, Note1, ShoppingCart, Star1, Crown } from "iconsax-react";
 import axios from "./../../hooks/axios.js";
 import Rating from "../Rating/Rating";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
-
+import { useNavigate } from "react-router-dom";
 const ProductSell = ({ id }) => {
     const { state, contextDispatch } = useContext(StoreContext);
     const [product, setProduct] = useState();
@@ -17,7 +17,7 @@ const ProductSell = ({ id }) => {
     const {
         cart: { cartItems, shopItems },
     } = state;
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/products/${id}`);
@@ -67,6 +67,7 @@ const ProductSell = ({ id }) => {
     };
     const buynowHandler = () => {
         addtocartHandler();
+        navigate("/cart");
     };
     return (
         product && (
@@ -114,13 +115,9 @@ const ProductSell = ({ id }) => {
                             <div className="productPrice">
                                 <span>Giá:</span>
                                 <span></span>
-                                <span>{classifyProduct.price} VNĐ</span>
-                            </div>
-                            <div className="productFee">
-                                <span>Phí vận chuyển:</span>
                                 <span>
-                                    Vận chuyển đến 435 abc xyz mnk, quan 9, ho
-                                    chi minh 18.000 VND - 20.000 VND
+                                    {classifyProduct.price}{" "}
+                                    <Crown variant="Bold" />
                                 </span>
                             </div>
                         </div>

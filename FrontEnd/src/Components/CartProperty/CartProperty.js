@@ -20,6 +20,7 @@ const CartProperty = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/users/${user._id}`);
+            console.log(data);
             setUserDetail(data);
         };
         fetchData();
@@ -78,6 +79,7 @@ const CartProperty = () => {
     const gotoShop = (id) => {
         navigate(`/shop/${id}`);
     };
+    console.log(userDetail);
     return (
         <div className="cartProperty">
             <div className="cart-container">
@@ -164,91 +166,6 @@ const CartProperty = () => {
                             <img src="/Img/empty_cart.png" alt="empty" />
                         </div>
                     )}
-
-                    {/* <div className="cart-contentBox">
-                        <div className="cart-title">
-                            <span>Thế giới di động</span>
-                            <div className="cart-infoShop">
-                                <button>
-                                    <Shop />
-                                    Tham quan
-                                </button>
-                                <button>
-                                    <MessageText1 />
-                                    Liên hệ
-                                </button>
-                                <span>Xóa</span>
-                            </div>
-                        </div>
-                        <div className="cart-product">
-                            <input type="checkbox" />
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="cart-productProperty">
-                                <div className="cart-productItem">
-                                    <span>
-                                        Iphone 14 Pro Max - Deep Purple (Tím) -
-                                        Hàng chính hãng
-                                    </span>
-                                    <div className="cart-productBox">
-                                        <div className="cart-productCount">
-                                            <span>Số lượng</span>
-                                            <input type="text" value={1} />
-                                        </div>
-                                        <div className="cart-moneySum">
-                                            <span>Tổng tiền</span>
-                                            <span>
-                                                800 <Crown variant="Bold" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="cart-productButton">
-                                    <span>
-                                        Tùy chọn{" "}
-                                        <ArrowDown2
-                                            variant="Bold"
-                                            className="cart-icon"
-                                        />
-                                    </span>
-                                    <span>Xóa</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="cart-product">
-                            <input type="checkbox" />
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="cart-productProperty">
-                                <div className="cart-productItem">
-                                    <span>
-                                        Iphone 14 Pro Max - Deep Purple (Tím) -
-                                        Hàng chính hãng
-                                    </span>
-                                    <div className="cart-productBox">
-                                        <div className="cart-productCount">
-                                            <span>Số lượng</span>
-                                            <input type="text" value={1} />
-                                        </div>
-                                        <div className="cart-moneySum">
-                                            <span>Tổng tiền</span>
-                                            <span>
-                                                800 <Crown variant="Bold" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="cart-productButton">
-                                    <span>
-                                        Tùy chọn{" "}
-                                        <ArrowDown2
-                                            variant="Bold"
-                                            className="cart-icon"
-                                        />
-                                    </span>
-                                    <span>Xóa</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
                 <div className="cart-confirm">
                     <div className="cart-comfirmList">
@@ -280,7 +197,11 @@ const CartProperty = () => {
                         {cartItems.length > 0 ? (
                             userDetail &&
                             userDetail.name &&
-                            userDetail.deliveryInfo ? (
+                            userDetail.gender &&
+                            userDetail.birthday &&
+                            userDetail.email &&
+                            userDetail.phoneNumber &&
+                            userDetail.deliveryInfo.length > 0 ? (
                                 <button>
                                     <Link
                                         to="/payment"

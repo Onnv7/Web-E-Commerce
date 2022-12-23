@@ -110,7 +110,10 @@ export const selectAllAuctionsByUserId = async (req, res, next) => {
             const product = auction.product;
             const name = product.name;
             const image = product.img[0];
-            const imgPath = getImgPathFromImgData(image);
+            let imgPath;
+            try {
+                imgPath = getImgPathFromImgData(image);
+            } catch (error) {}
             const quantity = product.quantity;
             const startTime = getFormatDate(auction.createdAt);
             const endTime = getFormatDate(auction.endTime);
@@ -144,7 +147,10 @@ export const selectAllAuctions = async (req, res, next) => {
                 auctionHistory,
                 endTime,
             } = auction._doc;
-            const imgPath = getImgPathFromImgData(product.img[0]);
+            let imgPath;
+            try {
+                imgPath = getImgPathFromImgData(product.img[0]);
+            } catch (error) {}
             const data = {
                 _id: auction._id,
                 name: product.name,
@@ -166,6 +172,7 @@ export const selectAuctionById = async (req, res, next) => {
     try {
         const auction = await Auction.findById(req.params.id);
         const {
+            _id,
             product,
             startingPrice,
             endTime,
@@ -188,10 +195,12 @@ export const selectAuctionById = async (req, res, next) => {
         const buyer = await User.findById(auction.buyer);
         const imgPathUser = getImgPathFromImgData(buyer.img);
         const user = {
+            _id: buyer._id,
             name: buyer.name,
             imgPath: imgPathUser,
         };
         const data = {
+            _id,
             name: product.name,
             description: product.description,
             quantity: product.quantity,
@@ -203,7 +212,7 @@ export const selectAuctionById = async (req, res, next) => {
             start: auction.createdAt,
             end: endTime,
             countAuction: auctionHistory.length,
-            shop,
+            auctionHistory: shop,
             user,
         };
         res.status(200).json(data);

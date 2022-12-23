@@ -25,17 +25,43 @@
         }
     }
     >button{
+        
+        
+        
+    }
+
+}
+.becomeSeller-btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    >button{
         width: 100px;
         height: 40px;
-        background: rgba(220, 91, 14, 0.5);
-        border-radius: 10px;
+        font-size: 2rem;
         border: none;
+
+        &:first-child{
+            box-shadow: 0px 0px 5px var(--primary-color);
+            background-color: #fff;
+            border-radius: 10px;
+            color: var(--primary-color);
+            &:hover{
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+        &:last-child{
+            background: rgba(220, 91, 14, 0.5);
+        border-radius: 10px;
         font-size: 2rem;
         color: #fff;
         &:hover{
             cursor: pointer;
             background-color: var(--primary-color);
         }
+        }
     }
-
 }

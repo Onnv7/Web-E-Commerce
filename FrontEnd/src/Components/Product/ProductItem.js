@@ -55,7 +55,7 @@ function ProductItem({ product, col }) {
                             variant="Bold"
                             onClick={wishlistHandler}
                             style={{
-                                color: state.wishlist?.wishlistItems.find(
+                                color: state?.wishlist?.wishlistItems?.find(
                                     (item) => item._id === product._id
                                 )
                                     ? "#DC5B0E"

@@ -1,12 +1,12 @@
+import { Paypal } from "iconsax-react";
 import React from "react";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import Navbar from "../../Components/Navbar/Navbar";
-import PaymentProperty from "../../Components/PaymentProperty/PaymentProperty";
-import { Paypal } from "iconsax-react";
-import "./payment.scss";
+import PaymentAuctionProperty from "../../Components/PaymentAuctionProperty/PaymentAuctionProperty";
+import "./paymentAuction.scss";
 
-const Payment = () => {
+const PaymentAuction = () => {
     return (
         <div>
             <Navbar style="main" />
@@ -14,9 +14,9 @@ const Payment = () => {
             <div className="payment-container">
                 <span>
                     <Paypal size={40} variant="Bold" />
-                    Thanh toán
+                    Thanh toán sản phẩm bạn đã đấu giá
                 </span>
-                <PaymentProperty />
+                <PaymentAuctionProperty />
                 <hr />
             </div>
             <Footer />
@@ -24,4 +24,4 @@ const Payment = () => {
     );
 };
 
-export default Payment;
+export default PaymentAuction;

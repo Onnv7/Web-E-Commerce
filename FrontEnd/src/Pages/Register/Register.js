@@ -147,16 +147,6 @@ const Register = () => {
                                             </span>
                                         </div> */}
                                     </div>
-                                    <div className="formControl-policy">
-                                        <div className="register-check">
-                                            <input type="checkbox" />
-                                            <span>
-                                                Để tiếp tục đăng ký bạn cần chấp
-                                                nhận các điều khoản khi sử dụng
-                                                dịch vụ của chúng tôi.
-                                            </span>
-                                        </div>
-                                    </div>
                                     <button onClick={handleSignUp}>
                                         Đăng ký
                                     </button>

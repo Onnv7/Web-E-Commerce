@@ -42,13 +42,7 @@ const AuctionItem = () => {
         };
         fetchData();
     }, [user]);
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         // console.log(auction);
-    //         setTimeLeft(moment.duration(moment(auction.end).diff(moment())));
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
+
     const doAuctionHandler = async () => {
         try {
             if (price >= auction.currentPrice) {
@@ -68,8 +62,23 @@ const AuctionItem = () => {
             toast.error(error.message);
         }
     };
-    const gotoHistoryHandler = () => {
-        navigate(`/seller/history/${id}`);
+    const timeoutHandler = async () => {
+        const finalShop =
+            auction.auctionHistory[auction.auctionHistory.length - 1];
+        const data = {
+            user: auction.user._id,
+            shop: finalShop._id,
+            totalCost: finalShop.price,
+            auction: auction._id,
+            status: "notpaid",
+        };
+        console.log(data);
+        try {
+            await axios.post(`/checkoutAuction`, data);
+            console.log("Chốt thành công");
+        } catch (error) {
+            console.log(error.message);
+        }
     };
     return (
         auction && (
@@ -192,8 +201,7 @@ const AuctionItem = () => {
                             </div>
                         </div>
                         <div className="productFee">
-                            <span>Phí vận chuyển</span>
-                            <span>Người bán chi chả</span>
+                            <button onClick={timeoutHandler}>Chốt</button>
                         </div>
                         <div className="productAuction-paymentsBox">
                             <div className="product-payments">

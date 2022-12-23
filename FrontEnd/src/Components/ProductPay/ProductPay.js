@@ -52,6 +52,7 @@ const ProductPay = () => {
     };
     const navigate = useNavigate();
     const [checkouts, setCheckouts] = useState([]);
+    const [checkoutAuctions, setCheckoutAuctions] = useState([]);
     const [product, setProduct] = useState();
     const [rating, setRating] = useState(0);
     const [contentReview, setContentReview] = useState("");
@@ -61,8 +62,17 @@ const ProductPay = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/checkouts/all/${user._id}`);
-            console.log(data);
             setCheckouts(data);
+        };
+        fetchData();
+    }, [user, reload]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(
+                `/checkoutAuction/all/${user._id}`
+            );
+            console.log(data);
+            setCheckoutAuctions(data);
         };
         fetchData();
     }, [user, reload]);
@@ -73,7 +83,6 @@ const ProductPay = () => {
         };
         fetchData();
     }, [user, reload]);
-    // useEffect(() => {});
 
     const rebuyHandler = (slug) => {
         navigate(`/products/${slug}`);
@@ -117,6 +126,17 @@ const ProductPay = () => {
     const receivedProductHandler = async (id) => {
         try {
             await axios.patch(`/checkouts/${id}`, {
+                status: "delivered",
+            });
+            setReload(!reload);
+            toast.success("Bạn đã nhận được hàng thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+    const receivedProductAuctionHandler = async (id) => {
+        try {
+            await axios.patch(`/checkoutAuction/status/${id}`, {
                 status: "delivered",
             });
             setReload(!reload);
@@ -202,38 +222,62 @@ const ProductPay = () => {
                                         </div>
                                         <div className="productPay-footer">
                                             <div className="productPay-footerBtn">
-                                                <button
-                                                    onClick={() =>
-                                                        rebuyHandler(
-                                                            product._id.slug
-                                                        )
-                                                    }
-                                                >
-                                                    Mua lại
-                                                </button>
-                                                {reviews.find(
-                                                    (item) =>
-                                                        item.product ===
-                                                        product._id._id
-                                                ) != null ? (
-                                                    <button
-                                                        disabled
-                                                        style={{
-                                                            cursor: "not-allowed",
-                                                        }}
-                                                    >
-                                                        Đã Đánh giá
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => {
-                                                            setProduct(product);
-                                                            setOpen(true);
-                                                        }}
-                                                    >
-                                                        Đánh giá
-                                                    </button>
-                                                )}
+                                                {checkout.status ===
+                                                "delivered" ? (
+                                                    reviews.find(
+                                                        (item) =>
+                                                            item.product ===
+                                                            product._id._id
+                                                    ) != null ? (
+                                                        <>
+                                                            <button
+                                                                onClick={() =>
+                                                                    rebuyHandler(
+                                                                        product
+                                                                            ._id
+                                                                            .slug
+                                                                    )
+                                                                }
+                                                            >
+                                                                Mua lại
+                                                            </button>
+                                                            <button
+                                                                disabled
+                                                                style={{
+                                                                    cursor: "not-allowed",
+                                                                }}
+                                                            >
+                                                                Đã Đánh giá
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button
+                                                                onClick={() =>
+                                                                    rebuyHandler(
+                                                                        product
+                                                                            ._id
+                                                                            .slug
+                                                                    )
+                                                                }
+                                                            >
+                                                                Mua lại
+                                                            </button>
+                                                            <button
+                                                                onClick={() => {
+                                                                    setProduct(
+                                                                        product
+                                                                    );
+                                                                    setOpen(
+                                                                        true
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Đánh giá
+                                                            </button>
+                                                        </>
+                                                    )
+                                                ) : null}
                                             </div>
                                         </div>
                                     </div>
@@ -264,9 +308,6 @@ const ProductPay = () => {
                                         Đã nhận được hàng
                                     </button>
                                 )}
-                                {checkout.status === "delivered" && (
-                                    <p> Đã nhận được hàng</p>
-                                )}
                             </div>
                         ))}
                 </div>
@@ -275,29 +316,52 @@ const ProductPay = () => {
                         active === 2 ? "productAuction-list" : "tab-hide"
                     }
                 >
-                    <div className="productAuction-item">
-                        <div className="productAuction-header">
-                            <span>Thế giới di động</span>
-                            <span>Mã đơn: 123xyzbkl</span>
-                        </div>
-                        <div className="productAuction-body">
-                            <img src="../Img/iphone14.png" alt="" />
-                            <div className="productAuction-bodyText">
-                                <span>
-                                    Iphone 14 Pro Max - Deep Purple (Tím) - Hàng
-                                    chính hãng
-                                </span>
-                                <span>Số lượng: 1</span>
+                    {checkoutAuctions.map((c) => (
+                        <div className="productAuction-item">
+                            <div className="productAuction-header">
+                                <span>{c.shop.name}</span>
+                                <span>Mã đơn: {c._id}</span>
                             </div>
+                            <div className="productAuction-body">
+                                <img src={c.imgPath} alt="" />
+                                <div className="productAuction-bodyText">
+                                    <span>{c.name}</span>
+                                    <span>Số lượng: {c.quantity}</span>
+                                </div>
+                            </div>
+                            <div className="productAuction-footer">
+                                <span className="active">
+                                    {c.status === "waiting"
+                                        ? "Chờ giao hàng"
+                                        : c.status === "delivering"
+                                        ? "Đang giao hàng"
+                                        : "Đã giao hàng"}
+                                </span>
+                                <span>
+                                    Tổng tiền: {c.totalCost}{" "}
+                                    <Crown size={34} variant="Bold" />
+                                </span>
+                            </div>
+                            {c.status === "delivering" && (
+                                <button
+                                    onClick={() =>
+                                        receivedProductAuctionHandler(c._id)
+                                    }
+                                    style={{
+                                        padding: "10px",
+                                        border: "none",
+                                        borderRadius: "10px",
+                                        backgroundColor: "var(--primary-color)",
+                                        color: "#fff",
+                                        fontSize: "2rem",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    Đã nhận được hàng
+                                </button>
+                            )}
                         </div>
-                        <div className="productAuction-footer">
-                            <span className="active">Đấu giá thất bại</span>
-                            <span>
-                                Tổng tiền: 800{" "}
-                                <Crown size={34} variant="Bold" />
-                            </span>
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
                 {open && (
@@ -332,11 +396,6 @@ const ProductPay = () => {
                                 }
                             ></textarea>
 
-                            <div className="modalComment-imgBox">
-                                <button>
-                                    <GalleryAdd />
-                                </button>
-                            </div>
                             <FilePond
                                 files={files}
                                 onupdatefiles={setFiles}

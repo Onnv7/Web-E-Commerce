@@ -6,8 +6,11 @@ import "./becomeSeller.scss";
 
 const BecomeSeller = () => {
     const navigate = useNavigate();
-    const handleMove = () => {
+    const handleRegister = () => {
         navigate("/seller");
+    };
+    const handleBack = () => {
+        navigate("/");
     };
     return (
         <div>
@@ -21,7 +24,10 @@ const BecomeSeller = () => {
                         Để cần đăng ký bán hàng trên 4TL bạn cần cung cấp 1 số
                         thông tin cơ bản
                     </span>
-                    <button onClick={handleMove}>Đăng kí</button>
+                    <div className="becomeSeller-btn">
+                        <button onClick={handleBack}>Trở lại</button>
+                        <button onClick={handleRegister}>Đăng kí</button>
+                    </div>
                 </div>
                 <hr />
             </div>

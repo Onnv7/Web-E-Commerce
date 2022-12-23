@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Cookies from "js-cookie";
 import { StoreContext } from "../../context/StoreContext";
+import { toast } from "react-toastify";
 
 const Navbar = ({ style }) => {
     const { user, dispatch } = useContext(AuthContext);
@@ -45,6 +46,20 @@ const Navbar = ({ style }) => {
     const loginHandler = () => {
         gotoLogin();
     };
+    const gotoSeller = () => {
+        if (user.role === "seller") {
+            navigate("/seller");
+        } else {
+            navigate("/seller/become");
+        }
+    };
+    const gotoAuction = () => {
+        if (user.role === "user") {
+            navigate("/auction");
+        } else {
+            toast.error("Bạn không được vào khu của người dùng");
+        }
+    };
     return (
         <div className="navbar">
             <div
@@ -60,18 +75,14 @@ const Navbar = ({ style }) => {
                         >
                             Trang chủ
                         </span>
-                        <span className="navItem navItem--space">Đấu giá</span>
-                        <span className="navItem navItem--space">
-                            Kênh bán hàng
-                        </span>
                         <span
                             className="navItem navItem--space"
-                            onClick={gotoLogin}
+                            onClick={gotoAuction}
                         >
-                            Đăng Nhập
+                            Đấu giá
                         </span>
-                        <span className="navItem" onClick={gotoRegister}>
-                            Đăng ký
+                        <span className="navItem" onClick={gotoSeller}>
+                            Kênh bán hàng
                         </span>
                     </div>
                 ) : (
@@ -103,7 +114,6 @@ const Navbar = ({ style }) => {
                                 <span onClick={handleMove}>
                                     Tài khoản của tôi
                                 </span>
-                                <span>Đơn mua</span>
                                 <span onClick={logoutHandler}>Đăng xuất</span>
                             </div>
                         ) : (

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./cartAuctionProperty.scss";
 import { ArrowDown2, Crown, Heart, MessageText1, Shop } from "iconsax-react";
 import { AuthContext } from "../../context/AuthContext";
 import { StoreContext } from "../../context/StoreContext";
@@ -10,12 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 const CartAuctionProperty = () => {
     const { user } = useContext(AuthContext);
     const [userDetail, setUserDetail] = useState();
-    const { state, contextDispatch } = useContext(StoreContext);
-    const {
-        cart: { cartItems, shopItems },
-    } = state;
-    const [products, setProducts] = useState([]);
-    const [shops, setShops] = useState([]);
+    const [checkoutAuctions, setCheckoutAuctions] = useState([]);
+    const [reload, setReload] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
@@ -24,139 +19,85 @@ const CartAuctionProperty = () => {
         };
         fetchData();
     }, [user]);
+
     useEffect(() => {
-        setProducts([]);
-        cartItems.forEach(async (element) => {
-            const { data } = await axios.get(`/products/${element._id}`);
-            setProducts((preProducts) => [
-                ...preProducts,
-                {
-                    ...data,
-                    classifyProduct: element.classifyProduct,
-                    quantityProduct: element.quantityProduct,
-                    price: element.price,
-                },
-            ]);
-        });
-    }, [cartItems]);
-    useEffect(() => {
-        setShops([]);
-        shopItems.forEach(async (element) => {
-            const { data } = await axios.get(`/shops/shop/${element._id}`);
-            setShops((pre) => [...pre, data]);
-        });
-    }, [shopItems]);
-    const handleDeleteProduct = async (productDeleted) => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/checkoutAuction/${user._id}`);
+            console.log(data);
+            setCheckoutAuctions(data);
+        };
+        fetchData();
+    }, [user, reload]);
+
+    const gotoShop = (id) => {
+        navigate(`/shop/${id}`);
+    };
+    const deleteCheckoutHandler = async (id) => {
         try {
-            contextDispatch({
-                type: "CART_REMOVE_ITEM",
-                payload: productDeleted,
-            });
-
-            const { data: shopDeleted } = await axios.get(
-                `/shops/shop/${productDeleted.shop._id}`
-            );
-
-            const count = products.reduce((accumulate, currentValue) => {
-                if (currentValue.shop._id === productDeleted.shop._id) {
-                    return accumulate + 1;
-                }
-                return accumulate;
-            }, 0);
-            if (count === 1) {
-                contextDispatch({
-                    type: "SHOP_REMOVE_ITEM",
-                    payload: shopDeleted,
-                });
-            }
-            setProducts([]);
-            toast.success("Delete product successfully");
+            await axios.delete(`/checkoutAuction/${id}`);
+            toast.success("Thành công xóa sản phẩm bạn đã tạo đấu giá ");
+            setReload(!reload);
         } catch (err) {
             toast.error(err.message);
         }
     };
-    const gotoShop = (id) => {
-        navigate(`/shop/${id}`);
-    };
+
     return (
         <div className="cartProperty">
             <div className="cart-container">
                 <div className="cart-content">
-                    {shops.length > 0 ? (
-                        shops.map((shop) => (
-                            <div className="cart-contentBox" key={shop._id}>
+                    {checkoutAuctions.length > 0 ? (
+                        checkoutAuctions.map((checkout) => (
+                            <div className="cart-contentBox" key={checkout._id}>
                                 <div className="cart-title">
-                                    <span>{shop.name}</span>
+                                    <span>Shop: {checkout.shop.name}</span>
                                     <div className="cart-infoShop">
                                         <button
-                                            onClick={() => gotoShop(shop._id)}
+                                            onClick={() =>
+                                                gotoShop(checkout.shop._id)
+                                            }
                                         >
                                             <Shop />
                                             Tham quan
                                         </button>
+                                        <span
+                                            onClick={() =>
+                                                deleteCheckoutHandler(
+                                                    checkout._id
+                                                )
+                                            }
+                                        >
+                                            Xóa
+                                        </span>
                                     </div>
                                 </div>
-                                {products
-                                    .filter(
-                                        (product) =>
-                                            product.shop._id === shop._id
-                                    )
-                                    .map((product) => (
-                                        <div
-                                            className="cart-product"
-                                            key={product._id}
-                                        >
-                                            <img
-                                                src={product.imgPath[0]}
-                                                alt="productImg"
-                                            />
-                                            <div className="cart-productProperty">
-                                                <div className="cart-productContent">
-                                                    <span>{product.name}</span>
-                                                    <div className="cart-productQuantity">
-                                                        <div className="cart-productCount">
-                                                            <span>
-                                                                Số lượng
-                                                            </span>
-                                                            <input
-                                                                type="text"
-                                                                value={
-                                                                    product.quantityProduct
-                                                                }
-                                                                disabled
-                                                            />
-                                                        </div>
-                                                        <div className="cart-moneySum">
-                                                            <span>
-                                                                Giá tiền
-                                                            </span>
-                                                            <span>
-                                                                {product.price}
-                                                                <Crown variant="Bold" />
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                <div className="cart-product">
+                                    <img src={checkout.imgPath} alt="" />
+                                    <div className="cart-productProperty">
+                                        <div className="cart-productContent">
+                                            <span>{checkout.name}</span>
+                                            <div className="cart-productQuantity">
+                                                <div className="cart-productCount">
+                                                    <span>Số lượng</span>
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            checkout.quantity
+                                                        }
+                                                        disabled
+                                                    />
                                                 </div>
-                                                <div className="cart-productButton">
+                                                <div className="cart-moneySum">
+                                                    <span>Tổng tiền</span>
                                                     <span>
-                                                        Phân loại:{" "}
-                                                        {
-                                                            product.classifyProduct
-                                                        }
-                                                    </span>
-                                                    <span
-                                                        onClick={() =>
-                                                            handleDeleteProduct(
-                                                                product
-                                                            )
-                                                        }
-                                                    >
-                                                        Xóa
+                                                        {checkout.price}{" "}
+                                                        <Crown variant="Bold" />
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    </div>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -255,10 +196,12 @@ const CartAuctionProperty = () => {
                         <div className="cart-confirmItem">
                             <span>Tổng số lượng</span>
                             <span>
-                                {cartItems.reduce(
-                                    (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.quantityProduct,
+                                {checkoutAuctions.reduce(
+                                    (accumulate, currentValue) => {
+                                        return (
+                                            accumulate + currentValue.quantity
+                                        );
+                                    },
                                     0
                                 )}
                             </span>
@@ -266,24 +209,27 @@ const CartAuctionProperty = () => {
                         <div className="cart-confirmItem">
                             <span>Tổng thanh toán</span>
                             <span>
-                                {cartItems.reduce(
-                                    (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.price *
-                                            currentValue.quantityProduct,
+                                {checkoutAuctions.reduce(
+                                    (accumulate, currentValue) => {
+                                        return accumulate + currentValue.price;
+                                    },
                                     0
                                 )}
                                 <Crown variant="Bold" />
                             </span>
                         </div>
 
-                        {cartItems.length > 0 ? (
+                        {checkoutAuctions.length > 0 ? (
                             userDetail &&
                             userDetail.name &&
-                            userDetail.deliveryInfo ? (
+                            userDetail.gender &&
+                            userDetail.birthday &&
+                            userDetail.email &&
+                            userDetail.phoneNumber &&
+                            userDetail.deliveryInfo.length > 0 ? (
                                 <button>
                                     <Link
-                                        to="/payment"
+                                        to="/paymentauction"
                                         style={{
                                             textDecoration: "none",
                                             color: "#fff",

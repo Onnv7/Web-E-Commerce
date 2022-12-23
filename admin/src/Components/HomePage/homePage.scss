@@ -101,9 +101,11 @@
     box-shadow: 4px 4px 5px rgba(220, 91, 14, 0.4);
     border-radius: 10px;
     padding: 20px;
+    max-width: 1156px;
     >span{
         font-size: 2rem;
         font-family: 'Oswald';
     }
     position: relative;
+    margin-top: 20px;
 }

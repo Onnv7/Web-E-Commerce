@@ -28,25 +28,25 @@ const ProfileNav = () => {
             e.stopPropagation();
         } else setShowNav("hide");
     };
-    const openAvatarChange = () => {
+    const openAvatarChange = (e) => {
         setSlide(<AvatarChange />);
     };
-    const openProfile = () => {
+    const openProfile = (e) => {
         setSlide(<ProfileInfo />);
     };
-    const openAddress = () => {
+    const openAddress = (e) => {
         setSlide(<ProfileAddress />);
     };
-    const openPass = () => {
+    const openPass = (e) => {
         setSlide(<PasswordChange />);
     };
-    const openWallet = () => {
+    const openWallet = (e) => {
         setSlide(<WalletManage />);
     };
-    const openCart = () => {
+    const openCart = (e) => {
         setSlide(<ProductPay />);
     };
-    const openNote = () => {
+    const openNote = (e) => {
         setSlide(<ProductNote />);
     };
     useEffect(() => {

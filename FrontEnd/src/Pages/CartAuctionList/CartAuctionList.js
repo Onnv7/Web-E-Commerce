@@ -1,4 +1,4 @@
-import { ShoppingCart } from "iconsax-react";
+import { ShoppingCart, BagTimer } from "iconsax-react";
 import React from "react";
 import CartAuctionProperty from "../../Components/CartAuctionProperty/CartAuctionProperty";
 import "./cartAuctionList.scss";
@@ -13,7 +13,7 @@ const CartAuctionList = () => {
             <Header styles="hideNav" style="hideImg" />
             <div className="cartList-container">
                 <span>
-                    <ShoppingCart size={40} variant="Bold" />
+                    <BagTimer size={40} variant="Bold" />
                     Sản phẩm bạn đã đấu giá
                 </span>
                 <CartAuctionProperty />

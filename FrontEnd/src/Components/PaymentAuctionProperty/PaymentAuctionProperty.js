@@ -3,11 +3,11 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { StoreContext } from "../../context/StoreContext";
-import "./paymentProperty.scss";
+import "./paymentAuctionProperty.scss";
 import axios from "./../../hooks/axios";
 import { toast } from "react-toastify";
 
-const PaymentProperty = () => {
+const PaymentAuctionProperty = () => {
     const { user, dispatch } = useContext(AuthContext);
 
     const { state, contextDispatch } = useContext(StoreContext);
@@ -15,41 +15,17 @@ const PaymentProperty = () => {
         cart: { cartItems, shopItems },
     } = state;
     const [userDetail, setUserDetail] = useState();
-    const [products, setProducts] = useState([]);
-    const [shops, setShops] = useState([]);
     const [deliveryIndex, setDeliveryIndex] = useState(0);
     const [deliveryTempIndex, setDeliveryTempIndex] = useState();
-    const [notes, setNotes] = useState([]);
     const [open, setOpen] = useState(false);
     const [shippingShops, setShippingShops] = useState([]);
+    const [reload, setReload] = useState(false);
+    const [notes, setNotes] = useState([]);
+    const [checkoutAuctions, setCheckoutAuctions] = useState([]);
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate("/cart");
+        navigate("/cartauction");
     };
-    useEffect(() => {
-        setProducts([]);
-        cartItems.forEach(async (element) => {
-            const { data } = await axios.get(`/products/${element._id}`);
-            setProducts((preProducts) => [
-                ...preProducts,
-                {
-                    ...data,
-                    classifyProduct: element.classifyProduct,
-                    quantityProduct: element.quantityProduct,
-                    price: element.price,
-                    sizeProduct: element.sizeProduct,
-                    indexItem: element.indexItem,
-                },
-            ]);
-        });
-    }, [cartItems]);
-    useEffect(() => {
-        setShops([]);
-        shopItems.forEach(async (element) => {
-            const { data } = await axios.get(`/shops/shop/${element._id}`);
-            setShops((pre) => [...pre, data]);
-        });
-    }, [shopItems]);
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/users/${user._id}`);
@@ -57,18 +33,28 @@ const PaymentProperty = () => {
         };
         fetchData();
     }, [user]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get(`/checkoutAuction/${user._id}`);
+            console.log(data);
+            setCheckoutAuctions(data);
+        };
+        fetchData();
+    }, [user, reload]);
+
     useEffect(() => {
         console.log(userDetail);
         if (userDetail) {
             setShippingShops([]);
-            shops.forEach(async (element) => {
-                console.log(element.addressInfo.distinct);
+            checkoutAuctions.forEach(async (element) => {
+                console.log(element.shop.addressInfo.distinct);
                 console.log(userDetail.deliveryInfo[deliveryIndex].distinct);
                 console.log(
-                    `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`.trim()
+                    `/shippingCost/cost?start=${element.shop.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`.trim()
                 );
                 const { data } = await axios.get(
-                    `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
+                    `/shippingCost/cost?start=${element.shop.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
                 );
                 console.log(data);
                 setShippingShops((pre) => [
@@ -77,13 +63,13 @@ const PaymentProperty = () => {
                         return {
                             _id: element._id,
                             cost: d.cost,
-                            addressInfo: element.addressInfo,
+                            addressInfo: element.shop.addressInfo,
                         };
                     }),
                 ]);
             });
         }
-    }, [deliveryIndex, shops, userDetail]);
+    }, [checkoutAuctions, deliveryIndex, userDetail]);
     const gotoShop = (id) => {
         navigate(`/shop/${id}`);
     };
@@ -91,77 +77,59 @@ const PaymentProperty = () => {
         try {
             let successPayment = 1;
             let index = 0;
-            for (const shopItem of shopItems) {
-                const dataItems = cartItems.filter(
-                    (item) => item.shopID === shopItem._id
-                );
-                const cost = dataItems.reduce(
-                    (accumulate, currentValue) =>
-                        accumulate +
-                        currentValue.price * currentValue.quantityProduct,
-                    0
-                );
-                const ship = shippingShops.find(
-                    (ship) => ship._id === shopItem._id
-                );
+            for (const checkoutAuction of checkoutAuctions) {
                 const data = {
-                    productItems: dataItems,
-                    shop: shopItem._id,
-                    user: user._id,
                     deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
-                    totalCost: cost,
-                    shipCost: ship.cost,
+                    shipCost: shippingShops[index].cost,
+                    totalCost: checkoutAuction.totalCost,
                     status: "waiting",
                     note: notes[index],
                 };
-                if (userDetail.ruby < cost + ship.cost) {
+                if (
+                    userDetail.ruby <
+                    checkoutAuction.totalCost + shippingShops[index].cost
+                ) {
                     successPayment = 0;
                 } else {
-                    await axios.post("/checkouts", data);
-                    user.ruby = user.ruby - (cost + ship.cost);
+                    await axios.patch(
+                        `/checkoutAuction/${checkoutAuction._id}`,
+                        data
+                    );
+                    user.ruby =
+                        user.ruby -
+                        (checkoutAuction.totalCost + shippingShops[index].cost);
                     dispatch({ type: "USER_RELOAD", payload: user });
                 }
                 ++index;
             }
-            // shopItems.forEach(async (shopItem, index) => {
-            //     const dataItems = cartItems.filter(
-            //         (item) => item.shopID === shopItem._id
-            //     );
-            //     const cost = dataItems.reduce(
-            //         (accumulate, currentValue) =>
-            //             accumulate +
-            //             currentValue.price * currentValue.quantityProduct,
-            //         0
-            //     );
-            //     const ship = shippingShops.find(
-            //         (ship) => ship._id === shopItem._id
-            //     );
+            // checkoutAuctions.forEach(async (checkoutAuction, index) => {
             //     const data = {
-            //         productItems: dataItems,
-            //         shop: shopItem._id,
-            //         user: user._id,
             //         deliveryInfo: userDetail.deliveryInfo[deliveryIndex],
-            //         totalCost: cost,
-            //         shipCost: ship.cost,
+            //         shipCost: shippingShops[index].cost,
+            //         totalCost: checkoutAuction.totalCost,
             //         status: "waiting",
             //         note: notes[index],
             //     };
-            //     if (userDetail.ruby < cost + ship.cost) {
+            //     if (
+            //         userDetail.ruby <
+            //         checkoutAuction.totalCost + shippingShops[index].cost
+            //     ) {
             //         successPayment = 0;
             //     } else {
-            //         await axios.post("/checkouts", data);
-            //         user.ruby = user.ruby - (cost + ship.cost);
+            //         await axios.patch(
+            //             `/checkoutAuction/${checkoutAuction._id}`,
+            //             data
+            //         );
+            //         user.ruby =
+            //             user.ruby -
+            //             (checkoutAuction.totalCost + shippingShops[index].cost);
             //         dispatch({ type: "USER_RELOAD", payload: user });
             //     }
             // });
             if (successPayment) {
-                contextDispatch({ type: "CART_CLEAR" });
-                contextDispatch({ type: "SHOP_CLEAR" });
-
                 toast.success(
-                    "Thanh toán thành công, bạn sẽ được chuyển về trang chủ sau vài giây"
+                    "Thanh toán đơn hàng đấu giá thành công, chúng tôi sẽ chuyển bạn về trang chính sau vài giây"
                 );
-
                 window.setTimeout(() => {
                     navigate("/");
                 }, 3000);
@@ -228,102 +196,96 @@ const PaymentProperty = () => {
                                 </span>
                             </div>
                         </div>
-                        {shops.map((shop, index) => (
-                            <div
-                                className="paymentProperty-product"
-                                key={shop._id}
-                            >
-                                <div className="paymentProperty-productBrand">
-                                    <span>{shop.name}</span>
-                                    <button onClick={() => gotoShop(shop._id)}>
-                                        <Shop />
-                                        Tham quan
-                                    </button>
-                                </div>
-                                {products
-                                    .filter(
-                                        (product) =>
-                                            product.shop._id === shop._id
-                                    )
-                                    .map((product) => (
-                                        <div
-                                            className="paymentProperty-productBox"
-                                            key={product._id}
-                                        >
-                                            <img
-                                                src={product.imgPath[0]}
-                                                alt="productImg"
-                                            />
-                                            <div className="paymentProperty-productProperty">
-                                                <div className="paymentProperty-productContent">
-                                                    <span>{product.name}</span>
-                                                    <div className="paymentProperty-productQuantity">
-                                                        <div className="paymentProperty-productCount">
-                                                            <span>
-                                                                Số lượng
-                                                            </span>
-                                                            <input
-                                                                type="text"
-                                                                value={
-                                                                    product.quantityProduct
-                                                                }
-                                                                disabled
-                                                            />
-                                                        </div>
-                                                        <div className="paymentProperty-moneySum">
-                                                            <span>
-                                                                Giá tiền
-                                                            </span>
-                                                            <span>
-                                                                {product.price}
-                                                                <Crown variant="Bold" />
-                                                            </span>
-                                                        </div>
+                        {checkoutAuctions &&
+                            checkoutAuctions.map((checkout, index) => (
+                                <div className="cart-contentBox">
+                                    <div className="cart-title">
+                                        <span>Shop: {checkout.shop.name}</span>
+                                        <div className="cart-infoShop">
+                                            <button
+                                                onClick={() =>
+                                                    gotoShop(checkout.shop._id)
+                                                }
+                                            >
+                                                <Shop />
+                                                Tham quan
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="cart-product">
+                                        <img src={checkout.imgPath} alt="" />
+                                        <div className="cart-productProperty">
+                                            <div className="cart-productContent">
+                                                <span>{checkout.name}</span>
+                                                <div className="cart-productQuantity">
+                                                    <div className="cart-productCount">
+                                                        <span>Số lượng</span>
+                                                        <input
+                                                            type="text"
+                                                            value={
+                                                                checkout.quantity
+                                                            }
+                                                            disabled
+                                                        />
+                                                    </div>
+                                                    <div className="cart-moneySum">
+                                                        <span>Tổng tiền</span>
+                                                        <span>
+                                                            {checkout.price}{" "}
+                                                            <Crown variant="Bold" />
+                                                        </span>
                                                     </div>
                                                 </div>
-
-                                                <span>
-                                                    Phân loại:{" "}
-                                                    {product.classifyProduct}
-                                                </span>
                                             </div>
+                                            <div>
+                                                Vận chuyển từ:{" "}
+                                                {
+                                                    shippingShops[index]
+                                                        ?.addressInfo.address
+                                                }
+                                                ,{" "}
+                                                {
+                                                    shippingShops[index]
+                                                        ?.addressInfo.ward
+                                                }
+                                                ,{" "}
+                                                {
+                                                    shippingShops[index]
+                                                        ?.addressInfo.distinct
+                                                }
+                                                ,{" "}
+                                                {
+                                                    shippingShops[index]
+                                                        ?.addressInfo.province
+                                                }{" "}
+                                            </div>
+                                            <div>
+                                                Phí vận chuyển :{" "}
+                                                {shippingShops[index]?.cost}
+                                            </div>
+                                            <textarea
+                                                placeholder="Lưu ý cho người bán hàng"
+                                                value={notes[index]}
+                                                onChange={(e) =>
+                                                    setNotes((pre) => {
+                                                        notes[index] =
+                                                            e.target.value;
+                                                        return notes;
+                                                    })
+                                                }
+                                            />
                                         </div>
-                                    ))}
-
-                                <textarea
-                                    placeholder="Lưu ý cho người bán hàng"
-                                    value={notes[index]}
-                                    onChange={(e) =>
-                                        setNotes((pre) => {
-                                            notes[index] = e.target.value;
-                                            return notes;
-                                        })
-                                    }
-                                />
-                                <span>
-                                    Vận chuyển từ:{" "}
-                                    {shippingShops[index]?.addressInfo.address},{" "}
-                                    {shippingShops[index]?.addressInfo.ward},{" "}
-                                    {shippingShops[index]?.addressInfo.distinct}
-                                    ,{" "}
-                                    {shippingShops[index]?.addressInfo.province}{" "}
-                                </span>
-                                <span>
-                                    Phí vận chuyển :{" "}
-                                    {shippingShops[index]?.cost}
-                                </span>
-                            </div>
-                        ))}
+                                    </div>
+                                </div>
+                            ))}
                     </div>
                     <div className="paymentProperty-comfirm">
                         <div className="paymentProperty-confirmItem">
                             <span>Tổng tiền hàng</span>
                             <span>
-                                {cartItems.reduce(
+                                {checkoutAuctions.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.price *
-                                            currentValue.quantityProduct,
+                                        accumulate + currentValue.price,
                                     0
                                 )}
                                 <Crown variant="Bold" />
@@ -332,10 +294,9 @@ const PaymentProperty = () => {
                         <div className="paymentProperty-confirmItem">
                             <span>Tổng số lượng</span>
                             <span>
-                                {cartItems.reduce(
+                                {checkoutAuctions.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.quantityProduct,
+                                        accumulate + currentValue.quantity,
                                     0
                                 )}
                             </span>
@@ -354,11 +315,9 @@ const PaymentProperty = () => {
                         <div className="paymentProperty-confirmItem">
                             <span>Tổng thanh toán</span>
                             <span>
-                                {cartItems.reduce(
+                                {checkoutAuctions.reduce(
                                     (accumulate, currentValue) =>
-                                        accumulate +
-                                        currentValue.price *
-                                            currentValue.quantityProduct,
+                                        accumulate + currentValue.price,
                                     0
                                 ) +
                                     shippingShops.reduce(
@@ -426,4 +385,4 @@ const PaymentProperty = () => {
     );
 };
 
-export default PaymentProperty;
+export default PaymentAuctionProperty;

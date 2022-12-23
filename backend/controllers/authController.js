@@ -11,7 +11,7 @@ export const getUser = (req, res, next) => {
     if (!token) {
         return next(createError(401, "You are not authenticated!"));
     }
-    jwt.verify(token, process.env.JWT, (err, user) => {
+    jwt.verify(token, "an", (err, user) => {
         if (err) return next(createError(403, "Token is not valid!"));
         res.json(user);
     });
@@ -56,10 +56,7 @@ export const login = async (req, res, next) => {
         } else {
             imgPath = getImgPathFromImgData(user.img);
         }
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            process.env.JWT
-        );
+        const token = jwt.sign({ id: user._id, role: user.role }, "an");
         const { img, password, deliveryInfo, ...otherDetails } = user._doc;
         //res.cookie("id", `${user._id}`);
         res.cookie("access_token", token)

@@ -11,6 +11,7 @@ import {
     getAllProductsAndSort,
     searchProduct,
     selectAllProductsByMainCategory,
+    selectProductsRating,
 } from "../controllers/productController.js";
 import { verifyBuyer, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
@@ -18,6 +19,9 @@ const router = express.Router();
 
 // ! none
 router.get("/", getAllProducts);
+
+// ! none
+router.get("/ratingsort", selectProductsRating);
 
 // ! none
 router.get("/search", searchProduct);

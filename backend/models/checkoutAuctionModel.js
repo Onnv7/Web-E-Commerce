@@ -15,13 +15,13 @@ const checkoutAuctionSchema = new mongoose.Schema(
             ref: "Auction",
         },
         deliveryInfo: {
-            fullName: { type: String, required: true },
-            phoneNumber: { type: String, required: true },
-            email: { type: String, required: true },
-            province: { type: String, required: true },
-            distinct: { type: String, required: true },
-            ward: { type: String, required: true },
-            address: { type: String, required: true },
+            fullName: { type: String },
+            phoneNumber: { type: String },
+            email: { type: String },
+            province: { type: String },
+            distinct: { type: String },
+            ward: { type: String },
+            address: { type: String },
         },
         totalCost: {
             type: Number,
@@ -33,7 +33,7 @@ const checkoutAuctionSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["waiting", "delivering", "delivered"],
+            enum: ["notpaid", "waiting", "delivering", "delivered"],
         },
         note: {
             type: String,

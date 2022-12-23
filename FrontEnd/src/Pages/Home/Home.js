@@ -12,7 +12,7 @@ const Home = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await axios.get("/products");
+            const { data } = await axios.get("/products/ratingsort");
             setProducts(data);
         };
         fetchData();

@@ -1,12 +1,11 @@
-import { Facebook } from 'iconsax-react';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './footer.scss';
+import { Facebook } from "iconsax-react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./footer.scss";
 
 const Footer = () => {
-    const navigate = useNavigate();
-    const Leader = () => {
-        navigate('https://www.facebook.com/mingduc2k2');
+    const openDev = (url) => {
+        window.open(url, "_blank", "noopener,noreferrer");
     };
     return (
         <div className="footer">
@@ -14,11 +13,25 @@ const Footer = () => {
                 <div className="listDev-Groups">
                     <div className="itemDev">
                         <Facebook variant="Bold" />
-                        <a href="https://www.facebook.com/mingduc2k2">Leader & BA</a>
+                        <span
+                            onClick={() =>
+                                openDev("https://www.facebook.com/mingduc2k2")
+                            }
+                        >
+                            Leader & BA
+                        </span>
                     </div>
                     <div className="itemDev">
                         <Facebook variant="Bold" />
-                        <a href="https://www.facebook.com/000000000000000000dz/">Front-end Developer</a>
+                        <span
+                            onClick={() =>
+                                openDev(
+                                    "https://www.facebook.com/000000000000000000dz/"
+                                )
+                            }
+                        >
+                            Front-end Developer
+                        </span>
                     </div>
                 </div>
                 <div className="itemDev-logo">
@@ -28,11 +41,25 @@ const Footer = () => {
                 <div className="listDev-Groups">
                     <div className="itemDev">
                         <Facebook variant="Bold" />
-                        <a href="https://www.facebook.com/ON.611.02">Back-end Developer</a>
+                        <span
+                            onClick={() =>
+                                openDev("https://www.facebook.com/ON.611.02")
+                            }
+                        >
+                            Back-end Developer
+                        </span>
                     </div>
                     <div className="itemDev">
                         <Facebook variant="Bold" />
-                        <a href="https://www.facebook.com/phatnguyen.2912">UI/UX Designer & QC</a>
+                        <span
+                            onClick={() =>
+                                openDev(
+                                    "https://www.facebook.com/phatnguyen.2912"
+                                )
+                            }
+                        >
+                            UI/UX Designer & QC
+                        </span>
                     </div>
                 </div>
             </div>
