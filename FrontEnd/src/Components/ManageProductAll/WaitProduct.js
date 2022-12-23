@@ -19,8 +19,6 @@ const WaitProduct = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`shops/${user._id}`);
-            console.log(user);
-            console.log(data);
             setShop(data);
         };
         fetchData();
@@ -32,7 +30,6 @@ const WaitProduct = () => {
                 const { data } = await axios.get(
                     `/checkouts/shop/waiting/${shop._id}`
                 );
-                console.log(data);
                 setCheckouts(data);
             };
             fetchData();
@@ -46,7 +43,6 @@ const WaitProduct = () => {
                 `/checkoutAuction/shop/waiting/${data._id}`
             );
             setCheckoutsAuctions(resProduct.data);
-            console.log(resProduct.data);
         };
         fetchData();
     }, [user, reload]);

@@ -121,6 +121,7 @@ export const selectAllAuctionsByUserId = async (req, res, next) => {
             const body = {
                 _id: auction._id,
                 name,
+                startingPrice: auction.startingPrice,
                 imgPath,
                 quantity,
                 startTime,

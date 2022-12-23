@@ -13,6 +13,7 @@
     transition: transform linear 0.1s;
     margin-bottom: 10px;
     flex-direction: column;
+    min-height: 400px;
 }
 .productItem:hover{
     box-shadow: 0px 0px 5px 2px var(--primary-color);

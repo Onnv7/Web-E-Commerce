@@ -34,7 +34,7 @@ const Paypal = () => {
     useEffect(() => {
         if (paid === true) {
             payment();
-            console.log("LLLL");
+
             // setPaid(false);
         }
     }, [paid]);

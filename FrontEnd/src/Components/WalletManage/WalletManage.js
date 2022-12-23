@@ -29,7 +29,6 @@ const WalletManage = () => {
     //         toast.error(error);
     //     }
     // };
-    console.log(money);
     const handleClick = (e) => {
         e.stopPropagation();
         navigate("/paypal", { state: { money } });

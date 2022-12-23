@@ -71,7 +71,7 @@ const ProductPay = () => {
             const { data } = await axios.get(
                 `/checkoutAuction/all/${user._id}`
             );
-            console.log(data);
+
             setCheckoutAuctions(data);
         };
         fetchData();
@@ -295,7 +295,8 @@ const ProductPay = () => {
                                         </span>
                                     </span>
                                     <span>
-                                        Tổng tiền: {checkout.totalCost}{" "}
+                                        Tổng tiền:{" "}
+                                        {checkout.totalCost + checkout.shipCost}{" "}
                                         <Crown size={34} variant="Bold" />
                                     </span>
                                 </div>
@@ -338,7 +339,7 @@ const ProductPay = () => {
                                         : "Đã giao hàng"}
                                 </span>
                                 <span>
-                                    Tổng tiền: {c.totalCost}{" "}
+                                    Tổng tiền: {c.totalCost + c.shipCost}{" "}
                                     <Crown size={34} variant="Bold" />
                                 </span>
                             </div>

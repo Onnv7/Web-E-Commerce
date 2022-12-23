@@ -18,7 +18,7 @@ const ProductNote = () => {
     const {
         wishlist: { wishlistItems },
     } = state;
-    console.log(wishlistItems);
+
     const [active, setActive] = useState(1);
 
     const handleChange = (i) => {

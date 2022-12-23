@@ -49,7 +49,6 @@ const ManageRevenue = () => {
                     `/checkouts/revenueAdmin?startDate=${startDate}&endDate=${endDate}`
                 );
                 setRevenue(data);
-                console.log(data);
             };
             fetchData();
         } catch (err) {

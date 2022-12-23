@@ -11,7 +11,6 @@ const ListBuyer = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/auction/${id}`);
-            console.log(data);
             setAuction(data);
         };
         fetchData();

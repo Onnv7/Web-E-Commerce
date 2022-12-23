@@ -20,7 +20,6 @@ const CartProperty = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/users/${user._id}`);
-            console.log(data);
             setUserDetail(data);
         };
         fetchData();
@@ -79,7 +78,6 @@ const CartProperty = () => {
     const gotoShop = (id) => {
         navigate(`/shop/${id}`);
     };
-    console.log(userDetail);
     return (
         <div className="cartProperty">
             <div className="cart-container">
@@ -195,13 +193,30 @@ const CartProperty = () => {
                         </div>
 
                         {cartItems.length > 0 ? (
-                            userDetail &&
-                            userDetail.name &&
-                            userDetail.gender &&
-                            userDetail.birthday &&
-                            userDetail.email &&
-                            userDetail.phoneNumber &&
-                            userDetail.deliveryInfo.length > 0 ? (
+                            user === null ? (
+                                <button>
+                                    <Link
+                                        to="/login"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#fff",
+                                        }}
+                                        onClick={() =>
+                                            toast.warning(
+                                                "Trước khi tiến thành thanh toán, cần phải đăng nhập "
+                                            )
+                                        }
+                                    >
+                                        Xác nhận
+                                    </Link>
+                                </button>
+                            ) : userDetail &&
+                              userDetail.name &&
+                              userDetail.gender &&
+                              userDetail.birthday &&
+                              userDetail.email &&
+                              userDetail.phoneNumber &&
+                              userDetail.deliveryInfo.length > 0 ? (
                                 <button>
                                     <Link
                                         to="/payment"

@@ -3,7 +3,6 @@ import { createError } from "../utils/error.js";
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
-    console.log("🚀 ~ file: verifyToken.js:6 ~ verifyToken ~ token", token);
     if (!token) {
         return next(createError(401, "You are not authenticated!"));
     }
@@ -38,7 +37,7 @@ export const verifyBuyer = (req, res, next) => {
 };
 
 export const verifyAdmin = (req, res, next) => {
-    verifyToken(req, res, next, () => {
+    verifyToken(req, res, () => {
         if (req.user.id === req.params.id && req.user.role === "admin") {
             next();
         } else {

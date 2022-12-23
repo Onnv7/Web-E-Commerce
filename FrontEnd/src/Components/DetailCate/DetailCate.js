@@ -27,7 +27,6 @@ const DetailCate = () => {
         }
     }, [location.state]);
     useEffect(() => {
-        console.log("0");
         const init = async () => {
             const { data } = await axios.get("/categories");
             mainCategories.current = data;
@@ -37,7 +36,6 @@ const DetailCate = () => {
         init();
     }, []);
     useEffect(() => {
-        console.log("1");
         let list = products.slice();
         if (sortBy === "low-to-high") {
             list.sort((a, b) => a.price - b.price);
@@ -49,7 +47,6 @@ const DetailCate = () => {
         setProducts(list);
     }, [sortBy]);
     useEffect(() => {
-        console.log("2");
         const fetchData = async () => {
             const productList = await axios.get(url);
             productsData.current = productList.data;
@@ -64,7 +61,6 @@ const DetailCate = () => {
             return;
         } else if (location.state !== null) {
             setUrl(`${url}`);
-            console.log("heeee", location.state.url);
             navigate(`/categories/${id}`);
         } else {
             setUrl(`/products/mainCategory/${cgrId}`);

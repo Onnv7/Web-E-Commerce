@@ -58,19 +58,13 @@ const PaymentProperty = () => {
         fetchData();
     }, [user]);
     useEffect(() => {
-        console.log(userDetail);
         if (userDetail) {
             setShippingShops([]);
             shops.forEach(async (element) => {
-                console.log(element.addressInfo.distinct);
-                console.log(userDetail.deliveryInfo[deliveryIndex].distinct);
-                console.log(
-                    `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`.trim()
-                );
                 const { data } = await axios.get(
                     `/shippingCost/cost?start=${element.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
                 );
-                console.log(data);
+
                 setShippingShops((pre) => [
                     ...pre,
                     ...data.map((d) => {

@@ -53,7 +53,13 @@ app.use(
 app.use(cors({ credentials: true, origin: true }));
 //app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
-app.options("*", cors({ credentials: true, origin: true }));
+app.options(
+    "*",
+    cors({
+        credentials: true,
+        origin: true,
+    })
+);
 app.use(cookieParser());
 app.use(express.json());
 //app.get("/", test)

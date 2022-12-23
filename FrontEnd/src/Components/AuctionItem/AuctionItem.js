@@ -24,7 +24,6 @@ const AuctionItem = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/auction/${id}`);
-            console.log(data);
             setAuction(data);
             setTimeLeft(moment.duration(moment(data.end).diff(moment())));
             const interval = setInterval(() => {
@@ -49,7 +48,6 @@ const AuctionItem = () => {
                 toast.error("Số tiền đấu giá nhập phải nhỏ hơn Giá hiện tại");
                 return;
             }
-            console.log(shop);
             const data = {
                 bidder: shop._id,
                 price,
@@ -63,8 +61,12 @@ const AuctionItem = () => {
         }
     };
     const timeoutHandler = async () => {
+        if (auction.auctionHistory.length === 0) {
+            return;
+        }
         const finalShop =
             auction.auctionHistory[auction.auctionHistory.length - 1];
+        console.log(finalShop);
         const data = {
             user: auction.user._id,
             shop: finalShop._id,
@@ -72,14 +74,29 @@ const AuctionItem = () => {
             auction: auction._id,
             status: "notpaid",
         };
-        console.log(data);
         try {
             await axios.post(`/checkoutAuction`, data);
-            console.log("Chốt thành công");
         } catch (error) {
             console.log(error.message);
         }
     };
+    useEffect(() => {
+        const check = async () => {
+            if (
+                timeLeft &&
+                timeLeft._data.days === 0 &&
+                timeLeft._data.hours === 0 &&
+                timeLeft._data.milliseconds === 0 &&
+                timeLeft._data.minutes === 0 &&
+                timeLeft._data.months === 0 &&
+                timeLeft._data.seconds === 0 &&
+                timeLeft._data.years === 0
+            ) {
+                await timeoutHandler();
+            }
+        };
+        check();
+    });
     return (
         auction && (
             <div className="productSell">
@@ -137,7 +154,17 @@ const AuctionItem = () => {
                             <div className="auctionPrice-item">
                                 <span>{auction.startingPrice}</span>
                                 <span>{auction.currentPrice}</span>
-                                <span>4</span>
+                                <span>
+                                    {
+                                        [
+                                            ...new Set(
+                                                auction.auctionHistory.map(
+                                                    (a) => a._id
+                                                )
+                                            ),
+                                        ].length
+                                    }
+                                </span>
                             </div>
                         </div>
                         <div className="productAuction-auctionBox">

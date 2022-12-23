@@ -15,8 +15,6 @@ const DeliverProduct = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`shops/${user._id}`);
-            console.log(user);
-            console.log(data);
             setShop(data);
         };
         fetchData();
@@ -28,7 +26,6 @@ const DeliverProduct = () => {
                 const { data } = await axios.get(
                     `/checkouts/shop/delivering/${shop._id}`
                 );
-                console.log(data);
                 setCheckouts(data);
             };
             fetchData();
@@ -41,7 +38,6 @@ const DeliverProduct = () => {
                 `/checkoutAuction/shop/delivering/${data._id}`
             );
             setCheckoutsAuctions(resProduct.data);
-            console.log(resProduct.data);
         };
         fetchData();
     }, [user]);

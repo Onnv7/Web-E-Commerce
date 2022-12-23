@@ -11,7 +11,6 @@ const AllProduct = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`shops/${user._id}`);
-            console.log(data);
             setShop(data);
         };
         fetchData();
@@ -21,7 +20,6 @@ const AllProduct = () => {
         if (shop) {
             const fetchData = async () => {
                 const { data } = await axios.get(`/checkouts/shop/${shop._id}`);
-                console.log(data);
                 setCheckouts(data);
             };
             fetchData();
@@ -35,7 +33,6 @@ const AllProduct = () => {
                 `/checkoutAuction/shop/${data._id}`
             );
             setCheckoutsAuctions(resProduct.data);
-            console.log(resProduct.data);
         };
         fetchData();
     }, [user]);

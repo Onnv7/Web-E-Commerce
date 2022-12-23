@@ -18,7 +18,6 @@ const PlaceAution = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get("/auction");
-            console.log(data);
             setAuctions(data);
         };
         fetchData();
