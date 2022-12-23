@@ -41,13 +41,17 @@ const Register = () => {
     }
     const handleSignUp = async () => {
         if (!checkTextBox()) {
-            toast.warn("Please complete all information");
+            toast.warn("Vui lòng nhập đầy đủ thông tin");
             return;
+        } else if (username.length < 6) {
+            toast.warn("Username phải lớn 6 ký tự");
+        } else if (password.length < 6) {
+            toast.warn("Password phải lớn 6 ký tự");
         } else if (await isExistedUserName(username)) {
-            toast.warn(`Existed user ${username}`);
+            toast.warn(`Tài khoản đã tồn tại: ${username}`);
             return;
         } else if (password !== passwordConfirm) {
-            toast.error("Wrong password confirm");
+            toast.error("Mật khẩu và mật khẩu xác nhận không khớp");
             return;
         }
         const user = {
