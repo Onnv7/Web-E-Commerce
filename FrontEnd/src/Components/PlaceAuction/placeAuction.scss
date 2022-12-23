@@ -24,3 +24,13 @@
     align-items: center;
     margin: 0 10px 10px;
 }
+.auction-priceStart, .auction-priceCurrent{
+    >span{
+        &:last-child{
+            display: flex;
+            align-items: flex-end;
+            color: var(--primary-color);
+            gap: 2px;
+        }
+    }
+}

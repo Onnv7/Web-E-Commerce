@@ -304,7 +304,7 @@ export const selectAllSellers = async (req, res, next) => {
 
             const shopName = shop.name;
             const { img, ...other } = shop;
-            const { _id, name, email, phoneNumber, username, gender } =
+            const { _id, name, email, phoneNumber, username, gender, ruby } =
                 user._doc;
             const data = {
                 _id,

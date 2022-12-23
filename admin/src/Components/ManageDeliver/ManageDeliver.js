@@ -19,7 +19,7 @@ const ManageDeliver = () => {
                 const { data } = await axios.get(
                     "/shippingCost/zone?start=-1&end=-1"
                 );
-                console.log(data);
+
                 setZone1(data);
             };
             fetchZone1();
@@ -27,7 +27,7 @@ const ManageDeliver = () => {
                 const { data } = await axios.get(
                     "/shippingCost/zone?start=0&end=0"
                 );
-                console.log(data);
+
                 setZone2(data);
             };
             fetchZone2();

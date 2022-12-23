@@ -13,7 +13,6 @@ const Auctioning = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/shops/${user._id}`);
-            console.log(data);
             setShop(data);
         };
         fetchData();
@@ -23,7 +22,6 @@ const Auctioning = () => {
         if (shop) {
             const fetchData = async () => {
                 const { data } = await axios.get(`/auction/bidder/${shop._id}`);
-                console.log(data);
                 setAuctions(data);
             };
             fetchData();

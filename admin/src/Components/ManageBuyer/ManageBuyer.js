@@ -12,58 +12,6 @@ import { ProfileDelete } from "iconsax-react";
 import axios from "../../hooks/axios";
 
 const ManageBuyer = () => {
-    const rows = [
-        {
-            id: 1,
-            name: "Nguyễn Văn Thịnh",
-            nameS: "Thời trang mới",
-            email: "thinh@gmail.com ",
-            sdt: 900,
-            username: "thinh12345",
-            password: "***",
-            actiton: <ProfileDelete color="#FF0000" variant="Bold" />,
-        },
-        {
-            id: 2,
-            name: "Nguyễn Văn Thịnh",
-            nameS: "Thời trang mới",
-            email: "thinh@gmail.com ",
-            sdt: 900,
-            username: "thinh12345",
-            password: "***",
-            actiton: <ProfileDelete color="#FF0000" variant="Bold" />,
-        },
-        {
-            id: 3,
-            name: "Nguyễn Văn Thịnh",
-            nameS: "Thời trang mới",
-            email: "thinh@gmail.com ",
-            sdt: 900,
-            username: "thinh12345",
-            password: "***",
-            actiton: <ProfileDelete color="#FF0000" variant="Bold" />,
-        },
-        {
-            id: 4,
-            name: "Nguyễn Văn Thịnh",
-            nameS: "Thời trang mới",
-            email: "thinh@gmail.com ",
-            sdt: 900,
-            username: "thinh12345",
-            password: "***",
-            actiton: <ProfileDelete color="#FF0000" variant="Bold" />,
-        },
-        {
-            id: 5,
-            name: "Nguyễn Văn Thịnh",
-            nameS: "Thời trang mới",
-            email: "thinh@gmail.com ",
-            sdt: 900,
-            username: "thinh12345",
-            password: "***",
-            actiton: <ProfileDelete color="#FF0000" variant="Bold" />,
-        },
-    ];
     const [count, setCount] = useState({});
     const [info, setInfo] = useState([]);
     useEffect(() => {
@@ -75,7 +23,6 @@ const ManageBuyer = () => {
             fetchCount();
             const fetchData = async () => {
                 const { data } = await axios.get("/users/");
-                console.log(data);
                 setInfo(data);
             };
             fetchData();

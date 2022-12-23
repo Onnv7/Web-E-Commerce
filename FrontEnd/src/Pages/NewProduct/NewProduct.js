@@ -77,13 +77,11 @@ const NewProduct = () => {
     };
 
     const handleSubmit = async () => {
-        console.log(await checkProductNameExist());
         if (await checkProductNameExist()) {
             toast.warning("Sản phẩm đã tồn tại trong cửa hàng");
             return;
         }
         const img = getImageData(files);
-        console.log(classifies);
         try {
             await axios.post("/products", {
                 name,

@@ -23,7 +23,6 @@ const CartAuctionProperty = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/checkoutAuction/${user._id}`);
-            console.log(data);
             setCheckoutAuctions(data);
         };
         fetchData();

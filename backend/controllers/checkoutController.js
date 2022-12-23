@@ -52,6 +52,7 @@ export const selectCheckoutByShopIdAndStatus = async (req, res, next) => {
             const {
                 _id,
                 totalCost,
+                shipCost,
                 productItems,
                 user,
                 status,
@@ -75,6 +76,7 @@ export const selectCheckoutByShopIdAndStatus = async (req, res, next) => {
                 _id,
                 totalCost,
                 status,
+                shipCost,
                 createdAt: getFormatDate(createdAt),
                 productList,
                 note,

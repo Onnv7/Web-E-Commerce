@@ -10,7 +10,7 @@ function Reviews({ id, limit }) {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/reviews/all/${id}`);
-            console.log(data);
+
             setReviews(data);
         };
         fetchData();

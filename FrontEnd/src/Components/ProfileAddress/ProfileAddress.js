@@ -33,6 +33,7 @@ const ProfileAddress = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/users/${user._id}`);
+
             setUserDetail(data);
         };
         fetchData();

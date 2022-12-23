@@ -8,31 +8,31 @@ import { useNavigate } from "react-router-dom";
 const WalletManage = () => {
     const { user } = useContext(AuthContext);
     const [active, setActive] = useState(1);
-    const [cost, setCost] = useState();
+    // const [cost, setCost] = useState();
     const setClick = (i) => {
         setActive(i);
     };
     const navigate = useNavigate();
     const [money, setMoney] = useState();
-    const handlePay = async () => {
-        const ruby = cost;
-        console.log(ruby);
-        try {
-            await axios.post(`paypal/pay/${user._id}`, user._id, {
-                count: {
-                    name: "money",
-                    value: ruby,
-                },
-            });
-            toast.success("Nạp tiền thành công");
-        } catch (error) {
-            toast.error(error);
-        }
-    };
+    // const handlePay = async () => {
+    //     const ruby = cost;
+    //     console.log(ruby);
+    //     try {
+    //         await axios.post(`paypal/pay/${user._id}`, user._id, {
+    //             count: {
+    //                 name: "money",
+    //                 value: ruby,
+    //             },
+    //         });
+    //         toast.success("Nạp tiền thành công");
+    //     } catch (error) {
+    //         toast.error(error);
+    //     }
+    // };
     const handleClick = (e) => {
+        e.stopPropagation();
         navigate("/paypal", { state: { money } });
     };
-    const url = `http://localhost:8800/backend/paypal/pay/${user._id}`;
     return (
         <div className="walletManage">
             <div className="walletManage-container">
@@ -40,7 +40,7 @@ const WalletManage = () => {
                 <div className="walletManage-current">
                     <span>Số dư hiện tại</span>
                     <div className="walletManage-box">
-                        <span>{user.ruby}</span>
+                        <span>{user?.ruby}</span>
                         <Crown
                             className="walletManage-icon"
                             variant="Bold"
@@ -62,21 +62,20 @@ const WalletManage = () => {
                             </span>
                             <div className="walletManage-paymentBox">
                                 <div className="walletManage-input">
-                                    <form action={url} method="post">
-                                        <input
-                                            type="text"
-                                            name="money"
-                                            value={money}
-                                            onChange={(e) =>
-                                                setMoney(e.target.value)
-                                            }
-                                        />
-                                        <input
-                                            onClick={handleClick}
-                                            value="Buy"
-                                        />
-                                    </form>
+                                    <input
+                                        type="number"
+                                        value={money}
+                                        placeholder="Nhập số lượng Ruby muốn nạp"
+                                        onChange={(e) =>
+                                            setMoney(e.target.value)
+                                        }
+                                    />
+                                    <Crown
+                                        className="walletManage-icon"
+                                        variant="Bold"
+                                    />
                                 </div>
+                                <button onClick={handleClick}>Nạp</button>
                             </div>
                             <div className="walletManage-paymentForm">
                                 <span>Hình thức thanh toán</span>

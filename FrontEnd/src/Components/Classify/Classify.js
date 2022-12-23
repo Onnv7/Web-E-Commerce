@@ -14,7 +14,6 @@ const Classify = ({ setOpen, classifies, setClassifies }) => {
         return false;
     };
     const addClassifyHandler = () => {
-        console.log(checkExist());
         if (checkExist()) {
             toast.error("Phân loại đã tồn tại trong sản phẩm");
             return;

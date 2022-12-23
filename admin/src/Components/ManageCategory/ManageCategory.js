@@ -41,7 +41,6 @@ const ManageCategory = () => {
             const fetchData = async () => {
                 const { data } = await axios.get("/categories/");
                 setInfo(data);
-                console.log(data);
             };
             fetchData();
         } catch (error) {
@@ -74,7 +73,6 @@ const ManageCategory = () => {
     };
     const handleDel = async (id) => {
         try {
-            console.log(id);
             await axios.delete(`/categories/${id}`);
             setReload(!reload);
             toast.message("Xóa danh mục chính thành công");

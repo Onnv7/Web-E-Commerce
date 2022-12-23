@@ -58,7 +58,6 @@ const ProfileShop = () => {
         const fetchData = async () => {
             const { data } = await axios.get(`/shops/${user._id}`);
             if (data) {
-                console.log(data);
                 setShop(data);
                 setName(data.name);
                 setMainCategory(data.mainCategory);

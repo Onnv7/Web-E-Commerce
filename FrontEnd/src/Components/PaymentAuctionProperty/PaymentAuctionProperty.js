@@ -37,26 +37,18 @@ const PaymentAuctionProperty = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get(`/checkoutAuction/${user._id}`);
-            console.log(data);
             setCheckoutAuctions(data);
         };
         fetchData();
     }, [user, reload]);
 
     useEffect(() => {
-        console.log(userDetail);
         if (userDetail) {
             setShippingShops([]);
             checkoutAuctions.forEach(async (element) => {
-                console.log(element.shop.addressInfo.distinct);
-                console.log(userDetail.deliveryInfo[deliveryIndex].distinct);
-                console.log(
-                    `/shippingCost/cost?start=${element.shop.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`.trim()
-                );
                 const { data } = await axios.get(
                     `/shippingCost/cost?start=${element.shop.addressInfo.distinct}&end=${userDetail.deliveryInfo[deliveryIndex].distinct}`
                 );
-                console.log(data);
                 setShippingShops((pre) => [
                     ...pre,
                     ...data.map((d) => {

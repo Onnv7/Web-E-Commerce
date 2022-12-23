@@ -78,6 +78,7 @@ export const selectAllCheckoutStatusAuctionsByUserId = async (
                 price: checkout.auction.currentPrice,
                 totalCost: checkout.totalCost,
                 status: checkout.status,
+                shipCost: checkout.shipCost,
                 shop: {
                     _id: checkout.shop._id,
                     name: checkout.shop.name,

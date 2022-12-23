@@ -33,10 +33,8 @@ const Register = () => {
         return true;
     }
     async function registerNewUser(user) {
-        console.log(user);
         try {
             const { data } = await axios.post("/auth/register", user);
-            console.log(data);
         } catch (error) {
             console.error("Error:" + error.message);
         }

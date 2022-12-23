@@ -11,7 +11,6 @@ const ShopUser = () => {
         try {
             const fetchData = async () => {
                 const { data } = await axios.get(`/shops/shop/${id}`);
-                console.log(data);
                 setShop(data);
             };
             fetchData();

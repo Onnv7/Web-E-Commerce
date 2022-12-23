@@ -7,4 +7,5 @@ const http = axios.create({
         "Content-Type": "application/json",
     },
 });
+http.defaults.headers.common["Cookie"] = "access_token";
 export default http;

@@ -128,7 +128,6 @@ const UpdateProduct = () => {
     const handleDeleteClassify = (classify) => {
         const arr = classifies.filter((c) => c.name !== classify.name);
         setClassifies(arr);
-        console.log(classifies);
     };
     return (
         <div>

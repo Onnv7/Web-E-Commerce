@@ -9,6 +9,21 @@ paypal.configure({
         "EHy3dCmbXeCp9wh8WE3a0YJIzNNigx-ZYwTUYoCd5lYsdZA0ufDsGT3vrNuUzxXGvRegTGeczBv6FDBu",
 });
 
+export const buyRuby = async (req, res, next) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: req.params.id },
+            { $inc: { ruby: Number(req.body.ruby) } }
+        );
+        res.status(200).json({
+            success: true,
+            message: "Successfully purchase",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const pay = async (req, res, next) => {
     console.log("Pay");
     const money = req.body.money;

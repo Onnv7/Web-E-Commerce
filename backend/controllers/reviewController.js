@@ -1,4 +1,5 @@
 import Review from "../models/reviewModel.js";
+import Shop from "../models/shopModel.js";
 import { saveFileObj } from "../utils/saveFile.js";
 import {
     getDataFromImage,
@@ -112,9 +113,16 @@ export const createReview = async (req, res, next) => {
             (product.ratingQuantity + 1);
         product.ratingQuantity += 1;
         await product.save();
+
+        const shop = await Shop.findById(product.shop);
+        shop.ratingAverage =
+            (shop.ratingAverage * shop.ratingQuantity + review.rating) /
+            (shop.ratingQuantity + 1);
+        shop.ratingQuantity += 1;
+
+        await shop.save();
         res.status(200).json("Review has been created.");
     } catch (error) {
-        // console.log(error);
         next(error);
     }
 };

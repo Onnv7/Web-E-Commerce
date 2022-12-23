@@ -23,7 +23,6 @@ const AllProductPage = () => {
             const { data } = await axios.get(`/shops/${user._id}`);
             const resProduct = await axios.get(`/products/shop/${data._id}`);
             setProducts(resProduct.data);
-            console.log(resProduct.data);
         };
         fetchData();
     }, [user]);
@@ -32,7 +31,6 @@ const AllProductPage = () => {
         navigate(`/seller/update/${id}`);
     };
     const handleDetail = (id) => {
-        console.log(id);
         navigate(`/seller/detail/${id}`);
     };
     return (

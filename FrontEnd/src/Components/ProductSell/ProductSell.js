@@ -42,7 +42,7 @@ const ProductSell = ({ id }) => {
                 item._id === product._id &&
                 item.classifyProduct === classifyProduct.name
         );
-        console.log(existItem);
+
         const quantityProduct = existItem
             ? existItem.quantityProduct + count
             : count;
